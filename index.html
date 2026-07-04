@@ -479,6 +479,10 @@ a{text-decoration:none;color:white;font-family:'DM Sans',sans-serif;font-size:0.
 .svc-arrow{position:absolute;top:28px;right:28px;color:#3399ff;font-size:18px;opacity:0;transform:translateX(-6px);transition:opacity .25s,transform .25s;}
 .svc-card:hover .svc-arrow{opacity:1;transform:translateX(0);}
 
+.feature-img-wrap{position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:var(--radius);border:1px solid rgba(255,255,255,.08);box-shadow:0 20px 40px rgba(0,0,0,.5);background:rgba(255,255,255,.02);}
+.feature-img{width:100%;height:auto;display:block;transition:transform .4s var(--ease);}
+.feature-img-wrap:hover .feature-img{transform:scale(1.025);}
+
 /* ── ANIMATED SECTIONS ── */
 .feature-section{padding:0;background:#000;}
 .feature-block{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;padding:96px 24px;}
@@ -1265,22 +1269,8 @@ img,video{max-width:100%;height:auto;}
       </div>
       <a href="/services/seo"><button class="btn-fill">Explore SEO Services &nbsp;→</button></a>
     </div>
-    <div class="anim-seo-wrap reveal reveal-delay-2">
-      <div class="seo-chart">
-        <div class="seo-bar" style="height:42%;"></div>
-        <div class="seo-bar" style="height:58%;"></div>
-        <div class="seo-bar" style="height:50%;"></div>
-        <div class="seo-bar" style="height:76%;"></div>
-        <div class="seo-bar" style="height:68%;"></div>
-        <div class="seo-bar" style="height:88%;"></div>
-        <div class="seo-bar" style="height:95%;"></div>
-      </div>
-      <div class="seo-line-wrap"><div class="seo-line"></div></div>
-      <div class="seo-kpis">
-        <div class="kpi"><div class="kpi-val" style="color:var(--green);">↑312%</div><div class="kpi-lbl">Traffic Growth</div></div>
-        <div class="kpi"><div class="kpi-val">#1</div><div class="kpi-lbl">Page Rank</div></div>
-        <div class="kpi"><div class="kpi-val" style="color:var(--amber);">6mo</div><div class="kpi-lbl">Avg Timeline</div></div>
-      </div>
+    <div class="feature-img-wrap reveal reveal-delay-2">
+      <img class="feature-img" src="/All%20Service%20Images/SEO%20&amp;%20Organic%20Growth.jpg" alt="SEO &amp; Organic Growth" loading="lazy" />
     </div>
   </div>
 </section>
@@ -1288,23 +1278,8 @@ img,video{max-width:100%;height:auto;}
 <!-- ══════════════ FEATURE: SOCIAL ══════════════ -->
 <section class="feature-section">
   <div class="feature-block reverse" style="background:rgba(255,255,255,.015);">
-    <div class="anim-social-wrap reveal">
-      <div class="social-orbs-bg">
-        <div class="soc-orb"></div><div class="soc-orb"></div><div class="soc-orb"></div>
-      </div>
-      <div class="social-grid">
-        <div class="soc-icon">f</div>
-        <div class="soc-icon">◆</div>
-        <div class="soc-icon" style="font-size:15px;">in</div>
-        <div class="soc-icon">✕</div>
-        <div class="soc-icon">▶</div>
-        <div class="soc-icon" style="font-size:14px;">TT</div>
-      </div>
-      <div class="soc-stats">
-        <div class="soc-stat"><div class="soc-stat-val" style="color:#3399ff;">6+</div><div class="soc-stat-lbl">Platforms</div></div>
-        <div class="soc-stat"><div class="soc-stat-val" style="color:var(--green);">100K+</div><div class="soc-stat-lbl">Reach / mo</div></div>
-        <div class="soc-stat"><div class="soc-stat-val" style="color:var(--amber);">4.8×</div><div class="soc-stat-lbl">Avg ROAS</div></div>
-      </div>
+    <div class="feature-img-wrap reveal reveal-delay-2">
+      <img class="feature-img" src="/All%20Service%20Images/Social%20Media%20Advertising.jpg" alt="Social Media Advertising" loading="lazy" />
     </div>
     <div class="reveal reveal-delay-2">
       <span class="eyebrow-sm">Social Media Advertising</span>
@@ -1330,21 +1305,8 @@ img,video{max-width:100%;height:auto;}
       </div>
       <a href="/services/web"><button class="btn-fill">Explore Web Services &nbsp;→</button></a>
     </div>
-    <div class="anim-web-wrap reveal reveal-delay-2">
-      <div class="browser">
-        <div class="browser-top">
-          <div class="btn-r"></div><div class="btn-y"></div><div class="btn-g"></div>
-          <div class="addr-bar"></div>
-        </div>
-        <div class="browser-body">
-          <div class="brow-hero-img"></div>
-          <div class="brow-row w80"></div>
-          <div class="brow-row w60"></div>
-          <div class="brow-row w90"></div>
-          <div class="brow-cards"><div class="brow-card"></div><div class="brow-card"></div><div class="brow-card"></div></div>
-          <div class="brow-row w45"></div>
-        </div>
-      </div>
+    <div class="feature-img-wrap reveal reveal-delay-2">
+      <img class="feature-img" src="/All%20Service%20Images/Web%20Design%20&amp;%20Development.jpg" alt="Web Design &amp; Development" loading="lazy" />
     </div>
   </div>
 </section>
@@ -1352,27 +1314,8 @@ img,video{max-width:100%;height:auto;}
 <!-- ══════════════ FEATURE: CONTENT ══════════════ -->
 <section class="feature-section">
   <div class="feature-block reverse" style="background:rgba(255,255,255,.015);">
-    <div class="anim-content-wrap reveal">
-      <div class="content-orbs-bg">
-        <div class="cnt-orb"></div><div class="cnt-orb"></div>
-      </div>
-      <div class="content-editor-mock">
-        <div class="editor-title-row">
-          <div class="editor-dot-purple"></div>
-          <div class="editor-title-text">SEO Content Strategy Campaign</div>
-        </div>
-        <div class="editor-body-lines">
-          <div class="editor-line-row" style="width: 90%;"><div class="editor-line-fill" style="width: 50%;"></div></div>
-          <div class="editor-line-row" style="width: 70%;"><div class="editor-line-fill" style="width: 80%; animation-delay: 0.3s;"></div></div>
-          <div class="editor-line-row" style="width: 85%;"><div class="editor-line-fill" style="width: 40%; animation-delay: 0.6s;"></div></div>
-          <div class="editor-line-row" style="width: 50%;"><div class="editor-line-fill" style="width: 60%; animation-delay: 0.9s;"></div></div>
-        </div>
-      </div>
-      <div class="soc-stats">
-        <div class="soc-stat"><div class="soc-stat-val" style="color:#bb86fc;">10×</div><div class="soc-stat-lbl">Engagement</div></div>
-        <div class="soc-stat"><div class="soc-stat-val" style="color:var(--green);">↑420%</div><div class="soc-stat-lbl">ROI Uplift</div></div>
-        <div class="soc-stat"><div class="soc-stat-val" style="color:var(--amber);">1.2M+</div><div class="soc-stat-lbl">Words Written</div></div>
-      </div>
+    <div class="feature-img-wrap reveal reveal-delay-2">
+      <img class="feature-img" src="/All%20Service%20Images/Content%20&amp;%20More.jpg" alt="Content &amp; More" loading="lazy" />
     </div>
     <div class="reveal reveal-delay-2">
       <span class="eyebrow-sm purple">Content &amp; More</span>
