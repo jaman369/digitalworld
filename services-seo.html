@@ -437,6 +437,45 @@
     font-size: 10px !important;
   }
 }
+/* ── PRICING (Glass / Dark) ── */
+.pricing-section{position:relative;background:#000;padding:120px 24px 100px;overflow:hidden;isolation:isolate;}
+.pricing-section::before{content:'';position:absolute;left:-12%;top:30%;width:55%;height:65%;background:radial-gradient(ellipse at center,rgba(0,113,227,.55) 0%,rgba(0,113,227,.18) 35%,transparent 70%);filter:blur(80px);z-index:-2;pointer-events:none;}
+.pricing-section::after{content:'';position:absolute;right:-10%;bottom:0%;width:55%;height:65%;background:radial-gradient(ellipse at center,rgba(80,160,255,.42) 0%,rgba(0,80,200,.14) 40%,transparent 70%);filter:blur(90px);z-index:-2;pointer-events:none;}
+.pricing-head{position:relative;text-align:center;max-width:720px;margin:0 auto 0;z-index:3;}
+.pricing-head .eyebrow-sm{color:rgba(255,255,255,.55);}
+.pricing-head .section-title{color:#fff;font-size:clamp(32px,4vw,52px);}
+.pricing-head p{font-size:16px;color:rgba(255,255,255,.5);margin-top:14px;line-height:1.6;}
+.pricing-bg-word{position:relative;text-align:center;font-family:var(--font-d);font-size:clamp(140px,20vw,300px);line-height:.85;letter-spacing:-.04em;color:transparent;background:linear-gradient(180deg,rgba(255,255,255,.14) 0%,rgba(255,255,255,.02) 100%);-webkit-background-clip:text;background-clip:text;margin:40px 0 -160px;user-select:none;pointer-events:none;z-index:1;font-style:italic;font-weight:400;}
+.pricing-grid{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1120px;margin:0 auto;z-index:4;align-items:stretch;}
+.price-card{position:relative;background:linear-gradient(180deg,rgba(20,22,28,.78) 0%,rgba(8,10,16,.85) 100%);backdrop-filter:blur(28px) saturate(140%);-webkit-backdrop-filter:blur(28px) saturate(140%);border:1px solid rgba(255,255,255,.10);border-radius:28px;padding:30px 28px 28px;display:flex;flex-direction:column;box-shadow:0 30px 80px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.06);transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease;overflow:hidden;}
+.price-card::before{content:'';position:absolute;inset:0;border-radius:inherit;background:linear-gradient(135deg,rgba(255,255,255,.08) 0%,transparent 45%);pointer-events:none;}
+.price-card>*{position:relative;z-index:1;}
+.price-card:hover{transform:translateY(-6px);border-color:rgba(255,255,255,.18);box-shadow:0 40px 100px rgba(0,113,227,.20),inset 0 1px 0 rgba(255,255,255,.10);}
+.price-card.featured{transform:translateY(-18px);background:linear-gradient(180deg,rgba(28,32,44,.88) 0%,rgba(8,12,22,.92) 100%);border-color:rgba(255,255,255,.18);box-shadow:0 50px 120px rgba(0,113,227,.32),inset 0 1px 0 rgba(255,255,255,.10);}
+.price-card.featured:hover{transform:translateY(-24px);}
+.price-badge{position:absolute;top:18px;right:18px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);color:#fff;font-size:10px;font-weight:600;padding:5px 11px;border-radius:999px;letter-spacing:.10em;text-transform:uppercase;backdrop-filter:blur(8px);z-index:3;}
+.price-tier{font-size:13px;font-weight:500;color:rgba(255,255,255,.55);margin-bottom:14px;letter-spacing:.02em;}
+.price-amount{display:flex;align-items:baseline;gap:4px;margin-bottom:14px;}
+.price-num{font-family:var(--font-d);font-size:46px;color:#fff;letter-spacing:-.02em;line-height:1;}
+.price-per{font-size:16px;color:rgba(255,255,255,.5);font-weight:400;}
+.price-desc{font-size:13.5px;color:rgba(255,255,255,.5);line-height:1.6;margin-bottom:22px;min-height:48px;}
+.video-wrap{position:relative;aspect-ratio:16/9;overflow:hidden;background:#0a0a0a;border-radius:14px;margin-bottom:22px;border:1px solid rgba(255,255,255,.06);}
+.price-list{list-style:none;padding:0;margin:0 0 30px;display:flex;flex-direction:column;gap:14px;}
+.price-list li{font-size:13.5px;color:rgba(255,255,255,.82);line-height:1.5;display:flex;gap:12px;align-items:flex-start;}
+.price-list li::before{content:'';flex-shrink:0;width:18px;height:18px;border-radius:50%;background-color:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='2.5 6.5 5 9 9.5 3.5'/></svg>");background-repeat:no-repeat;background-position:center;background-size:11px;margin-top:1px;}
+.price-cta{margin-top:auto;width:100%;display:inline-flex;align-items:center;justify-content:center;padding:14px 22px;border-radius:999px;font-size:13.5px;font-weight:600;text-decoration:none;background:#fff;color:#0a0a0a;border:1px solid #fff;transition:transform .2s ease,background .2s ease,color .2s ease;}
+.price-cta:hover{transform:translateY(-1px);background:rgba(255,255,255,.92);}
+.price-cta.primary{background:var(--blue);color:#fff;border-color:#3399ff;box-shadow:0 10px 30px rgba(0,113,227,.45);}
+.price-cta.primary:hover{background:#0058b8;border-color:#0058b8;}
+.billing-row{position:relative;max-width:1120px;margin:48px auto 0;z-index:4;display:flex;justify-content:flex-start;align-items:center;gap:14px;}
+.billing-toggle{display:inline-flex;align-items:center;gap:12px;color:rgba(255,255,255,.82);font-size:13.5px;background:none;border:none;cursor:pointer;padding:0;font-family:inherit;}
+.billing-toggle-track{position:relative;width:44px;height:24px;border-radius:999px;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.18);transition:background .25s,border-color .25s;}
+.billing-toggle-track::after{content:'';position:absolute;left:2px;top:1px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.4);transition:transform .25s ease;}
+.billing-toggle[data-active="true"] .billing-toggle-track{background:var(--blue);border-color:#3399ff;}
+.billing-toggle[data-active="true"] .billing-toggle-track::after{transform:translateX(20px);}
+.billing-discount{font-size:12px;color:rgba(255,255,255,.45);}
+@media(max-width:880px){.pricing-grid{grid-template-columns:1fr;max-width:420px;}.price-card.featured{transform:none;}.price-card.featured:hover{transform:translateY(-6px);}.pricing-bg-word{margin:24px 0 -80px;font-size:clamp(90px,22vw,160px);}.billing-row{justify-content:center;}}
+
 /* RESPONSIVE LAYOUT OVERRIDES END */
 </style>
 </head>
@@ -896,6 +935,66 @@
     </div>
   </section>
 
+  <!-- === PRICING SECTION === -->
+  <section class="pricing-section" id="pricing">
+    <div class="section-w" style="position:relative">
+      <div class="pricing-head">
+        <span class="eyebrow eyebrow-dark rv" style="margin-bottom:24px;"><div class="eyebrow-dot"></div>Pricing</span>
+        <h2 class="sec-title sec-title-w rv">Simple, transparent pricing for every stage.</h2>
+        <p class="sec-sub sec-sub-w rv" style="margin:14px auto 0;text-align:center;">Choose a plan that fits your goals. No hidden fees, no long-term contracts - cancel anytime.</p>
+      </div>
+      <div class="pricing-bg-word rv">Pricing</div>
+      <div class="pricing-grid">
+        <div class="price-card rv">
+          <div class="price-tier">Basic</div>
+          <div class="price-amount"><span class="price-num">$299</span><span class="price-per">/m</span></div>
+          <p class="price-desc">For small businesses ready to establish a strong online presence.</p>
+          <ul class="price-list">
+            <li>Keyword research (10 keywords)</li>
+            <li>On-page SEO setup (up to 3 pages)</li>
+            <li>Google Business Profile optimization</li>
+            <li>Monthly performance report</li>
+            <li>Email support</li>
+          </ul>
+          <a href="/contact" class="price-cta">Choose Plan</a>
+        </div>
+        <div class="price-card rv featured d1">
+          <span class="price-badge">Most Popular</span>
+          <div class="price-tier">Accelerate</div>
+          <div class="price-amount"><span class="price-num">$1,299</span><span class="price-per">/m</span></div>
+          <p class="price-desc">For growing brands that need a full-funnel digital strategy and bigger reach.</p>
+          <ul class="price-list">
+            <li>Everything in Basic</li>
+            <li>Advanced SEO &amp; content strategy</li>
+            <li>Paid ads (Google &amp; Meta)</li>
+            <li>Social media + email campaigns</li>
+            <li>Bi-weekly strategy calls</li>
+          </ul>
+          <a href="/contact" class="price-cta primary">Choose Plan</a>
+        </div>
+        <div class="price-card rv d2">
+          <div class="price-tier">Enterprise</div>
+          <div class="price-amount"><span class="price-num">Custom</span></div>
+          <p class="price-desc">For established brands targeting international markets with serious ROI goals.</p>
+          <ul class="price-list">
+            <li>Everything in Accelerate</li>
+            <li>Custom web &amp; e-commerce builds</li>
+            <li>Dedicated account strategist</li>
+            <li>Multi-market localization</li>
+            <li>Priority 24/7 support</li>
+          </ul>
+          <a href="/contact" class="price-cta">Choose Plan</a>
+        </div>
+      </div>
+      <div class="billing-row">
+        <button type="button" class="billing-toggle" data-active="false" aria-pressed="false">
+          <span class="billing-toggle-track" aria-hidden="true"></span>
+          <span>Yearly</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
   <!-- === TESTIMONIALS SECTION === -->
   <section class="sec sec-darkgray">
     <div class="sw">
@@ -1114,6 +1213,30 @@
         });
       }
     })();
+  </script>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.querySelector('.billing-toggle');
+    const price1 = document.querySelector('.pricing-grid .price-card:nth-child(1) .price-num');
+    const price2 = document.querySelector('.pricing-grid .price-card:nth-child(2) .price-num');
+
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        const isYearly = toggle.getAttribute('data-active') === 'true';
+        if (isYearly) {
+          toggle.setAttribute('data-active', 'false');
+          toggle.setAttribute('aria-pressed', 'false');
+          if (price1) price1.textContent = '$299';
+          if (price2) price2.textContent = '$1,299';
+        } else {
+          toggle.setAttribute('data-active', 'true');
+          toggle.setAttribute('aria-pressed', 'true');
+          if (price1) price1.textContent = '$239';
+          if (price2) price2.textContent = '$999';
+        }
+      });
+    }
+  });
   </script>
 </body>
 </html>
