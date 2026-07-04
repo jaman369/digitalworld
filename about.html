@@ -95,8 +95,8 @@
     .stats-sec h2 { font-size: clamp(32px, 4vw, 42px); line-height: 1.1; margin-bottom: 48px; }
     .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
     .stat-card { background: #fff; padding: 40px 20px; border-radius: 16px; border: 1px solid #eee; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
-    .stat-num { font-family: 'DM Serif Display', serif; font-size: 64px; color: #000; margin-bottom: 8px; line-height: 1; }
-    .stat-num span { color: #000; font-size: 40px; vertical-align: super; }
+    .stat-num { font-family: 'DM Serif Display', serif; font-size: clamp(64px, 8vw, 96px); color: #000; margin-bottom: 8px; line-height: 1; }
+    .stat-num span:not(.cnt) { color: #000; font-size: 40px; vertical-align: super; }
     .stat-label { font-size: 13px; color: #000; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
     
     @media (max-width: 768px) {
@@ -104,8 +104,8 @@
     }
     @media (max-width: 600px) {
       .stats-grid { grid-template-columns: 1fr; }
-      .stat-num { font-size: 52px; }
-      .stat-num span { font-size: 32px; }
+      .stat-num { font-size: clamp(52px, 6vw, 72px); }
+      .stat-num span:not(.cnt) { font-size: 32px; }
     }
 
     /* SERVICES GRID (Light theme equivalent of dark services) */
