@@ -811,11 +811,14 @@ img,video{max-width:100%;height:auto;}
 
 /* RESPONSIVE LAYOUT OVERRIDES START */
 
-/* ============================================================
-   RESPONSIVE OPTIMIZATION OVERRIDES (Mobile, Tablet, Desktop)
-   ============================================================ */
+/* Global Overflow Safety */
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100% !important;
+  width: 100% !important;
+}
 
-/* 1. Fluid Typography & Prevent Word Overflow (e.g., "Kamrujjaman" or "Optimization") */
+/* 1. Fluid Typography & Prevent Word Overflow */
 @media (max-width: 480px) {
   .hero-title, h1.hero-title, .hero h1, .portfolio-title, .svc-hero h1 {
     font-size: clamp(28px, 8vw, 42px) !important;
@@ -838,13 +841,35 @@ img,video{max-width:100%;height:auto;}
 /* 3. Section padding scaling for mobile devices */
 @media (max-width: 768px) {
   .section, .services-section, .feature-section, .sec, .svc-section {
-    padding-top: 56px !important;
-    padding-bottom: 56px !important;
+    padding-top: 48px !important;
+    padding-bottom: 48px !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
   }
   .page-hero, .hero, .svc-hero {
-    padding-top: calc(var(--nav-h) + 32px) !important;
-    padding-bottom: 40px !important;
+    padding-top: calc(var(--nav-h) + 24px) !important;
+    padding-bottom: 36px !important;
     min-height: auto !important;
+  }
+  .services-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .svc-card {
+    padding: 24px 18px 20px !important;
+  }
+  .feature-block {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+    padding: 40px 16px !important;
+  }
+  .feature-block > * {
+    order: 1 !important;
+  }
+  .feature-block .feature-img-wrap {
+    order: 2 !important;
+    margin-top: 8px !important;
+    width: 100% !important;
   }
 }
 
