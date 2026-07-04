@@ -364,6 +364,8 @@ a{text-decoration:none;color:white;font-family:'DM Sans',sans-serif;font-size:0.
 .hero-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp .9s .8s var(--ease) forwards;}
 .btn-fill{background:var(--blue);color:#fff;font-size:15px;font-weight:500;padding:15px 30px;border-radius:980px;border:none;cursor:pointer;font-family:var(--font-b);transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 0 0 rgba(0,113,227,0);}
 .btn-fill:hover{background:var(--blue-h);transform:scale(1.03);box-shadow:0 8px 30px rgba(0,113,227,.4);}
+.btn-purple{background:#bb86fc!important;color:#fff!important;box-shadow:0 8px 30px rgba(187,134,252,.35)!important;border:none;}
+.btn-purple:hover{background:#a66eeb!important;box-shadow:0 8px 30px rgba(187,134,252,.55)!important;}
 .btn-ghost{background:transparent;color:#fff;font-size:15px;font-weight:400;padding:15px 30px;border-radius:980px;border:1px solid rgba(255,255,255,.22);cursor:pointer;font-family:var(--font-b);transition:border-color .2s,transform .2s,background .2s;}
 .btn-ghost:hover{border-color:rgba(255,255,255,.55);background:rgba(255,255,255,.05);transform:scale(1.03);}
 .scroll-hint{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeIn 1s 1.4s forwards;}
@@ -402,6 +404,7 @@ a{text-decoration:none;color:white;font-family:'DM Sans',sans-serif;font-size:0.
 .section-w{max-width:1120px;margin:0 auto;}
 .eyebrow-sm{font-size:11px;font-weight:600;color:#3399ff;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;display:block;}
 .eyebrow-sm.green{color:var(--green);}
+.eyebrow-sm.purple{color:#bb86fc;}
 .section-title{font-family:var(--font-d);font-size:clamp(34px,4.5vw,58px);color:#fff;line-height:1.06;margin-bottom:16px;letter-spacing:-.02em;}
 .section-title.dark{color:#1d1d1f;}
 .section-sub{font-size:17px;font-weight:300;color:rgba(255,255,255,.42);line-height:1.7;max-width:520px;}
@@ -1372,10 +1375,10 @@ img,video{max-width:100%;height:auto;}
       </div>
     </div>
     <div class="reveal reveal-delay-2">
-      <span class="eyebrow-sm" style="color:#bb86fc;">Content &amp; More</span>
+      <span class="eyebrow-sm purple">Content &amp; More</span>
       <h2 class="section-title" style="font-size:clamp(30px,4vw,52px);">Content that converts.<br/>Copy that sells.</h2>
       <p class="section-sub" style="margin-bottom:32px;">From high-performing email sequences to strategic blogger outreach backlinks and topical authority blog assets — we engineer custom content structures that attract, engage, and retain clients for your brand across 11 countries.</p>
-      <a href="/services/content"><button class="btn-fill" style="background:#bb86fc;border-color:#b37bf3;box-shadow:0 10px 30px rgba(187,134,252,.35);" onmouseenter="this.style.background='#a66eeb'" onmouseleave="this.style.background='#bb86fc'">Explore Content Services &nbsp;→</button></a>
+      <a href="/services/content"><button class="btn-fill btn-purple">Explore Content Services &nbsp;→</button></a>
     </div>
   </div>
 </section>
