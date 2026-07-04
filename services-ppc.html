@@ -134,14 +134,15 @@
     .svc-text ul li{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--gray);padding:6px 0;}
     .svc-text ul li::before{content:'✓';color:var(--amber);font-weight:700;font-size:14px;}
     
-    .svc-visual{width:100%;aspect-ratio:4/3;border-radius:20px;overflow:hidden;position:relative;}
+    .svc-visual{width:100%;aspect-ratio:4/3;border-radius:20px;overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;}
     .svc-visual.grad-1{background:linear-gradient(135deg,rgba(245,166,35,.15),rgba(0,113,227,.1));}
     .svc-visual.grad-2{background:linear-gradient(135deg,rgba(0,113,227,.15),rgba(245,166,35,.08));}
     .svc-visual.grad-3{background:linear-gradient(135deg,rgba(60,60,60,.3),rgba(245,166,35,.12));}
     .svc-visual.grad-4{background:linear-gradient(135deg,rgba(245,166,35,.2),rgba(60,60,60,.15));}
     .svc-visual.grad-5{background:linear-gradient(135deg,rgba(100,0,200,.12),rgba(245,166,35,.1));}
     .svc-visual.grad-6{background:linear-gradient(135deg,rgba(0,113,227,.12),rgba(60,60,60,.2));}
-    .svc-visual img{width:100%;height:100%;object-fit:cover;display:block;}
+    .svc-visual img{width:100%;height:100%;object-fit:contain;display:block;transition:transform .4s ease;}
+    .svc-visual:hover img{transform:scale(1.05);}
 
     /* === BUTTONS & CTAS === */
     .btn-fill{display:inline-block;background:var(--blue);color:#fff;font-size:14px;font-weight:500;padding:14px 28px;border-radius:980px;text-decoration:none;border:none;cursor:pointer;transition:background .2s,transform .15s;text-align:center;font-family:var(--font-b);}
