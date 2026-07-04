@@ -462,7 +462,7 @@ a{text-decoration:none;color:white;font-family:'DM Sans',sans-serif;font-size:0.
 .ember:nth-child(15) { left: 5%; animation-duration: 7.2s; animation-delay: 3.2s; width: 5px; height: 5px; }
 .services-intro{text-align:center;max-width:700px;margin:0 auto 64px;}
 .services-intro .section-sub{margin:0 auto;}
-.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
 .svc-card{background:rgba(255,255,255,.04);border:.5px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:36px 30px;cursor:pointer;position:relative;overflow:hidden;transition:background .3s,border-color .3s,transform .3s;}
 .svc-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(0,113,227,.12) 0%,transparent 60%);opacity:0;transition:opacity .4s;}
 .svc-card:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.14);transform:translateY(-5px);}
@@ -1075,7 +1075,8 @@ img,video{max-width:100%;height:auto;}
     <div class="services-grid">
 
       <!-- SEO -->
-      <div class="svc-card seo-card reveal" style="display:flex;flex-direction:column;padding:0;overflow:hidden;border:1px solid rgba(255,255,255,.08);box-shadow:0 10px 30px rgba(20,104,134,.25);transition:transform .35s ease, box-shadow .35s ease;">
+      <div class="svc-card seo-card reveal" style="display:flex;flex-direction:column;padding:0;overflow:hidden;border:1px solid rgba(255,255,255,.08);box-shadow:0 10px 30px rgba(20,104,134,.25);transition:transform .35s ease, box-shadow .35s ease;position:relative;">
+        <a href="/services/seo" style="text-decoration:none;color:inherit;display:block;position:absolute;inset:0;z-index:1;" aria-label="Search Engine Optimisation"></a>
         <div style="background:linear-gradient(135deg,#146886 0%,#0a4969 100%);padding:28px 28px 0;position:relative;">
           <div style="position:absolute;inset:0;background:radial-gradient(circle at 80% 0%,rgba(255,255,255,.25),transparent 60%);pointer-events:none;"></div>
           <div class="svc-icon" style="background:rgba(255,255,255,.18);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.25);color:#fff;position:relative;">🔍</div>
@@ -1090,17 +1091,26 @@ img,video{max-width:100%;height:auto;}
             <div style="flex:1;border-radius:4px 4px 0 0;background:#fff;animation:barRise 2s .60s ease-in-out infinite alternate;height:95%;box-shadow:0 0 18px rgba(255,255,255,.55);"></div>
           </div>
         </div>
-        <div style="background:linear-gradient(180deg,#0d3d52 0%,#072a3d 100%);padding:4px 28px 20px;display:flex;flex-direction:column;">
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:.5px solid rgba(255,255,255,.1);font-size:14px;color:#fff;cursor:pointer;transition:color .18s;" onmouseenter="this.style.color='#4fc3f7'" onmouseleave="this.style.color='#fff'">Local SEO <span style="font-size:16px;">›</span></div>
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:.5px solid rgba(255,255,255,.1);font-size:14px;color:#fff;cursor:pointer;transition:color .18s;" onmouseenter="this.style.color='#4fc3f7'" onmouseleave="this.style.color='#fff'">Ecommerce SEO <span style="display:flex;align-items:center;gap:6px;"><span style="font-size:10px;background:rgba(255,255,255,.18);color:#fff;padding:2px 7px;border-radius:980px;font-weight:500;">Popular</span><span style="font-size:16px;">›</span></span></div>
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:.5px solid rgba(255,255,255,.1);font-size:14px;color:#fff;cursor:pointer;transition:color .18s;" onmouseenter="this.style.color='#4fc3f7'" onmouseleave="this.style.color='#fff'">SaaS SEO <span style="font-size:16px;">›</span></div>
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 0;font-size:14px;color:#fff;cursor:pointer;transition:color .18s;" onmouseenter="this.style.color='#4fc3f7'" onmouseleave="this.style.color='#fff'">Semantic &amp; AI SEO <span style="font-size:16px;">›</span></div>
+        <div style="background:linear-gradient(180deg,#0d3d52 0%,#072a3d 100%);padding:4px 28px 20px;display:flex;flex-direction:column;position:relative;z-index:2;">
+          <a href="/services/seo#svc-local" style="text-decoration:none;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:.5px solid rgba(255,255,255,.1);font-size:14px;color:#fff;cursor:pointer;transition:color .18s;" onmouseenter="this.style.color='#4fc3f7'" onmouseleave="this.style.color='#fff'">Local SEO <span style="font-size:16px;">›</span></div>
+          </a>
+          <a href="/services/seo#svc-ecom" style="text-decoration:none;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:.5px solid rgba(255,255,255,.1);font-size:14px;color:#fff;cursor:pointer;transition:color .18s;" onmouseenter="this.style.color='#4fc3f7'" onmouseleave="this.style.color='#fff'">Ecommerce SEO <span style="display:flex;align-items:center;gap:6px;"><span style="font-size:10px;background:rgba(255,255,255,.18);color:#fff;padding:2px 7px;border-radius:980px;font-weight:500;">Popular</span><span style="font-size:16px;">›</span></span></div>
+          </a>
+          <a href="/services/seo#svc-intl" style="text-decoration:none;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:.5px solid rgba(255,255,255,.1);font-size:14px;color:#fff;cursor:pointer;transition:color .18s;" onmouseenter="this.style.color='#4fc3f7'" onmouseleave="this.style.color='#fff'">International SEO <span style="font-size:16px;">›</span></div>
+          </a>
+          <a href="/services/seo#svc-semantic" style="text-decoration:none;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 0;font-size:14px;color:#fff;cursor:pointer;transition:color .18s;" onmouseenter="this.style.color='#4fc3f7'" onmouseleave="this.style.color='#fff'">Semantic &amp; AI SEO <span style="font-size:16px;">›</span></div>
+          </a>
         </div>
         <div class="svc-arrow" style="top:20px;right:20px;color:#fff;">→</div>
       </div>
 
       <!-- Web Design & Dev -->
-      <div class="svc-card reveal reveal-delay-1" style="display:flex;flex-direction:column;padding:0;overflow:hidden;background:rgba(255,255,255,.06);">
+      <div class="svc-card reveal reveal-delay-1" style="display:flex;flex-direction:column;padding:0;overflow:hidden;background:rgba(255,255,255,.06);position:relative;">
+        <a href="/services/web" style="text-decoration:none;color:inherit;display:block;position:absolute;inset:0;z-index:1;" aria-label="Web Design & Development"></a>
         <div style="background:linear-gradient(135deg,#0d1f0d 0%,#0a180a 100%);padding:28px 28px 0;">
           <div class="svc-icon" style="background:rgba(52,199,89,.15);">🌐</div>
           <div class="svc-name">Web Design & Development</div>
@@ -1119,17 +1129,26 @@ img,video{max-width:100%;height:auto;}
             </div>
           </div>
         </div>
-        <div style="padding:4px 28px 20px;display:flex;flex-direction:column;">
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:.5px solid rgba(255,255,255,.08);font-size:14px;color:rgba(255,255,255,.75);cursor:pointer;transition:color .18s;" onmouseenter="this.style.color='#34c759'" onmouseleave="this.style.color='rgba(255,255,255,.75)'">WordPress Development <span style="font-size:16px;">›</span></div>
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:.5px solid rgba(255,255,255,.08);font-size:14px;color:rgba(255,255,255,.75);cursor:pointer;transition:color .18s;" onmouseenter="this.style.color='#34c759'" onmouseleave="this.style.color='rgba(255,255,255,.75)'">Shopify Development <span style="display:flex;align-items:center;gap:6px;"><span style="font-size:10px;background:rgba(52,199,89,.25);color:#34c759;padding:2px 7px;border-radius:980px;font-weight:500;">Popular</span><span style="font-size:16px;">›</span></span></div>
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:.5px solid rgba(255,255,255,.08);font-size:14px;color:rgba(255,255,255,.75);cursor:pointer;transition:color .18s;" onmouseenter="this.style.color='#34c759'" onmouseleave="this.style.color='rgba(255,255,255,.75)'">Landing Page Design <span style="font-size:16px;">›</span></div>
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 0;font-size:14px;color:rgba(255,255,255,.75);cursor:pointer;transition:color .18s;" onmouseenter="this.style.color='#34c759'" onmouseleave="this.style.color='rgba(255,255,255,.75)'">Website Speed Optimization <span style="font-size:16px;">›</span></div>
+        <div style="padding:4px 28px 20px;display:flex;flex-direction:column;position:relative;z-index:2;">
+          <a href="/services/web#svc-wordpress" style="text-decoration:none;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:.5px solid rgba(255,255,255,.08);font-size:14px;color:rgba(255,255,255,.75);cursor:pointer;transition:color .18s;" onmouseenter="this.style.color='#34c759'" onmouseleave="this.style.color='rgba(255,255,255,.75)'">WordPress Development <span style="font-size:16px;">›</span></div>
+          </a>
+          <a href="/services/web#svc-shopify" style="text-decoration:none;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:.5px solid rgba(255,255,255,.08);font-size:14px;color:rgba(255,255,255,.75);cursor:pointer;transition:color .18s;" onmouseenter="this.style.color='#34c759'" onmouseleave="this.style.color='rgba(255,255,255,.75)'">Shopify Development <span style="display:flex;align-items:center;gap:6px;"><span style="font-size:10px;background:rgba(52,199,89,.25);color:#34c759;padding:2px 7px;border-radius:980px;font-weight:500;">Popular</span><span style="font-size:16px;">›</span></span></div>
+          </a>
+          <a href="/services/web#svc-landing" style="text-decoration:none;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:.5px solid rgba(255,255,255,.08);font-size:14px;color:rgba(255,255,255,.75);cursor:pointer;transition:color .18s;" onmouseenter="this.style.color='#34c759'" onmouseleave="this.style.color='rgba(255,255,255,.75)'">Landing Page Design <span style="font-size:16px;">›</span></div>
+          </a>
+          <a href="/services/web#svc-speed" style="text-decoration:none;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 0;font-size:14px;color:rgba(255,255,255,.75);cursor:pointer;transition:color .18s;" onmouseenter="this.style.color='#34c759'" onmouseleave="this.style.color='rgba(255,255,255,.75)'">Website Speed Optimization <span style="font-size:16px;">›</span></div>
+          </a>
         </div>
         <div class="svc-arrow" style="top:20px;right:20px;">→</div>
       </div>
 
       <!-- Performance Ads -->
-      <div class="svc-card reveal reveal-delay-2" style="display:flex;flex-direction:column;padding:0;overflow:hidden;background:rgba(255,255,255,.04);">
+      <div class="svc-card reveal reveal-delay-2" style="display:flex;flex-direction:column;padding:0;overflow:hidden;background:rgba(255,255,255,.04);position:relative;">
+        <a href="/services/ppc" style="text-decoration:none;color:inherit;display:block;position:absolute;inset:0;z-index:1;" aria-label="Pay-Per-Click Advertising"></a>
         <div style="background:linear-gradient(135deg,#1a0800 0%,#120600 100%);padding:28px 28px 0;">
           <div class="svc-icon" style="background:rgba(255,100,30,.12);">🎯</div>
           <div class="svc-name">Pay-Per-Click Advertising</div>
@@ -1149,10 +1168,52 @@ img,video{max-width:100%;height:auto;}
             </div>
           </div>
         </div>
-        <div style="padding:4px 28px 20px;display:flex;flex-direction:column;">
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:.5px solid rgba(255,255,255,.08);font-size:14px;color:rgba(255,255,255,.75);cursor:pointer;transition:color .18s;" onmouseenter="this.style.color='#ff9f0a'" onmouseleave="this.style.color='rgba(255,255,255,.75)'">Google Search &amp; Shopping Ads <span style="font-size:16px;">›</span></div>
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:.5px solid rgba(255,255,255,.08);font-size:14px;color:rgba(255,255,255,.75);cursor:pointer;transition:color .18s;" onmouseenter="this.style.color='#ff9f0a'" onmouseleave="this.style.color='rgba(255,255,255,.75)'">Facebook &amp; Instagram Ads <span style="font-size:16px;">›</span></div>
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 0;font-size:14px;color:rgba(255,255,255,.75);cursor:pointer;transition:color .18s;" onmouseenter="this.style.color='#ff9f0a'" onmouseleave="this.style.color='rgba(255,255,255,.75)'">Remarketing &amp; Retargeting <span style="font-size:16px;">›</span></div>
+        <div style="padding:4px 28px 20px;display:flex;flex-direction:column;position:relative;z-index:2;">
+          <a href="/services/ppc#svc-search" style="text-decoration:none;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:.5px solid rgba(255,255,255,.08);font-size:14px;color:rgba(255,255,255,.75);cursor:pointer;transition:color .18s;" onmouseenter="this.style.color='#ff9f0a'" onmouseleave="this.style.color='rgba(255,255,255,.75)'">Google Search &amp; Shopping Ads <span style="font-size:16px;">›</span></div>
+          </a>
+          <a href="/services/ppc#svc-facebook" style="text-decoration:none;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:.5px solid rgba(255,255,255,.08);font-size:14px;color:rgba(255,255,255,.75);cursor:pointer;transition:color .18s;" onmouseenter="this.style.color='#ff9f0a'" onmouseleave="this.style.color='rgba(255,255,255,.75)'">Facebook &amp; Instagram Ads <span style="font-size:16px;">›</span></div>
+          </a>
+          <a href="/services/ppc#svc-remarketing" style="text-decoration:none;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 0;font-size:14px;color:rgba(255,255,255,.75);cursor:pointer;transition:color .18s;" onmouseenter="this.style.color='#ff9f0a'" onmouseleave="this.style.color='rgba(255,255,255,.75)'">Remarketing &amp; Retargeting <span style="font-size:16px;">›</span></div>
+          </a>
+        </div>
+        <div class="svc-arrow" style="top:20px;right:20px;">→</div>
+      </div>
+
+      <!-- Content & more -->
+      <div class="svc-card reveal reveal-delay-3" style="display:flex;flex-direction:column;padding:0;overflow:hidden;background:rgba(255,255,255,.03);position:relative;">
+        <a href="/services/content" style="text-decoration:none;color:inherit;display:block;position:absolute;inset:0;z-index:1;" aria-label="Content & more"></a>
+        <div style="background:linear-gradient(135deg,#1c0d2b 0%,#11071c 100%);padding:28px 28px 0;">
+          <div class="svc-icon" style="background:rgba(187,134,252,.12);">✍️</div>
+          <div class="svc-name">Content &amp; More</div>
+          <div class="svc-desc" style="margin-bottom:16px;">Compelling content and optimization funnels — Email Marketing, Digital PR, HARO &amp; copywriting.</div>
+          <div style="background:rgba(0,0,0,.4);border-radius:8px 8px 0 0;overflow:hidden;padding:14px;height:72px;box-sizing:border-box;display:flex;flex-direction:column;gap:7px;">
+            <div style="height:6px;width:90%;background:rgba(255,255,255,.2);border-radius:3px;position:relative;overflow:hidden;">
+              <div style="position:absolute;left:0;top:0;height:100%;width:30%;background:#bb86fc;animation:barRise 2.5s infinite ease-in-out alternate;"></div>
+            </div>
+            <div style="height:6px;width:75%;background:rgba(255,255,255,.2);border-radius:3px;position:relative;overflow:hidden;">
+              <div style="position:absolute;left:0;top:0;height:100%;width:50%;background:#bb86fc;animation:barRise 2s .5s infinite ease-in-out alternate;"></div>
+            </div>
+            <div style="height:6px;width:45%;background:rgba(255,255,255,.2);border-radius:3px;position:relative;overflow:hidden;">
+              <div style="position:absolute;left:0;top:0;height:100%;width:40%;background:#bb86fc;animation:barRise 1.5s 1s infinite ease-in-out alternate;"></div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:4px 28px 20px;display:flex;flex-direction:column;position:relative;z-index:2;">
+          <a href="/services/content#svc-email" style="text-decoration:none;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:.5px solid rgba(255,255,255,.08);font-size:14px;color:rgba(255,255,255,.75);cursor:pointer;transition:color .18s;" onmouseenter="this.style.color='#bb86fc'" onmouseleave="this.style.color='rgba(255,255,255,.75)'">Email Marketing <span style="font-size:16px;">›</span></div>
+          </a>
+          <a href="/services/content#svc-content" style="text-decoration:none;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:.5px solid rgba(255,255,255,.08);font-size:14px;color:rgba(255,255,255,.75);cursor:pointer;transition:color .18s;" onmouseenter="this.style.color='#bb86fc'" onmouseleave="this.style.color='rgba(255,255,255,.75)'">Content Marketing <span style="display:flex;align-items:center;gap:6px;"><span style="font-size:10px;background:rgba(187,134,252,.2);color:#bb86fc;padding:2px 7px;border-radius:980px;font-weight:500;">Popular</span><span style="font-size:16px;">›</span></span></div>
+          </a>
+          <a href="/services/content#svc-cro" style="text-decoration:none;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:.5px solid rgba(255,255,255,.08);font-size:14px;color:rgba(255,255,255,.75);cursor:pointer;transition:color .18s;" onmouseenter="this.style.color='#bb86fc'" onmouseleave="this.style.color='rgba(255,255,255,.75)'">CRO Audit &amp; Testing <span style="font-size:16px;">›</span></div>
+          </a>
+          <a href="/services/content#svc-backlink" style="text-decoration:none;">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:13px 0;font-size:14px;color:rgba(255,255,255,.75);cursor:pointer;transition:color .18s;" onmouseenter="this.style.color='#bb86fc'" onmouseleave="this.style.color='rgba(255,255,255,.75)'">Blogger Outreach &amp; Backlinks <span style="font-size:16px;">›</span></div>
+          </a>
         </div>
         <div class="svc-arrow" style="top:20px;right:20px;">→</div>
       </div>
