@@ -77,7 +77,7 @@
     .mobile-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
     .mobile-drawer{position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;background:rgba(18,18,20,.98);backdrop-filter:blur(30px);z-index:998;padding:24px 20px 80px;overflow-y:auto;transform:translateX(100%);transition:transform .3s ease;display:none;}
     .mobile-drawer.open{transform:translateX(0);}
-    .mobile-drawer a{display:block;padding:14px 4px;color:rgba(255,255,255,.85);font-size:16px;border-bottom:.5px solid rgba(255,255,255,.06);text-decoration:none;}
+    .mobile-drawer>a{display:block;padding:14px 4px;color:rgba(255,255,255,.85);font-size:16px;border-bottom:.5px solid rgba(255,255,255,.06);text-decoration:none;}
     .mobile-drawer .ms-section{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);padding:18px 4px 6px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;}
     .mobile-drawer .ms-section::after{content:'+';font-size:18px;color:var(--blue);font-weight:300;transition:transform .25s;}
     .mobile-drawer .ms-section.open::after{content:'\2212';}
@@ -356,6 +356,62 @@
     .wa-float:hover{transform:translateY(-4px);box-shadow:0 6px 16px rgba(0,0,0,.2);}
     .wa-icon{width:32px;height:32px;}
   
+/* === MOBILE COLLAPSIBLE MENU === */
+.mobile-drawer .ms-section{
+  cursor:pointer!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:10px!important;
+  user-select:none!important;
+  padding:16px 4px!important;
+  border-bottom:.5px solid rgba(255,255,255,.06)!important;
+  font-size:14px!important;
+  font-weight:600!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+  color:rgba(255,255,255,.9)!important;
+}
+.mobile-drawer .ms-section .ms-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:#0071e3;
+  box-shadow:0 0 8px rgba(0,113,227,.5);
+  flex-shrink:0;
+}
+.mobile-drawer .ms-section .ms-toggle-icon{
+  margin-left:auto;
+  font-size:18px;
+  color:#0071e3;
+  font-weight:300;
+  transition:transform .3s ease;
+  line-height:1;
+}
+.mobile-drawer .ms-section.open .ms-toggle-icon{
+  transform:rotate(45deg);
+}
+.mobile-drawer .ms-section::after{content:none!important;}
+.mobile-drawer .ms-group{
+  max-height:0!important;
+  overflow:hidden!important;
+  transition:max-height .4s cubic-bezier(.4,0,.2,1)!important;
+}
+.mobile-drawer .ms-group.open{
+  max-height:800px!important;
+}
+.mobile-drawer .ms-group a{
+  display:block!important;
+  padding:11px 4px 11px 22px!important;
+  font-size:15px!important;
+  color:rgba(255,255,255,.6)!important;
+  border-bottom:none!important;
+  text-decoration:none!important;
+  transition:color .15s!important;
+}
+.mobile-drawer .ms-group a:hover,
+.mobile-drawer .ms-group a:active{
+  color:#fff!important;
+}
+/* === END MOBILE COLLAPSIBLE === */
+
 /* RESPONSIVE LAYOUT OVERRIDES START */
 
 /* ============================================================
@@ -555,42 +611,66 @@
     </div>
     <button class="mobile-toggle" id="mobToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
     <div class="mobile-drawer" id="mobDrawer">
-      <a href="/">Home</a>
-      <div class="ms-section">SEO Services</div>
-      <div class="ms-group">
-        <a class="ms-sub" href="/services/seo">All SEO Services</a>
-        <a class="ms-sub" href="/services/seo#svc-local">Local SEO</a>
-        <a class="ms-sub" href="/services/seo#svc-ecom">Ecommerce SEO</a>
-        <a class="ms-sub" href="/services/seo#svc-intl">International SEO</a>
-        <a class="ms-sub" href="/services/seo#svc-semantic">Semantic SEO</a>
-      </div>
-      <div class="ms-section">PPC / Paid Ads</div>
-      <div class="ms-group">
-        <a class="ms-sub" href="/services/ppc">All Paid Ads</a>
-        <a class="ms-sub" href="/services/ppc#svc-search">Google Ads</a>
-        <a class="ms-sub" href="/services/ppc#svc-facebook">Facebook Ads</a>
-        <a class="ms-sub" href="/services/ppc#svc-remarketing">Remarketing</a>
-      </div>
-      <div class="ms-section">Web Design &amp; Dev</div>
-      <div class="ms-group">
-        <a class="ms-sub" href="/services/web">All Web Services</a>
-        <a class="ms-sub" href="/services/web#svc-uiux">Website Design (UI/UX)</a>
-        <a class="ms-sub" href="/services/web#svc-wordpress">WordPress</a>
-        <a class="ms-sub" href="/services/web#svc-shopify">Shopify</a>
-      </div>
-      <div class="ms-section">Content &amp; More</div>
-      <div class="ms-group">
-        <a class="ms-sub" href="/services/content">All Content Services</a>
-        <a class="ms-sub" href="/services/content#svc-email">Email Marketing</a>
-        <a class="ms-sub" href="/services/content#svc-content">Content Marketing</a>
-      </div>
-      <a href="/portfolio" style="margin-top:14px;">Portfolio</a>
-      <a href="/about">About</a>
-      <a href="/blog">Blog</a>
-      <a href="/contact">Contact</a>
-      <a href="/contact" class="mobile-cta">Get Started</a>
-    </div>
-  </nav>
+  <a href="/">Home</a>
+
+  <div class="ms-section" data-default-open="true"><span class="ms-dot"></span>SEO<span class="ms-toggle-icon">+</span></div>
+  <div class="ms-group">
+    <a href="/services/seo">All SEO Services</a>
+    <a href="/services/seo#svc-local">Local SEO</a>
+    <a href="/services/seo#svc-ecom">Ecommerce SEO</a>
+    <a href="/services/seo#svc-intl">International SEO</a>
+    <a href="/services/seo#svc-yt">Youtube / Video SEO</a>
+    <a href="/services/seo#svc-saas">SaaS SEO</a>
+    <a href="/services/seo#svc-semantic">Semantic SEO</a>
+    <a href="/services/seo#svc-ai">AI SEO</a>
+  </div>
+
+  <div class="ms-section"><span class="ms-dot"></span>PPC / Paid Ads<span class="ms-toggle-icon">+</span></div>
+  <div class="ms-group">
+    <a href="/services/ppc">All Paid Ads</a>
+    <a href="/services/ppc#svc-search">Google Search Ads</a>
+    <a href="/services/ppc#svc-shopping">Google Shopping Ads</a>
+    <a href="/services/ppc#svc-pmax">Performance Max</a>
+    <a href="/services/ppc#svc-youtube">YouTube Ads</a>
+    <a href="/services/ppc#svc-remarketing">Remarketing</a>
+    <a href="/services/ppc#svc-facebook">Facebook Ads</a>
+    <a href="/services/ppc#svc-instagram">Instagram Ads</a>
+    <a href="/services/ppc#svc-tiktok">TikTok / LinkedIn Ads</a>
+  </div>
+
+  <div class="ms-section"><span class="ms-dot"></span>Web Design &amp; Dev<span class="ms-toggle-icon">+</span></div>
+  <div class="ms-group">
+    <a href="/services/web">All Web Services</a>
+    <a href="/services/web#svc-uiux">Website Design (UI/UX)</a>
+    <a href="/services/web#svc-wordpress">WordPress Development</a>
+    <a href="/services/web#svc-shopify">Shopify Development</a>
+    <a href="/services/web#svc-landing">Landing Page Design</a>
+    <a href="/services/web#svc-speed">Website Speed Optimization</a>
+    <a href="/services/web#svc-maintenance">Website Maintenance</a>
+    <a href="/services/web#svc-migration">Website Migration</a>
+    <a href="/services/web#svc-cms">CMS Setup</a>
+  </div>
+
+  <div class="ms-section"><span class="ms-dot"></span>Content &amp; More<span class="ms-toggle-icon">+</span></div>
+  <div class="ms-group">
+    <a href="/services/content">All Content Services</a>
+    <a href="/services/content#svc-blog">Blog Writing &amp; Management</a>
+    <a href="/services/content#svc-email">Email Marketing</a>
+    <a href="/services/content#svc-content">Content Marketing</a>
+    <a href="/services/content#svc-cro">CRO Audit &amp; Testing</a>
+    <a href="/services/content#svc-backlink">Backlink Building</a>
+    <a href="/services/content#svc-pr">Digital PR &amp; HARO</a>
+    <a href="/services/content#svc-social">Social Media Content</a>
+    <a href="/services/content#svc-press">Press Releases &amp; PR</a>
+  </div>
+
+  <a href="/portfolio" style="margin-top:14px;">Portfolio</a>
+  <a href="/about">About</a>
+  <a href="/blog">Blog</a>
+  <a href="/contact" aria-label="Contact Us">Contact</a>
+  <a href="/contact" class="mobile-cta">Get Started</a>
+</div>
+</nav>
 
   <!-- === HERO === -->
   <section class="svc-hero">
@@ -1184,51 +1264,54 @@
       }
     });
 
-    /* === MOBILE COLLAPSIBLE WIRE === */
-    (function() {
-      var d = document.getElementById('mobDrawer');
-      if (!d) return;
-      var secs = d.querySelectorAll('.ms-section');
-      secs.forEach(function(s) {
-        if (s.nextElementSibling && !s.nextElementSibling.classList.contains('ms-group')) {
-          var grp = document.createElement('div');
-          grp.className = 'ms-group';
-          var n = s.nextElementSibling;
-          while (n && n.classList && n.classList.contains('ms-sub')) {
-            var nx = n.nextElementSibling;
-            grp.appendChild(n);
-            n = nx;
-          }
-          s.parentNode.insertBefore(grp, n);
-        }
-        s.addEventListener('click', function() {
-          var g = s.nextElementSibling;
-          var open = !s.classList.contains('open');
-          s.classList.toggle('open', open);
-          if (g) g.classList.toggle('open', open);
-        });
-      });
-    })();
+    
 
     /* === MOBILE MENU WIRE-UP === */
     (function() {
       var t = document.getElementById('mobToggle');
-      var d = document.getElementById('mobDrawer');
-      if (t && d) {
-        t.addEventListener('click', function() {
-          var open = !d.classList.contains('open');
-          t.classList.toggle('open', open);
-          d.classList.toggle('open', open);
-          document.body.style.overflow = open ? 'hidden' : '';
+    var d = document.getElementById('mobDrawer');
+    if (t && d) {
+      t.addEventListener('click', function() {
+        var open = !d.classList.contains('open');
+        t.classList.toggle('open', open);
+        d.classList.toggle('open', open);
+        document.body.style.overflow = open ? 'hidden' : '';
+      });
+      d.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', function() {
+          t.classList.remove('open');
+          d.classList.remove('open');
+          document.body.style.overflow = '';
         });
-        d.querySelectorAll('a').forEach(function(a) {
-          a.addEventListener('click', function() {
-            t.classList.remove('open');
-            d.classList.remove('open');
-            document.body.style.overflow = '';
-          });
-        });
+      });
+
+      // Accordion
+      var secs = d.querySelectorAll('.ms-section');
+      function openSec(s) {
+        var g = s.nextElementSibling;
+        if (!g || !g.classList.contains('ms-group')) return;
+        s.classList.add('open'); g.classList.add('open');
+        var ic = s.querySelector('.ms-toggle-icon');
+        if (ic) ic.textContent = '\u2212';
       }
+      function closeSec(s) {
+        var g = s.nextElementSibling;
+        if (!g || !g.classList.contains('ms-group')) return;
+        s.classList.remove('open'); g.classList.remove('open');
+        var ic = s.querySelector('.ms-toggle-icon');
+        if (ic) ic.textContent = '+';
+      }
+      secs.forEach(function(s) {
+        s.addEventListener('click', function() {
+          var wasOpen = s.classList.contains('open');
+          secs.forEach(function(x) { closeSec(x); });
+          if (!wasOpen) openSec(s);
+        });
+      });
+      secs.forEach(function(s) {
+        if (s.getAttribute('data-default-open') === 'true') openSec(s);
+      });
+    }
     })();
   </script>
   <script>
