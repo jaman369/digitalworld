@@ -720,11 +720,13 @@ img,video{max-width:100%;height:auto;}
 .testi-flag .flag-emoji,.testi-meta .flag-emoji{font-size:18px;min-width:20px;}
 .footer-flags .flag-emoji{font-size:20px;margin-right:3px;}
 /* === MOBILE COLLAPSIBLE === */
-.mobile-drawer .ms-section{cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;}
-.mobile-drawer .ms-section::after{content:'+';font-size:18px;color:#0071e3;font-weight:300;transition:transform .25s;}
+.mobile-drawer .ms-section{cursor:pointer;display:flex;align-items:center;justify-content:space-between;user-select:none;padding:14px 4px;border-bottom:.5px solid rgba(255,255,255,.06);}
+.mobile-drawer .ms-section::after{content:'+';font-size:18px;color:#0071e3;font-weight:300;transition:transform .3s ease;}
 .mobile-drawer .ms-section.open::after{content:'\2212';}
-.mobile-drawer .ms-group{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+.mobile-drawer .ms-group{max-height:0;overflow:hidden;transition:max-height .4s ease;}
 .mobile-drawer .ms-group.open{max-height:600px;}
+.mobile-drawer .ms-group a{border-bottom:none;padding:10px 4px 10px 16px;font-size:14px;color:rgba(255,255,255,.65);}
+.mobile-drawer .ms-group a:hover{color:#fff;}
 /* === END === */
 
 
@@ -897,22 +899,30 @@ img,video{max-width:100%;height:auto;}
 <div class="mobile-drawer" id="mobDrawer">
   <a href="/">Home</a>
   <div class="ms-section">SEO Services</div>
-  <a class="ms-sub" href="/services/seo">All SEO Services</a>
-  <a class="ms-sub" href="/services/seo#svc-local">Local SEO</a>
-  <a class="ms-sub" href="/services/seo#svc-ecom">Ecommerce SEO</a>
-  <a class="ms-sub" href="/services/seo#svc-intl">International SEO</a>
+  <div class="ms-group">
+    <a class="ms-sub" href="/services/seo">All SEO Services</a>
+    <a class="ms-sub" href="/services/seo#svc-local">Local SEO</a>
+    <a class="ms-sub" href="/services/seo#svc-ecom">Ecommerce SEO</a>
+    <a class="ms-sub" href="/services/seo#svc-intl">International SEO</a>
+  </div>
   <div class="ms-section">PPC / Paid Ads</div>
-  <a class="ms-sub" href="/services/ppc">All Paid Ads</a>
-  <a class="ms-sub" href="/services/ppc#svc-search">Google Ads</a>
-  <a class="ms-sub" href="/services/ppc#svc-facebook">Facebook Ads</a>
+  <div class="ms-group">
+    <a class="ms-sub" href="/services/ppc">All Paid Ads</a>
+    <a class="ms-sub" href="/services/ppc#svc-search">Google Ads</a>
+    <a class="ms-sub" href="/services/ppc#svc-facebook">Facebook Ads</a>
+  </div>
   <div class="ms-section">Web Design &amp; Dev</div>
-  <a class="ms-sub" href="/services/web">All Web Services</a>
-  <a class="ms-sub" href="/services/web#svc-wordpress">WordPress</a>
-  <a class="ms-sub" href="/services/web#svc-shopify">Shopify</a>
+  <div class="ms-group">
+    <a class="ms-sub" href="/services/web">All Web Services</a>
+    <a class="ms-sub" href="/services/web#svc-wordpress">WordPress</a>
+    <a class="ms-sub" href="/services/web#svc-shopify">Shopify</a>
+  </div>
   <div class="ms-section">Content &amp; More</div>
-  <a class="ms-sub" href="/services/content">All Content Services</a>
-  <a class="ms-sub" href="/services/content#svc-email">Email Marketing</a>
-  <a class="ms-sub" href="/services/content#svc-content">Content Marketing</a>
+  <div class="ms-group">
+    <a class="ms-sub" href="/services/content">All Content Services</a>
+    <a class="ms-sub" href="/services/content#svc-email">Email Marketing</a>
+    <a class="ms-sub" href="/services/content#svc-content">Content Marketing</a>
+  </div>
   <a href="/portfolio" style="margin-top:14px;">Portfolio</a>
   <a href="/about">About</a>
   <a href="/blog">Blog</a>
@@ -1290,7 +1300,24 @@ document.addEventListener('DOMContentLoaded', () => {
         mobDrawer.classList.remove('open');
       });
     });
-  }
+    // Collapsible sections (accordion)
+    const sections = mobDrawer.querySelectorAll('.ms-section');
+    sections.forEach(sec => {
+      sec.addEventListener('click', () => {
+        const group = sec.nextElementSibling;
+        if (!group || !group.classList.contains('ms-group')) return;
+        const isOpen = sec.classList.contains('open');
+        sections.forEach(s => {
+          s.classList.remove('open');
+          const g = s.nextElementSibling;
+          if (g && g.classList.contains('ms-group')) g.classList.remove('open');
+        });
+        if (!isOpen) {
+          sec.classList.add('open');
+          group.classList.add('open');
+        }
+      });
+    });  }
 });
 </script>
 </body>
