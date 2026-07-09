@@ -42,6 +42,7 @@ footer_html = """<footer>
         <a class="footer-link" href="/services/seo#svc-ai">AI SEO</a>
       </div>
       <div class="footer-col" style="padding-top: 10px;">
+        <a class="footer-link" href="/services/ai">AI Automation</a>
         <a class="footer-link" href="/services/web#svc-wordpress">WordPress Development</a>
         <a class="footer-link" href="/services/web#svc-shopify">Shopify Development</a>
         <a class="footer-link" href="/services/ppc#svc-search">Google Ads / PPC</a>
@@ -124,5 +125,9 @@ def process_file(filepath):
 
 if __name__ == "__main__":
     for filepath in glob.glob("*.html"):
-        if filepath != "temp.html":
+        if filepath not in ["temp.html", "tmp.html", "lovable_contact.html"]:
             process_file(filepath)
+    for filepath in glob.glob("posts/*.html"):
+        process_file(filepath)
+    for filepath in glob.glob("Portfolio-kj/*.html"):
+        process_file(filepath)

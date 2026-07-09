@@ -93,6 +93,9 @@ $footerHtml = @"
 "@
 
 $files = Get-ChildItem -Filter *.html
+$posts = Get-ChildItem -Path "posts" -Filter *.html
+$portfolio = Get-ChildItem -Path "Portfolio-kj" -Filter *.html
+$files = $files + $posts + $portfolio
 foreach ($file in $files) {
     if ($file.Name -eq "temp.html" -or $file.Name -eq "tmp.html" -or $file.Name -eq "lovable_contact.html") { continue }
     
