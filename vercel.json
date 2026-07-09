@@ -1,0 +1,92 @@
+{
+  "rewrites": [
+    {
+      "source": "/assets/(.*)",
+      "destination": "https://kjdigitalworld.lovable.app/assets/$1"
+    },
+    {
+      "source": "/__l5e/(.*)",
+      "destination": "https://kjdigitalworld.lovable.app/__l5e/$1"
+    },
+    {
+      "source": "/~api/(.*)",
+      "destination": "https://kjdigitalworld.lovable.app/~api/$1"
+    },
+    {
+      "source": "/flags/(.*)",
+      "destination": "https://kjdigitalworld.lovable.app/flags/$1"
+    },
+    {
+      "source": "/contact",
+      "destination": "/Portfolio-kj/contact.html"
+    },
+    {
+      "source": "/blog",
+      "destination": "/blog.html"
+    },
+    {
+      "source": "/portfolio",
+      "destination": "/portfolio.html"
+    },
+    {
+      "source": "/portfolio-seo",
+      "destination": "/portfolio-seo.html"
+    },
+    {
+      "source": "/portfolio-web",
+      "destination": "/portfolio-web.html"
+    },
+    {
+      "source": "/portfolio-ppc",
+      "destination": "/portfolio-ppc.html"
+    },
+    {
+      "source": "/portfolio-social",
+      "destination": "/portfolio-social.html"
+    },
+    {
+      "source": "/portfolio-content",
+      "destination": "/portfolio-content.html"
+    },
+    {
+      "source": "/portfolio-cro",
+      "destination": "/portfolio-cro.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/about.html"
+    },
+    {
+      "source": "/services",
+      "destination": "/Portfolio-kj/services.html"
+    },
+    {
+      "source": "/services/seo",
+      "destination": "/services-seo.html"
+    },
+    {
+      "source": "/services/web",
+      "destination": "/services-web.html"
+    },
+    {
+      "source": "/services/ppc",
+      "destination": "/services-ppc.html"
+    },
+    {
+      "source": "/services/content",
+      "destination": "/services-content.html"
+    },
+    {
+      "source": "/services/(.*)",
+      "destination": "/Portfolio-kj/services.html"
+    },
+    {
+      "source": "/posts/(.*)",
+      "destination": "/posts/$1.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
