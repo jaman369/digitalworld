@@ -136,11 +136,11 @@ export default function Hero() {
         <div className="absolute inset-0 pointer-events-none hidden md:block select-none max-w-7xl mx-auto w-full h-full z-0">
           {/* Orbit Tracks */}
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-neutral-200/25 pointer-events-none z-0 transition-all duration-300" 
-               style={{ width: "calc(var(--radius-inner) * 2)", height: "calc(var(--radius-inner) * 2)" }} />
+               style={{ width: "calc(var(--radius-inner-x) * 2)", height: "calc(var(--radius-inner-y) * 2)" }} />
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-neutral-200/25 pointer-events-none z-0 transition-all duration-300" 
-               style={{ width: "calc(var(--radius-mid) * 2)", height: "calc(var(--radius-mid) * 2)" }} />
+               style={{ width: "calc(var(--radius-mid-x) * 2)", height: "calc(var(--radius-mid-y) * 2)" }} />
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-neutral-200/25 pointer-events-none z-0 transition-all duration-300" 
-               style={{ width: "calc(var(--radius-outer) * 2)", height: "calc(var(--radius-outer) * 2)" }} />
+               style={{ width: "calc(var(--radius-outer-x) * 2)", height: "calc(var(--radius-outer-y) * 2)" }} />
 
           {/* Orbiting Badges */}
           {floatingBadges.map((badge, idx) => {
@@ -151,10 +151,12 @@ export default function Hero() {
                 key={idx}
                 className={`absolute left-1/2 top-1/2 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold shadow-premium cursor-pointer pointer-events-auto select-none transition-all duration-300 ${badge.color} orbit-badge`}
                 style={{
-                  "--start-angle": `${badge.angle}deg`,
-                  "--orbit-radius": `var(--radius-${badge.orbit})`,
-                  animationName: `orbit-${badge.direction}`,
+                  "--radius-x": `var(--radius-${badge.orbit}-x)`,
+                  "--radius-y": `var(--radius-${badge.orbit}-y)`,
+                  animationName: "orbit-ellipse",
                   animationDuration: `${badge.speed}s`,
+                  animationDelay: `-${(badge.speed * (badge.angle / 360)).toFixed(2)}s`,
+                  animationDirection: badge.direction === "ccw" ? "reverse" : "normal",
                 } as React.CSSProperties}
               >
                 <Icon className="h-4 w-4" />
@@ -193,32 +195,44 @@ export default function Hero() {
       {/* Scoped CSS Inject for Orbit Animations */}
       <style dangerouslySetInnerHTML={{ __html: `
         :root {
-          --radius-inner: 215px;
-          --radius-mid: 315px;
-          --radius-outer: 420px;
+          --radius-inner-x: 340px;
+          --radius-inner-y: 170px;
+          --radius-mid-x: 440px;
+          --radius-mid-y: 220px;
+          --radius-outer-x: 540px;
+          --radius-outer-y: 270px;
         }
 
         @media (max-width: 1400px) {
           :root {
-            --radius-inner: 190px;
-            --radius-mid: 275px;
-            --radius-outer: 360px;
+            --radius-inner-x: 290px;
+            --radius-inner-y: 145px;
+            --radius-mid-x: 380px;
+            --radius-mid-y: 190px;
+            --radius-outer-x: 470px;
+            --radius-outer-y: 235px;
           }
         }
 
         @media (max-width: 1200px) {
           :root {
-            --radius-inner: 160px;
-            --radius-mid: 230px;
-            --radius-outer: 300px;
+            --radius-inner-x: 240px;
+            --radius-inner-y: 120px;
+            --radius-mid-x: 320px;
+            --radius-mid-y: 160px;
+            --radius-outer-x: 400px;
+            --radius-outer-y: 200px;
           }
         }
 
         @media (max-width: 991px) {
           :root {
-            --radius-inner: 130px;
-            --radius-mid: 185px;
-            --radius-outer: 240px;
+            --radius-inner-x: 190px;
+            --radius-inner-y: 95px;
+            --radius-mid-x: 250px;
+            --radius-mid-y: 125px;
+            --radius-outer-x: 310px;
+            --radius-outer-y: 155px;
           }
         }
 
@@ -236,28 +250,30 @@ export default function Hero() {
           z-index: 50;
         }
 
-        @keyframes orbit-cw {
-          0% {
-            transform: translate(-50%, -50%) rotate(var(--start-angle)) translateX(var(--orbit-radius)) rotate(calc(-1 * var(--start-angle)));
-          }
-          100% {
-            transform: translate(-50%, -50%) rotate(calc(var(--start-angle) + 360deg)) translateX(var(--orbit-radius)) rotate(calc(-1 * (var(--start-angle) + 360deg)));
-          }
-        }
-
-        @keyframes orbit-ccw {
-          0% {
-            transform: translate(-50%, -50%) rotate(var(--start-angle)) translateX(var(--orbit-radius)) rotate(calc(-1 * var(--start-angle)));
-          }
-          100% {
-            transform: translate(-50%, -50%) rotate(calc(var(--start-angle) - 360deg)) translateX(var(--orbit-radius)) rotate(calc(-1 * (var(--start-angle) - 360deg)));
-          }
+        @keyframes orbit-ellipse {
+          0% { transform: translate(-50%, -50%) translate(calc(var(--radius-x)), 0); }
+          6.25% { transform: translate(-50%, -50%) translate(calc(0.9239 * var(--radius-x)), calc(0.3827 * var(--radius-y))); }
+          12.5% { transform: translate(-50%, -50%) translate(calc(0.7071 * var(--radius-x)), calc(0.7071 * var(--radius-y))); }
+          18.75% { transform: translate(-50%, -50%) translate(calc(0.3827 * var(--radius-x)), calc(0.9239 * var(--radius-y))); }
+          25% { transform: translate(-50%, -50%) translate(0, calc(var(--radius-y))); }
+          31.25% { transform: translate(-50%, -50%) translate(calc(-0.3827 * var(--radius-x)), calc(0.9239 * var(--radius-y))); }
+          37.5% { transform: translate(-50%, -50%) translate(calc(-0.7071 * var(--radius-x)), calc(0.7071 * var(--radius-y))); }
+          43.75% { transform: translate(-50%, -50%) translate(calc(-0.9239 * var(--radius-x)), calc(0.3827 * var(--radius-y))); }
+          50% { transform: translate(-50%, -50%) translate(calc(-1 * var(--radius-x)), 0); }
+          56.25% { transform: translate(-50%, -50%) translate(calc(-0.9239 * var(--radius-x)), calc(-0.3827 * var(--radius-y))); }
+          62.5% { transform: translate(-50%, -50%) translate(calc(-0.7071 * var(--radius-x)), calc(-0.7071 * var(--radius-y))); }
+          68.75% { transform: translate(-50%, -50%) translate(calc(-0.3827 * var(--radius-x)), calc(-0.9239 * var(--radius-y))); }
+          75% { transform: translate(-50%, -50%) translate(0, calc(-1 * var(--radius-y))); }
+          81.25% { transform: translate(-50%, -50%) translate(calc(0.3827 * var(--radius-x)), calc(-0.9239 * var(--radius-y))); }
+          87.5% { transform: translate(-50%, -50%) translate(calc(0.7071 * var(--radius-x)), calc(-0.7071 * var(--radius-y))); }
+          93.75% { transform: translate(-50%, -50%) translate(calc(0.9239 * var(--radius-x)), calc(-0.3827 * var(--radius-y))); }
+          100% { transform: translate(-50%, -50%) translate(calc(var(--radius-x)), 0); }
         }
 
         @media (prefers-reduced-motion: reduce) {
           .orbit-badge {
             animation: none !important;
-            transform: translate(-50%, -50%) rotate(var(--start-angle)) translateX(var(--orbit-radius)) rotate(calc(-1 * var(--start-angle))) !important;
+            transform: translate(-50%, -50%) translate(calc(var(--radius-x)), 0) !important;
           }
         }
       `}} />
