@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog & Insights - Digital World</title>
+  <meta name="description" content="Actionable digital marketing strategies, SEO audits, PPC optimization tips, and content planning guides.">
+  <link rel="stylesheet" href="style.css">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="index.html" class="logo">
+        <span class="logo-dot"></span>
+        Digital World
+      </a>
+      <button class="menu-toggle" aria-label="Toggle Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <div class="nav-item-dropdown">
+          <a href="#" class="nav-link">Services <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="about.html" class="dropdown-item">SEO Consultancy</a>
+            <a href="about.html" class="dropdown-item">PPC Campaigns</a>
+            <a href="about.html" class="dropdown-item">Web Design & Dev</a>
+            <a href="about.html" class="dropdown-item">Content Strategy</a>
+            <a href="about.html" class="dropdown-item">Social Media Marketing</a>
+            <a href="about.html" class="dropdown-item">Email Sequence</a>
+          </div>
+        </div>
+        <a href="portfolio.html" class="nav-link">Portfolio</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="blog.html" class="nav-link active">Blog</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="contact.html" class="btn btn-primary">Get Started</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Blog Banner -->
+  <section class="section-padding" style="padding-top: 120px; padding-bottom: 60px;">
+    <div class="container">
+      <div class="text-center">
+        <div class="hero-badge">
+          <i class="fas fa-newspaper"></i> Digital Marketing Insights
+        </div>
+        <h1 class="section-title">Expert tips to<br><span style="color: var(--color-primary); font-style: italic; font-weight: 500; font-family: var(--font-serif);">grow your business.</span></h1>
+        <p class="section-subtitle">Actionable strategies, real-world case studies, and data-backed guides from 5 years of hands-on experience across SEO, web development, paid ads, and more.</p>
+        
+        <!-- Stats list -->
+        <div style="display: flex; justify-content: center; gap: 24px; margin-bottom: 40px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted);">
+          <span><img src="Emoji/blue_book.png" alt="book" style="display:inline-block; width:16px; vertical-align:middle; margin-right:6px;"> 32 Articles</span>
+          <span><img src="Emoji/earth_africa.png" alt="globe" style="display:inline-block; width:16px; vertical-align:middle; margin-right:6px;"> Read in 11 Countries</span>
+          <span><img src="Emoji/arrows_counterclockwise.png" alt="sync" style="display:inline-block; width:16px; vertical-align:middle; margin-right:6px;"> Updated Weekly</span>
+        </div>
+      </div>
+
+      <!-- Categories Filter -->
+      <div class="filter-container">
+        <button class="filter-btn active" data-filter="all">All Posts</button>
+        <button class="filter-btn" data-filter="seo">SEO</button>
+        <button class="filter-btn" data-filter="ppc">Google Ads</button>
+        <button class="filter-btn" data-filter="webdev">Web Dev</button>
+        <button class="filter-btn" data-filter="content">Content Marketing</button>
+        <button class="filter-btn" data-filter="email">Email Marketing</button>
+        <button class="filter-btn" data-filter="social">Social Media</button>
+        <button class="filter-btn" data-filter="ecommerce">E-commerce</button>
+      </div>
+
+      <!-- Split Layout: Articles & Sidebar Widgets -->
+      <div class="blog-split">
+        <!-- Articles column -->
+        <div>
+          <!-- Featured post (Full width card) -->
+          <div class="blog-featured" data-category="seo">
+            <div class="project-image" style="background-color: #060913;">
+              <div class="project-image-fallback">
+                <img src="Emoji/mag.png" alt="Magnifying glass">
+              </div>
+            </div>
+            <div class="project-content">
+              <span class="project-cat">SEO</span>
+              <h3 class="project-title" style="font-size: 1.8rem; margin-bottom: 16px;">How We Doubled Organic Traffic in 4 Months: A Step-by-Step SEO Case Study</h3>
+              <p class="project-desc" style="font-size: 0.9rem; margin-bottom: 20px;">A real client case study showing the exact checklist we used to grow monthly traffic from 2,500 to 7,200.</p>
+              <div class="blog-meta">
+                <span>May 5, 2026</span>
+                <span>•</span>
+                <span>12 min read</span>
+              </div>
+              <a href="#" class="read-more-link">Read Case Study <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <!-- Articles grid -->
+          <div class="cards-grid">
+            <!-- Article 1 -->
+            <div class="project-card" data-category="seo">
+              <div class="project-image" style="background-color: #0b1a30;">
+                <div class="project-image-fallback">
+                  <img src="Emoji/dart.png" alt="Dart target">
+                </div>
+              </div>
+              <div class="project-content">
+                <span class="project-cat">SEO</span>
+                <h3 class="project-title">Semantic SEO in 2026: How Topical Authority Beats Keyword Density</h3>
+                <p class="project-desc">Google's algorithms favor depth and coverage. Learn how to map topical hubs.</p>
+                <div class="blog-meta">
+                  <span>Apr 18, 2026</span>
+                  <span>•</span>
+                  <span>7 min read</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Article 2 -->
+            <div class="project-card" data-category="ppc">
+              <div class="project-image" style="background-color: #2b110a;">
+                <div class="project-image-fallback">
+                  <img src="Emoji/chart_with_upwards_trend.png" alt="Chart trend">
+                </div>
+              </div>
+              <div class="project-content">
+                <span class="project-cat">Google Ads</span>
+                <h3 class="project-title">Why Your Google Ads ROAS is Low (And How to Fix It)</h3>
+                <p class="project-desc">Stop wasting budget on broad terms. Here are the 7 configuration checks.</p>
+                <div class="blog-meta">
+                  <span>Apr 8, 2026</span>
+                  <span>•</span>
+                  <span>9 min read</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Article 3 -->
+            <div class="project-card" data-category="webdev">
+              <div class="project-image" style="background-color: #0a2911;">
+                <div class="project-image-fallback">
+                  <img src="Emoji/zap.png" alt="Lightning bolt">
+                </div>
+              </div>
+              <div class="project-content">
+                <span class="project-cat">Web Dev</span>
+                <h3 class="project-title">Shopify vs WordPress in 2026: Which Platform Actually Converts Better?</h3>
+                <p class="project-desc">We run the loading speeds and template checks on conversion metrics.</p>
+                <div class="blog-meta">
+                  <span>Apr 1, 2026</span>
+                  <span>•</span>
+                  <span>8 min read</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Article 4 -->
+            <div class="project-card" data-category="content">
+              <div class="project-image" style="background-color: #2b1c0e;">
+                <div class="project-image-fallback">
+                  <img src="Emoji/writing_hand.png" alt="Hand writing">
+                </div>
+              </div>
+              <div class="project-content">
+                <span class="project-cat">Content Marketing</span>
+                <h3 class="project-title">The Content Cluster Strategy That Ranks for 500+ Keywords</h3>
+                <p class="project-desc">Build semantic internal links that spread authority and ranking power.</p>
+                <div class="blog-meta">
+                  <span>Mar 22, 2026</span>
+                  <span>•</span>
+                  <span>11 min read</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Article 5 -->
+            <div class="project-card" data-category="ecommerce">
+              <div class="project-image" style="background-color: #0d2b27;">
+                <div class="project-image-fallback">
+                  <img src="Emoji/shopping_trolley.png" alt="Shopping cart">
+                </div>
+              </div>
+              <div class="project-content">
+                <span class="project-cat">E-commerce</span>
+                <h3 class="project-title">How We Improved a Shopify Store's Conversion Rate by 180% in 60 Days</h3>
+                <p class="project-desc">A deep dive into checkout enhancements and friction reduction steps.</p>
+                <div class="blog-meta">
+                  <span>Mar 10, 2026</span>
+                  <span>•</span>
+                  <span>10 min read</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Article 6 -->
+            <div class="project-card" data-category="email">
+              <div class="project-image" style="background-color: #120e29;">
+                <div class="project-image-fallback">
+                  <img src="Emoji/mailbox_with_mail.png" alt="Mailbox">
+                </div>
+              </div>
+              <div class="project-content">
+                <span class="project-cat">Email Marketing</span>
+                <h3 class="project-title">The 3 Email Sequence That Generates 30% of Our Clients' Revenue</h3>
+                <p class="project-desc">Setup cart abandonment, welcome workflows, and win-back emails.</p>
+                <div class="blog-meta">
+                  <span>Mar 1, 2026</span>
+                  <span>•</span>
+                  <span>6 min read</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Article 7 -->
+            <div class="project-card" data-category="seo">
+              <div class="project-image" style="background-color: #0f1c29;">
+                <div class="project-image-fallback">
+                  <img src="Emoji/link.png" alt="Link icon">
+                </div>
+              </div>
+              <div class="project-content">
+                <span class="project-cat">SEO</span>
+                <h3 class="project-title">Local SEO in 2026: The Complete Checklist for Small Businesses</h3>
+                <p class="project-desc">Dominate localized search intent and clean up directory profiles.</p>
+                <div class="blog-meta">
+                  <span>Feb 18, 2026</span>
+                  <span>•</span>
+                  <span>15 min read</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Article 8 -->
+            <div class="project-card" data-category="social">
+              <div class="project-image" style="background-color: #1b1229;">
+                <div class="project-image-fallback">
+                  <img src="Emoji/iphone.png" alt="iPhone icon">
+                </div>
+              </div>
+              <div class="project-content">
+                <span class="project-cat">Social Media</span>
+                <h3 class="project-title">Facebook Ads in 2026: What's Working Right Now (With Examples)</h3>
+                <p class="project-desc">Creative layouts and custom scaling rules driving positive ROAS results.</p>
+                <div class="blog-meta">
+                  <span>Feb 10, 2026</span>
+                  <span>•</span>
+                  <span>8 min read</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Load more button -->
+            <div class="load-more-container">
+              <button class="btn btn-outline" onclick="alert('All available articles loaded.')">Load More Articles <i class="fas fa-redo"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+        <div>
+          <!-- Widget 1: About the Author -->
+          <div class="sidebar-widget author-widget">
+            <div class="author-avatar">KM</div>
+            <h4 class="author-name">Kamrujjaman Mufti</h4>
+            <div class="author-title">Founder, Digital World</div>
+            <p class="author-desc">Full-service digital marketing expert with a passion for helping businesses scaling growth through SEO, web development, paid ads, and content marketing.</p>
+            <div class="author-socials">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <!-- Widget 2: Newsletter -->
+          <div class="sidebar-widget">
+            <h3>Weekly Newsletter</h3>
+            <p class="newsletter-desc">Get one actionable digital marketing tip every week. No fluff, no spam — just insights that grow your business.</p>
+            <form class="newsletter-form">
+              <input type="email" class="newsletter-input" placeholder="your@email.com" required>
+              <button type="submit" class="newsletter-btn">Subscribe - It's Free</button>
+            </form>
+          </div>
+
+          <!-- Widget 3: Popular Topics -->
+          <div class="sidebar-widget">
+            <h3>Popular Topics</h3>
+            <div class="tags-list">
+              <span class="tag-badge">SEO <span class="count">18</span></span>
+              <span class="tag-badge">Google Ads <span class="count">6</span></span>
+              <span class="tag-badge">Web Dev <span class="count">5</span></span>
+              <span class="tag-badge">Content <span class="count">4</span></span>
+              <span class="tag-badge">Email <span class="count">3</span></span>
+              <span class="tag-badge">Social Ads <span class="count">2</span></span>
+            </div>
+          </div>
+
+          <!-- Widget 4: Recent Posts -->
+          <div class="sidebar-widget">
+            <h3>Recent Posts</h3>
+            <div class="recent-list">
+              <div class="recent-item">
+                <div class="recent-thumb"><img src="Emoji/mag.png" alt="Search icon"></div>
+                <div class="recent-info">
+                  <h4>How We Doubled Organic Traffic...</h4>
+                  <p>May 5, 2026</p>
+                </div>
+              </div>
+              <div class="recent-item">
+                <div class="recent-thumb"><img src="Emoji/chart_with_upwards_trend.png" alt="Chart trend"></div>
+                <div class="recent-info">
+                  <h4>Why Your Google Ads ROAS is Low...</h4>
+                  <p>Apr 8, 2026</p>
+                </div>
+              </div>
+              <div class="recent-item">
+                <div class="recent-thumb"><img src="Emoji/zap.png" alt="Zap icon"></div>
+                <div class="recent-info">
+                  <h4>Shopify vs WordPress in 2026...</h4>
+                  <p>Apr 1, 2026</p>
+                </div>
+              </div>
+              <div class="recent-item">
+                <div class="recent-thumb"><img src="Emoji/writing_hand.png" alt="Pen icon"></div>
+                <div class="recent-info">
+                  <h4>The Content Cluster Strategy...</h4>
+                  <p>Mar 22, 2026</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Widget 5: Ready to Grow -->
+          <div class="sidebar-widget blue" style="background-color: var(--color-primary-light); border-color: rgba(0, 118, 255, 0.15); text-align: center;">
+            <h3 style="color: var(--color-primary); font-size: 1.1rem; margin-bottom: 12px;">Ready to grow?</h3>
+            <p style="font-size: 0.8rem; color: var(--color-text-muted); margin-bottom: 20px;">Book a free 30-minute strategy call, and we'll map out a plan to double your traffic.</p>
+            <a href="contact.html" class="btn btn-primary btn-sm" style="width: 100%;">Book Free Call <i class="fas fa-chevron-right" style="font-size: 0.75rem;"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h3>Digital World</h3>
+          <p>Full-Service Digital Marketing Agency – 5 Years Experience & Serving 11 countries worldwide.</p>
+          <div class="footer-flags">
+            <img src="Flag emoji/United States.svg" alt="USA">
+            <img src="Flag emoji/United Kingdom.svg" alt="UK">
+            <img src="Flag emoji/Canada.svg" alt="Canada">
+            <img src="Flag emoji/Ireland.svg" alt="Ireland">
+            <img src="Flag emoji/South Africa.svg" alt="South Africa">
+            <img src="Flag emoji/Germany.svg" alt="Germany">
+            <img src="Flag emoji/Netherlands.svg" alt="Netherlands">
+            <img src="Flag emoji/Australia.svg" alt="Australia">
+            <img src="Flag emoji/New Zealand.svg" alt="New Zealand">
+            <img src="Flag emoji/UAE.svg" alt="UAE">
+            <img src="Flag emoji/Bangladesh.svg" alt="Bangladesh">
+          </div>
+          <div class="footer-socials">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-pinterest-p"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-icon"><i class="fas fa-link"></i></a>
+          </div>
+          <a href="contact.html" class="btn btn-primary btn-sm" style="font-size:0.75rem; padding: 8px 16px;"><i class="fas fa-calendar-alt"></i> Book Free Consultation</a>
+        </div>
+        <div class="footer-links-col">
+          <h4>SEO Solutions</h4>
+          <ul>
+            <li><a href="about.html">Local SEO</a></li>
+            <li><a href="about.html">Ecommerce SEO</a></li>
+            <li><a href="about.html">International SEO</a></li>
+            <li><a href="about.html">Youtube / Video SEO</a></li>
+            <li><a href="about.html">SaaS SEO</a></li>
+            <li><a href="about.html">Semantic SEO</a></li>
+            <li><a href="about.html">AI SEO</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Development & Ads</h4>
+          <ul>
+            <li><a href="about.html">WordPress Development</a></li>
+            <li><a href="about.html">Shopify Development</a></li>
+            <li><a href="about.html">Google Ads / PPC</a></li>
+            <li><a href="about.html">Facebook & Instagram Ads</a></li>
+            <li><a href="about.html">Content Marketing</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="mailto:kj.jaman368@gmail.com" style="word-break: break-all;">kj.jaman368@gmail.com</a></li>
+            <li style="color: var(--color-footer-muted);">+880 1798-667820</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Copyright © 2025 Digital World - Kamrujjaman Mufti. All rights reserved.</p>
+        <p>Based in Dhaka, Bangladesh & Available worldwide</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Chat -->
+  <a href="https://wa.me/8801798667820" class="whatsapp-chat" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- JS Logic -->
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Let's build something great - Digital World</title>
+  <meta name="description" content="Get in touch with Digital World. Send us a message about your project and receive a personalized growth plan.">
+  <link rel="stylesheet" href="style.css">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="index.html" class="logo">
+        <span class="logo-dot"></span>
+        Digital World
+      </a>
+      <button class="menu-toggle" aria-label="Toggle Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <div class="nav-item-dropdown">
+          <a href="#" class="nav-link">Services <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="about.html" class="dropdown-item">SEO Consultancy</a>
+            <a href="about.html" class="dropdown-item">PPC Campaigns</a>
+            <a href="about.html" class="dropdown-item">Web Design & Dev</a>
+            <a href="about.html" class="dropdown-item">Content Strategy</a>
+            <a href="about.html" class="dropdown-item">Social Media Marketing</a>
+            <a href="about.html" class="dropdown-item">Email Sequence</a>
+          </div>
+        </div>
+        <a href="portfolio.html" class="nav-link">Portfolio</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="contact.html" class="nav-link active">Contact</a>
+        <a href="contact.html" class="btn btn-primary">Get Started</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Contact Hero -->
+  <section class="section-padding" style="padding-top: 120px; padding-bottom: 60px;">
+    <div class="container">
+      <div class="text-center">
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          Available for new projects
+        </div>
+        <h1 class="section-title">Let's build<br><span style="color: var(--color-primary); font-style: italic; font-weight: 500; font-family: var(--font-serif);">something great.</span></h1>
+        <p class="section-subtitle">Tell us about your project. Kamrujjaman will get back to you personally within 24 hours with honest advice and a clear next step — no sales pitch, no automated replies.</p>
+      </div>
+
+      <!-- Split Layout: Form & Sidebar Info -->
+      <div class="split-layout">
+        <!-- Form Column -->
+        <div class="form-card">
+          <h2>Tell me about your project</h2>
+          <p>Fill in a few details and I'll come back to you with a personalised plan — usually within a few hours.</p>
+          
+          <form id="project-contact-form">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="your-name" class="form-label">Your Name *</label>
+                <input type="text" id="your-name" class="form-input" placeholder="John Smith" required>
+              </div>
+              <div class="form-group">
+                <label for="email-address" class="form-label">Email Address *</label>
+                <input type="email" id="email-address" class="form-input" placeholder="john@company.com" required>
+              </div>
+              <div class="form-group">
+                <label for="company-brand" class="form-label">Company / Brand</label>
+                <input type="text" id="company-brand" class="form-input" placeholder="Acme Corp (optional)">
+              </div>
+              <div class="form-group">
+                <label for="your-country" class="form-label">Your Country</label>
+                <select id="your-country" class="form-select">
+                  <option value="" disabled selected>Select country...</option>
+                  <option value="US">United States</option>
+                  <option value="UK">United Kingdom</option>
+                  <option value="CA">Canada</option>
+                  <option value="AU">Australia</option>
+                  <option value="IE">Ireland</option>
+                  <option value="AE">UAE</option>
+                  <option value="ZA">South Africa</option>
+                  <option value="DE">Germany</option>
+                  <option value="NL">Netherlands</option>
+                  <option value="NZ">New Zealand</option>
+                  <option value="BD">Bangladesh</option>
+                </select>
+              </div>
+              <div class="form-group full-width">
+                <label for="service-needed" class="form-label">Service Needed *</label>
+                <select id="service-needed" class="form-select" required>
+                  <option value="" disabled selected>Select a service...</option>
+                  <option value="seo">Search Engine Optimization (SEO)</option>
+                  <option value="ppc">Pay-Per-Click Advertising (PPC)</option>
+                  <option value="webdev">Web Design & Development</option>
+                  <option value="social">Social Media Marketing</option>
+                  <option value="email">Email Marketing & Automation</option>
+                  <option value="content">Content Strategy & Creation</option>
+                  <option value="cro">Conversion Rate Optimization (CRO)</option>
+                  <option value="maintenance">Website Maintenance & Care</option>
+                </select>
+              </div>
+              
+              <!-- Budget Radio Selectors -->
+              <div class="budget-selector">
+                <label class="form-label">Monthly Budget</label>
+                <div class="budget-grid">
+                  <div class="budget-option">
+                    <input type="radio" name="budget" id="budget-1" value="under-300" checked>
+                    <label for="budget-1" class="budget-label">Under $300</label>
+                  </div>
+                  <div class="budget-option">
+                    <input type="radio" name="budget" id="budget-2" value="300-600">
+                    <label for="budget-2" class="budget-label">$300 - $600</label>
+                  </div>
+                  <div class="budget-option">
+                    <input type="radio" name="budget" id="budget-3" value="600-1200">
+                    <label for="budget-3" class="budget-label">$600 - $1,200</label>
+                  </div>
+                  <div class="budget-option">
+                    <input type="radio" name="budget" id="budget-4" value="1200plus">
+                    <label for="budget-4" class="budget-label">$1,200+</label>
+                  </div>
+                  <div class="budget-option">
+                    <input type="radio" name="budget" id="budget-5" value="discuss">
+                    <label for="budget-5" class="budget-label">Let's discuss</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group full-width">
+                <label for="your-goals" class="form-label">Tell Me About Your Goals *</label>
+                <textarea id="your-goals" class="form-textarea" rows="5" placeholder="Describe your business, what you're trying to achieve, and any relevant details..." required></textarea>
+              </div>
+              
+              <div class="form-group full-width" style="margin-top: 10px;">
+                <button type="submit" class="btn btn-primary" style="align-self: flex-start;">Send Message <i class="fas fa-arrow-right"></i></button>
+                <p style="font-size: 0.75rem; color: var(--color-text-light); margin-top: 12px; margin-bottom: 0;">I respond to every message personally, within 24 hours.</p>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Sidebar Info Column -->
+        <div class="info-column">
+          <!-- Open to New Projects card -->
+          <div class="info-card dark">
+            <span class="badge badge-green" style="margin-bottom: 12px;">● Open to new projects</span>
+            <h3>Based in Bangladesh. Working worldwide.</h3>
+            <p>Remote-first, communication-first. We work across time zones so you're never left waiting — responses within hours, not days.</p>
+            <div class="grid-2col">
+              <div class="flag-pill"><img src="Flag emoji/United States.svg" alt="USA"> USA</div>
+              <div class="flag-pill"><img src="Flag emoji/United Kingdom.svg" alt="UK"> UK</div>
+              <div class="flag-pill"><img src="Flag emoji/Canada.svg" alt="Canada"> Canada</div>
+              <div class="flag-pill"><img src="Flag emoji/Australia.svg" alt="Australia"> Australia</div>
+              <div class="flag-pill"><img src="Flag emoji/Ireland.svg" alt="Ireland"> Ireland</div>
+              <div class="flag-pill"><img src="Flag emoji/UAE.svg" alt="UAE"> UAE</div>
+              <div class="flag-pill"><img src="Flag emoji/South Africa.svg" alt="South Africa"> South Africa</div>
+              <div class="flag-pill"><img src="Flag emoji/Germany.svg" alt="Germany"> Germany</div>
+              <div class="flag-pill"><img src="Flag emoji/Netherlands.svg" alt="Netherlands"> Netherlands</div>
+              <div class="flag-pill"><img src="Flag emoji/New Zealand.svg" alt="New Zealand"> New Zealand</div>
+              <div class="flag-pill"><img src="Flag emoji/Bangladesh.svg" alt="Bangladesh"> Bangladesh</div>
+            </div>
+          </div>
+
+          <!-- Direct Contact card -->
+          <div class="info-card">
+            <div class="info-label">Email</div>
+            <div class="info-value"><a href="mailto:kj.jaman368@gmail.com">kj.jaman368@gmail.com</a></div>
+
+            <div class="info-label">WhatsApp / Phone</div>
+            <div class="info-value"><a href="https://wa.me/8801798667820">+880 1798-667820</a></div>
+
+            <div class="info-label">LinkedIn</div>
+            <div class="info-value"><a href="https://linkedin.com/in/kamrujjaman-mufti" target="_blank" rel="noopener">linkedin.com/in/kamrujjaman-mufti</a></div>
+
+            <div class="info-label">Facebook</div>
+            <div class="info-value"><a href="https://facebook.com/digitalworld1968" target="_blank" rel="noopener">facebook.com/digitalworld1968</a></div>
+
+            <div class="info-label">Location</div>
+            <div class="info-value" style="margin-bottom: 0;">Dhaka, Bangladesh (Remote)</div>
+          </div>
+
+          <!-- Response time banner -->
+          <div class="info-card blue">
+            <div class="info-label">Response Time</div>
+            <h3 style="color: var(--color-primary); font-size: 1.15rem; font-weight: 700; margin-bottom: 8px;"><i class="fas fa-bolt"></i> Within 24 hours</h3>
+            <p>Usually much faster. Kamrujjaman reads every message personally and never uses automated replies.</p>
+          </div>
+
+          <!-- What happens next card -->
+          <div class="info-card">
+            <h3 style="font-size: 0.95rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 20px;">What happens next</h3>
+            <div class="steps-list">
+              <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-body">
+                  <h4>You send the form</h4>
+                  <p>Takes 2 minutes. The more detail, the better I can help.</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-body">
+                  <h4>I review & respond</h4>
+                  <p>I'll reply within 24 hours with initial thoughts and any questions.</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-body">
+                  <h4>Free strategy call</h4>
+                  <p>30 minutes to align on goals, strategy, and what success looks like.</p>
+                </div>
+              </div>
+              <div class="step-item">
+                <div class="step-num">4</div>
+                <div class="step-body">
+                  <h4>We get to work</h4>
+                  <p>Clear proposal, timeline, and kickoff — then we build something great.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Section -->
+      <div class="faq-section">
+        <h2 class="faq-title">Frequently asked questions</h2>
+        <div class="faq-list">
+          <!-- FAQ 1 -->
+          <div class="faq-item">
+            <div class="faq-header">
+              <span class="faq-question">Do you work with clients outside Bangladesh?</span>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-content">
+              <p>Yes, absolutely. Over 90% of our clients are based globally across the US, UK, Canada, Australia, Ireland, and UAE. We maintain remote-first, async-friendly communication structures to ensure overlapping updates occur smoothly regardless of timezone differences.</p>
+            </div>
+          </div>
+          <!-- FAQ 2 -->
+          <div class="faq-item">
+            <div class="faq-header">
+              <span class="faq-question">How long does it take to see SEO results?</span>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-content">
+              <p>SEO is a long-term investment. Generally, initial rankings and organic indexing enhancements are observed within 3 to 6 months of launching technical fixes and structural content mapping. Competitive keywords may require sustained clustering cycles over 6 to 12 months to drive top placements.</p>
+            </div>
+          </div>
+          <!-- FAQ 3 -->
+          <div class="faq-item">
+            <div class="faq-header">
+              <span class="faq-question">What is your pricing structure?</span>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-content">
+              <p>We work primarily on a monthly retainer basis ranging from $299 to $1,199 depending on your niche, keyword volume, and active developer requirements. Custom structural design projects are priced based on precise feature scopes.</p>
+            </div>
+          </div>
+          <!-- FAQ 4 -->
+          <div class="faq-item">
+            <div class="faq-header">
+              <span class="faq-question">Do you offer a free consultation?</span>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-content">
+              <p>Yes. We offer an initial free 30-minute growth strategy call. We audit your current visibility, target gaps, and structure a custom plan that outlines immediate fixes you can run yourself or contract us to execute.</p>
+            </div>
+          </div>
+          <!-- FAQ 5 -->
+          <div class="faq-item">
+            <div class="faq-header">
+              <span class="faq-question">Can you handle multiple services at once?</span>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-content">
+              <p>Yes. Our agency offers integrated campaigns combining Technical SEO, Content Strategy, WordPress/Shopify Web Development, and Paid Google/Meta campaigns under a singular reporting dashboard to maximize alignment across your sales funnel.</p>
+            </div>
+          </div>
+          <!-- FAQ 6 -->
+          <div class="faq-item">
+            <div class="faq-header">
+              <span class="faq-question">How do I pay — and what currency?</span>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-content">
+              <p>Payments are handled securely online via credit cards, bank wire transfers, or direct PayPal billing invoices. Retainers are billed monthly in US Dollars (USD) or equivalent local currencies for convenience.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h3>Digital World</h3>
+          <p>Full-Service Digital Marketing Agency – 5 Years Experience & Serving 11 countries worldwide.</p>
+          <div class="footer-flags">
+            <img src="Flag emoji/United States.svg" alt="USA">
+            <img src="Flag emoji/United Kingdom.svg" alt="UK">
+            <img src="Flag emoji/Canada.svg" alt="Canada">
+            <img src="Flag emoji/Ireland.svg" alt="Ireland">
+            <img src="Flag emoji/South Africa.svg" alt="South Africa">
+            <img src="Flag emoji/Germany.svg" alt="Germany">
+            <img src="Flag emoji/Netherlands.svg" alt="Netherlands">
+            <img src="Flag emoji/Australia.svg" alt="Australia">
+            <img src="Flag emoji/New Zealand.svg" alt="New Zealand">
+            <img src="Flag emoji/UAE.svg" alt="UAE">
+            <img src="Flag emoji/Bangladesh.svg" alt="Bangladesh">
+          </div>
+          <div class="footer-socials">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-pinterest-p"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-icon"><i class="fas fa-link"></i></a>
+          </div>
+          <a href="contact.html" class="btn btn-primary btn-sm" style="font-size:0.75rem; padding: 8px 16px;"><i class="fas fa-calendar-alt"></i> Book Free Consultation</a>
+        </div>
+        <div class="footer-links-col">
+          <h4>SEO Solutions</h4>
+          <ul>
+            <li><a href="about.html">Local SEO</a></li>
+            <li><a href="about.html">Ecommerce SEO</a></li>
+            <li><a href="about.html">International SEO</a></li>
+            <li><a href="about.html">Youtube / Video SEO</a></li>
+            <li><a href="about.html">SaaS SEO</a></li>
+            <li><a href="about.html">Semantic SEO</a></li>
+            <li><a href="about.html">AI SEO</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Development & Ads</h4>
+          <ul>
+            <li><a href="about.html">WordPress Development</a></li>
+            <li><a href="about.html">Shopify Development</a></li>
+            <li><a href="about.html">Google Ads / PPC</a></li>
+            <li><a href="about.html">Facebook & Instagram Ads</a></li>
+            <li><a href="about.html">Content Marketing</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="mailto:kj.jaman368@gmail.com" style="word-break: break-all;">kj.jaman368@gmail.com</a></li>
+            <li style="color: var(--color-footer-muted);">+880 1798-667820</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Copyright © 2025 Digital World - Kamrujjaman Mufti. All rights reserved.</p>
+        <p>Based in Dhaka, Bangladesh & Available worldwide</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Chat -->
+  <a href="https://wa.me/8801798667820" class="whatsapp-chat" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- JS Logic -->
+  <script src="main.js"></script>
+</body>
+</html>

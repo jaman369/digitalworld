@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio - Digital World</title>
+  <meta name="description" content="Explore our case studies and projects across SEO, web design, paid ads, and content marketing. Work that speaks for itself.">
+  <link rel="stylesheet" href="style.css">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="index.html" class="logo">
+        <span class="logo-dot"></span>
+        Digital World
+      </a>
+      <button class="menu-toggle" aria-label="Toggle Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link">Home</a>
+        <div class="nav-item-dropdown">
+          <a href="#" class="nav-link">Services <i class="fas fa-chevron-down"></i></a>
+          <div class="dropdown-menu">
+            <a href="about.html" class="dropdown-item">SEO Consultancy</a>
+            <a href="about.html" class="dropdown-item">PPC Campaigns</a>
+            <a href="about.html" class="dropdown-item">Web Design & Dev</a>
+            <a href="about.html" class="dropdown-item">Content Strategy</a>
+            <a href="about.html" class="dropdown-item">Social Media Marketing</a>
+            <a href="about.html" class="dropdown-item">Email Sequence</a>
+          </div>
+        </div>
+        <a href="portfolio.html" class="nav-link active">Portfolio</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="contact.html" class="btn btn-primary">Get Started</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Portfolio Hero -->
+  <section class="section-padding" style="padding-top: 120px; padding-bottom: 60px;">
+    <div class="container">
+      <div class="text-center">
+        <h1 class="section-title">Work that speaks for itself.</h1>
+        <p class="section-subtitle">Explore a selection of projects across SEO, web design, paid advertising, and content marketing.</p>
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">150<span class="plus">+</span></div>
+          <div class="stat-label">Projects Completed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">120<span class="plus">+</span></div>
+          <div class="stat-label">Happy Clients</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">5</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">11</div>
+          <div class="stat-label">Countries Served</div>
+        </div>
+      </div>
+
+      <!-- Filter Buttons -->
+      <div class="filter-container">
+        <button class="filter-btn active" data-filter="all">All Projects</button>
+        <button class="filter-btn" data-filter="seo">SEO</button>
+        <button class="filter-btn" data-filter="webdev">Web Design & Dev</button>
+        <button class="filter-btn" data-filter="ppc">PPC / Paid Ads</button>
+        <button class="filter-btn" data-filter="social">Social Media Ads</button>
+        <button class="filter-btn" data-filter="content">Content Marketing</button>
+        <button class="filter-btn" data-filter="cro">CRO</button>
+      </div>
+
+      <!-- Projects Grid -->
+      <div class="cards-grid">
+        <!-- Project 1 -->
+        <div class="project-card" data-category="seo">
+          <div class="project-image" style="background-color: #060913;">
+            <div class="project-image-fallback">
+              <img src="Emoji/mag.png" alt="Search magnifying glass">
+            </div>
+          </div>
+          <div class="project-content">
+            <span class="project-cat">SEO</span>
+            <h3 class="project-title">B2B SaaS SEO Strategy</h3>
+            <p class="project-desc">150% organic traffic growth in 6 months for a leading HR software provider.</p>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-card" data-category="content">
+          <div class="project-image" style="background-color: #1e1302;">
+            <div class="project-image-fallback">
+              <img src="Emoji/writing_hand.png" alt="Writing hand emoji">
+            </div>
+          </div>
+          <div class="project-content">
+            <span class="project-cat">Content Marketing</span>
+            <h3 class="project-title">E-commerce Content Strategy</h3>
+            <p class="project-desc">Complete blog and content restructure driving 40% more inbound leads.</p>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project-card" data-category="webdev">
+          <div class="project-image" style="background-color: #0e0413;">
+            <div class="project-image-fallback">
+              <img src="Emoji/computer.png" alt="Computer emoji">
+            </div>
+          </div>
+          <div class="project-content">
+            <span class="project-cat">Web Design & Dev</span>
+            <h3 class="project-title">Custom Shopify Store Redesign</h3>
+            <p class="project-desc">Rebuilding product pages and navigation to enhance conversion by 35%.</p>
+          </div>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="project-card" data-category="ppc">
+          <div class="project-image" style="background-color: #05160b;">
+            <div class="project-image-fallback">
+              <img src="Emoji/zap.png" alt="Lightning bolt emoji">
+            </div>
+          </div>
+          <div class="project-content">
+            <span class="project-cat">PPC / Paid Ads</span>
+            <h3 class="project-title">Google Search ROI Booster</h3>
+            <p class="project-desc">A/B testing ad copy and search landing pages to reduce CPA by 42%.</p>
+          </div>
+        </div>
+
+        <!-- Project 5 -->
+        <div class="project-card" data-category="social">
+          <div class="project-image" style="background-color: #1a0505;">
+            <div class="project-image-fallback">
+              <img src="Emoji/mega.png" alt="Megaphone emoji">
+            </div>
+          </div>
+          <div class="project-content">
+            <span class="project-cat">Social Media Ads</span>
+            <h3 class="project-title">Facebook Ads Scaling</h3>
+            <p class="project-desc">Retargeting campaign structure driving 4x ROAS on apparel launches.</p>
+          </div>
+        </div>
+
+        <!-- Project 6 -->
+        <div class="project-card" data-category="cro">
+          <div class="project-image" style="background-color: #111827;">
+            <div class="project-image-fallback">
+              <img src="Emoji/stopwatch.png" alt="Stopwatch emoji">
+            </div>
+          </div>
+          <div class="project-content">
+            <span class="project-cat">CRO</span>
+            <h3 class="project-title">Checkout Flow Optimization</h3>
+            <p class="project-desc">Streamlining mobile checkouts and cart drawer interactions for 18% lift.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section class="bottom-cta section-padding" style="background-color: var(--color-bg-light);">
+    <div class="container">
+      <h2>Ready to build your growth engine?</h2>
+      <p>Book a free 30-minute strategy call, and we'll map out a plan to double your traffic.</p>
+      <div class="bottom-cta-actions">
+        <a href="contact.html" class="btn btn-primary">Book Free Call</a>
+        <a href="mailto:kj.jaman368@gmail.com" class="btn btn-secondary">Email Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <h3>Digital World</h3>
+          <p>Full-Service Digital Marketing Agency – 5 Years Experience & Serving 11 countries worldwide.</p>
+          <div class="footer-flags">
+            <img src="Flag emoji/United States.svg" alt="USA">
+            <img src="Flag emoji/United Kingdom.svg" alt="UK">
+            <img src="Flag emoji/Canada.svg" alt="Canada">
+            <img src="Flag emoji/Ireland.svg" alt="Ireland">
+            <img src="Flag emoji/South Africa.svg" alt="South Africa">
+            <img src="Flag emoji/Germany.svg" alt="Germany">
+            <img src="Flag emoji/Netherlands.svg" alt="Netherlands">
+            <img src="Flag emoji/Australia.svg" alt="Australia">
+            <img src="Flag emoji/New Zealand.svg" alt="New Zealand">
+            <img src="Flag emoji/UAE.svg" alt="UAE">
+            <img src="Flag emoji/Bangladesh.svg" alt="Bangladesh">
+          </div>
+          <div class="footer-socials">
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-pinterest-p"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-icon"><i class="fas fa-link"></i></a>
+          </div>
+          <a href="contact.html" class="btn btn-primary btn-sm" style="font-size:0.75rem; padding: 8px 16px;"><i class="fas fa-calendar-alt"></i> Book Free Consultation</a>
+        </div>
+        <div class="footer-links-col">
+          <h4>SEO Solutions</h4>
+          <ul>
+            <li><a href="about.html">Local SEO</a></li>
+            <li><a href="about.html">Ecommerce SEO</a></li>
+            <li><a href="about.html">International SEO</a></li>
+            <li><a href="about.html">Youtube / Video SEO</a></li>
+            <li><a href="about.html">SaaS SEO</a></li>
+            <li><a href="about.html">Semantic SEO</a></li>
+            <li><a href="about.html">AI SEO</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Development & Ads</h4>
+          <ul>
+            <li><a href="about.html">WordPress Development</a></li>
+            <li><a href="about.html">Shopify Development</a></li>
+            <li><a href="about.html">Google Ads / PPC</a></li>
+            <li><a href="about.html">Facebook & Instagram Ads</a></li>
+            <li><a href="about.html">Content Marketing</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="mailto:kj.jaman368@gmail.com" style="word-break: break-all;">kj.jaman368@gmail.com</a></li>
+            <li style="color: var(--color-footer-muted);">+880 1798-667820</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Copyright © 2025 Digital World - Kamrujjaman Mufti. All rights reserved.</p>
+        <p>Based in Dhaka, Bangladesh & Available worldwide</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Chat -->
+  <a href="https://wa.me/8801798667820" class="whatsapp-chat" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- JS Logic -->
+  <script src="main.js"></script>
+</body>
+</html>
