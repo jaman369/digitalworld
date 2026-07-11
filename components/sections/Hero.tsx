@@ -7,16 +7,21 @@ import * as Icons from "lucide-react";
 
 export default function Hero() {
   const floatingBadges = [
-    { text: "Local SEO", icon: Icons.Search, x: "-35%", y: "-80px", color: "text-blue-600 bg-blue-50 border-blue-100" },
-    { text: "Ecommerce SEO", icon: Icons.ShoppingBag, x: "32%", y: "-100px", color: "text-emerald-600 bg-emerald-50 border-emerald-100" },
-    { text: "SaaS SEO", icon: Icons.Layers, x: "-38%", y: "40px", color: "text-indigo-600 bg-indigo-50 border-indigo-100" },
-    { text: "Web Design & Dev", icon: Icons.Monitor, x: "38%", y: "60px", color: "text-purple-600 bg-purple-50 border-purple-100" },
-    { text: "WordPress", icon: Icons.Code, x: "-24%", y: "160px", color: "text-sky-600 bg-sky-50 border-sky-100" },
-    { text: "Shopify", icon: Icons.Store, x: "24%", y: "200px", color: "text-emerald-700 bg-emerald-50 border-emerald-100" },
-    { text: "Google Ads", icon: Icons.TrendingUp, x: "-32%", y: "-200px", color: "text-amber-600 bg-amber-50 border-amber-100" },
-    { text: "Facebook Ads", icon: Icons.Users, x: "28%", y: "-220px", color: "text-blue-700 bg-blue-50 border-blue-100" },
-    { text: "Content Marketing", icon: Icons.PenTool, x: "-10%", y: "260px", color: "text-rose-600 bg-rose-50 border-rose-100" },
-    { text: "Email Marketing", icon: Icons.Mail, x: "12%", y: "-280px", color: "text-violet-600 bg-violet-50 border-violet-100" },
+    // Inner Orbit: R = 190px, speed = 25s, clockwise
+    { text: "Local SEO", icon: Icons.Search, orbit: "inner", angle: 0, speed: 25, direction: "cw", color: "text-blue-600 bg-blue-50 border-blue-100" },
+    { text: "SaaS SEO", icon: Icons.Layers, orbit: "inner", angle: 120, speed: 25, direction: "cw", color: "text-indigo-600 bg-indigo-50 border-indigo-100" },
+    { text: "Ecommerce SEO", icon: Icons.ShoppingBag, orbit: "inner", angle: 240, speed: 25, direction: "cw", color: "text-emerald-600 bg-emerald-50 border-emerald-100" },
+    
+    // Middle Orbit: R = 290px, speed = 35s, counter-clockwise
+    { text: "WordPress", icon: Icons.Code, orbit: "mid", angle: 45, speed: 35, direction: "ccw", color: "text-sky-600 bg-sky-50 border-sky-100" },
+    { text: "Shopify", icon: Icons.Store, orbit: "mid", angle: 165, speed: 35, direction: "ccw", color: "text-emerald-700 bg-emerald-50 border-emerald-100" },
+    { text: "Web Design & Dev", icon: Icons.Monitor, orbit: "mid", angle: 285, speed: 35, direction: "ccw", color: "text-purple-600 bg-purple-50 border-purple-100" },
+    
+    // Outer Orbit: R = 395px, speed = 45s, clockwise
+    { text: "Google Ads", icon: Icons.TrendingUp, orbit: "outer", angle: 15, speed: 45, direction: "cw", color: "text-amber-600 bg-amber-50 border-amber-100" },
+    { text: "Facebook Ads", icon: Icons.Users, orbit: "outer", angle: 105, speed: 45, direction: "cw", color: "text-blue-700 bg-blue-50 border-blue-100" },
+    { text: "Content Marketing", icon: Icons.PenTool, orbit: "outer", angle: 195, speed: 45, direction: "cw", color: "text-rose-600 bg-rose-50 border-rose-100" },
+    { text: "Email Marketing", icon: Icons.Mail, orbit: "outer", angle: 285, speed: 45, direction: "cw", color: "text-violet-600 bg-violet-50 border-violet-100" },
   ];
 
   const countries = [
@@ -53,7 +58,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-white py-20 lg:py-32 flex flex-col justify-center min-h-[calc(100vh-80px)]">
+    <section className="relative overflow-hidden bg-white pt-12 pb-0 lg:pt-16 lg:pb-0 flex flex-col justify-between min-h-[calc(100vh-80px)]">
       {/* Background gradients */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(0,118,255,0.05)_0%,transparent_60%)]" />
 
@@ -63,12 +68,12 @@ export default function Hero() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="mx-auto max-w-4xl text-center flex flex-col items-center"
+          className="mx-auto max-w-4xl text-center flex flex-col items-center relative z-10 pointer-events-none"
         >
           {/* Eyebrow Badge */}
           <motion.div
             variants={itemVariants}
-            className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50 px-4 py-1.5 text-xs font-semibold text-neutral-600 shadow-sm mb-8"
+            className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50 px-4 py-1.5 text-xs font-semibold text-neutral-600 shadow-sm mb-6 pointer-events-auto"
           >
             <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
             Available for new projects · Based in Dhaka, Bangladesh
@@ -77,7 +82,7 @@ export default function Hero() {
           {/* Headline */}
           <motion.h1
             variants={itemVariants}
-            className="font-serif text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-neutral-900 leading-[1.1] mb-6"
+            className="font-serif text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-neutral-900 leading-[1.1] mb-5 pointer-events-auto"
           >
             Grow your business<br />
             <span className="text-primary italic font-medium">beyond borders.</span>
@@ -86,7 +91,7 @@ export default function Hero() {
           {/* Subtext */}
           <motion.p
             variants={itemVariants}
-            className="font-sans text-lg text-neutral-500 leading-relaxed max-w-2xl mb-10"
+            className="font-sans text-base sm:text-lg text-neutral-500 leading-relaxed max-w-2xl mb-8 pointer-events-auto"
           >
             Digital World is a full-service digital marketing agency helping businesses in the USA, UK, Canada, UAE, Australia & beyond dominate search, ads, and the web — led by Kamrujjaman Mufti.
           </motion.p>
@@ -94,7 +99,7 @@ export default function Hero() {
           {/* CTAs */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 w-full sm:w-auto"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10 w-full sm:w-auto pointer-events-auto"
           >
             <Link
               href="/contact"
@@ -111,7 +116,7 @@ export default function Hero() {
           </motion.div>
 
           {/* Mobile Badge Cloud */}
-          <div className="flex flex-wrap justify-center gap-2.5 max-w-2xl md:hidden mb-12">
+          <div className="flex flex-wrap justify-center gap-2.5 max-w-2xl md:hidden mb-8 pointer-events-auto">
             {floatingBadges.map((badge, idx) => {
               const Icon = badge.icon;
               return (
@@ -127,37 +132,34 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Desktop Absolute Floating Badges */}
-        <div className="absolute inset-0 pointer-events-none hidden md:block select-none overflow-hidden max-w-7xl mx-auto w-full h-full">
+        {/* Desktop Absolute Floating Badges & Orbit Tracks */}
+        <div className="absolute inset-0 pointer-events-none hidden md:block select-none max-w-7xl mx-auto w-full h-full z-0">
+          {/* Orbit Tracks */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-neutral-200/25 pointer-events-none z-0 transition-all duration-300" 
+               style={{ width: "calc(var(--radius-inner) * 2)", height: "calc(var(--radius-inner) * 2)" }} />
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-neutral-200/25 pointer-events-none z-0 transition-all duration-300" 
+               style={{ width: "calc(var(--radius-mid) * 2)", height: "calc(var(--radius-mid) * 2)" }} />
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-neutral-200/25 pointer-events-none z-0 transition-all duration-300" 
+               style={{ width: "calc(var(--radius-outer) * 2)", height: "calc(var(--radius-outer) * 2)" }} />
+
+          {/* Orbiting Badges */}
           {floatingBadges.map((badge, idx) => {
             const Icon = badge.icon;
+            
             return (
-              <motion.div
+              <div
                 key={idx}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{
-                  opacity: 0.85,
-                  scale: 1,
-                  y: [0, -12, 0],
-                }}
-                transition={{
-                  y: {
-                    repeat: Infinity,
-                    duration: 4 + (idx % 3) * 1.2,
-                    ease: "easeInOut",
-                  },
-                  opacity: { duration: 1, delay: idx * 0.1 },
-                  scale: { duration: 1, delay: idx * 0.1 },
-                }}
-                className={`absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold shadow-premium cursor-default ${badge.color}`}
+                className={`absolute left-1/2 top-1/2 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold shadow-premium cursor-pointer pointer-events-auto select-none transition-all duration-300 ${badge.color} orbit-badge`}
                 style={{
-                  marginLeft: badge.x,
-                  marginTop: badge.y,
-                }}
+                  "--start-angle": `${badge.angle}deg`,
+                  "--orbit-radius": `var(--radius-${badge.orbit})`,
+                  animationName: `orbit-${badge.direction}`,
+                  animationDuration: `${badge.speed}s`,
+                } as React.CSSProperties}
               >
                 <Icon className="h-4 w-4" />
                 {badge.text}
-              </motion.div>
+              </div>
             );
           })}
         </div>
@@ -187,6 +189,78 @@ export default function Hero() {
           ))}
         </div>
       </div>
+
+      {/* Scoped CSS Inject for Orbit Animations */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        :root {
+          --radius-inner: 215px;
+          --radius-mid: 315px;
+          --radius-outer: 420px;
+        }
+
+        @media (max-width: 1400px) {
+          :root {
+            --radius-inner: 190px;
+            --radius-mid: 275px;
+            --radius-outer: 360px;
+          }
+        }
+
+        @media (max-width: 1200px) {
+          :root {
+            --radius-inner: 160px;
+            --radius-mid: 230px;
+            --radius-outer: 300px;
+          }
+        }
+
+        @media (max-width: 991px) {
+          :root {
+            --radius-inner: 130px;
+            --radius-mid: 185px;
+            --radius-outer: 240px;
+          }
+        }
+
+        .orbit-badge {
+          animation-iteration-count: infinite;
+          animation-timing-function: linear;
+          transform-origin: center center;
+          will-change: transform;
+        }
+
+        .orbit-badge:hover {
+          animation-play-state: paused !important;
+          scale: 1.08;
+          box-shadow: 0 10px 30px -5px rgba(0, 118, 255, 0.25), 0 0 15px rgba(0, 118, 255, 0.15);
+          z-index: 50;
+        }
+
+        @keyframes orbit-cw {
+          0% {
+            transform: translate(-50%, -50%) rotate(var(--start-angle)) translateX(var(--orbit-radius)) rotate(calc(-1 * var(--start-angle)));
+          }
+          100% {
+            transform: translate(-50%, -50%) rotate(calc(var(--start-angle) + 360deg)) translateX(var(--orbit-radius)) rotate(calc(-1 * (var(--start-angle) + 360deg)));
+          }
+        }
+
+        @keyframes orbit-ccw {
+          0% {
+            transform: translate(-50%, -50%) rotate(var(--start-angle)) translateX(var(--orbit-radius)) rotate(calc(-1 * var(--start-angle)));
+          }
+          100% {
+            transform: translate(-50%, -50%) rotate(calc(var(--start-angle) - 360deg)) translateX(var(--orbit-radius)) rotate(calc(-1 * (var(--start-angle) - 360deg)));
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .orbit-badge {
+            animation: none !important;
+            transform: translate(-50%, -50%) rotate(var(--start-angle)) translateX(var(--orbit-radius)) rotate(calc(-1 * var(--start-angle))) !important;
+          }
+        }
+      `}} />
     </section>
   );
 }
