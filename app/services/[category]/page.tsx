@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import * as Icons from "lucide-react";
 import { servicesData } from "@/data/services";
 
@@ -204,66 +205,49 @@ export default async function CategoryPage({ params }: PageProps) {
       </section>
 
       {/* Sub-items Anchor List */}
-      <section id="services-list" className="py-20 lg:py-24 scroll-mt-20">
+      <section id="services-list" className="py-20 lg:py-24 bg-neutral-50/20 border-t border-neutral-100 scroll-mt-20">
         <div className="container mx-auto max-w-7xl px-6">
-          <div className="flex flex-col gap-16 lg:gap-20">
-            {category.subItems.map((sub, idx) => {
+          <div className="flex flex-col gap-12 lg:gap-16">
+            {category.subItems.map((sub) => {
               return (
                 <div 
                   key={sub.slug}
                   id={sub.slug}
-                  className="scroll-mt-28 group relative rounded-3xl border border-neutral-200/60 bg-white p-8 lg:p-12 shadow-sm transition-all duration-300 hover:shadow-premium hover:border-primary/20"
+                  className="scroll-mt-28 py-16 lg:py-20 border-b border-neutral-200/50 last:border-b-0 first:pt-0 last:pb-0 group"
                 >
-                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
                     
                     {/* Left Column: Content (7/12) */}
-                    <div className="lg:col-span-7 flex flex-col justify-center">
-                      <div className="flex items-center gap-3 mb-4">
-                        <span className="text-[10px] font-bold text-neutral-300 uppercase tracking-widest">
-                          Service 0{idx + 1}
-                        </span>
-                        <span className="h-1 w-1 rounded-full bg-neutral-300" />
-                        <span className="text-[10px] font-bold text-primary uppercase tracking-wider">
-                          {category.title}
-                        </span>
-                      </div>
-                      
-                      <h3 className="font-serif text-2xl sm:text-3xl font-bold text-neutral-900 mb-2">
+                    <div className="lg:col-span-7 flex flex-col justify-center text-left">
+                      <span className="text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-[0.25em] mb-4 block">
                         {sub.name}
+                      </span>
+                      
+                      <h3 className="font-serif text-3xl sm:text-4xl font-bold text-neutral-900 leading-tight mb-6 max-w-xl">
+                        {sub.tagline || sub.name}
                       </h3>
                       
-                      {sub.tagline && (
-                        <p className="font-sans text-xs sm:text-sm font-semibold text-primary mb-4">
-                          {sub.tagline}
-                        </p>
-                      )}
-                      
-                      <p className="font-sans text-xs sm:text-sm text-neutral-500 leading-relaxed mb-6">
+                      <p className="font-sans text-xs sm:text-sm text-neutral-500 leading-relaxed mb-8 max-w-xl">
                         {sub.description}
                       </p>
 
-                      {/* Benefits bullets list */}
+                      {/* Benefits checklist (single vertical column) */}
                       {sub.benefits && sub.benefits.length > 0 && (
-                        <div className="mb-8">
-                          <h4 className="font-sans text-[10px] font-bold text-neutral-400 uppercase tracking-wider mb-3">
-                            Key Deliverables & Benefits
-                          </h4>
-                          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            {sub.benefits.map((benefit, bidx) => (
-                              <li key={bidx} className="flex items-start gap-2 text-xs sm:text-sm text-neutral-600">
-                                <Icons.CheckCircle2 className="h-4.5 w-4.5 text-emerald-500 shrink-0 mt-0.5" />
-                                <span>{benefit}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
+                        <ul className="flex flex-col gap-3.5 mb-8 text-left max-w-xl">
+                          {sub.benefits.map((benefit, bidx) => (
+                            <li key={bidx} className="flex items-start gap-2.5 text-xs sm:text-sm text-neutral-500">
+                              <Icons.Check className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
+                              <span>{benefit}</span>
+                            </li>
+                          ))}
+                        </ul>
                       )}
 
                       {/* Actions Row */}
-                      <div className="flex flex-wrap items-center gap-4 border-t border-neutral-100 pt-6 mt-4">
+                      <div className="flex flex-wrap items-center gap-4">
                         <Link
                           href={sub.primaryCtaLink || `/contact?service=${sub.slug}`}
-                          className="inline-flex items-center gap-1.5 rounded-full bg-primary hover:bg-primary-hover px-5 py-2.5 font-sans text-xs font-bold text-white shadow-sm transition-all hover:scale-[1.01]"
+                          className="inline-flex items-center gap-1.5 rounded-full bg-primary hover:bg-primary-hover px-6 py-3 font-sans text-xs font-bold text-white shadow-sm transition-all hover:scale-[1.01]"
                         >
                           {sub.primaryCtaText || "Get Started"} <Icons.ArrowRight className="h-3.5 w-3.5" />
                         </Link>
@@ -271,9 +255,8 @@ export default async function CategoryPage({ params }: PageProps) {
                         {sub.secondaryCtaText && (
                           <Link
                             href={sub.secondaryCtaLink || "/portfolio"}
-                            className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 hover:border-neutral-300 bg-white hover:bg-neutral-50 px-5 py-2.5 font-sans text-xs font-bold text-neutral-600 transition-all"
+                            className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white hover:bg-neutral-50 px-6 py-3 font-sans text-xs font-bold text-neutral-600 transition-all shadow-sm"
                           >
-                            {sub.secondaryCtaText.toLowerCase().includes("case") && <Icons.FolderOpen className="h-3.5 w-3.5 text-neutral-400" />}
                             {sub.secondaryCtaText}
                           </Link>
                         )}
@@ -281,25 +264,132 @@ export default async function CategoryPage({ params }: PageProps) {
                     </div>
 
                     {/* Right Column: Free for Image Placeholder (5/12) */}
-                    <div className="lg:col-span-5 relative w-full aspect-[4/3] rounded-2xl bg-neutral-950 overflow-hidden border border-neutral-800 shadow-inner group-hover:border-neutral-700/60 transition-all duration-300">
-                      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f1f12_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f12_1px,transparent_1px)] bg-[size:1.5rem_1.5rem] opacity-35" />
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.06)_0%,transparent_60%)]" />
-                      
-                      {/* Center Display elements */}
-                      <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 border border-white/10 text-white mb-4 shadow-sm backdrop-blur-md">
-                          <Icons.MonitorPlay className="h-5 w-5 text-primary-light" />
+                    <div className="lg:col-span-5 relative w-full aspect-[4/3] rounded-[2rem] bg-[#E0F2F1]/50 flex items-center justify-center p-6 sm:p-8">
+                      {sub.image ? (
+                        <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-sm border border-neutral-100">
+                          <Image
+                            src={sub.image}
+                            alt={sub.name}
+                            fill
+                            className="object-cover"
+                          />
                         </div>
-                        <span className="text-[9px] font-bold text-neutral-500 uppercase tracking-widest block mb-1">
-                          CASE STUDY VISUAL
-                        </span>
-                        <h5 className="font-sans font-bold text-xs text-neutral-300 max-w-[200px]">
-                          {sub.name} Performance
-                        </h5>
-                        <p className="font-sans text-[10px] text-neutral-500 mt-2">
-                          Click case study links to view.
-                        </p>
-                      </div>
+                      ) : (
+                        /* Custom CSS Mockup Graphic Card matching the sub-item category */
+                        <div className="relative w-full h-full rounded-2xl bg-white shadow-[0_8px_30px_rgba(0,0,0,0.02)] border border-neutral-100/50 overflow-hidden flex flex-col justify-between p-5">
+                          
+                          {/* Top Info Header */}
+                          <div className="flex items-center justify-between border-b border-neutral-100 pb-3 w-full">
+                            <div className="flex items-center gap-2">
+                              <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                              <span className="text-[9px] font-bold text-neutral-400 uppercase tracking-wider">
+                                KJ Digital Audit
+                              </span>
+                            </div>
+                            <span className="text-[9px] font-bold text-neutral-300">
+                              Live Sandbox
+                            </span>
+                          </div>
+
+                          {/* Center Graphic */}
+                          <div className="flex-1 flex flex-col items-center justify-center p-4">
+                            {sub.slug === "local-seo" && (
+                              <div className="relative flex flex-col items-center">
+                                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-50 text-red-500 shadow-sm border border-red-100 animate-bounce">
+                                  <Icons.MapPin className="h-6 w-6" />
+                                </div>
+                                <span className="text-[10px] font-bold text-neutral-700 mt-2 block">
+                                  Map Pin Authority
+                                </span>
+                                <p className="text-[9px] text-neutral-400 mt-1">100% NAP Consistency</p>
+                              </div>
+                            )}
+
+                            {sub.slug === "ecommerce-seo" && (
+                              <div className="relative flex flex-col items-center">
+                                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-50 text-emerald-500 shadow-sm border border-emerald-100">
+                                  <Icons.TrendingUp className="h-6 w-6" />
+                                </div>
+                                <span className="text-[10px] font-bold text-neutral-700 mt-2 block">
+                                  Sales Lift: +150%
+                                </span>
+                                <p className="text-[9px] text-neutral-400 mt-1">Shopify Schema Active</p>
+                              </div>
+                            )}
+
+                            {sub.slug === "international-seo" && (
+                              <div className="relative flex flex-col items-center">
+                                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 text-blue-500 shadow-sm border border-blue-100">
+                                  <Icons.Globe className="h-6 w-6" />
+                                </div>
+                                <span className="text-[10px] font-bold text-neutral-700 mt-2 block">
+                                  Multi-Market Traffic
+                                </span>
+                                <p className="text-[9px] text-neutral-400 mt-1">USA, UK, CA, UAE Indexes</p>
+                              </div>
+                            )}
+
+                            {sub.slug === "youtube-video-seo" && (
+                              <div className="relative flex flex-col items-center">
+                                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-rose-50 text-rose-500 shadow-sm border border-rose-100">
+                                  <Icons.Youtube className="h-6 w-6" />
+                                </div>
+                                <span className="text-[10px] font-bold text-neutral-700 mt-2 block">
+                                  Video CTR Boost
+                                </span>
+                                <p className="text-[9px] text-neutral-400 mt-1">Schema rich snippet markup</p>
+                              </div>
+                            )}
+
+                            {sub.slug === "saas-seo" && (
+                              <div className="relative flex flex-col items-center">
+                                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-indigo-50 text-indigo-500 shadow-sm border border-indigo-100">
+                                  <Icons.Layers className="h-6 w-6" />
+                                </div>
+                                <span className="text-[10px] font-bold text-neutral-700 mt-2 block">
+                                  SaaS Funnel Signups
+                                </span>
+                                <p className="text-[9px] text-neutral-400 mt-1">TOFU & BOFU integration</p>
+                              </div>
+                            )}
+
+                            {sub.slug === "semantic-seo" && (
+                              <div className="relative flex flex-col items-center">
+                                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-amber-50 text-amber-500 shadow-sm border border-amber-100">
+                                  <Icons.GitFork className="h-6 w-6" />
+                                </div>
+                                <span className="text-[10px] font-bold text-neutral-700 mt-2 block">
+                                  Topical Content Cluster
+                                </span>
+                                <p className="text-[9px] text-neutral-400 mt-1">Authority mapping structured</p>
+                              </div>
+                            )}
+
+                            {sub.slug === "ai-seo" && (
+                              <div className="relative flex flex-col items-center">
+                                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-cyan-50 text-cyan-500 shadow-sm border border-cyan-100">
+                                  <Icons.Cpu className="h-6 w-6" />
+                                </div>
+                                <span className="text-[10px] font-bold text-neutral-700 mt-2 block">
+                                  AI Search Engine Visibility
+                                </span>
+                                <p className="text-[9px] text-neutral-400 mt-1">ChatGPT & Perplexity Optimization</p>
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Bottom Info Footer */}
+                          <div className="border-t border-neutral-100 pt-3 w-full flex items-center justify-between">
+                            <span className="text-[8px] font-bold text-neutral-400">
+                              Digital World Agency
+                            </span>
+                            <span className="inline-flex items-center gap-1 text-[9px] font-bold text-primary">
+                              Metrics Verified <Icons.ShieldCheck className="h-3.5 w-3.5 text-primary" />
+                            </span>
+                          </div>
+
+                        </div>
+                      )}
                     </div>
 
                   </div>
