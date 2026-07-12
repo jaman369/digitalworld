@@ -399,6 +399,74 @@ export default async function CategoryPage({ params }: PageProps) {
           </div>
         </div>
       </section>
+
+      {/* Dynamic Step Process Section */}
+      {category.slug === "seo" && (
+        <section className="py-20 lg:py-28 bg-white border-t border-neutral-100 text-center relative z-10">
+          <div className="container mx-auto max-w-7xl px-6">
+            
+            {/* Header */}
+            <div className="max-w-3xl mx-auto mb-16">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-100 px-3.5 py-1 text-[10px] sm:text-xs font-bold text-primary uppercase tracking-widest mb-6">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                HOW IT WORKS
+              </span>
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-neutral-900 leading-tight mb-6">
+                Our proven 4-step <br className="sm:hidden" /> SEO process.
+              </h2>
+              <p className="font-sans text-xs sm:text-sm text-neutral-400 max-w-2xl mx-auto leading-relaxed">
+                No black-box tactics. You&apos;ll know exactly what we&apos;re doing and why — every step of the way.
+              </p>
+            </div>
+
+            {/* Steps Container */}
+            <div className="relative max-w-5xl mx-auto">
+              {/* Horizontal line on desktop */}
+              <div className="absolute top-6 left-[8%] right-[8%] h-0.5 bg-neutral-100 -z-10 hidden lg:block" />
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 items-start">
+                {[
+                  {
+                    num: 1,
+                    title: "Deep Audit",
+                    desc: "We audit your site, competitors, and market to find every opportunity and every bottleneck."
+                  },
+                  {
+                    num: 2,
+                    title: "Strategy & Roadmap",
+                    desc: "We build a prioritised, 90-day action plan with clear timelines and expected outcomes."
+                  },
+                  {
+                    num: 3,
+                    title: "Execute & Optimise",
+                    desc: "We implement everything — on-page, technical, content, links — with full transparency."
+                  },
+                  {
+                    num: 4,
+                    title: "Report & Scale",
+                    desc: "Monthly reporting with plain-English insights and a clear plan for the next phase of growth."
+                  }
+                ].map((step) => (
+                  <div key={step.num} className="flex flex-col items-center group">
+                    {/* Circle badge */}
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white border border-neutral-200 text-primary font-bold text-sm shadow-sm mb-6 z-10 transition-colors group-hover:border-primary">
+                      {step.num}
+                    </div>
+                    {/* Step details */}
+                    <h4 className="font-sans font-bold text-sm sm:text-base text-neutral-800 mb-3">
+                      {step.title}
+                    </h4>
+                    <p className="font-sans text-xs text-neutral-500 leading-relaxed max-w-[220px] mx-auto">
+                      {step.desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </section>
+      )}
     </article>
   );
 }
