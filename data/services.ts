@@ -11,44 +11,128 @@ export const servicesData: ServiceCategory[] = [
       {
         name: "Local SEO",
         slug: "local-seo",
-        description: "Optimize search footprint for localized queries.",
-        benefits: ["Optimize Google Business Profile maps", "Gain high-converting regional leads", "Build localized business directory citations"]
+        tagline: "Dominate your local market on Google.",
+        description: "When someone searches for your service near them, you need to be the first name they see — on Maps, in local packs, and in organic results. We build the full local SEO foundation that puts you there and keeps you there.",
+        benefits: [
+          "Google Business Profile optimisation & management",
+          "Local citation building (60+ high-authority directories)",
+          "Review generation strategy & reputation management",
+          "Localised on-page SEO & geo-targeted landing pages",
+          "Competitor gap analysis & local keyword research",
+          "NAP consistency audit across all platforms"
+        ],
+        primaryCtaText: "Get Local SEO Quote",
+        primaryCtaLink: "/contact?service=local-seo",
+        secondaryCtaText: "View Case Studies",
+        secondaryCtaLink: "/portfolio?service=local-seo"
       },
       {
         name: "Ecommerce SEO",
         slug: "ecommerce-seo",
-        description: "Boost search visibility for your product lines.",
-        benefits: ["Rank store categories and product pages", "Structured schema markup integrations", "Crawl budget optimizations"]
+        tagline: "Turn searchers into repeat customers.",
+        description: "Ranking product and category pages requires unique technical architecture and authority. We help Shopify, WooCommerce, and custom ecommerce stores build organic search traffic that consistently buys.",
+        benefits: [
+          "Site architecture optimization & facet/filter index management",
+          "Structured data setup (Product, Review & Offer schema)",
+          "Keyword research targeting transactional & commercial intent",
+          "Optimized category & product descriptions that sell",
+          "Core Web Vitals & mobile commerce optimization",
+          "Ecom link building & digital PR placements"
+        ],
+        primaryCtaText: "Grow Store Traffic",
+        primaryCtaLink: "/contact?service=ecommerce-seo",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=ecommerce-seo"
       },
       {
         name: "International SEO",
         slug: "international-seo",
-        description: "Target customers globally across languages.",
-        benefits: ["Hreflang tag auditing and setup", "Multi-region domain optimizations", "Geo-targeted search visibility"]
+        tagline: "Rank in every market you want to enter.",
+        description: "Selling across borders means competing in different languages, different search behaviours, and different Google indices. We've helped businesses rank in the USA, UK, Canada, Australia, UAE, Germany, and beyond — with the right strategy for each market.",
+        benefits: [
+          "hreflang implementation & international site architecture",
+          "Market-specific keyword research in 10+ languages",
+          "Country/language targeting via Google Search Console",
+          "Multi-market competitor analysis & gap mapping",
+          "Local domain strategy (ccTLD vs subfolder vs subdomain)",
+          "International link building & digital PR"
+        ],
+        primaryCtaText: "Expand Globally",
+        primaryCtaLink: "/contact?service=international-seo",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=international-seo"
       },
       {
-        name: "Youtube/Video SEO",
+        name: "Video SEO",
         slug: "youtube-video-seo",
-        description: "Maximize visibility on top search directories.",
-        benefits: ["Optimize video titles, tags, and description", "Increase click-through rates on thumbnails", "Improve video indexing results"]
+        tagline: "Rank your videos. Grow your audience.",
+        description: "YouTube is the world's second-largest search engine, and most creators are leaving massive discoverability on the table. We optimize your channel and videos to rank in both YouTube search and Google video results — bringing you views that convert.",
+        benefits: [
+          "YouTube keyword research (search volume + competition)",
+          "Title, description & tag optimisation for maximum click-through",
+          "Thumbnail strategy & A/B testing guidance",
+          "Channel page & playlist architecture optimisation",
+          "Video schema markup for Google rich results",
+          "Subscriber & watch-time growth strategy"
+        ],
+        primaryCtaText: "Grow My Channel",
+        primaryCtaLink: "/contact?service=video-seo",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=video-seo"
       },
       {
         name: "SaaS SEO",
         slug: "saas-seo",
-        description: "Drive recurring conversions for software systems.",
-        benefits: ["Map customer journeys and product pages", "High-intent buyer keyword targeting", "Increase product trial signups"]
+        tagline: "Drive signups with organic search.",
+        description: "SaaS SEO is about capturing users at every stage of the funnel — from awareness through comparison to decision. We build topical authority, rank for high-intent product keywords, and create content that turns readers into trial users.",
+        benefits: [
+          "Full-funnel keyword strategy (TOFU, MOFU, BOFU)",
+          "Competitor & alternative page optimisation",
+          "Integration & use-case landing page SEO",
+          "Product-led content strategy & editorial calendar",
+          "Programmatic SEO for scalable page creation",
+          "B2B link building & SaaS review site management"
+        ],
+        primaryCtaText: "Grow My SaaS",
+        primaryCtaLink: "/contact?service=saas-seo",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=saas-seo"
       },
       {
         name: "Semantic SEO",
         slug: "semantic-seo",
-        description: "Build deep topical authority Google loves.",
-        benefits: ["Structure comprehensive content clusters", "Entities mapping and schema additions", "Enhance keyword ranking footprint"]
+        tagline: "Build topical authority. Outrank everyone.",
+        description: "Google doesn't just rank pages — it ranks trusted topical authorities. Semantic SEO is about building a deep, interconnected content ecosystem that signals expertise, authority, and trustworthiness across your entire niche. This is the future of SEO, and we're already doing it.",
+        benefits: [
+          "Topical authority mapping & content cluster architecture",
+          "Entity SEO & Knowledge Graph optimisation",
+          "Semantic keyword research (NLP & LSI-based)",
+          "Pillar page + content cluster creation strategy",
+          "Internal linking architecture for authority flow",
+          "E-E-A-T signals & author authority building"
+        ],
+        primaryCtaText: "Build My Authority",
+        primaryCtaLink: "/contact?service=semantic-seo",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=semantic-seo"
       },
       {
         name: "AI SEO",
         slug: "ai-seo",
-        description: "Leverage AI modules for scaled search optimizations.",
-        benefits: ["Automated semantic content updates", "Fast search results auditing", "AI search engines visibility checks"]
+        tagline: "Rank in AI answers. Own the future of search.",
+        description: "Google's AI Overviews, ChatGPT, Perplexity, and Bing Copilot are changing how people find information. Businesses that adapt now will dominate the next decade of search. We optimise your content and brand to appear in AI-generated answers, not just traditional blue links.",
+        benefits: [
+          "AI Overview (SGE) optimisation strategy",
+          "Answer Engine Optimisation (AEO) for ChatGPT & Perplexity",
+          "Structured data & schema for AI comprehension",
+          "Brand entity building for AI knowledge bases",
+          "Conversational keyword & question-based content strategy",
+          "AI-resistant content that earns citations & backlinks"
+        ],
+        primaryCtaText: "Rank in AI Search",
+        primaryCtaLink: "/contact?service=ai-seo",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=ai-seo"
       }
     ]
   },

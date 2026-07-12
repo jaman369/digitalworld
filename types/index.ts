@@ -9,6 +9,12 @@ export interface Service {
   slug: string;
   description: string;
   benefits?: string[];
+  tagline?: string;
+  primaryCtaText?: string;
+  primaryCtaLink?: string;
+  secondaryCtaText?: string;
+  secondaryCtaLink?: string;
+  image?: string;
 }
 
 export interface ServiceCategory {
