@@ -71,11 +71,11 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-white pt-4 pb-0 lg:pt-6 lg:pb-0 flex flex-col justify-between h-[600px] lg:h-[660px]">
+    <section className="relative overflow-hidden bg-white pt-4 pb-0 lg:pt-6 lg:pb-0 flex flex-col justify-between h-[660px] lg:h-[720px]">
       {/* Background gradients */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(0,118,255,0.05)_0%,transparent_60%)]" />
 
-      <div className="container mx-auto max-w-7xl px-6 relative z-10 flex-1 flex flex-col justify-start pt-10 lg:pt-12">
+      <div className="container mx-auto max-w-7xl px-6 relative z-10 flex-1 flex flex-col justify-start pt-12 lg:pt-16">
         {/* Main Content Layout */}
         <motion.div
           variants={containerVariants}
@@ -148,11 +148,11 @@ export default function Hero() {
         {/* Desktop Absolute Floating Badges & Orbit Tracks */}
         <div className="absolute inset-0 pointer-events-none hidden md:block select-none max-w-7xl mx-auto w-full h-full z-0">
           {/* Orbit Tracks */}
-          <div className="absolute left-1/2 top-[200px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-neutral-200/25 pointer-events-none z-0 transition-all duration-300" 
+          <div className="absolute left-1/2 top-[290px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-neutral-200/25 pointer-events-none z-0 transition-all duration-300" 
                style={{ width: "calc(var(--radius-inner-x) * 2)", height: "calc(var(--radius-inner-y) * 2)" }} />
-          <div className="absolute left-1/2 top-[200px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-neutral-200/25 pointer-events-none z-0 transition-all duration-300" 
+          <div className="absolute left-1/2 top-[290px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-neutral-200/25 pointer-events-none z-0 transition-all duration-300" 
                style={{ width: "calc(var(--radius-mid-x) * 2)", height: "calc(var(--radius-mid-y) * 2)" }} />
-          <div className="absolute left-1/2 top-[200px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-neutral-200/25 pointer-events-none z-0 transition-all duration-300" 
+          <div className="absolute left-1/2 top-[290px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-neutral-200/25 pointer-events-none z-0 transition-all duration-300" 
                style={{ width: "calc(var(--radius-outer-x) * 2)", height: "calc(var(--radius-outer-y) * 2)" }} />
 
           {/* Orbiting Badges */}
@@ -163,7 +163,7 @@ export default function Hero() {
             return (
               <div
                 key={idx}
-                className={`absolute left-1/2 top-[200px] inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold shadow-premium cursor-pointer pointer-events-auto select-none transition-all duration-300 ${badge.color} orbit-badge`}
+                className={`absolute left-1/2 top-[290px] inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold shadow-premium cursor-pointer pointer-events-auto select-none transition-all duration-300 ${badge.color} orbit-badge`}
                 style={{
                   "--radius-x": `var(--radius-${badge.orbit}-x)`,
                   "--radius-y": `var(--radius-${badge.orbit}-y)`,
@@ -210,47 +210,47 @@ export default function Hero() {
       {/* Scoped CSS Inject for Orbit Animations */}
       <style dangerouslySetInnerHTML={{ __html: `
         :root {
-          --radius-inner-x: 300px;
-          --radius-inner-y: 90px;
-          --radius-mid-x: 375px;
-          --radius-mid-y: 115px;
-          --radius-outer-x: 450px;
-          --radius-outer-y: 140px;
+          --radius-inner-x: 430px;
+          --radius-inner-y: 250px;
+          --radius-mid-x: 530px;
+          --radius-mid-y: 265px;
+          --radius-outer-x: 630px;
+          --radius-outer-y: 278px;
           --badge-scale: 1;
         }
 
         @media (max-width: 1400px) {
           :root {
-            --radius-inner-x: 270px;
-            --radius-inner-y: 80px;
-            --radius-mid-x: 340px;
-            --radius-mid-y: 100px;
-            --radius-outer-x: 410px;
-            --radius-outer-y: 125px;
+            --radius-inner-x: 390px;
+            --radius-inner-y: 240px;
+            --radius-mid-x: 480px;
+            --radius-mid-y: 255px;
+            --radius-outer-x: 570px;
+            --radius-outer-y: 268px;
             --badge-scale: 0.9;
           }
         }
 
         @media (max-width: 1200px) {
           :root {
-            --radius-inner-x: 230px;
-            --radius-inner-y: 70px;
-            --radius-mid-x: 290px;
-            --radius-mid-y: 90px;
-            --radius-outer-x: 350px;
-            --radius-outer-y: 110px;
+            --radius-inner-x: 350px;
+            --radius-inner-y: 230px;
+            --radius-mid-x: 430px;
+            --radius-mid-y: 245px;
+            --radius-outer-x: 510px;
+            --radius-outer-y: 258px;
             --badge-scale: 0.8;
           }
         }
 
         @media (max-width: 991px) {
           :root {
-            --radius-inner-x: 190px;
-            --radius-inner-y: 60px;
-            --radius-mid-x: 240px;
-            --radius-mid-y: 75px;
-            --radius-outer-x: 290px;
-            --radius-outer-y: 90px;
+            --radius-inner-x: 300px;
+            --radius-inner-y: 220px;
+            --radius-mid-x: 370px;
+            --radius-mid-y: 235px;
+            --radius-outer-x: 440px;
+            --radius-outer-y: 248px;
             --badge-scale: 0.7;
           }
         }
