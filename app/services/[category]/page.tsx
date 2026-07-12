@@ -376,6 +376,102 @@ export default async function CategoryPage({ params }: PageProps) {
                                 <p className="text-[9px] text-neutral-400 mt-1">ChatGPT & Perplexity Optimization</p>
                               </div>
                             )}
+
+                            {sub.slug === "google-search-ads" && (
+                              <div className="relative flex flex-col items-center">
+                                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 text-blue-500 shadow-sm border border-blue-100">
+                                  <Icons.Search className="h-6 w-6" />
+                                </div>
+                                <span className="text-[10px] font-bold text-neutral-700 mt-2 block">
+                                  Search Impression Share
+                                </span>
+                                <p className="text-[9px] text-neutral-400 mt-1">Smart Bidding Active</p>
+                              </div>
+                            )}
+
+                            {sub.slug === "google-shopping-ads" && (
+                              <div className="relative flex flex-col items-center">
+                                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-amber-50 text-amber-500 shadow-sm border border-amber-100">
+                                  <Icons.ShoppingBag className="h-6 w-6" />
+                                </div>
+                                <span className="text-[10px] font-bold text-neutral-700 mt-2 block">
+                                  Shopping Feed Health: 99%
+                                </span>
+                                <p className="text-[9px] text-neutral-400 mt-1">Merchant Center Optimised</p>
+                              </div>
+                            )}
+
+                            {sub.slug === "performance-max" && (
+                              <div className="relative flex flex-col items-center">
+                                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-cyan-50 text-cyan-500 shadow-sm border border-cyan-100">
+                                  <Icons.Cpu className="h-6 w-6" />
+                                </div>
+                                <span className="text-[10px] font-bold text-neutral-700 mt-2 block">
+                                  PMax Bidding Signal
+                                </span>
+                                <p className="text-[9px] text-neutral-400 mt-1">AI asset loops refined</p>
+                              </div>
+                            )}
+
+                            {sub.slug === "youtube-ads" && (
+                              <div className="relative flex flex-col items-center">
+                                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-rose-50 text-rose-500 shadow-sm border border-rose-100">
+                                  <Icons.Play className="h-6 w-6" />
+                                </div>
+                                <span className="text-[10px] font-bold text-neutral-700 mt-2 block">
+                                  Video Views: +240%
+                                </span>
+                                <p className="text-[9px] text-neutral-400 mt-1">Avg. Watch Time: 82%</p>
+                              </div>
+                            )}
+
+                            {sub.slug === "remarketing-ads" && (
+                              <div className="relative flex flex-col items-center">
+                                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-purple-50 text-purple-500 shadow-sm border border-purple-100">
+                                  <Icons.RefreshCw className="h-6 w-6" />
+                                </div>
+                                <span className="text-[10px] font-bold text-neutral-700 mt-2 block">
+                                  Checkout Recovery Funnel
+                                </span>
+                                <p className="text-[9px] text-neutral-400 mt-1">Lost conversions closed</p>
+                              </div>
+                            )}
+
+                            {sub.slug === "facebook-ads" && (
+                              <div className="relative flex flex-col items-center">
+                                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 text-blue-600 shadow-sm border border-blue-100">
+                                  <Icons.Facebook className="h-6 w-6" />
+                                </div>
+                                <span className="text-[10px] font-bold text-neutral-700 mt-2 block">
+                                  Advantage+ Scaling
+                                </span>
+                                <p className="text-[9px] text-neutral-400 mt-1">Dynamic catalog active</p>
+                              </div>
+                            )}
+
+                            {sub.slug === "instagram-ads" && (
+                              <div className="relative flex flex-col items-center">
+                                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-pink-50 text-pink-500 shadow-sm border border-pink-100">
+                                  <Icons.Instagram className="h-6 w-6" />
+                                </div>
+                                <span className="text-[10px] font-bold text-neutral-700 mt-2 block">
+                                  Stories & Reels CTR
+                                </span>
+                                <p className="text-[9px] text-neutral-400 mt-1">UGC creative optimized</p>
+                              </div>
+                            )}
+
+                            {sub.slug === "tiktok-linkedin-ads" && (
+                              <div className="relative flex flex-col items-center">
+                                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-indigo-50 text-indigo-500 shadow-sm border border-indigo-100">
+                                  <Icons.Target className="h-6 w-6" />
+                                </div>
+                                <span className="text-[10px] font-bold text-neutral-700 mt-2 block">
+                                  B2B & Viral Funnels
+                                </span>
+                                <p className="text-[9px] text-neutral-400 mt-1">C-Suite lead forms active</p>
+                              </div>
+                            )}
                           </div>
 
                           {/* Bottom Info Footer */}
