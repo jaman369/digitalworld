@@ -5,6 +5,57 @@ import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
 import { servicesData } from "@/data/services";
 
+const categoryStyles: Record<string, {
+  hoverBg: string;
+  hoverBorder: string;
+  hoverText: string;
+  hoverIconBg: string;
+  hoverIconText: string;
+}> = {
+  seo: {
+    hoverBg: "hover:bg-[#EFF6FF]",
+    hoverBorder: "hover:border-blue-200/60",
+    hoverText: "group-hover:text-blue-700",
+    hoverIconBg: "group-hover:bg-blue-600",
+    hoverIconText: "group-hover:text-white",
+  },
+  ppc: {
+    hoverBg: "hover:bg-[#FFF7ED]",
+    hoverBorder: "hover:border-orange-200/60",
+    hoverText: "group-hover:text-orange-700",
+    hoverIconBg: "group-hover:bg-orange-600",
+    hoverIconText: "group-hover:text-white",
+  },
+  "web-design-dev": {
+    hoverBg: "hover:bg-[#F5F3FF]",
+    hoverBorder: "hover:border-purple-200/60",
+    hoverText: "group-hover:text-purple-700",
+    hoverIconBg: "group-hover:bg-purple-600",
+    hoverIconText: "group-hover:text-white",
+  },
+  "content-marketing": {
+    hoverBg: "hover:bg-[#F0FDF4]",
+    hoverBorder: "hover:border-green-200/60",
+    hoverText: "group-hover:text-green-700",
+    hoverIconBg: "group-hover:bg-green-600",
+    hoverIconText: "group-hover:text-white",
+  },
+  "ai-automation": {
+    hoverBg: "hover:bg-[#ECFEFF]",
+    hoverBorder: "hover:border-cyan-200/60",
+    hoverText: "group-hover:text-cyan-700",
+    hoverIconBg: "group-hover:bg-cyan-600",
+    hoverIconText: "group-hover:text-white",
+  },
+  "china-sourcing": {
+    hoverBg: "hover:bg-[#FFFBEB]",
+    hoverBorder: "hover:border-amber-200/60",
+    hoverText: "group-hover:text-amber-700",
+    hoverIconBg: "group-hover:bg-amber-600",
+    hoverIconText: "group-hover:text-white",
+  },
+};
+
 export default function ServicesGrid() {
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -63,19 +114,27 @@ export default function ServicesGrid() {
             // Display only the first 4 sub-items on the homepage grid card
             const displayedSubItems = category.subItems.slice(0, 4);
 
+            const styles = categoryStyles[category.slug] || {
+              hoverBg: "hover:bg-neutral-50",
+              hoverBorder: "hover:border-neutral-300",
+              hoverText: "group-hover:text-primary",
+              hoverIconBg: "group-hover:bg-primary",
+              hoverIconText: "group-hover:text-white",
+            };
+
             return (
               <motion.div
                 key={category.id}
                 variants={cardVariants}
-                className="group flex flex-col rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-premium hover:border-primary/20"
+                className={`group flex flex-col rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-premium ${styles.hoverBg} ${styles.hoverBorder}`}
               >
                 {/* Header info */}
                 <div className="flex items-start gap-4 mb-6">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-light text-primary transition-colors group-hover:bg-primary group-hover:text-white shrink-0">
+                  <div className={`flex h-12 w-12 items-center justify-center rounded-xl bg-primary-light text-primary transition-all duration-500 shrink-0 ${styles.hoverIconBg} ${styles.hoverIconText}`}>
                     <Icon className="h-6 w-6" />
                   </div>
                   <div>
-                    <h3 className="font-sans font-bold text-lg text-neutral-900 group-hover:text-primary transition-colors">
+                    <h3 className={`font-sans font-bold text-lg text-neutral-900 transition-colors duration-500 ${styles.hoverText}`}>
                       {category.title}
                     </h3>
                     <p className="font-sans text-xs text-neutral-400 mt-1 leading-snug">
@@ -93,9 +152,9 @@ export default function ServicesGrid() {
                       <li key={sub.slug} className="flex items-center justify-between">
                         <Link
                           href={`/services/${category.slug}#${sub.slug}`}
-                          className="font-sans text-sm text-neutral-500 hover:text-primary flex items-center gap-1.5 transition-colors"
+                          className="font-sans text-sm text-neutral-500 hover:text-primary flex items-center gap-1.5 transition-colors duration-300"
                         >
-                          <Icons.ChevronRight className="h-3.5 w-3.5 text-neutral-300 group-hover:text-primary/50" />
+                          <Icons.ChevronRight className="h-3.5 w-3.5 text-neutral-300 group-hover:text-neutral-400 transition-colors duration-300" />
                           {sub.name}
                         </Link>
                         {isPopular && (
@@ -115,7 +174,7 @@ export default function ServicesGrid() {
                     className="font-sans text-sm font-semibold text-primary hover:text-primary-hover flex items-center gap-2 group/btn"
                   >
                     View All Services
-                    <Icons.ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+                    <Icons.ArrowRight className="h-4 w-4 transition-transform duration-500 ease-out group-hover:translate-x-1.5 group-hover/btn:translate-x-1.5" />
                   </Link>
                 </div>
               </motion.div>
