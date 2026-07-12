@@ -7,10 +7,10 @@ import { countriesData } from "@/data/countries";
 
 export default function AboutPage() {
   const timelineData = [
-    { years: "2021 - PRESENT", role: "Digital Marketing Director", company: "Digital World" },
-    { years: "2020 - 2021", role: "Senior Ads Specialist", company: "Scaling ad campaigns" },
-    { years: "2018 - 2020", role: "Web Developer", company: "Building high-speed store frontends" },
-    { years: "2017 - 2018", role: "Sourcing Agent", company: "Managing factory checks and logistics" }
+    { years: "2024 - Present", role: "Digital Marketing Expert", company: "KJ Digital World" },
+    { years: "2022 - 2024", role: "SEO & Paid Ads Specialist", company: "Freelance / Agency Partner" },
+    { years: "2021 - 2022", role: "Web Developer", company: "Building fast, optimized websites" },
+    { years: "2020 - 2021", role: "The Beginning", company: "Mastering the fundamentals of digital marketing" }
   ];
 
   const statsMetrics = [
@@ -117,23 +117,26 @@ export default function AboutPage() {
       </section>
 
       {/* 2. Timeline / Results Section */}
-      <section className="py-20 lg:py-28 bg-neutral-50/50 border-t border-b border-neutral-100">
+      <section className="py-20 lg:py-28 bg-white border-t border-b border-neutral-100">
         <div className="container mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
             
             {/* Left Timeline Copy */}
             <div className="lg:col-span-6 flex flex-col justify-center">
-              <span className="text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-[0.2em] mb-4">
-                RESULTS DRIVEN
+              <span className="text-[10px] sm:text-xs font-bold text-primary uppercase tracking-[0.25em] mb-4">
+                MY JOURNEY
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-neutral-900 leading-tight tracking-tight mb-6">
                 From curiosity to <br />5 years of results.
               </h2>
               <p className="font-sans text-sm sm:text-base text-neutral-500 leading-relaxed mb-6">
-                For the past five years, I have worked at the intersection of search engine algorithms, conversion optimization, and paid media allocation. My focus is helping businesses scale customer acquisition globally with zero reliance on guess work.
+                It all started with a simple question: How do websites rank on Google? That curiosity turned into a passion for digital marketing.
+              </p>
+              <p className="font-sans text-sm sm:text-base text-neutral-500 leading-relaxed mb-6">
+                Over the past 5 years, I&apos;ve had the privilege of working with amazing teams and clients, helping them build their online presence, increase visibility, and achieve sustainable growth.
               </p>
               <p className="font-sans text-sm sm:text-base text-neutral-500 leading-relaxed">
-                What began as a personal fascination with indexing architectures quickly grew into a full-service marketing agency. Today, we audit search presence, deploy rapid headless Web structures, optimize shopping workflows, and scale campaigns.
+                Every project I take on is treated as a partnership, where your success is my success.
               </p>
             </div>
 
@@ -143,21 +146,21 @@ export default function AboutPage() {
                 <div key={idx} className="flex gap-6 relative group">
                   {/* Timeline vertical bar connector */}
                   {idx < timelineData.length - 1 && (
-                    <div className="absolute left-3 top-6 bottom-[-2.5rem] w-0.5 bg-neutral-200" />
+                    <div className="absolute left-2.5 top-6 bottom-[-2.5rem] w-0.5 bg-neutral-200" />
                   )}
-                  {/* Timeline indicator circle */}
-                  <div className="flex h-6.5 w-6.5 shrink-0 items-center justify-center rounded-full border border-primary/20 bg-primary/5 text-primary relative z-10 transition-colors group-hover:bg-primary group-hover:text-white">
-                    <Icons.Check className="h-3 w-3" />
+                  {/* Timeline indicator circle (mockup radio style) */}
+                  <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-primary bg-white relative z-10 mt-1">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary" />
                   </div>
                   {/* Milestone info */}
                   <div>
-                    <span className="block text-[10px] font-bold text-primary uppercase tracking-widest mb-1">
+                    <span className="inline-block bg-blue-50 border border-blue-100 text-primary text-[10px] font-bold px-3 py-1 rounded-md uppercase tracking-wider mb-2">
                       {item.years}
                     </span>
                     <h4 className="font-sans font-bold text-sm sm:text-base text-neutral-900 mb-0.5">
                       {item.role}
                     </h4>
-                    <p className="font-sans text-xs sm:text-sm text-neutral-400">
+                    <p className="font-sans text-xs text-neutral-400">
                       {item.company}
                     </p>
                   </div>
