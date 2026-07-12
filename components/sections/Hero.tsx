@@ -24,6 +24,19 @@ export default function Hero() {
     { text: "Email Marketing", icon: Icons.Mail, orbit: "outer", angle: 285, speed: 45, direction: "cw", color: "text-violet-600 bg-violet-50 border-violet-100" },
   ];
 
+  const badgeGlowColors: Record<string, string> = {
+    "Local SEO": "rgba(59, 130, 246, 0.22)",
+    "SaaS SEO": "rgba(99, 102, 241, 0.22)",
+    "Ecommerce SEO": "rgba(16, 185, 129, 0.22)",
+    "WordPress": "rgba(14, 165, 233, 0.22)",
+    "Shopify": "rgba(4, 120, 87, 0.22)",
+    "Web Design & Dev": "rgba(147, 51, 234, 0.22)",
+    "Google Ads": "rgba(217, 119, 6, 0.22)",
+    "Facebook Ads": "rgba(29, 78, 216, 0.22)",
+    "Content Marketing": "rgba(225, 29, 72, 0.22)",
+    "Email Marketing": "rgba(124, 58, 237, 0.22)",
+  };
+
   const countries = [
     { name: "USA", flag: "/Flag emoji/United States.svg" },
     { name: "UK", flag: "/Flag emoji/United Kingdom.svg" },
@@ -58,7 +71,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-white pt-12 pb-0 lg:pt-16 lg:pb-0 flex flex-col justify-between min-h-[calc(100vh-80px)]">
+    <section className="relative overflow-hidden bg-white pt-8 pb-0 lg:pt-10 lg:pb-0 flex flex-col justify-between min-h-[70vh] md:min-h-[680px] lg:min-h-[740px] max-h-[820px]">
       {/* Background gradients */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(0,118,255,0.05)_0%,transparent_60%)]" />
 
@@ -73,7 +86,7 @@ export default function Hero() {
           {/* Eyebrow Badge */}
           <motion.div
             variants={itemVariants}
-            className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50 px-4 py-1.5 text-xs font-semibold text-neutral-600 shadow-sm mb-6 pointer-events-auto"
+            className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50 px-4 py-1.5 text-xs font-semibold text-neutral-600 shadow-sm mb-4 pointer-events-auto"
           >
             <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
             Available for new projects · Based in Dhaka, Bangladesh
@@ -82,7 +95,7 @@ export default function Hero() {
           {/* Headline */}
           <motion.h1
             variants={itemVariants}
-            className="font-serif text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-neutral-900 leading-[1.1] mb-5 pointer-events-auto"
+            className="font-serif text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-neutral-900 leading-[1.1] mb-4 pointer-events-auto"
           >
             Grow your business<br />
             <span className="text-primary italic font-medium">beyond borders.</span>
@@ -91,7 +104,7 @@ export default function Hero() {
           {/* Subtext */}
           <motion.p
             variants={itemVariants}
-            className="font-sans text-base sm:text-lg text-neutral-500 leading-relaxed max-w-2xl mb-8 pointer-events-auto"
+            className="font-sans text-base sm:text-lg text-neutral-500 leading-relaxed max-w-2xl mb-5 pointer-events-auto"
           >
             Digital World is a full-service digital marketing agency helping businesses in the USA, UK, Canada, UAE, Australia & beyond dominate search, ads, and the web — led by Kamrujjaman Mufti.
           </motion.p>
@@ -99,7 +112,7 @@ export default function Hero() {
           {/* CTAs */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10 w-full sm:w-auto pointer-events-auto"
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6 w-full sm:w-auto pointer-events-auto"
           >
             <Link
               href="/contact"
@@ -116,7 +129,7 @@ export default function Hero() {
           </motion.div>
 
           {/* Mobile Badge Cloud */}
-          <div className="flex flex-wrap justify-center gap-2.5 max-w-2xl md:hidden mb-8 pointer-events-auto">
+          <div className="flex flex-wrap justify-center gap-2.5 max-w-2xl md:hidden mb-6 pointer-events-auto">
             {floatingBadges.map((badge, idx) => {
               const Icon = badge.icon;
               return (
@@ -145,6 +158,7 @@ export default function Hero() {
           {/* Orbiting Badges */}
           {floatingBadges.map((badge, idx) => {
             const Icon = badge.icon;
+            const glowColor = badgeGlowColors[badge.text] || "rgba(0, 118, 255, 0.15)";
             
             return (
               <div
@@ -153,6 +167,7 @@ export default function Hero() {
                 style={{
                   "--radius-x": `var(--radius-${badge.orbit}-x)`,
                   "--radius-y": `var(--radius-${badge.orbit}-y)`,
+                  "--glow-color": glowColor,
                   animationName: "orbit-ellipse",
                   animationDuration: `${badge.speed}s`,
                   animationDelay: `-${(badge.speed * (badge.angle / 360)).toFixed(2)}s`,
@@ -195,44 +210,48 @@ export default function Hero() {
       {/* Scoped CSS Inject for Orbit Animations */}
       <style dangerouslySetInnerHTML={{ __html: `
         :root {
-          --radius-inner-x: 340px;
-          --radius-inner-y: 170px;
-          --radius-mid-x: 440px;
-          --radius-mid-y: 220px;
-          --radius-outer-x: 540px;
-          --radius-outer-y: 270px;
+          --radius-inner-x: 440px;
+          --radius-inner-y: 220px;
+          --radius-mid-x: 550px;
+          --radius-mid-y: 285px;
+          --radius-outer-x: 660px;
+          --radius-outer-y: 350px;
+          --badge-scale: 1;
         }
 
         @media (max-width: 1400px) {
           :root {
-            --radius-inner-x: 290px;
-            --radius-inner-y: 145px;
-            --radius-mid-x: 380px;
-            --radius-mid-y: 190px;
-            --radius-outer-x: 470px;
-            --radius-outer-y: 235px;
+            --radius-inner-x: 390px;
+            --radius-inner-y: 195px;
+            --radius-mid-x: 490px;
+            --radius-mid-y: 250px;
+            --radius-outer-x: 590px;
+            --radius-outer-y: 310px;
+            --badge-scale: 0.9;
           }
         }
 
         @media (max-width: 1200px) {
           :root {
-            --radius-inner-x: 240px;
-            --radius-inner-y: 120px;
-            --radius-mid-x: 320px;
-            --radius-mid-y: 160px;
-            --radius-outer-x: 400px;
-            --radius-outer-y: 200px;
+            --radius-inner-x: 340px;
+            --radius-inner-y: 170px;
+            --radius-mid-x: 420px;
+            --radius-mid-y: 215px;
+            --radius-outer-x: 500px;
+            --radius-outer-y: 260px;
+            --badge-scale: 0.8;
           }
         }
 
         @media (max-width: 991px) {
           :root {
-            --radius-inner-x: 190px;
-            --radius-inner-y: 95px;
-            --radius-mid-x: 250px;
-            --radius-mid-y: 125px;
-            --radius-outer-x: 310px;
-            --radius-outer-y: 155px;
+            --radius-inner-x: 280px;
+            --radius-inner-y: 140px;
+            --radius-mid-x: 350px;
+            --radius-mid-y: 180px;
+            --radius-outer-x: 420px;
+            --radius-outer-y: 220px;
+            --badge-scale: 0.7;
           }
         }
 
@@ -241,12 +260,15 @@ export default function Hero() {
           animation-timing-function: linear;
           transform-origin: center center;
           will-change: transform;
+          scale: var(--badge-scale, 1);
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03), 0 0 10px var(--glow-color);
+          transition: scale 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease !important;
         }
 
         .orbit-badge:hover {
           animation-play-state: paused !important;
-          scale: 1.08;
-          box-shadow: 0 10px 30px -5px rgba(0, 118, 255, 0.25), 0 0 15px rgba(0, 118, 255, 0.15);
+          scale: calc(var(--badge-scale, 1) * 1.08) !important;
+          box-shadow: 0 12px 35px -5px var(--glow-color), 0 0 20px var(--glow-color) !important;
           z-index: 50;
         }
 
