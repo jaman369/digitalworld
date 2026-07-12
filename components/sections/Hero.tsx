@@ -71,11 +71,11 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-white pt-4 pb-0 lg:pt-6 lg:pb-0 flex flex-col justify-between h-[660px] lg:h-[720px]">
+    <section className="relative overflow-hidden bg-white pt-4 pb-0 lg:pt-6 lg:pb-0 flex flex-col justify-between h-[750px] lg:h-[820px]">
       {/* Background gradients */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(0,118,255,0.05)_0%,transparent_60%)]" />
 
-      <div className="container mx-auto max-w-7xl px-6 relative z-10 flex-1 flex flex-col justify-start pt-12 lg:pt-16">
+      <div className="container mx-auto max-w-7xl px-6 relative z-10 flex-1 flex flex-col justify-start pt-20 lg:pt-28">
         {/* Main Content Layout */}
         <motion.div
           variants={containerVariants}
@@ -148,11 +148,11 @@ export default function Hero() {
         {/* Desktop Absolute Floating Badges & Orbit Tracks */}
         <div className="absolute inset-0 pointer-events-none hidden md:block select-none max-w-7xl mx-auto w-full h-full z-0">
           {/* Orbit Tracks */}
-          <div className="absolute left-1/2 top-[245px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-neutral-200/25 pointer-events-none z-0 transition-all duration-300" 
+          <div className="absolute left-1/2 top-[295px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-neutral-200/25 pointer-events-none z-0 transition-all duration-300" 
                style={{ width: "calc(var(--radius-inner-x) * 2)", height: "calc(var(--radius-inner-y) * 2)" }} />
-          <div className="absolute left-1/2 top-[245px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-neutral-200/25 pointer-events-none z-0 transition-all duration-300" 
+          <div className="absolute left-1/2 top-[295px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-neutral-200/25 pointer-events-none z-0 transition-all duration-300" 
                style={{ width: "calc(var(--radius-mid-x) * 2)", height: "calc(var(--radius-mid-y) * 2)" }} />
-          <div className="absolute left-1/2 top-[245px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-neutral-200/25 pointer-events-none z-0 transition-all duration-300" 
+          <div className="absolute left-1/2 top-[295px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-neutral-200/25 pointer-events-none z-0 transition-all duration-300" 
                style={{ width: "calc(var(--radius-outer-x) * 2)", height: "calc(var(--radius-outer-y) * 2)" }} />
 
           {/* Orbiting Badges */}
@@ -163,7 +163,7 @@ export default function Hero() {
             return (
               <div
                 key={idx}
-                className={`absolute left-1/2 top-[245px] inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold shadow-premium cursor-pointer pointer-events-auto select-none transition-all duration-300 ${badge.color} orbit-badge`}
+                className={`absolute left-1/2 top-[295px] inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs font-semibold shadow-premium cursor-pointer pointer-events-auto select-none transition-all duration-300 ${badge.color} orbit-badge`}
                 style={{
                   "--radius-x": `var(--radius-${badge.orbit}-x)`,
                   "--radius-y": `var(--radius-${badge.orbit}-y)`,
