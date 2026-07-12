@@ -125,13 +125,7 @@ export default async function CategoryPage({ params }: PageProps) {
         
         <div className="container mx-auto max-w-7xl px-6 relative z-10">
           <div className="flex flex-col items-center text-center max-w-3xl mx-auto">
-            {/* Back Button */}
-            <Link 
-              href="/#services" 
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-neutral-400 hover:text-white uppercase tracking-wider mb-8 transition-colors"
-            >
-              <Icons.ArrowLeft className="h-3.5 w-3.5" /> Back to Services
-            </Link>
+
             
             {/* Eyebrow */}
             <span className={`text-[10px] sm:text-xs font-bold ${override.highlightColorClass} uppercase tracking-[0.25em] mb-4`}>
