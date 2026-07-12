@@ -11,7 +11,7 @@ export default function StatsBar() {
   return (
     <section 
       ref={containerRef} 
-      className="py-12 bg-white border-b border-neutral-100 relative z-10"
+      className="py-5 bg-white border-b border-neutral-100 relative z-10"
     >
       <div className="container mx-auto max-w-7xl px-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
@@ -39,13 +39,13 @@ function StatItem({ stat }: StatItemProps) {
   return (
     <div 
       ref={elementRef}
-      className="flex flex-col items-center justify-center p-6 rounded-2xl transition-all hover:bg-neutral-50"
+      className="flex flex-col items-center justify-center py-2 px-4 rounded-xl transition-all hover:bg-neutral-50"
     >
-      <span className="font-sans text-4xl sm:text-5xl font-extrabold text-neutral-900 tracking-tightest mb-1.5 h-[56px] flex items-center justify-center">
+      <span className="font-sans text-3xl sm:text-4xl font-extrabold text-neutral-900 tracking-tightest mb-0.5 h-[44px] flex items-center justify-center">
         {count}
-        {showPlus && <span className="text-primary font-medium text-3xl sm:text-4xl ml-0.5">+</span>}
+        {showPlus && <span className="text-primary font-medium text-2xl sm:text-3xl ml-0.5">+</span>}
       </span>
-      <span className="font-sans text-xs font-bold text-neutral-400 uppercase tracking-widest text-center">
+      <span className="font-sans text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-widest text-center">
         {stat.label}
       </span>
     </div>
