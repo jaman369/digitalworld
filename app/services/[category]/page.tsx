@@ -114,6 +114,79 @@ const heroOverrides: Record<string, HeroOverride> = {
   }
 };
 
+interface ProcessStep {
+  num: number;
+  title: string;
+  desc: string;
+}
+
+interface ProcessOverride {
+  eyebrow: string;
+  title: string;
+  desc: string;
+  numberColorClass: string;
+  steps: ProcessStep[];
+}
+
+const categoryProcesses: Record<string, ProcessOverride> = {
+  seo: {
+    eyebrow: "HOW IT WORKS",
+    title: "Our proven 4-step SEO process.",
+    desc: "No black-box tactics. You'll know exactly what we're doing and why — every step of the way.",
+    numberColorClass: "text-primary group-hover:border-primary",
+    steps: [
+      {
+        num: 1,
+        title: "Deep Audit",
+        desc: "We audit your site, competitors, and market to find every opportunity and every bottleneck."
+      },
+      {
+        num: 2,
+        title: "Strategy & Roadmap",
+        desc: "We build a prioritised, 90-day action plan with clear timelines and expected outcomes."
+      },
+      {
+        num: 3,
+        title: "Execute & Optimise",
+        desc: "We implement everything — on-page, technical, content, links — with full transparency."
+      },
+      {
+        num: 4,
+        title: "Report & Scale",
+        desc: "Monthly reporting with plain-English insights and a clear plan for the next phase of growth."
+      }
+    ]
+  },
+  ppc: {
+    eyebrow: "HOW IT WORKS",
+    title: "Our proven 4-step Paid Ads process.",
+    desc: "No budget leakages. We map out full-funnel paid strategies with absolute scaling transparency.",
+    numberColorClass: "text-[#F97316] group-hover:border-[#F97316]",
+    steps: [
+      {
+        num: 1,
+        title: "Account Audit",
+        desc: "We analyze historical performance, search query reports, pixel event integrity, and budget efficiency."
+      },
+      {
+        num: 2,
+        title: "Funnel Mapping",
+        desc: "We build tailored cold-to-warm customer acquisition pathways, assets plans, and bidding strategies."
+      },
+      {
+        num: 3,
+        title: "Targeted Launch",
+        desc: "We deploy fresh campaigns with strict budget caps, dynamic exclusions, and robust tracking systems."
+      },
+      {
+        num: 4,
+        title: "Scale & Optimize",
+        desc: "We systematically allocate budget to winning creatives, hook variables, and high-ROAS lookalikes."
+      }
+    ]
+  }
+};
+
 export default async function CategoryPage({ params }: PageProps) {
   const { category: categorySlug } = await params;
   const category = servicesData.find((c) => c.slug === categorySlug);
@@ -497,7 +570,7 @@ export default async function CategoryPage({ params }: PageProps) {
       </section>
 
       {/* Dynamic Step Process Section */}
-      {category.slug === "seo" && (
+      {categoryProcesses[category.slug] && (
         <section className="py-20 lg:py-28 bg-white border-t border-neutral-100 text-center relative z-10">
           <div className="container mx-auto max-w-7xl px-6">
             
@@ -505,13 +578,13 @@ export default async function CategoryPage({ params }: PageProps) {
             <div className="max-w-3xl mx-auto mb-16">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-100 px-3.5 py-1 text-[10px] sm:text-xs font-bold text-primary uppercase tracking-widest mb-6">
                 <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                HOW IT WORKS
+                {categoryProcesses[category.slug].eyebrow}
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-neutral-900 leading-tight mb-6">
-                Our proven 4-step <br className="sm:hidden" /> SEO process.
+                {categoryProcesses[category.slug].title}
               </h2>
               <p className="font-sans text-xs sm:text-sm text-neutral-400 max-w-2xl mx-auto leading-relaxed">
-                No black-box tactics. You&apos;ll know exactly what we&apos;re doing and why — every step of the way.
+                {categoryProcesses[category.slug].desc}
               </p>
             </div>
 
@@ -521,31 +594,10 @@ export default async function CategoryPage({ params }: PageProps) {
               <div className="absolute top-6 left-[8%] right-[8%] h-0.5 bg-neutral-100 -z-10 hidden lg:block" />
               
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 items-start">
-                {[
-                  {
-                    num: 1,
-                    title: "Deep Audit",
-                    desc: "We audit your site, competitors, and market to find every opportunity and every bottleneck."
-                  },
-                  {
-                    num: 2,
-                    title: "Strategy & Roadmap",
-                    desc: "We build a prioritised, 90-day action plan with clear timelines and expected outcomes."
-                  },
-                  {
-                    num: 3,
-                    title: "Execute & Optimise",
-                    desc: "We implement everything — on-page, technical, content, links — with full transparency."
-                  },
-                  {
-                    num: 4,
-                    title: "Report & Scale",
-                    desc: "Monthly reporting with plain-English insights and a clear plan for the next phase of growth."
-                  }
-                ].map((step) => (
+                {categoryProcesses[category.slug].steps.map((step) => (
                   <div key={step.num} className="flex flex-col items-center group">
                     {/* Circle badge */}
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white border border-neutral-200 text-primary font-bold text-sm shadow-sm mb-6 z-10 transition-colors group-hover:border-primary">
+                    <div className={`flex h-12 w-12 items-center justify-center rounded-full bg-white border border-neutral-200 font-bold text-sm shadow-sm mb-6 z-10 transition-colors ${categoryProcesses[category.slug].numberColorClass}`}>
                       {step.num}
                     </div>
                     {/* Step details */}
