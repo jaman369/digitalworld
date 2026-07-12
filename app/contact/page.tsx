@@ -2,16 +2,18 @@
 
 import { useState } from "react";
 import * as Icons from "lucide-react";
-import { faqData } from "@/data/faq";
+import { countriesData } from "@/data/countries";
 
 export default function ContactPage() {
-  const [activeFaq, setActiveFaq] = useState<string | null>(null);
+  const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const [selectedBudget, setSelectedBudget] = useState("Under $300");
 
   // Form State
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    website: "",
+    company: "",
+    country: "",
     service: "",
     message: "",
   });
@@ -28,6 +30,41 @@ export default function ContactPage() {
     "China Sourcing Services"
   ];
 
+  const budgetOptions = [
+    "Under $300",
+    "$300 - $800",
+    "$800 - $1,200",
+    "$1,200+",
+    "Let's discuss"
+  ];
+
+  const contactFaq = [
+    {
+      q: "Do you work with clients outside Bangladesh?",
+      a: "Yes, absolutely. We work with clients globally (USA, UK, Canada, Australia, Europe, etc.). We operate remote-first, utilizing Slack, email, and Zoom to ensure seamless communication regardless of your timezone."
+    },
+    {
+      q: "How long does it take to see SEO results?",
+      a: "Typically, you will start seeing initial ranking movements and traffic improvements within 3 to 6 months. SEO is a compounding long-term strategy that delivers sustainable organic growth over time."
+    },
+    {
+      q: "What is your pricing structure?",
+      a: "Our pricing is project-based and tailored to your specific goals and requirements. We offer monthly packages for retainer services (like SEO and PPC) and flat-rate pricing for development projects."
+    },
+    {
+      q: "Do you offer a free consultation?",
+      a: "Yes, we offer a free 30-minute strategy consultation call to discuss your project, evaluate your current digital footprint, and align on how we can help you grow."
+    },
+    {
+      q: "Can you handle multiple services at once?",
+      a: "Yes, many of our clients combine services (for example, SEO and Web Development or PPC and Content Strategy) for a unified growth strategy."
+    },
+    {
+      q: "How do I pay — and what currency?",
+      a: "We accept major credit cards, bank wire transfers, and Payoneer/Wise payments. Transactions are usually handled in USD or your local currency."
+    }
+  ];
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -42,7 +79,7 @@ export default function ContactPage() {
     e.preventDefault();
 
     if (!formData.name.trim()) {
-      setFormErrors("Full Name is required.");
+      setFormErrors("Your Name is required.");
       return;
     }
     if (!validateEmail(formData.email)) {
@@ -50,208 +87,394 @@ export default function ContactPage() {
       return;
     }
     if (!formData.service) {
-      setFormErrors("Please select a growth service area.");
+      setFormErrors("Please select a service needed.");
       return;
     }
     if (!formData.message.trim()) {
-      setFormErrors("Please write a short message detailing your goals.");
+      setFormErrors("Please tell us about your project.");
       return;
     }
 
     // Success State
     setIsSubmitted(true);
-    setFormData({ name: "", email: "", website: "", service: "", message: "" });
+    setFormData({ name: "", email: "", company: "", country: "", service: "", message: "" });
+    setSelectedBudget("Under $300");
   };
 
   return (
-    <article className="min-h-screen bg-white py-20 lg:py-32">
+    <article className="min-h-screen bg-white">
+      {/* Background glow overlay */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(0,118,255,0.03)_0%,transparent_60%)] pointer-events-none" />
 
-      <div className="container mx-auto max-w-7xl px-6">
-        {/* Page Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-20">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-light px-4 py-1.5 text-xs font-semibold text-primary uppercase tracking-wider mb-6">
-            Get In Touch
-          </span>
-          <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-neutral-900 tracking-tight leading-[1.1] mb-6">
-            Let&apos;s build something great
-          </h1>
-          <p className="font-sans text-base sm:text-lg text-neutral-500 leading-relaxed">
-            Submit your goals below and we will reach out within 24 hours to schedule your strategy consultation.
-          </p>
+      {/* Hero Section */}
+      <section className="pt-24 pb-14 sm:pt-32 sm:pb-20 text-center max-w-4xl mx-auto px-6">
+        <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-100/50 px-4 py-1 text-xs font-semibold text-emerald-600 uppercase tracking-wider mb-6">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          Available for new projects
         </div>
+        <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-neutral-900 tracking-tight leading-[1.1] mb-6">
+          Let&apos;s build <br className="sm:hidden" />
+          <span className="text-primary italic font-serif">something great.</span>
+        </h1>
+        <p className="font-sans text-sm sm:text-base text-neutral-500 leading-relaxed max-w-2xl mx-auto">
+          Tell us about your project. Kamrujjaman will get back to you personally within 24 hours with honest advice and a clear next step — no sales pitch, no automated replies.
+        </p>
+      </section>
 
-        {/* Form + FAQ Split grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+      {/* Main Grid Content */}
+      <section className="pb-24 lg:pb-32 container mx-auto max-w-7xl px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
-          {/* Left Column: FAQ Accordion */}
-          <div className="lg:col-span-6 flex flex-col gap-6">
+          {/* Left Column: Form Card */}
+          <div className="lg:col-span-7 xl:col-span-8 bg-white border border-neutral-100 rounded-[2rem] shadow-[0_12px_40px_rgba(0,0,0,0.03)] p-8 lg:p-12">
             <h2 className="font-serif text-2xl font-bold text-neutral-900 mb-2">
-              Frequently Asked Questions
+              Tell me about your project
             </h2>
-            
-            <div className="flex flex-col gap-4">
-              {faqData.map((faq) => {
-                const isOpen = activeFaq === faq.id;
-                
-                return (
-                  <div
-                    key={faq.id}
-                    className="rounded-2xl border border-neutral-200 bg-white overflow-hidden shadow-sm transition-colors duration-200"
-                  >
-                    <button
-                      onClick={() => setActiveFaq(isOpen ? null : faq.id)}
-                      className="flex w-full items-center justify-between p-6 font-sans font-bold text-sm text-neutral-900 text-left outline-none"
-                    >
-                      {faq.question}
-                      <Icons.ChevronDown className={`h-4 w-4 text-neutral-400 transition-transform duration-200 shrink-0 ml-3 ${isOpen ? "rotate-180" : ""}`} />
-                    </button>
-                    
-                    {isOpen && (
-                      <div className="px-6 pb-6 font-sans text-sm text-neutral-500 leading-relaxed border-t border-neutral-100 pt-4">
-                        {faq.answer}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+            <p className="font-sans text-xs sm:text-sm text-neutral-400 mb-8 leading-relaxed">
+              Fill in a few details and I&apos;ll come back to you with a personalised plan — usually within a few hours.
+            </p>
 
-          {/* Right Column: Contact Form */}
-          <div className="lg:col-span-6">
-            <div className="rounded-3xl border border-neutral-200 bg-white p-8 lg:p-12 shadow-premium">
-              {isSubmitted ? (
-                // Success Confirmation
-                <div className="text-center py-12 flex flex-col items-center">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50 text-emerald-500 border border-emerald-100 mb-6 shadow-sm">
-                    <Icons.Check className="h-8 w-8" />
-                  </div>
-                  <h3 className="font-sans font-bold text-xl text-neutral-900 mb-3">
-                    Strategy Request Submitted!
-                  </h3>
-                  <p className="font-sans text-sm text-neutral-500 leading-relaxed max-w-sm">
-                    Thank you. We have logged your request. Kamrujjaman Mufti will contact you directly within 24 hours to schedule our call.
-                  </p>
-                  <button
-                    onClick={() => setIsSubmitted(false)}
-                    className="mt-8 text-xs font-bold text-primary hover:text-primary-hover flex items-center gap-1"
-                  >
-                    Submit another request <Icons.RefreshCw className="h-3.5 w-3.5" />
-                  </button>
+            {isSubmitted ? (
+              // Success Confirmation
+              <div className="text-center py-16 flex flex-col items-center">
+                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50 text-emerald-500 border border-emerald-100 mb-6 shadow-sm">
+                  <Icons.Check className="h-8 w-8" />
                 </div>
-              ) : (
-                // Interactive Form
-                <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-                  {formErrors && (
-                    <div className="flex items-center gap-2 rounded-xl bg-rose-50 border border-rose-100 p-4 text-xs font-semibold text-rose-600">
-                      <Icons.AlertTriangle className="h-4 w-4 shrink-0" />
-                      <span>{formErrors}</span>
-                    </div>
-                  )}
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    {/* Name */}
-                    <div className="flex flex-col gap-2">
-                      <label htmlFor="name" className="font-sans text-xs font-bold text-neutral-700 uppercase tracking-wider">
-                        Full Name *
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        placeholder="John Doe"
-                        className="rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm text-neutral-900 outline-none focus:border-primary focus:bg-white transition-all"
-                      />
-                    </div>
-
-                    {/* Email */}
-                    <div className="flex flex-col gap-2">
-                      <label htmlFor="email" className="font-sans text-xs font-bold text-neutral-700 uppercase tracking-wider">
-                        Email Address *
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        placeholder="john@example.com"
-                        className="rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm text-neutral-900 outline-none focus:border-primary focus:bg-white transition-all"
-                      />
-                    </div>
+                <h3 className="font-sans font-bold text-xl text-neutral-900 mb-3">
+                  Message Sent Successfully!
+                </h3>
+                <p className="font-sans text-sm text-neutral-500 leading-relaxed max-w-sm">
+                  Thank you. Your message has been received. Kamrujjaman Mufti will review it and reply to your email within 24 hours.
+                </p>
+                <button
+                  onClick={() => setIsSubmitted(false)}
+                  className="mt-8 text-xs font-bold text-primary hover:text-primary-hover flex items-center gap-1"
+                >
+                  Submit another inquiry <Icons.RefreshCw className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            ) : (
+              // Contact Form
+              <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+                {formErrors && (
+                  <div className="flex items-center gap-2 rounded-xl bg-rose-50 border border-rose-100 p-4 text-xs font-semibold text-rose-600">
+                    <Icons.AlertCircle className="h-4 w-4 shrink-0" />
+                    <span>{formErrors}</span>
                   </div>
+                )}
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    {/* Website */}
-                    <div className="flex flex-col gap-2">
-                      <label htmlFor="website" className="font-sans text-xs font-bold text-neutral-700 uppercase tracking-wider">
-                        Business Website
-                      </label>
-                      <input
-                        type="text"
-                        id="website"
-                        name="website"
-                        value={formData.website}
-                        onChange={handleInputChange}
-                        placeholder="example.com"
-                        className="rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm text-neutral-900 outline-none focus:border-primary focus:bg-white transition-all"
-                      />
-                    </div>
-
-                    {/* Service */}
-                    <div className="flex flex-col gap-2">
-                      <label htmlFor="service" className="font-sans text-xs font-bold text-neutral-700 uppercase tracking-wider">
-                        Growth Service *
-                      </label>
-                      <select
-                        id="service"
-                        name="service"
-                        value={formData.service}
-                        onChange={handleInputChange}
-                        className="rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm text-neutral-900 outline-none focus:border-primary focus:bg-white transition-all"
-                      >
-                        <option value="">Select Service</option>
-                        {services.map((svc) => (
-                          <option key={svc} value={svc}>
-                            {svc}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-
-                  {/* Message */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {/* Name */}
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="message" className="font-sans text-xs font-bold text-neutral-700 uppercase tracking-wider">
-                      Tell us about your goals *
+                    <label htmlFor="name" className="font-sans text-xs font-bold text-neutral-700 uppercase tracking-wider">
+                      Your Name *
                     </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
                       onChange={handleInputChange}
-                      rows={5}
-                      placeholder="Detail your search, paid campaign, or custom development requirements..."
-                      className="rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm text-neutral-900 outline-none focus:border-primary focus:bg-white transition-all resize-none"
+                      placeholder="John Smith"
+                      className="rounded-xl border border-neutral-200 bg-neutral-50/50 px-4 py-3 text-sm text-neutral-900 outline-none focus:border-primary focus:bg-white transition-all font-sans"
                     />
                   </div>
 
+                  {/* Email */}
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="email" className="font-sans text-xs font-bold text-neutral-700 uppercase tracking-wider">
+                      Email Address *
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder="john@company.com"
+                      className="rounded-xl border border-neutral-200 bg-neutral-50/50 px-4 py-3 text-sm text-neutral-900 outline-none focus:border-primary focus:bg-white transition-all font-sans"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {/* Company */}
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="company" className="font-sans text-xs font-bold text-neutral-700 uppercase tracking-wider">
+                      Company / Brand
+                    </label>
+                    <input
+                      type="text"
+                      id="company"
+                      name="company"
+                      value={formData.company}
+                      onChange={handleInputChange}
+                      placeholder="Acme Corp (optional)"
+                      className="rounded-xl border border-neutral-200 bg-neutral-50/50 px-4 py-3 text-sm text-neutral-900 outline-none focus:border-primary focus:bg-white transition-all font-sans"
+                    />
+                  </div>
+
+                  {/* Country */}
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="country" className="font-sans text-xs font-bold text-neutral-700 uppercase tracking-wider">
+                      Your Country
+                    </label>
+                    <select
+                      id="country"
+                      name="country"
+                      value={formData.country}
+                      onChange={handleInputChange}
+                      className="rounded-xl border border-neutral-200 bg-neutral-50/50 px-4 py-3 text-sm text-neutral-900 outline-none focus:border-primary focus:bg-white transition-all font-sans cursor-pointer"
+                    >
+                      <option value="">Select country...</option>
+                      {countriesData.map((c) => (
+                        <option key={c.id} value={c.name}>
+                          {c.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                {/* Service */}
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="service" className="font-sans text-xs font-bold text-neutral-700 uppercase tracking-wider">
+                    Service Needed *
+                  </label>
+                  <select
+                    id="service"
+                    name="service"
+                    value={formData.service}
+                    onChange={handleInputChange}
+                    className="rounded-xl border border-neutral-200 bg-neutral-50/50 px-4 py-3 text-sm text-neutral-900 outline-none focus:border-primary focus:bg-white transition-all font-sans cursor-pointer"
+                  >
+                    <option value="">Select a service...</option>
+                    {services.map((s) => (
+                      <option key={s} value={s}>
+                        {s}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Budget selector pills */}
+                <div className="flex flex-col gap-2">
+                  <label className="font-sans text-xs font-bold text-neutral-700 uppercase tracking-wider">
+                    Monthly Budget
+                  </label>
+                  <div className="flex flex-wrap gap-2 mt-1">
+                    {budgetOptions.map((opt) => {
+                      const isSelected = selectedBudget === opt;
+                      return (
+                        <button
+                          key={opt}
+                          type="button"
+                          onClick={() => setSelectedBudget(opt)}
+                          className={`px-4 py-2 text-xs font-bold rounded-full border transition-all ${
+                            isSelected 
+                              ? "bg-blue-50 text-primary border-primary shadow-sm" 
+                              : "bg-white text-neutral-600 border-neutral-200 hover:border-neutral-300"
+                          }`}
+                        >
+                          {opt}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Project details */}
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="message" className="font-sans text-xs font-bold text-neutral-700 uppercase tracking-wider">
+                    Tell Me About Your Project *
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    rows={5}
+                    placeholder="Describe your business, what you're trying to achieve, and any relevant details about your target audience or current challenges..."
+                    className="rounded-xl border border-neutral-200 bg-neutral-50/50 px-4 py-3 text-sm text-neutral-900 outline-none focus:border-primary focus:bg-white transition-all font-sans resize-none"
+                  />
+                </div>
+
+                <div className="flex flex-col sm:flex-row items-center gap-4 mt-2">
                   <button
                     type="submit"
-                    className="flex items-center justify-center gap-2 rounded-full bg-primary hover:bg-primary-hover px-8 py-4 font-sans text-sm font-bold text-white shadow-md transition-all hover:scale-[1.01] active:scale-[0.99] mt-2"
+                    className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary hover:bg-primary-hover px-8 py-4 font-sans text-xs font-bold text-white shadow-md transition-all hover:scale-[1.01] active:scale-[0.99]"
                   >
-                    Submit Strategy Request <Icons.ArrowRight className="h-4 w-4" />
+                    Send Message <Icons.ArrowRight className="h-4 w-4" />
                   </button>
-                </form>
-              )}
+                  <span className="font-sans text-xs text-neutral-400">
+                    I respond to every message personally within 24 hours.
+                  </span>
+                </div>
+              </form>
+            )}
+          </div>
+
+          {/* Right Column: Widgets */}
+          <div className="lg:col-span-5 xl:col-span-4 flex flex-col gap-6">
+            
+            {/* Widget 1: Map/Bangladesh Card */}
+            <div className="bg-[#0F172A] rounded-[2rem] p-8 text-white shadow-lg relative overflow-hidden">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 text-[10px] font-bold text-emerald-400 uppercase tracking-wider mb-6">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                Open to new projects
+              </div>
+              
+              <h4 className="font-serif text-xl sm:text-2xl font-bold leading-tight mb-4">
+                Based in Bangladesh. <br />Working worldwide.
+              </h4>
+              
+              <p className="font-sans text-xs text-slate-400 leading-relaxed mb-6">
+                Remote-first, communication-first. We work across time zones so you&apos;re never left waiting — responses within hours, not days.
+              </p>
+              
+              {/* Flag badges grid */}
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { name: "USA", flag: "🇺🇸" },
+                  { name: "UK", flag: "🇬🇧" },
+                  { name: "Canada", flag: "🇨🇦" },
+                  { name: "Australia", flag: "🇦🇺" },
+                  { name: "Ireland", flag: "🇮🇪" },
+                  { name: "UAE", flag: "🇦🇪" },
+                  { name: "South Africa", flag: "🇿🇦" },
+                  { name: "Germany", flag: "🇩🇪" },
+                  { name: "Netherlands", flag: "🇳🇱" },
+                  { name: "New Zealand", flag: "🇳🇿" },
+                  { name: "Bangladesh", flag: "🇧🇩" }
+                ].map((country) => (
+                  <span 
+                    key={country.name} 
+                    className="inline-flex items-center gap-1 bg-slate-800 border border-slate-700/50 text-slate-300 text-[10px] font-semibold px-2.5 py-1 rounded-full transition-colors"
+                  >
+                    <span>{country.flag}</span>
+                    {country.name}
+                  </span>
+                ))}
+              </div>
             </div>
+
+            {/* Widget 2: Direct Contact Card */}
+            <div className="bg-white border border-neutral-100 rounded-[2rem] shadow-[0_8px_30px_rgba(0,0,0,0.02)] p-6 lg:p-8">
+              <h4 className="font-serif text-lg font-bold text-neutral-900 mb-6">
+                Direct Contact
+              </h4>
+              <div className="flex flex-col gap-4">
+                {[
+                  { icon: Icons.Mail, label: "EMAIL", val: "kj.jaman369@gmail.com", href: "mailto:kj.jaman369@gmail.com", color: "bg-blue-50 text-blue-600" },
+                  { icon: Icons.Phone, label: "WHATSAPP / PHONE", val: "+880 1768-667020", href: "https://wa.me/8801768667020", color: "bg-emerald-50 text-emerald-600" },
+                  { icon: Icons.Linkedin, label: "LINKEDIN", val: "linkedin.com/in/kamrujjaman-mufti", href: "https://linkedin.com/in/kamrujjaman-mufti", color: "bg-blue-50 text-blue-600" },
+                  { icon: Icons.Facebook, label: "FACEBOOK", val: "facebook.com/digitalworldweb", href: "https://facebook.com/digitalworldweb", color: "bg-blue-50 text-blue-600" },
+                  { icon: Icons.MapPin, label: "LOCATION", val: "Dhaka, Bangladesh (Remote)", href: "#", color: "bg-orange-50 text-orange-600" }
+                ].map((item, idx) => (
+                  <a 
+                    key={idx} 
+                    href={item.href}
+                    target={item.href !== "#" ? "_blank" : undefined}
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-4 p-3 rounded-xl border border-neutral-100 hover:bg-neutral-50 transition-colors"
+                  >
+                    <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${item.color}`}>
+                      <item.icon className="h-5 w-5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <span className="block text-[9px] font-bold text-neutral-400 tracking-wider uppercase">{item.label}</span>
+                      <span className="block text-xs font-semibold text-neutral-800 truncate">{item.val}</span>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Widget 3: Response Time Alert Box */}
+            <div className="bg-blue-50/70 border border-blue-100/50 rounded-2xl p-6 flex gap-4">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-50 text-amber-500 border border-amber-100">
+                <Icons.Zap className="h-5 w-5 fill-amber-500 text-amber-500" />
+              </div>
+              <div>
+                <span className="block text-[9px] font-bold text-blue-400 tracking-wider uppercase mb-1">RESPONSE TIME</span>
+                <h5 className="font-sans font-bold text-sm text-neutral-900 mb-1">Within 24 hours</h5>
+                <p className="font-sans text-xs text-neutral-500 leading-relaxed">
+                  Usually much faster. Kamrujjaman reads every message personally and never uses automated replies.
+                </p>
+              </div>
+            </div>
+
+            {/* Widget 4: What Happens Next */}
+            <div className="bg-white border border-neutral-100 rounded-[2rem] shadow-[0_8px_30px_rgba(0,0,0,0.02)] p-6 lg:p-8">
+              <h4 className="font-serif text-lg font-bold text-neutral-900 mb-6">
+                What happens next
+              </h4>
+              <div className="flex flex-col gap-6">
+                {[
+                  { step: 1, title: "You send the form", desc: "Takes 2 minutes. The more detail, the better I can help." },
+                  { step: 2, title: "I review & respond", desc: "I&apos;ll reply within 24 hours with initial thoughts and any questions." },
+                  { step: 3, title: "Free strategy call", desc: "30 minutes to align on goals, strategy, and what success looks like." },
+                  { step: 4, title: "We get to work", desc: "Clear proposal, timeline, and kickoff — then we build something great." }
+                ].map((item) => (
+                  <div key={item.step} className="flex gap-4">
+                    <div className="flex-shrink-0 flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 font-sans text-xs font-bold text-neutral-600">
+                      {item.step}
+                    </div>
+                    <div>
+                      <h5 className="font-sans font-bold text-sm text-neutral-900 mb-1">{item.title}</h5>
+                      <p className="font-sans text-xs text-neutral-500 leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
           </div>
 
         </div>
-      </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-20 lg:py-28 border-t border-neutral-100 bg-neutral-50/50">
+        <div className="container mx-auto max-w-4xl px-6">
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-neutral-900 text-center mb-12">
+            Frequently asked questions
+          </h2>
+          
+          <div className="flex flex-col border-t border-neutral-100">
+            {contactFaq.map((item, idx) => {
+              const isOpen = activeFaq === idx;
+              return (
+                <div key={idx} className="border-b border-neutral-100">
+                  <button
+                    onClick={() => setActiveFaq(isOpen ? null : idx)}
+                    className="flex w-full items-center justify-between py-6 font-sans font-bold text-sm sm:text-base text-neutral-800 text-left outline-none transition-colors hover:text-primary"
+                  >
+                    <span>{item.q}</span>
+                    <div className="flex h-6 w-6 items-center justify-center rounded-full border border-neutral-200 bg-white shrink-0 ml-4">
+                      {isOpen ? (
+                        <Icons.Minus className="h-3.5 w-3.5 text-neutral-400" />
+                      ) : (
+                        <Icons.Plus className="h-3.5 w-3.5 text-neutral-400" />
+                      )}
+                    </div>
+                  </button>
+                  
+                  <div 
+                    className={`grid transition-all duration-300 ease-in-out ${
+                      isOpen ? "grid-rows-[1fr] opacity-100 pb-6" : "grid-rows-[0fr] opacity-0 overflow-hidden"
+                    }`}
+                  >
+                    <div className="overflow-hidden font-sans text-xs sm:text-sm text-neutral-500 leading-relaxed">
+                      {item.a}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
     </article>
   );
 }
