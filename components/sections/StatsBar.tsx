@@ -11,18 +11,18 @@ export default function StatsBar() {
   return (
     <section 
       ref={containerRef} 
-      className="py-14 sm:py-20 bg-neutral-50 border-b border-neutral-100 relative z-10"
+      className="py-8 sm:py-10 bg-neutral-50 border-b border-neutral-100 relative z-10"
     >
       <div className="container mx-auto max-w-7xl px-6">
         {/* Section Eyebrow Title */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-6">
           <span className="text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-[0.25em] font-sans">
             PROVEN TRACK RECORD
           </span>
         </div>
 
         {/* Floating Stats Card */}
-        <div className="bg-white border border-neutral-100 rounded-[2rem] shadow-[0_12px_40px_rgba(0,0,0,0.03)] py-10 sm:py-12 px-6 sm:px-12">
+        <div className="bg-white border border-neutral-100 rounded-[2rem] shadow-[0_12px_40px_rgba(0,0,0,0.03)] py-6 sm:py-8 px-6 sm:px-12">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-10 lg:gap-y-0">
             {statsData.map((stat, idx) => (
               <StatItem 
