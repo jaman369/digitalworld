@@ -1,60 +1,107 @@
-import { Metadata } from "next";
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import * as Icons from "lucide-react";
-import WhyChooseUs from "@/components/sections/WhyChooseUs";
-
-export const metadata: Metadata = {
-  title: "About Us - Digital World",
-  description: "Discover the story behind Digital World. Led by Kamrujjaman Mufti, we build data-driven organic and paid channels that scale international businesses.",
-};
+import { countriesData } from "@/data/countries";
 
 export default function AboutPage() {
+  const timelineData = [
+    { years: "2021 - PRESENT", role: "Digital Marketing Director", company: "Digital World" },
+    { years: "2020 - 2021", role: "Senior Ads Specialist", company: "Scaling ad campaigns" },
+    { years: "2018 - 2020", role: "Web Developer", company: "Building high-speed store frontends" },
+    { years: "2017 - 2018", role: "Sourcing Agent", company: "Managing factory checks and logistics" }
+  ];
+
+  const statsMetrics = [
+    { value: "150+", label: "Projects Delivered" },
+    { value: "120+", label: "Happy Clients" },
+    { value: "5", label: "Years Experience" },
+    { value: "11", label: "Countries Served" }
+  ];
+
+  const expertiseData = [
+    { title: "Search Engine Optimization", icon: Icons.Search, desc: "Optimize GBP mappings, crawl budgets, and entity relevance architectures.", color: "bg-blue-50 text-blue-600" },
+    { title: "Pay Per Click Campaigns", icon: Icons.Target, desc: "Scale acquisitions predictably across Google Search, Shopping, and Smart Bidding campaigns.", color: "bg-orange-50 text-orange-600" },
+    { title: "Social Media Advertising", icon: Icons.Smartphone, desc: "Configure custom Meta Pixels, lookalike loops, and creative hooks.", color: "bg-purple-50 text-purple-600" },
+    { title: "Web Development", icon: Icons.Laptop, desc: "Stunning custom-coded Next.js/Vite visual frontends optimized for transaction speeds.", color: "bg-blue-50 text-blue-600" },
+    { title: "Sourcing Services", icon: Icons.Truck, desc: "Verify manufacturing licenses, factory compliance reports, and cargo routes.", color: "bg-orange-50 text-orange-600" },
+    { title: "Content Marketing", icon: Icons.PenTool, desc: "Draft high-converting copy frameworks, editorial briefs, and syndication strategies.", color: "bg-amber-50 text-amber-600" }
+  ];
+
+  const valuesData = [
+    { title: "Data-Driven Decisions", desc: "Analyze patterns before making moves.", color: "bg-blue-50/50 border-blue-100 text-blue-900" },
+    { title: "Absolute Transparency", desc: "Direct communication and honest progress.", color: "bg-emerald-50/50 border-emerald-100 text-emerald-900" },
+    { title: "Creative Solutions", desc: "Unique hooks and custom-designed funnels.", color: "bg-amber-50/50 border-amber-100 text-amber-900" },
+    { title: "Client Focused", desc: "Your growth is our target. Full alignment.", color: "bg-violet-50/50 border-violet-100 text-violet-900" }
+  ];
+
+  const toolsList = [
+    "Google Analytics", "Google Ads", "Figma", "Shopify", "WordPress", 
+    "Ahrefs", "Zapier", "Make.com", "GitHub", "Next.js"
+  ];
+
+  const bottomCtaServices = [
+    { title: "SEO Agency", desc: "Grow search footprint and capture high-intent buyers.", link: "/services/seo", icon: Icons.Search },
+    { title: "PPC & Paid Ads", desc: "Accelerate conversions through targeted search bidding.", link: "/services/ppc", icon: Icons.Target },
+    { title: "Web Design & Dev", desc: "Custom visual frontends optimized for speed and UX.", link: "/services/web-design-dev", icon: Icons.Laptop },
+    { title: "Content & Strategy", desc: "Build authority and lists that drive stable acquisitions.", link: "/services/content-marketing", icon: Icons.PenTool },
+    { title: "AI Automation", desc: "Integrate custom intelligent agents and workflows.", link: "/services/ai-automation", icon: Icons.Cpu },
+    { title: "China Sourcing", desc: "End-to-end supply chain sourcing and global logistics.", link: "/services/china-sourcing", icon: Icons.Truck }
+  ];
+
   return (
     <article className="min-h-screen bg-white">
-      {/* About Hero Section */}
-      <section className="relative overflow-hidden bg-white py-20 lg:py-32">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(0,118,255,0.03)_0%,transparent_60%)]" />
+      
+      {/* 1. About Hero Section */}
+      <section className="relative overflow-hidden bg-white py-20 lg:py-28">
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(0,118,255,0.03)_0%,transparent_60%)] pointer-events-none" />
         
         <div className="container mx-auto max-w-7xl px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            
             {/* Left Biography Text */}
             <div className="lg:col-span-7 flex flex-col items-start">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-light px-4 py-1.5 text-xs font-semibold text-primary uppercase tracking-wider mb-6">
-                About The Founder
+              <span className="text-[10px] sm:text-xs font-bold text-primary uppercase tracking-[0.25em] mb-4">
+                INTRODUCING
               </span>
-              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-neutral-900 tracking-tight leading-[1.1] mb-6">
-                Hi, I&apos;m <br />
-                <span className="text-primary italic font-medium">Kamrujjaman Mufti.</span>
+              <h1 className="font-serif text-4xl sm:text-5xl lg:text-[3.5rem] font-bold text-neutral-900 tracking-tight leading-[1.1] mb-6">
+                Hi, I&apos;m <br className="sm:hidden" />
+                Kamrujjaman <br />
+                <span className="text-primary italic font-serif">Mufti.</span>
               </h1>
-              <p className="font-sans text-lg text-neutral-600 leading-relaxed mb-6">
-                I am the founder and lead strategy architect of Digital World. For the past five years, I have worked at the intersection of search engine algorithms, conversion optimization, and paid media allocation. My focus is helping businesses scale customer acquisition globally with zero reliance on guess work.
-              </p>
-              <p className="font-sans text-base text-neutral-500 leading-relaxed mb-10">
-                What began as a personal fascination with indexing architectures quickly grew into a full-service marketing agency. Today, we audit search presence, deploy rapid headless Web structures, optimize shopping workflows, and scale high-return Google & Meta campaigns. We act as a technical extension of your team, providing complete visibility into keyword trends and conversion statistics.
+              <p className="font-sans text-sm sm:text-base text-neutral-500 leading-relaxed max-w-2xl mb-8">
+                Full-service digital marketing expert with 5 years of hands-on experience helping businesses of all sizes grow through SEO, web development, paid ads, and content marketing.
               </p>
               
-              <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
+              <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-8">
                 <Link
                   href="/contact"
-                  className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary hover:bg-primary-hover px-8 py-4 font-sans text-sm font-semibold text-white shadow-md transition-all hover:scale-[1.02] active:scale-[0.99]"
+                  className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary hover:bg-primary-hover px-8 py-4 font-sans text-xs font-bold text-white shadow-md transition-all hover:scale-[1.02] active:scale-[0.99]"
                 >
-                  Work With Me <Icons.ArrowRight className="h-4 w-4" />
+                  Book Call <Icons.ArrowRight className="h-4 w-4" />
                 </Link>
-                <a
-                  href="/Kamrujjaman_Mufti_Resume.pdf"
-                  className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-neutral-200 bg-white hover:bg-neutral-50 px-8 py-4 font-sans text-sm font-semibold text-neutral-700 shadow-sm transition-all"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/contact"
+                  className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-neutral-200 bg-white hover:bg-neutral-50 px-8 py-4 font-sans text-xs font-bold text-neutral-700 shadow-sm transition-all"
                 >
-                  <Icons.Download className="h-4 w-4 text-neutral-500" /> Download Resume
-                </a>
+                  Contact Me
+                </Link>
+              </div>
+
+              {/* Badges list */}
+              <div className="flex flex-wrap gap-2 border-t border-neutral-100 pt-6 w-full">
+                {["Digital", "SEO", "PPC", "Web", "Sourcing", "AI"].map((tag) => (
+                  <span key={tag} className="bg-neutral-50 border border-neutral-200/60 text-neutral-500 text-[10px] font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider">
+                    {tag}
+                  </span>
+                ))}
               </div>
             </div>
 
             {/* Right Image Frame */}
             <div className="lg:col-span-5 relative flex justify-center">
-              <div className="relative w-full max-w-[380px] aspect-[4/5] rounded-3xl overflow-hidden shadow-premium border border-neutral-100">
+              <div className="relative w-full max-w-[380px] aspect-[4/5] rounded-[2rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.08)] border border-neutral-100">
                 <Image
                   src="/Kamrujjaman Mufti Image/kamrujjaman-mufti.jpg"
                   alt="Kamrujjaman Mufti"
@@ -63,15 +110,248 @@ export default function AboutPage() {
                   priority
                 />
               </div>
-              {/* Backing structural color frame */}
-              <div className="absolute top-6 -left-6 -z-10 w-full max-w-[380px] aspect-[4/5] rounded-3xl bg-primary/5 hidden lg:block" />
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* Integrate the WhyChooseUs Section */}
-      <WhyChooseUs />
+      {/* 2. Timeline / Results Section */}
+      <section className="py-20 lg:py-28 bg-neutral-50/50 border-t border-b border-neutral-100">
+        <div className="container mx-auto max-w-7xl px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+            
+            {/* Left Timeline Copy */}
+            <div className="lg:col-span-6 flex flex-col justify-center">
+              <span className="text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-[0.2em] mb-4">
+                RESULTS DRIVEN
+              </span>
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-neutral-900 leading-tight tracking-tight mb-6">
+                From curiosity to <br />5 years of results.
+              </h2>
+              <p className="font-sans text-sm sm:text-base text-neutral-500 leading-relaxed mb-6">
+                For the past five years, I have worked at the intersection of search engine algorithms, conversion optimization, and paid media allocation. My focus is helping businesses scale customer acquisition globally with zero reliance on guess work.
+              </p>
+              <p className="font-sans text-sm sm:text-base text-neutral-500 leading-relaxed">
+                What began as a personal fascination with indexing architectures quickly grew into a full-service marketing agency. Today, we audit search presence, deploy rapid headless Web structures, optimize shopping workflows, and scale campaigns.
+              </p>
+            </div>
+
+            {/* Right Timeline Milestones */}
+            <div className="lg:col-span-6 flex flex-col justify-center gap-8 pl-0 lg:pl-10">
+              {timelineData.map((item, idx) => (
+                <div key={idx} className="flex gap-6 relative group">
+                  {/* Timeline vertical bar connector */}
+                  {idx < timelineData.length - 1 && (
+                    <div className="absolute left-3 top-6 bottom-[-2.5rem] w-0.5 bg-neutral-200" />
+                  )}
+                  {/* Timeline indicator circle */}
+                  <div className="flex h-6.5 w-6.5 shrink-0 items-center justify-center rounded-full border border-primary/20 bg-primary/5 text-primary relative z-10 transition-colors group-hover:bg-primary group-hover:text-white">
+                    <Icons.Check className="h-3 w-3" />
+                  </div>
+                  {/* Milestone info */}
+                  <div>
+                    <span className="block text-[10px] font-bold text-primary uppercase tracking-widest mb-1">
+                      {item.years}
+                    </span>
+                    <h4 className="font-sans font-bold text-sm sm:text-base text-neutral-900 mb-0.5">
+                      {item.role}
+                    </h4>
+                    <p className="font-sans text-xs sm:text-sm text-neutral-400">
+                      {item.company}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Numbers / Stats Section */}
+      <section className="py-20 lg:py-28 bg-white">
+        <div className="container mx-auto max-w-7xl px-6 text-center">
+          <span className="text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-[0.2em] mb-4 inline-block">
+            METRICS
+          </span>
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-neutral-900 tracking-tight mb-12">
+            5 years of work, <br className="sm:hidden" />
+            in <span className="text-primary italic font-serif font-medium">4 numbers.</span>
+          </h2>
+          
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+            {statsMetrics.map((stat) => (
+              <div 
+                key={stat.label} 
+                className="bg-white border border-neutral-100 rounded-3xl p-8 shadow-[0_8px_30px_rgba(0,0,0,0.01)] hover:shadow-premium transition-all duration-300 flex flex-col items-center justify-center"
+              >
+                <span className="font-serif text-4xl sm:text-5xl font-bold text-neutral-900 tracking-tight mb-2">
+                  {stat.value}
+                </span>
+                <span className="font-sans text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-widest text-center">
+                  {stat.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. What I do best (Services Grid) */}
+      <section className="py-20 lg:py-28 bg-neutral-50/50 border-t border-b border-neutral-100">
+        <div className="container mx-auto max-w-7xl px-6 text-center">
+          <span className="text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-[0.2em] mb-4 inline-block">
+            EXPERTISE
+          </span>
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-neutral-900 tracking-tight mb-12">
+            What I do best.
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {expertiseData.map((item, idx) => (
+              <div 
+                key={idx}
+                className="bg-white border border-neutral-200/60 rounded-3xl p-8 text-left shadow-sm hover:shadow-premium hover:border-primary/20 transition-all duration-300"
+              >
+                <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${item.color} mb-6`}>
+                  <item.icon className="h-6 w-6" />
+                </div>
+                <h3 className="font-sans font-bold text-lg text-neutral-900 mb-3">
+                  {item.title}
+                </h3>
+                <p className="font-sans text-xs sm:text-sm text-neutral-500 leading-relaxed">
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Values Section */}
+      <section className="py-20 lg:py-28 bg-white">
+        <div className="container mx-auto max-w-7xl px-6 text-center">
+          <span className="text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-[0.2em] mb-4 inline-block">
+            OUR VALUES
+          </span>
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-neutral-900 tracking-tight mb-12">
+            The values behind <br className="sm:hidden" />
+            every project.
+          </h2>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {valuesData.map((item, idx) => (
+              <div 
+                key={idx}
+                className={`rounded-3xl p-8 border text-left shadow-[0_8px_30px_rgba(0,0,0,0.01)] transition-all ${item.color}`}
+              >
+                <div className="font-sans text-[10px] font-bold uppercase tracking-widest opacity-40 mb-4">
+                  Value 0{idx + 1}
+                </div>
+                <h4 className="font-sans font-bold text-base mb-3 leading-snug">
+                  {item.title}
+                </h4>
+                <p className="font-sans text-xs leading-relaxed opacity-80">
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Bangladesh / Global Reach */}
+      <section className="py-20 lg:py-28 bg-neutral-50/50 border-t border-b border-neutral-100">
+        <div className="container mx-auto max-w-7xl px-6 text-center">
+          <span className="text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-[0.2em] mb-4 inline-block">
+            GLOBAL REACH
+          </span>
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-neutral-900 tracking-tight mb-12">
+            Based in Bangladesh. <br />Serving the world.
+          </h2>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {countriesData.map((country) => (
+              <div 
+                key={country.id}
+                className="bg-white border border-neutral-100 rounded-2xl p-5 shadow-[0_6px_20px_rgba(0,0,0,0.01)] flex flex-col items-center justify-center text-center"
+              >
+                <span className="text-3xl mb-3">
+                  {country.flagCode === "GB" ? "🇬🇧" : country.flagCode === "US" ? "🇺🇸" : country.flagCode === "CA" ? "🇨🇦" : country.flagCode === "AU" ? "🇦🇺" : country.flagCode === "IE" ? "🇮🇪" : country.flagCode === "AE" ? "🇦🇪" : country.flagCode === "ZA" ? "🇿🇦" : country.flagCode === "DE" ? "🇩🇪" : country.flagCode === "NL" ? "🇳🇱" : country.flagCode === "NZ" ? "🇳🇿" : "🇧🇩"}
+                </span>
+                <h4 className="font-sans font-bold text-sm text-neutral-800 mb-0.5">
+                  {country.name}
+                </h4>
+                <p className="font-sans text-[10px] font-semibold text-neutral-400 uppercase tracking-wider">
+                  {country.specialtyTag}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 7. Tools I use every day */}
+      <section className="py-20 lg:py-28 bg-white">
+        <div className="container mx-auto max-w-7xl px-6 text-center">
+          <span className="text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-[0.2em] mb-4 inline-block">
+            STACK
+          </span>
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-neutral-900 tracking-tight mb-12">
+            Tools I use every day.
+          </h2>
+
+          <div className="flex flex-wrap items-center justify-center gap-3 max-w-3xl mx-auto">
+            {toolsList.map((tool) => (
+              <span 
+                key={tool} 
+                className="bg-neutral-50 hover:bg-neutral-100 border border-neutral-200/60 text-neutral-600 text-xs font-bold px-5 py-2.5 rounded-full transition-colors"
+              >
+                {tool}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 8. One expert. All services. Real results. (CTA) */}
+      <section className="py-20 lg:py-28 border-t border-neutral-100 bg-neutral-50/30">
+        <div className="container mx-auto max-w-7xl px-6 text-center">
+          <span className="text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-[0.2em] mb-4 inline-block">
+            CONTACT
+          </span>
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-neutral-900 tracking-tight mb-12">
+            One expert. <br />All services. Real results.
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {bottomCtaServices.map((svc, idx) => (
+              <Link 
+                key={idx}
+                href={svc.link}
+                className="group bg-white border border-neutral-200/60 rounded-3xl p-6 shadow-sm hover:shadow-premium hover:border-primary/20 text-left transition-all duration-300 flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/5 text-primary mb-4 transition-colors group-hover:bg-primary group-hover:text-white">
+                    <svc.icon className="h-5 w-5" />
+                  </div>
+                  <h4 className="font-sans font-bold text-sm sm:text-base text-neutral-900 mb-2">
+                    {svc.title}
+                  </h4>
+                  <p className="font-sans text-xs text-neutral-500 leading-relaxed mb-6">
+                    {svc.desc}
+                  </p>
+                </div>
+                <div className="font-sans text-[10px] font-bold text-primary hover:text-primary-hover flex items-center gap-1 mt-auto">
+                  Learn More <Icons.ArrowUpRight className="h-3 w-3" />
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
     </article>
   );
 }
