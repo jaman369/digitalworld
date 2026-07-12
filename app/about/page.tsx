@@ -37,8 +37,18 @@ export default function AboutPage() {
   ];
 
   const toolsList = [
-    "Google Analytics", "Google Ads", "Figma", "Shopify", "WordPress", 
-    "Ahrefs", "Zapier", "Make.com", "GitHub", "Next.js"
+    { name: "Ahrefs", desc: "SEO Research", icon: "🔍" },
+    { name: "SEMrush", desc: "Competitor Analysis", icon: "📊" },
+    { name: "WordPress", desc: "Web Development", icon: "🔵" },
+    { name: "Shopify", desc: "E-Commerce", icon: "🛍️" },
+    { name: "Figma", desc: "UI/UX Design", icon: "📐" },
+    { name: "Meta Ads Manager", desc: "Performance Ads", icon: "🎯" },
+    { name: "Google Ads", desc: "Search & Display", icon: "🔴" },
+    { name: "Google Tag Manager", desc: "Tracking & Analytics", icon: "🏷️" },
+    { name: "Google Analytics 4", desc: "Performance Tracking", icon: "📈" },
+    { name: "n8n", desc: "Automation", icon: "⚙️" },
+    { name: "Adobe Suite", desc: "Graphic Design", icon: "🎨" },
+    { name: "Screaming Frog", desc: "Technical SEO", icon: "🐸" }
   ];
 
   const bottomCtaServices = [
@@ -296,23 +306,33 @@ export default function AboutPage() {
       </section>
 
       {/* 7. Tools I use every day */}
-      <section className="py-20 lg:py-28 bg-white">
+      <section className="py-20 lg:py-28 bg-white border-b border-neutral-100">
         <div className="container mx-auto max-w-7xl px-6 text-center">
-          <span className="text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-[0.2em] mb-4 inline-block">
-            STACK
+          <span className="text-[10px] sm:text-xs font-bold text-primary uppercase tracking-[0.25em] mb-4 inline-block">
+            TOOLS & STACK
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-neutral-900 tracking-tight mb-12">
             Tools I use every day.
           </h2>
 
-          <div className="flex flex-wrap items-center justify-center gap-3 max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto text-left">
             {toolsList.map((tool) => (
-              <span 
-                key={tool} 
-                className="bg-neutral-50 hover:bg-neutral-100 border border-neutral-200/60 text-neutral-600 text-xs font-bold px-5 py-2.5 rounded-full transition-colors"
+              <div 
+                key={tool.name} 
+                className="bg-neutral-50/70 border border-neutral-100/50 rounded-2xl p-4 px-5 flex items-center gap-4 hover:shadow-sm transition-all duration-300"
               >
-                {tool}
-              </span>
+                <div className="text-xl shrink-0 flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-sm border border-neutral-100/50">
+                  {tool.icon}
+                </div>
+                <div>
+                  <h4 className="font-sans font-bold text-xs sm:text-sm text-neutral-800">
+                    {tool.name}
+                  </h4>
+                  <p className="font-sans text-[10px] sm:text-xs text-neutral-400">
+                    {tool.desc}
+                  </p>
+                </div>
+              </div>
             ))}
           </div>
         </div>
