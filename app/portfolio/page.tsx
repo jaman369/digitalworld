@@ -15,18 +15,17 @@ export default function PortfolioPage() {
       <div className="container mx-auto max-w-7xl px-6">
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-20">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-light px-4 py-1.5 text-xs font-semibold text-primary uppercase tracking-wider mb-6">
-            Case Studies
-          </span>
-          <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-neutral-900 tracking-tight leading-[1.1] mb-6">
-            Our recent client campaigns
-          </h1>
-          <p className="font-sans text-base sm:text-lg text-neutral-500 leading-relaxed">
-            Real search and conversion results delivered across e-commerce channels, B2B pipeline builders, and SaaS companies.
-          </p>
-          <div className="mt-4 text-xs font-semibold text-amber-600 bg-amber-50 inline-block px-3 py-1 rounded-md border border-amber-100">
-            Note: The items below represent realistic placeholders to showcase layout. Replace with your actual case study assets before launch.
+          <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-100/50 px-4 py-1 text-xs font-semibold text-emerald-600 uppercase tracking-wider mb-6">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            Real projects - Real results
           </div>
+          <h1 className="font-serif text-4xl sm:text-5xl lg:text-[3.5rem] font-bold text-neutral-900 tracking-tight leading-[1.15] mb-6">
+            Work that <span className="text-primary italic font-serif font-medium">speaks</span> <br />
+            for itself.
+          </h1>
+          <p className="font-sans text-sm sm:text-base text-neutral-500 leading-relaxed max-w-2xl mx-auto">
+            Explore a selection of projects across SEO, web design, paid advertising, and more — delivered for clients across 11 countries worldwide.
+          </p>
         </div>
 
         {/* Portfolio Filter Component */}
