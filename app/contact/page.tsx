@@ -20,6 +20,7 @@ export default function ContactPage() {
 
   const [formErrors, setFormErrors] = useState<string | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const services = [
     "Search Engine Optimization (SEO)",
@@ -75,7 +76,7 @@ export default function ContactPage() {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!formData.name.trim()) {
@@ -95,10 +96,42 @@ export default function ContactPage() {
       return;
     }
 
-    // Success State
-    setIsSubmitted(true);
-    setFormData({ name: "", email: "", company: "", country: "", service: "", message: "" });
-    setSelectedBudget("Under $300");
+    setIsSubmitting(true);
+    setFormErrors(null);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "2d1618ee-8005-4f28-be70-4ac818899c24",
+          name: formData.name,
+          email: formData.email,
+          company: formData.company || "N/A",
+          country: formData.country || "N/A",
+          service: formData.service,
+          budget: selectedBudget,
+          message: formData.message,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setIsSubmitted(true);
+        setFormData({ name: "", email: "", company: "", country: "", service: "", message: "" });
+        setSelectedBudget("Under $300");
+      } else {
+        setFormErrors(result.message || "Failed to send message. Please try again.");
+      }
+    } catch {
+      setFormErrors("A network error occurred. Please check your connection and try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -302,9 +335,18 @@ export default function ContactPage() {
                 <div className="flex flex-col sm:flex-row items-center gap-4 mt-2">
                   <button
                     type="submit"
-                    className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary hover:bg-primary-hover px-8 py-4 font-sans text-xs font-bold text-white shadow-md transition-all hover:scale-[1.01] active:scale-[0.99]"
+                    disabled={isSubmitting}
+                    className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary hover:bg-primary-hover disabled:opacity-70 disabled:cursor-not-allowed px-8 py-4 font-sans text-xs font-bold text-white shadow-md transition-all hover:scale-[1.01] active:scale-[0.99]"
                   >
-                    Send Message <Icons.ArrowRight className="h-4 w-4" />
+                    {isSubmitting ? (
+                      <>
+                        Sending... <Icons.Loader2 className="h-4 w-4 animate-spin" />
+                      </>
+                    ) : (
+                      <>
+                        Send Message <Icons.ArrowRight className="h-4 w-4" />
+                      </>
+                    )}
                   </button>
                   <span className="font-sans text-xs text-neutral-400">
                     I respond to every message personally within 24 hours.
