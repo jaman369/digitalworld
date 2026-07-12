@@ -65,6 +65,36 @@ export default function FeatureBlocks() {
       ctaLink: "/services/content-marketing",
       image: "https://picsum.photos/600/450?random=104",
       reverse: true
+    },
+    {
+      id: "feat-ai",
+      badge: "AI Automation",
+      title: "Intelligent agents and automated custom workflows",
+      description: "Deploy customized AI chatbots and workflow automation that take over manual support, data extraction, and repetitive tasks—so your team can focus on growth.",
+      bullets: [
+        "Custom AI Chatbots & RAG integrations",
+        "Lead generation & CRM sync automation",
+        "Repetitive workflow automation & integrations"
+      ],
+      iconName: "Cpu",
+      ctaLink: "/services/ai-automation",
+      image: "https://picsum.photos/600/450?random=105",
+      reverse: false
+    },
+    {
+      id: "feat-china",
+      badge: "China Sourcing",
+      title: "End-to-end supply chain sourcing and logistics",
+      description: "Find verified suppliers, verify product quality, negotiate prices, and manage safe shipping from China to your warehouse with direct professional support.",
+      bullets: [
+        "Supplier verification & factory audit reports",
+        "Quality inspection & bulk sample checks",
+        "Customs clearance & global freight logistics"
+      ],
+      iconName: "Truck",
+      ctaLink: "/services/china-sourcing",
+      image: "https://picsum.photos/600/450?random=106",
+      reverse: true
     }
   ];
 
