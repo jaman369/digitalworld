@@ -5,19 +5,19 @@
 @layer base {
   body {
     @apply antialiased min-h-screen text-neutral-900;
-    background-image: linear-gradient(rgba(255, 255, 255, 0.97), rgba(255, 255, 255, 0.97)), url('/bg-pattern.jpg');
-    background-size: 800px;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.92)), url('/bg-pattern.jpg');
+    background-size: 500px;
     background-repeat: repeat;
     background-attachment: fixed;
   }
 
   section.bg-white, main section.bg-white, main div.bg-white {
-    background-color: rgba(255, 255, 255, 0.8) !important;
+    background-color: rgba(255, 255, 255, 0.85) !important;
     backdrop-filter: blur(4px);
   }
 
   section.bg-neutral-50, main section.bg-neutral-50, main div.bg-neutral-50 {
-    background-color: rgba(248, 250, 252, 0.8) !important;
+    background-color: rgba(248, 250, 252, 0.85) !important;
     backdrop-filter: blur(4px);
   }
 }
