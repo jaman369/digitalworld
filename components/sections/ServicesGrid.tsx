@@ -1,19 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
 import { servicesData } from "@/data/services";
-
-const categoryImages: Record<string, string> = {
-  seo: "/All Service Images/seo-main.jpg",
-  ppc: "/All Service Images/ppc-main.jpg",
-  "web-design-dev": "/All Service Images/Web Design & Development.jpg",
-  "content-marketing": "/All Service Images/content-main.jpg",
-  "ai-automation": "/All Service Images/ai-main.jpg",
-  "china-sourcing": "/All Service Images/sourcing-main.jpg"
-};
 
 const categoryStyles: Record<string, {
   hoverBg: string;
@@ -136,20 +126,8 @@ export default function ServicesGrid() {
               <motion.div
                 key={category.id}
                 variants={cardVariants}
-                className={`group flex flex-col rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-premium ${styles.hoverBg} ${styles.hoverBorder}`}
+                className={`group flex flex-col rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-premium ${styles.hoverBg} ${styles.hoverBorder}`}
               >
-                {/* Top Card Image Showcase */}
-                {categoryImages[category.slug] && (
-                  <div className="relative w-full aspect-[16/10] rounded-xl overflow-hidden mb-6 border border-neutral-100/50 bg-[#F8FAFC] shadow-sm shrink-0">
-                    <Image
-                      src={categoryImages[category.slug]}
-                      alt={category.title}
-                      fill
-                      className="object-cover transition-transform duration-500 ease-out group-hover:scale-103"
-                    />
-                  </div>
-                )}
-
                 {/* Header info */}
                 <div className="flex items-start gap-4 mb-6">
                   <div className={`flex h-12 w-12 items-center justify-center rounded-xl bg-primary-light text-primary transition-all duration-500 shrink-0 ${styles.hoverIconBg} ${styles.hoverIconText}`}>
