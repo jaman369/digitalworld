@@ -13,42 +13,42 @@ const categoryStyles: Record<string, {
   hoverIconText: string;
 }> = {
   seo: {
-    hoverBg: "hover:bg-[#EFF6FF]",
+    hoverBg: "hover:bg-[#E8F2FF]",
     hoverBorder: "hover:border-blue-200/60",
     hoverText: "group-hover:text-blue-700",
     hoverIconBg: "group-hover:bg-blue-600",
     hoverIconText: "group-hover:text-white",
   },
   ppc: {
-    hoverBg: "hover:bg-[#FFF7ED]",
+    hoverBg: "hover:bg-[#FFF8EB]",
     hoverBorder: "hover:border-orange-200/60",
     hoverText: "group-hover:text-orange-700",
     hoverIconBg: "group-hover:bg-orange-600",
     hoverIconText: "group-hover:text-white",
   },
   "web-design-dev": {
-    hoverBg: "hover:bg-[#F5F3FF]",
+    hoverBg: "hover:bg-[#F0EBFF]",
     hoverBorder: "hover:border-purple-200/60",
     hoverText: "group-hover:text-purple-700",
     hoverIconBg: "group-hover:bg-purple-600",
     hoverIconText: "group-hover:text-white",
   },
   "content-marketing": {
-    hoverBg: "hover:bg-[#F0FDF4]",
+    hoverBg: "hover:bg-[#EDFBF3]",
     hoverBorder: "hover:border-green-200/60",
     hoverText: "group-hover:text-green-700",
     hoverIconBg: "group-hover:bg-green-600",
     hoverIconText: "group-hover:text-white",
   },
   "ai-automation": {
-    hoverBg: "hover:bg-[#ECFEFF]",
+    hoverBg: "hover:bg-[#E6FBFD]",
     hoverBorder: "hover:border-cyan-200/60",
     hoverText: "group-hover:text-cyan-700",
     hoverIconBg: "group-hover:bg-cyan-600",
     hoverIconText: "group-hover:text-white",
   },
   "china-sourcing": {
-    hoverBg: "hover:bg-[#FFFBEB]",
+    hoverBg: "hover:bg-[#FEFBEA]",
     hoverBorder: "hover:border-amber-200/60",
     hoverText: "group-hover:text-amber-700",
     hoverIconBg: "group-hover:bg-amber-600",
