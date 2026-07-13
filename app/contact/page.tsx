@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import * as Icons from "lucide-react";
 import { countriesData } from "@/data/countries";
 
@@ -377,23 +378,29 @@ export default function ContactPage() {
               {/* Flag badges grid */}
               <div className="flex flex-wrap gap-2">
                 {[
-                  { name: "USA", flag: "🇺🇸" },
-                  { name: "UK", flag: "🇬🇧" },
-                  { name: "Canada", flag: "🇨🇦" },
-                  { name: "Australia", flag: "🇦🇺" },
-                  { name: "Ireland", flag: "🇮🇪" },
-                  { name: "UAE", flag: "🇦🇪" },
-                  { name: "South Africa", flag: "🇿🇦" },
-                  { name: "Germany", flag: "🇩🇪" },
-                  { name: "Netherlands", flag: "🇳🇱" },
-                  { name: "New Zealand", flag: "🇳🇿" },
-                  { name: "Bangladesh", flag: "🇧🇩" }
+                  { name: "USA", flagPath: "/Flag emoji/United States.svg" },
+                  { name: "UK", flagPath: "/Flag emoji/United Kingdom.svg" },
+                  { name: "Canada", flagPath: "/Flag emoji/Canada.svg" },
+                  { name: "Australia", flagPath: "/Flag emoji/Australia.svg" },
+                  { name: "Ireland", flagPath: "/Flag emoji/Ireland.svg" },
+                  { name: "UAE", flagPath: "/Flag emoji/UAE.svg" },
+                  { name: "South Africa", flagPath: "/Flag emoji/South Africa.svg" },
+                  { name: "Germany", flagPath: "/Flag emoji/Germany.svg" },
+                  { name: "Netherlands", flagPath: "/Flag emoji/Netherlands.svg" },
+                  { name: "New Zealand", flagPath: "/Flag emoji/New Zealand.svg" },
+                  { name: "Bangladesh", flagPath: "/Flag emoji/Bangladesh.svg" }
                 ].map((country) => (
                   <span 
                     key={country.name} 
-                    className="inline-flex items-center gap-1 bg-slate-800 border border-slate-700/50 text-slate-300 text-[10px] font-semibold px-2.5 py-1 rounded-full transition-colors"
+                    className="inline-flex items-center gap-1.5 bg-slate-800 border border-slate-700/50 text-slate-300 text-[10px] font-semibold px-2.5 py-1 rounded-full transition-colors"
                   >
-                    <span>{country.flag}</span>
+                    <Image
+                      src={country.flagPath}
+                      alt={country.name}
+                      width={14}
+                      height={10}
+                      className="rounded-sm object-cover"
+                    />
                     {country.name}
                   </span>
                 ))}

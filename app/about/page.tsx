@@ -37,18 +37,18 @@ export default function AboutPage() {
   ];
 
   const toolsList = [
-    { name: "Ahrefs", desc: "SEO Research", icon: "🔍" },
-    { name: "SEMrush", desc: "Competitor Analysis", icon: "📊" },
-    { name: "WordPress", desc: "Web Development", icon: "🔵" },
-    { name: "Shopify", desc: "E-Commerce", icon: "🛍️" },
-    { name: "Figma", desc: "UI/UX Design", icon: "📐" },
-    { name: "Meta Ads Manager", desc: "Performance Ads", icon: "🎯" },
-    { name: "Google Ads", desc: "Search & Display", icon: "🔴" },
-    { name: "Google Tag Manager", desc: "Tracking & Analytics", icon: "🏷️" },
-    { name: "Google Analytics 4", desc: "Performance Tracking", icon: "📈" },
-    { name: "n8n", desc: "Automation", icon: "⚙️" },
-    { name: "Adobe Suite", desc: "Graphic Design", icon: "🎨" },
-    { name: "Screaming Frog", desc: "Technical SEO", icon: "🐸" }
+    { name: "Ahrefs", desc: "SEO Research", icon: "/Emoji/mag.png" },
+    { name: "SEMrush", desc: "Competitor Analysis", icon: "/Emoji/bar_chart.png" },
+    { name: "WordPress", desc: "Web Development", icon: "/Emoji/computer.png" },
+    { name: "Shopify", desc: "E-Commerce", icon: "/Emoji/shopping_trolley.png" },
+    { name: "Figma", desc: "UI/UX Design", icon: "/Emoji/triangular_ruler.png" },
+    { name: "Meta Ads Manager", desc: "Performance Ads", icon: "/Emoji/dart.png" },
+    { name: "Google Ads", desc: "Search & Display", icon: "/Emoji/red_circle.png" },
+    { name: "Google Tag Manager", desc: "Tracking & Analytics", icon: "/Emoji/label.png" },
+    { name: "Google Analytics 4", desc: "Performance Tracking", icon: "/Emoji/chart_with_upwards_trend.png" },
+    { name: "n8n", desc: "Automation", icon: "/Emoji/gear.png" },
+    { name: "Adobe Suite", desc: "Graphic Design", icon: "/Emoji/art.png" },
+    { name: "Screaming Frog", desc: "Technical SEO", icon: "/Emoji/frog.png" }
   ];
 
   const bottomCtaServices = [
@@ -290,9 +290,26 @@ export default function AboutPage() {
                 key={country.id}
                 className="bg-white border border-neutral-100 rounded-2xl p-5 shadow-[0_6px_20px_rgba(0,0,0,0.01)] flex flex-col items-center justify-center text-center"
               >
-                <span className="text-3xl mb-3">
-                  {country.flagCode === "GB" ? "🇬🇧" : country.flagCode === "US" ? "🇺🇸" : country.flagCode === "CA" ? "🇨🇦" : country.flagCode === "AU" ? "🇦🇺" : country.flagCode === "IE" ? "🇮🇪" : country.flagCode === "AE" ? "🇦🇪" : country.flagCode === "ZA" ? "🇿🇦" : country.flagCode === "DE" ? "🇩🇪" : country.flagCode === "NL" ? "🇳🇱" : country.flagCode === "NZ" ? "🇳🇿" : "🇧🇩"}
-                </span>
+                <div className="relative w-10 h-7 mb-3 overflow-hidden rounded border border-neutral-100/50 shadow-sm shrink-0">
+                  <Image
+                    src={
+                      country.flagCode === "GB" ? "/Flag emoji/United Kingdom.svg" :
+                      country.flagCode === "US" ? "/Flag emoji/United States.svg" :
+                      country.flagCode === "CA" ? "/Flag emoji/Canada.svg" :
+                      country.flagCode === "AU" ? "/Flag emoji/Australia.svg" :
+                      country.flagCode === "IE" ? "/Flag emoji/Ireland.svg" :
+                      country.flagCode === "AE" ? "/Flag emoji/UAE.svg" :
+                      country.flagCode === "ZA" ? "/Flag emoji/South Africa.svg" :
+                      country.flagCode === "DE" ? "/Flag emoji/Germany.svg" :
+                      country.flagCode === "NL" ? "/Flag emoji/Netherlands.svg" :
+                      country.flagCode === "NZ" ? "/Flag emoji/New Zealand.svg" :
+                      "/Flag emoji/Bangladesh.svg"
+                    }
+                    alt={country.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
                 <h4 className="font-sans font-bold text-sm text-neutral-800 mb-0.5">
                   {country.name}
                 </h4>
@@ -321,8 +338,14 @@ export default function AboutPage() {
                 key={tool.name} 
                 className="bg-neutral-50/70 border border-neutral-100/50 rounded-2xl p-4 px-5 flex items-center gap-4 hover:shadow-sm transition-all duration-300"
               >
-                <div className="text-xl shrink-0 flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-sm border border-neutral-100/50">
-                  {tool.icon}
+                <div className="shrink-0 flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-sm border border-neutral-100/50 p-2 relative">
+                  <Image
+                    src={tool.icon}
+                    alt={tool.name}
+                    width={20}
+                    height={20}
+                    className="object-contain"
+                  />
                 </div>
                 <div>
                   <h4 className="font-sans font-bold text-xs sm:text-sm text-neutral-800">

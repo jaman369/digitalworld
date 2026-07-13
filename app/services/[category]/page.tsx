@@ -308,6 +308,48 @@ const categoryProcesses: Record<string, ProcessOverride> = {
   }
 };
 
+const subItemImages: Record<string, string> = {
+  // SEO
+  "local-seo": "/All Service Images/Local Seo.png",
+  "ecommerce-seo": "/All Service Images/Ecommerce SEO.png",
+  "international-seo": "/All Service Images/International SEO.png",
+  "youtube-video-seo": "/All Service Images/Video SEO.png",
+  "saas-seo": "/All Service Images/SaaS SEO.png",
+  "semantic-seo": "/All Service Images/Semantic SEO.png",
+  "ai-seo": "/All Service Images/Ai SEO.png",
+
+  // PPC
+  "google-search-ads": "/All Service Images/Google Search Ads.png",
+  "google-shopping-ads": "/All Service Images/Google Shopping.png",
+  "performance-max": "/All Service Images/Performance Max.png",
+  "youtube-ads": "/All Service Images/YouTube Ads.png",
+  "remarketing-ads": "/All Service Images/Remarketing.png",
+  "facebook-ads": "/All Service Images/Facebook & Instagram Ads.png",
+  "instagram-ads": "/All Service Images/Facebook & Instagram Ads.png",
+  "tiktok-linkedin-ads": "/All Service Images/Social Media Advertising.jpg",
+
+  // Web design & dev
+  "website-design-ui-ux": "/All Service Images/UIUX Design.png",
+  "wordpress-development": "/All Service Images/WordPress Development.png",
+  "shopify-development": "/All Service Images/Shopify Development.png",
+  "landing-page-design": "/All Service Images/Landing Pages.png",
+  "website-speed-optimization": "/All Service Images/Speed Optimization.png",
+  "website-maintenance": "/All Service Images/Website Maintenance.png",
+  "website-migration": "/All Service Images/Web Design & Development.jpg",
+  "cms-setup": "/All Service Images/Technical SEO.png",
+
+  // Content marketing
+  "blog-writing": "/All Service Images/Blog Writing.png",
+  "email-marketing": "/All Service Images/Email Marketing.png",
+  "content-marketing": "/All Service Images/Content Strategy.png",
+  "cro-audit-testing": "/All Service Images/CRO & Testing.png",
+  "backlink-building": "/All Service Images/Link Building SEO.png",
+  "digital-pr": "/All Service Images/Digital PR.png",
+  "haro-services": "/All Service Images/Content & More.jpg",
+  "social-media-content": "/All Service Images/Social Media Content.png",
+  "press-releases": "/All Service Images/Blog Writing.png"
+};
+
 export default async function CategoryPage({ params }: PageProps) {
   const { category: categorySlug } = await params;
   const category = servicesData.find((c) => c.slug === categorySlug);
@@ -401,6 +443,7 @@ export default async function CategoryPage({ params }: PageProps) {
         <div className="container mx-auto max-w-7xl px-6">
           <div className="flex flex-col gap-12 lg:gap-16">
             {category.subItems.map((sub) => {
+              const imagePath = subItemImages[sub.slug] || sub.image;
               return (
                 <div 
                   key={sub.slug}
@@ -456,14 +499,14 @@ export default async function CategoryPage({ params }: PageProps) {
                     </div>
 
                     {/* Right Column: Free for Image Placeholder (5/12) */}
-                    <div className="lg:col-span-5 relative w-full aspect-[4/3] rounded-[2rem] bg-[#E0F2F1]/50 flex items-center justify-center p-6 sm:p-8">
-                      {sub.image ? (
-                        <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-sm border border-neutral-100">
+                    <div className="lg:col-span-5 relative w-full aspect-[4/3] rounded-[2rem] overflow-hidden shadow-sm border border-neutral-100 flex items-center justify-center bg-neutral-100">
+                      {imagePath ? (
+                        <div className="relative w-full h-full">
                           <Image
-                            src={sub.image}
+                            src={imagePath}
                             alt={sub.name}
                             fill
-                            className="object-cover"
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
                           />
                         </div>
                       ) : (
