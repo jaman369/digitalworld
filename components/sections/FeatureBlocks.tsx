@@ -18,7 +18,7 @@ export default function FeatureBlocks() {
       ],
       iconName: "Search",
       ctaLink: "/services/seo",
-      image: "https://picsum.photos/600/450?random=101",
+      image: "/All Service Images/seo-main.jpg",
       reverse: false
     },
     {
@@ -33,7 +33,7 @@ export default function FeatureBlocks() {
       ],
       iconName: "TrendingUp",
       ctaLink: "/services/ppc",
-      image: "https://picsum.photos/600/450?random=102",
+      image: "/All Service Images/ppc-main.jpg",
       reverse: true
     },
     {
@@ -48,7 +48,7 @@ export default function FeatureBlocks() {
       ],
       iconName: "Laptop",
       ctaLink: "/services/web-design-dev",
-      image: "https://picsum.photos/600/450?random=103",
+      image: "/All Service Images/web-main.png",
       reverse: false
     },
     {
@@ -63,7 +63,7 @@ export default function FeatureBlocks() {
       ],
       iconName: "PenTool",
       ctaLink: "/services/content-marketing",
-      image: "https://picsum.photos/600/450?random=104",
+      image: "/All Service Images/content-main.jpg",
       reverse: true
     },
     {
@@ -78,7 +78,7 @@ export default function FeatureBlocks() {
       ],
       iconName: "Cpu",
       ctaLink: "/services/ai-automation",
-      image: "https://picsum.photos/600/450?random=105",
+      image: "/All Service Images/ai-main.jpg",
       reverse: false
     },
     {
@@ -93,7 +93,7 @@ export default function FeatureBlocks() {
       ],
       iconName: "Truck",
       ctaLink: "/services/china-sourcing",
-      image: "https://picsum.photos/600/450?random=106",
+      image: "/All Service Images/sourcing-main.jpg",
       reverse: true
     }
   ];
