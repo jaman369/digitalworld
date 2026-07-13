@@ -39,6 +39,7 @@ interface HeroOverride {
   secCtaText?: string;
   secCtaLink?: string;
   secCtaIconName?: string;
+  eyebrowColorClass?: string;
 }
 
 const heroOverrides: Record<string, HeroOverride> = {
@@ -50,8 +51,10 @@ const heroOverrides: Record<string, HeroOverride> = {
     ctaText: "Get Free SEO Audit",
     ctaLink: "/contact?service=seo-audit",
     highlightColorClass: "text-[#10B981]",
-    glowClass: "bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.12)_0%,transparent_70%)]",
-    dotColorClass: "bg-[#10B981]"
+    glowClass: "bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.15)_0%,transparent_60%)]",
+    dotColorClass: "bg-[#10B981]",
+    eyebrowColorClass: "text-[#10B981]",
+    btnClass: "bg-[#0076FF] hover:bg-[#0066DD]"
   },
   ppc: {
     eyebrow: "PPC & Paid Advertising",
@@ -61,12 +64,10 @@ const heroOverrides: Record<string, HeroOverride> = {
     ctaText: "Get Free PPC Audit →",
     ctaLink: "/contact?service=ppc-audit",
     highlightColorClass: "bg-gradient-to-r from-[#F97316] to-[#EF4444] bg-clip-text text-transparent",
-    glowClass: "bg-[radial-gradient(circle_at_left_rgba(245,158,11,0.12)_0%,transparent_70%),radial-gradient(circle_at_right_rgba(59,130,246,0.12)_0%,transparent_70%)]",
+    glowClass: "bg-[radial-gradient(circle_at_center,rgba(249,115,22,0.15)_0%,transparent_60%)]",
     dotColorClass: "bg-[#F97316]",
-    btnClass: "bg-gradient-to-r from-[#F59E0B] to-[#F97316] hover:from-[#D97706] hover:to-[#EA580C] text-neutral-950 font-bold",
-    secCtaText: "Chat on WhatsApp",
-    secCtaLink: "https://wa.me/8801798667820",
-    secCtaIconName: "MessageCircle"
+    eyebrowColorClass: "text-[#F97316]",
+    btnClass: "bg-[#0076FF] hover:bg-[#0066DD]"
   },
   "web-design-dev": {
     eyebrow: "Development & Design",
@@ -76,8 +77,10 @@ const heroOverrides: Record<string, HeroOverride> = {
     ctaText: "Request a Proposal",
     ctaLink: "/contact?service=web-proposal",
     highlightColorClass: "text-indigo-400",
-    glowClass: "bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.12)_0%,transparent_70%)]",
-    dotColorClass: "bg-indigo-400"
+    glowClass: "bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.15)_0%,transparent_60%)]",
+    dotColorClass: "bg-indigo-400",
+    eyebrowColorClass: "text-indigo-400",
+    btnClass: "bg-[#0076FF] hover:bg-[#0066DD]"
   },
   "content-marketing": {
     eyebrow: "Content Strategy",
@@ -87,8 +90,10 @@ const heroOverrides: Record<string, HeroOverride> = {
     ctaText: "Get Content Plan",
     ctaLink: "/contact?service=content-plan",
     highlightColorClass: "text-amber-500",
-    glowClass: "bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.12)_0%,transparent_70%)]",
-    dotColorClass: "bg-amber-500"
+    glowClass: "bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.15)_0%,transparent_60%)]",
+    dotColorClass: "bg-amber-500",
+    eyebrowColorClass: "text-amber-500",
+    btnClass: "bg-[#0076FF] hover:bg-[#0066DD]"
   },
   "ai-automation": {
     eyebrow: "AI Automation",
@@ -98,8 +103,10 @@ const heroOverrides: Record<string, HeroOverride> = {
     ctaText: "Book AI Consultation",
     ctaLink: "/contact?service=ai-consultation",
     highlightColorClass: "text-cyan-400",
-    glowClass: "bg-[radial-gradient(circle_at_center,rgba(6,182,212,0.12)_0%,transparent_70%)]",
-    dotColorClass: "bg-cyan-400"
+    glowClass: "bg-[radial-gradient(circle_at_center,rgba(6,182,212,0.15)_0%,transparent_60%)]",
+    dotColorClass: "bg-cyan-400",
+    eyebrowColorClass: "text-cyan-400",
+    btnClass: "bg-[#0076FF] hover:bg-[#0066DD]"
   },
   "china-sourcing": {
     eyebrow: "China Sourcing Services",
@@ -109,8 +116,10 @@ const heroOverrides: Record<string, HeroOverride> = {
     ctaText: "Inquire Sourcing",
     ctaLink: "/contact?service=sourcing-inquiry",
     highlightColorClass: "text-rose-500",
-    glowClass: "bg-[radial-gradient(circle_at_center,rgba(244,63,94,0.12)_0%,transparent_70%)]",
-    dotColorClass: "bg-rose-500"
+    glowClass: "bg-[radial-gradient(circle_at_center,rgba(244,63,94,0.15)_0%,transparent_60%)]",
+    dotColorClass: "bg-rose-500",
+    eyebrowColorClass: "text-rose-500",
+    btnClass: "bg-[#0076FF] hover:bg-[#0066DD]"
   }
 };
 
@@ -316,8 +325,10 @@ export default async function CategoryPage({ params }: PageProps) {
     ctaText: "Get Started",
     ctaLink: `/contact?service=${category.slug}`,
     highlightColorClass: "text-primary",
-    glowClass: "bg-[radial-gradient(circle_at_center,rgba(0,118,255,0.08)_0%,transparent_60%)]",
-    dotColorClass: "bg-primary"
+    glowClass: "bg-[radial-gradient(circle_at_center,rgba(0,118,255,0.15)_0%,transparent_60%)]",
+    dotColorClass: "bg-primary",
+    eyebrowColorClass: "text-primary",
+    btnClass: "bg-[#0076FF] hover:bg-[#0066DD]"
   };
 
   const SecCtaIcon = override.secCtaIconName ? (Icons[override.secCtaIconName as keyof typeof Icons] as React.ComponentType<{ className?: string }>) : null;
@@ -325,270 +336,62 @@ export default async function CategoryPage({ params }: PageProps) {
   return (
     <article className="min-h-screen bg-white">
       {/* Category Hero Banner */}
-      <section className="relative overflow-hidden bg-[#09090B] py-24 lg:py-32 text-white border-b border-neutral-900">
+      <section className="relative overflow-hidden bg-[#09090B] py-24 sm:py-32 text-white border-b border-neutral-900">
         {/* Background glow overlay */}
         <div className={`absolute inset-0 -z-10 ${override.glowClass}`} />
-        
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f1f1f12_1px,transparent_1px),linear-gradient(to_bottom,#1f1f1f12_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-30 pointer-events-none" />
 
         <div className="container mx-auto max-w-7xl px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
             
-            {/* Left Column: Content */}
-            <div className="lg:col-span-7 flex flex-col items-start text-left max-w-3xl">
-              {/* Eyebrow badge */}
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-neutral-900/50 border border-neutral-800/80 px-3.5 py-1.5 text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-widest mb-6">
-                <span className={`h-1.5 w-1.5 rounded-full ${override.dotColorClass || "bg-primary"} animate-pulse`} />
-                {override.eyebrow}
+            {/* Eyebrow tag */}
+            <span className={`text-[10px] sm:text-xs font-bold ${override.eyebrowColorClass || "text-primary"} uppercase tracking-[0.25em] mb-6`}>
+              {override.eyebrow}
+            </span>
+            
+            {/* Headline */}
+            <h1 className="font-serif text-5xl sm:text-6xl md:text-[5rem] font-bold tracking-tight leading-[1.1] mb-6 text-white max-w-4xl">
+              {override.headlineFirst} <br className="hidden sm:inline" />
+              <span className={`${override.highlightColorClass} italic font-serif`}>
+                {override.headlineHighlight}
               </span>
+            </h1>
+            
+            {/* Description */}
+            <p 
+              className="font-sans text-sm sm:text-base text-neutral-400 leading-relaxed max-w-2xl mb-10"
+              dangerouslySetInnerHTML={{ __html: override.description }}
+            />
+            
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full sm:w-auto">
+              <Link
+                href={override.ctaLink}
+                className={`inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full px-8 py-3.5 font-sans text-xs font-bold text-white shadow-md transition-all hover:scale-[1.01] active:scale-[0.99] ${
+                  override.btnClass || "bg-[#0076FF] hover:bg-[#0066DD]"
+                }`}
+              >
+                {override.ctaText} {!override.ctaText.includes("→") && <Icons.ArrowRight className="h-3.5 w-3.5" />}
+              </Link>
               
-              {/* Headline */}
-              <h1 className="font-serif text-4xl sm:text-5xl md:text-[3.25rem] font-bold tracking-tight leading-[1.15] mb-6">
-                {override.headlineFirst} <br className="hidden sm:inline" />
-                <span className={`${override.highlightColorClass} italic font-serif`}>
-                  {override.headlineHighlight}
-                </span>
-              </h1>
-              
-              {/* Description */}
-              <p 
-                className="font-sans text-sm sm:text-base text-neutral-400 leading-relaxed max-w-xl mb-10"
-                dangerouslySetInnerHTML={{ __html: override.description }}
-              />
-              
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 items-center w-full sm:w-auto">
-                <Link
-                  href={override.ctaLink}
-                  className={`inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full px-8 py-3.5 font-sans text-xs font-bold transition-all hover:scale-[1.01] active:scale-[0.99] ${
-                    override.btnClass || "bg-primary hover:bg-primary-hover text-white shadow-sm"
-                  }`}
+              {override.secCtaText ? (
+                <a
+                  href={override.secCtaLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-neutral-800 hover:border-neutral-700 bg-neutral-900/50 hover:bg-neutral-900 px-8 py-3.5 font-sans text-xs font-bold text-white shadow-sm transition-all"
                 >
-                  {override.ctaText} {!override.ctaText.includes("→") && <Icons.ArrowRight className="h-3.5 w-3.5" />}
-                </Link>
-                
-                {override.secCtaText ? (
-                  <a
-                    href={override.secCtaLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-neutral-800 hover:border-neutral-700 bg-neutral-900/50 hover:bg-neutral-900 px-8 py-3.5 font-sans text-xs font-bold text-white shadow-sm transition-all"
-                  >
-                    {SecCtaIcon && <SecCtaIcon className="h-4 w-4 text-emerald-400" />}
-                    {override.secCtaText}
-                  </a>
-                ) : (
-                  <a
-                    href="#services-list"
-                    className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-neutral-800 hover:border-neutral-700 bg-neutral-900/50 hover:bg-neutral-900 px-8 py-3.5 font-sans text-xs font-bold text-white shadow-sm transition-all"
-                  >
-                    Explore Services
-                  </a>
-                )}
-              </div>
+                  {SecCtaIcon && <SecCtaIcon className="h-4 w-4 text-emerald-400" />}
+                  {override.secCtaText}
+                </a>
+              ) : (
+                <a
+                  href="#services-list"
+                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-neutral-800 hover:border-neutral-700 bg-neutral-900/50 hover:bg-neutral-900 px-8 py-3.5 font-sans text-xs font-bold text-white shadow-sm transition-all"
+                >
+                  Explore Services
+                </a>
+              )}
             </div>
-
-            {/* Right Column: Dynamic Visual Showcase Card */}
-            <div className="lg:col-span-5 relative w-full flex items-center justify-center pointer-events-none select-none min-h-[320px] lg:min-h-[400px]">
-              
-              {/* Floating blur orbs inside container */}
-              <div className={`absolute -top-10 -right-10 h-40 w-40 rounded-full blur-[65px] opacity-25 ${override.dotColorClass || "bg-primary"}`} />
-              <div className="absolute -bottom-10 -left-10 h-32 w-32 rounded-full blur-[55px] opacity-15 bg-blue-500" />
-              
-              {/* Interactive Showcase Card */}
-              <div className="relative w-full max-w-[420px] aspect-[4/3.1] rounded-3xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-md p-6 shadow-[0_24px_60px_-15px_rgba(0,0,0,0.8)] flex flex-col justify-between overflow-hidden">
-                
-                {/* Header widget */}
-                <div className="flex items-center justify-between border-b border-white/[0.06] pb-3 w-full relative z-10">
-                  <div className="flex items-center gap-2">
-                    <span className={`h-2 w-2 rounded-full ${override.dotColorClass || "bg-primary"} animate-pulse`} />
-                    <span className="text-[9px] font-bold text-neutral-400 uppercase tracking-widest">
-                      {category.title} Monitor
-                    </span>
-                  </div>
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[8px] font-bold text-emerald-400">
-                    <span className="h-1 w-1 rounded-full bg-emerald-400 animate-ping" />
-                    LIVE STATS
-                  </span>
-                </div>
-
-                {/* Main Graphic Area */}
-                <div className="flex-1 flex flex-col justify-center items-center w-full relative z-10 my-4">
-                  {categorySlug === "seo" && (
-                    <div className="w-full flex flex-col items-center">
-                      {/* Interactive SEO line graph */}
-                      <svg className="w-full h-20 overflow-visible" viewBox="0 0 100 30" preserveAspectRatio="none">
-                        <defs>
-                          <linearGradient id="seoGrad" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="0%" stopColor="#10B981" stopOpacity="0.4" />
-                            <stop offset="100%" stopColor="#10B981" stopOpacity="0" />
-                          </linearGradient>
-                        </defs>
-                        <path d="M 0 25 Q 20 18 40 22 T 80 5 T 100 2" fill="none" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round" />
-                        <path d="M 0 25 Q 20 18 40 22 T 80 5 T 100 2 L 100 30 L 0 30 Z" fill="url(#seoGrad)" />
-                        <circle cx="80" cy="5" r="3.5" fill="#10B981" className="animate-pulse" />
-                        <circle cx="100" cy="2" r="3" fill="#10B981" />
-                      </svg>
-                      <div className="flex justify-between w-full mt-4 border-t border-white/[0.04] pt-3 px-1">
-                        <div className="text-left">
-                          <span className="block text-[8px] text-neutral-500 uppercase font-semibold">Organic Keywords</span>
-                          <span className="text-xs font-bold text-neutral-100 font-serif">+452.8%</span>
-                        </div>
-                        <div className="text-right">
-                          <span className="block text-[8px] text-neutral-500 uppercase font-semibold">Average Position</span>
-                          <span className="text-xs font-bold text-emerald-400">#1.4</span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {categorySlug === "ppc" && (
-                    <div className="w-full flex flex-col items-center">
-                      <div className="flex items-center gap-6 mb-2">
-                        {/* Circle gauge for ROAS */}
-                        <div className="relative flex items-center justify-center h-16 w-16">
-                          <svg className="absolute inset-0 w-full h-full -rotate-90">
-                            <circle cx="32" cy="32" r="28" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="4" />
-                            <circle cx="32" cy="32" r="28" fill="none" stroke="#F97316" strokeWidth="4" strokeDasharray="175" strokeDashoffset="35" strokeLinecap="round" />
-                          </svg>
-                          <span className="text-[10px] font-bold text-white font-serif">4.8x</span>
-                        </div>
-                        <div className="text-left">
-                          <span className="block text-[8px] text-neutral-400 uppercase font-bold tracking-wider">Average ROAS</span>
-                          <span className="text-base font-bold text-neutral-100 font-serif">Campaign Active</span>
-                          <p className="text-[8px] text-neutral-500">Google, Meta & Tik Tok live</p>
-                        </div>
-                      </div>
-                      <div className="flex justify-between w-full mt-3 border-t border-white/[0.04] pt-3 px-1">
-                        <div className="text-left">
-                          <span className="block text-[8px] text-neutral-500 uppercase font-semibold">Leads Captured</span>
-                          <span className="text-xs font-bold text-neutral-100">1,240</span>
-                        </div>
-                        <div className="text-right">
-                          <span className="block text-[8px] text-neutral-500 uppercase font-semibold">Cost per Lead</span>
-                          <span className="text-xs font-bold text-emerald-400">$4.12</span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {categorySlug === "web-design-dev" && (
-                    <div className="w-full flex flex-col items-center">
-                      <div className="flex items-center gap-5">
-                        <div className="relative flex items-center justify-center h-16 w-16">
-                          <svg className="absolute inset-0 w-full h-full -rotate-90">
-                            <circle cx="32" cy="32" r="28" fill="none" stroke="rgba(255,255,255,0.03)" strokeWidth="4" />
-                            <circle cx="32" cy="32" r="28" fill="none" stroke="#6366F1" strokeWidth="4" strokeDasharray="175" strokeDashoffset="0" strokeLinecap="round" />
-                          </svg>
-                          <span className="text-[10px] font-bold text-emerald-400">100%</span>
-                        </div>
-                        <div className="text-left">
-                          <span className="block text-[8px] text-neutral-400 uppercase font-bold tracking-wider">Lighthouse Score</span>
-                          <span className="text-sm font-bold text-neutral-200">Mobile PageSpeed</span>
-                          <p className="text-[8px] text-neutral-500">Fully Responsive Next.js</p>
-                        </div>
-                      </div>
-                      <div className="flex gap-2 w-full mt-4 justify-center border-t border-white/[0.04] pt-3">
-                        <span className="bg-white/5 border border-white/10 px-2 py-0.5 rounded text-[8px] text-neutral-400">React</span>
-                        <span className="bg-white/5 border border-white/10 px-2 py-0.5 rounded text-[8px] text-neutral-400">Tailwind</span>
-                        <span className="bg-white/5 border border-white/10 px-2 py-0.5 rounded text-[8px] text-neutral-400">Vercel</span>
-                      </div>
-                    </div>
-                  )}
-
-                  {categorySlug === "content-marketing" && (
-                    <div className="w-full flex flex-col items-center">
-                      <div className="w-full grid grid-cols-3 gap-2 text-center mb-2">
-                        <div className="bg-white/5 border border-white/10 p-2 rounded-xl">
-                          <span className="block text-[7px] text-neutral-500 uppercase">Articles</span>
-                          <span className="text-[10px] font-bold text-white">40+</span>
-                        </div>
-                        <div className="bg-white/5 border border-white/10 p-2 rounded-xl">
-                          <span className="block text-[7px] text-neutral-500 uppercase">Emails</span>
-                          <span className="text-[10px] font-bold text-amber-400">+28%</span>
-                        </div>
-                        <div className="bg-white/5 border border-white/10 p-2 rounded-xl">
-                          <span className="block text-[7px] text-neutral-500 uppercase">Downloads</span>
-                          <span className="text-[10px] font-bold text-white">3.4K</span>
-                        </div>
-                      </div>
-                      <div className="w-full mt-3 border-t border-white/[0.04] pt-2 text-center">
-                        <span className="text-[8px] text-neutral-400">Weekly Editorial Strategy Engaged</span>
-                      </div>
-                    </div>
-                  )}
-
-                  {categorySlug === "ai-automation" && (
-                    <div className="w-full flex flex-col items-center">
-                      {/* Node connection animation flow */}
-                      <div className="flex items-center justify-between w-full max-w-[280px] relative px-2">
-                        <div className="absolute top-1/2 left-[15%] right-[15%] h-0.5 bg-cyan-500/30 -translate-y-1/2 -z-10" />
-                        
-                        <div className="flex flex-col items-center">
-                          <div className="h-9 w-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-cyan-400 shadow-sm">
-                            <Icons.MessageSquare className="h-4.5 w-4.5" />
-                          </div>
-                          <span className="text-[7px] text-neutral-400 mt-1 font-bold">Query</span>
-                        </div>
-
-                        <div className="flex flex-col items-center">
-                          <div className="h-10 w-10 rounded-xl bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-cyan-400 shadow-[0_0_12px_rgba(6,182,212,0.2)] animate-pulse">
-                            <Icons.Cpu className="h-5 w-5" />
-                          </div>
-                          <span className="text-[7px] text-cyan-400 mt-1 font-bold">LLM Agent</span>
-                        </div>
-
-                        <div className="flex flex-col items-center">
-                          <div className="h-9 w-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-cyan-400 shadow-sm">
-                            <Icons.Database className="h-4.5 w-4.5" />
-                          </div>
-                          <span className="text-[7px] text-neutral-400 mt-1 font-bold">CRM API</span>
-                        </div>
-                      </div>
-                      <span className="text-[8px] text-neutral-500 mt-4 block">100% Autonomous Integration</span>
-                    </div>
-                  )}
-
-                  {categorySlug === "china-sourcing" && (
-                    <div className="w-full flex flex-col items-center">
-                      <div className="flex items-center gap-4 mb-2">
-                        <div className="h-12 w-12 rounded-full bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400 animate-pulse">
-                          <Icons.Ship className="h-6 w-6" />
-                        </div>
-                        <div className="text-left">
-                          <span className="block text-[8px] text-neutral-400 uppercase font-bold tracking-wider">Logistics Dispatch</span>
-                          <span className="text-xs font-bold text-neutral-200">Ocean Freight Active</span>
-                          <p className="text-[8px] text-neutral-500">Ningbo ➔ Custom Warehouse</p>
-                        </div>
-                      </div>
-                      <div className="flex justify-between w-full mt-3 border-t border-white/[0.04] pt-3 px-1">
-                        <div className="text-left">
-                          <span className="block text-[8px] text-neutral-500 uppercase font-semibold">QC Inspection</span>
-                          <span className="text-xs font-bold text-emerald-400">100% Passed</span>
-                        </div>
-                        <div className="text-right">
-                          <span className="block text-[8px] text-neutral-500 uppercase font-semibold">Vetted Factories</span>
-                          <span className="text-xs font-bold text-rose-400">Gold Verified</span>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Footer widget */}
-                <div className="border-t border-white/[0.06] pt-3 w-full flex items-center justify-between relative z-10">
-                  <span className="text-[8px] text-neutral-500">
-                    SECURE API CONNECTION
-                  </span>
-                  <span className="inline-flex items-center gap-1 text-[8px] font-bold text-neutral-400">
-                    KJ DIGITAL WORLD <Icons.ShieldCheck className="h-3.5 w-3.5 text-neutral-400" />
-                  </span>
-                </div>
-
-              </div>
-            </div>
-
           </div>
         </div>
       </section>
