@@ -4,6 +4,18 @@
 
 @layer base {
   body {
-    @apply antialiased min-h-screen bg-white text-neutral-900;
+    @apply antialiased min-h-screen text-neutral-900;
+    background-image: url('/bg-pattern.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  /* Structural wrappers are transparent so the body's geometric pattern shows through */
+  section,
+  main,
+  article.min-h-screen {
+    background-color: transparent !important;
   }
 }
