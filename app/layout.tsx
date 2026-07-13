@@ -32,7 +32,7 @@ export default function RootLayout({
       lang="en"
       className={`${sansFont.variable} ${serifFont.variable} antialiased`}
     >
-      <body className="text-neutral-900 font-sans min-h-screen flex flex-col">
+      <body className="bg-white text-neutral-900 font-sans min-h-screen flex flex-col">
         <Header />
         <main className="flex-grow pt-20">
           {children}
