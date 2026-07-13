@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import * as Icons from "lucide-react";
 import { countriesData } from "@/data/countries";
+import WorldMap from "@/components/sections/WorldMap";
 
 export default function ContactPage() {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
@@ -158,203 +159,207 @@ export default function ContactPage() {
       {/* Main Grid Content */}
       <section className="pb-24 lg:pb-32 container mx-auto max-w-7xl px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          
-          {/* Left Column: Form Card */}
-          <div className="lg:col-span-7 xl:col-span-8 bg-white border border-neutral-100 rounded-[2rem] shadow-[0_12px_40px_rgba(0,0,0,0.03)] p-8 lg:p-12">
-            <h2 className="font-serif text-2xl font-bold text-neutral-900 mb-2">
-              Tell me about your project
-            </h2>
-            <p className="font-sans text-xs sm:text-sm text-neutral-400 mb-8 leading-relaxed">
-              Fill in a few details and I&apos;ll come back to you with a personalised plan — usually within a few hours.
-            </p>
+                 {/* Left Column: Form Card & World Map */}
+          <div className="lg:col-span-7 xl:col-span-8 flex flex-col gap-6">
+            <div className="bg-white border border-neutral-100 rounded-[2rem] shadow-[0_12px_40px_rgba(0,0,0,0.03)] p-8 lg:p-12">
+              <h2 className="font-serif text-2xl font-bold text-neutral-900 mb-2">
+                Tell me about your project
+              </h2>
+              <p className="font-sans text-xs sm:text-sm text-neutral-400 mb-8 leading-relaxed">
+                Fill in a few details and I&apos;ll come back to you with a personalised plan — usually within a few hours.
+              </p>
 
-            {isSubmitted ? (
-              // Success Confirmation
-              <div className="text-center py-16 flex flex-col items-center">
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50 text-emerald-500 border border-emerald-100 mb-6 shadow-sm">
-                  <Icons.Check className="h-8 w-8" />
+              {isSubmitted ? (
+                // Success Confirmation
+                <div className="text-center py-16 flex flex-col items-center">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50 text-emerald-500 border border-emerald-100 mb-6 shadow-sm">
+                    <Icons.Check className="h-8 w-8" />
+                  </div>
+                  <h3 className="font-sans font-bold text-xl text-neutral-900 mb-3">
+                    Message Sent Successfully!
+                  </h3>
+                  <p className="font-sans text-sm text-neutral-500 leading-relaxed max-w-sm">
+                    Thank you. Your message has been received. Kamrujjaman Mufti will review it and reply to your email within 24 hours.
+                  </p>
+                  <button
+                    onClick={() => setIsSubmitted(false)}
+                    className="mt-8 text-xs font-bold text-primary hover:text-primary-hover flex items-center gap-1"
+                  >
+                    Submit another inquiry <Icons.RefreshCw className="h-3.5 w-3.5" />
+                  </button>
                 </div>
-                <h3 className="font-sans font-bold text-xl text-neutral-900 mb-3">
-                  Message Sent Successfully!
-                </h3>
-                <p className="font-sans text-sm text-neutral-500 leading-relaxed max-w-sm">
-                  Thank you. Your message has been received. Kamrujjaman Mufti will review it and reply to your email within 24 hours.
-                </p>
-                <button
-                  onClick={() => setIsSubmitted(false)}
-                  className="mt-8 text-xs font-bold text-primary hover:text-primary-hover flex items-center gap-1"
-                >
-                  Submit another inquiry <Icons.RefreshCw className="h-3.5 w-3.5" />
-                </button>
-              </div>
-            ) : (
-              // Contact Form
-              <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-                {formErrors && (
-                  <div className="flex items-center gap-2 rounded-xl bg-rose-50 border border-rose-100 p-4 text-xs font-semibold text-rose-600">
-                    <Icons.AlertCircle className="h-4 w-4 shrink-0" />
-                    <span>{formErrors}</span>
-                  </div>
-                )}
+              ) : (
+                // Contact Form
+                <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+                  {formErrors && (
+                    <div className="flex items-center gap-2 rounded-xl bg-rose-50 border border-rose-100 p-4 text-xs font-semibold text-rose-600">
+                      <Icons.AlertCircle className="h-4 w-4 shrink-0" />
+                      <span>{formErrors}</span>
+                    </div>
+                  )}
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  {/* Name */}
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="name" className="font-sans text-xs font-bold text-neutral-700 uppercase tracking-wider">
-                      Your Name *
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      placeholder="John Smith"
-                      className="rounded-xl border border-neutral-200 bg-neutral-50/50 px-4 py-3 text-sm text-neutral-900 outline-none focus:border-primary focus:bg-white transition-all font-sans"
-                    />
-                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    {/* Name */}
+                    <div className="flex flex-col gap-2">
+                      <label htmlFor="name" className="font-sans text-xs font-bold text-neutral-700 uppercase tracking-wider">
+                        Your Name *
+                      </label>
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        placeholder="John Smith"
+                        className="rounded-xl border border-neutral-200 bg-neutral-50/50 px-4 py-3 text-sm text-neutral-900 outline-none focus:border-primary focus:bg-white transition-all font-sans"
+                      />
+                    </div>
 
-                  {/* Email */}
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="email" className="font-sans text-xs font-bold text-neutral-700 uppercase tracking-wider">
-                      Email Address *
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      placeholder="john@company.com"
-                      className="rounded-xl border border-neutral-200 bg-neutral-50/50 px-4 py-3 text-sm text-neutral-900 outline-none focus:border-primary focus:bg-white transition-all font-sans"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  {/* Company */}
-                  <div className="flex flex-col gap-2">
-                    <label htmlFor="company" className="font-sans text-xs font-bold text-neutral-700 uppercase tracking-wider">
-                      Company / Brand
-                    </label>
-                    <input
-                      type="text"
-                      id="company"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleInputChange}
-                      placeholder="Acme Corp (optional)"
-                      className="rounded-xl border border-neutral-200 bg-neutral-50/50 px-4 py-3 text-sm text-neutral-900 outline-none focus:border-primary focus:bg-white transition-all font-sans"
-                    />
+                    {/* Email */}
+                    <div className="flex flex-col gap-2">
+                      <label htmlFor="email" className="font-sans text-xs font-bold text-neutral-700 uppercase tracking-wider">
+                        Email Address *
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        placeholder="john@company.com"
+                        className="rounded-xl border border-neutral-200 bg-neutral-50/50 px-4 py-3 text-sm text-neutral-900 outline-none focus:border-primary focus:bg-white transition-all font-sans"
+                      />
+                    </div>
                   </div>
 
-                  {/* Country */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    {/* Company */}
+                    <div className="flex flex-col gap-2">
+                      <label htmlFor="company" className="font-sans text-xs font-bold text-neutral-700 uppercase tracking-wider">
+                        Company / Brand
+                      </label>
+                      <input
+                        type="text"
+                        id="company"
+                        name="company"
+                        value={formData.company}
+                        onChange={handleInputChange}
+                        placeholder="Acme Corp (optional)"
+                        className="rounded-xl border border-neutral-200 bg-neutral-50/50 px-4 py-3 text-sm text-neutral-900 outline-none focus:border-primary focus:bg-white transition-all font-sans"
+                      />
+                    </div>
+
+                    {/* Country */}
+                    <div className="flex flex-col gap-2">
+                      <label htmlFor="country" className="font-sans text-xs font-bold text-neutral-700 uppercase tracking-wider">
+                        Your Country
+                      </label>
+                      <select
+                        id="country"
+                        name="country"
+                        value={formData.country}
+                        onChange={handleInputChange}
+                        className="rounded-xl border border-neutral-200 bg-neutral-50/50 px-4 py-3 text-sm text-neutral-900 outline-none focus:border-primary focus:bg-white transition-all font-sans cursor-pointer"
+                      >
+                        <option value="">Select country...</option>
+                        {countriesData.map((c) => (
+                          <option key={c.id} value={c.name}>
+                            {c.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Service */}
                   <div className="flex flex-col gap-2">
-                    <label htmlFor="country" className="font-sans text-xs font-bold text-neutral-700 uppercase tracking-wider">
-                      Your Country
+                    <label htmlFor="service" className="font-sans text-xs font-bold text-neutral-700 uppercase tracking-wider">
+                      Service Needed *
                     </label>
                     <select
-                      id="country"
-                      name="country"
-                      value={formData.country}
+                      id="service"
+                      name="service"
+                      value={formData.service}
                       onChange={handleInputChange}
                       className="rounded-xl border border-neutral-200 bg-neutral-50/50 px-4 py-3 text-sm text-neutral-900 outline-none focus:border-primary focus:bg-white transition-all font-sans cursor-pointer"
                     >
-                      <option value="">Select country...</option>
-                      {countriesData.map((c) => (
-                        <option key={c.id} value={c.name}>
-                          {c.name}
+                      <option value="">Select a service...</option>
+                      {services.map((s) => (
+                        <option key={s} value={s}>
+                          {s}
                         </option>
                       ))}
                     </select>
                   </div>
-                </div>
 
-                {/* Service */}
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="service" className="font-sans text-xs font-bold text-neutral-700 uppercase tracking-wider">
-                    Service Needed *
-                  </label>
-                  <select
-                    id="service"
-                    name="service"
-                    value={formData.service}
-                    onChange={handleInputChange}
-                    className="rounded-xl border border-neutral-200 bg-neutral-50/50 px-4 py-3 text-sm text-neutral-900 outline-none focus:border-primary focus:bg-white transition-all font-sans cursor-pointer"
-                  >
-                    <option value="">Select a service...</option>
-                    {services.map((s) => (
-                      <option key={s} value={s}>
-                        {s}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Budget selector pills */}
-                <div className="flex flex-col gap-2">
-                  <label className="font-sans text-xs font-bold text-neutral-700 uppercase tracking-wider">
-                    Monthly Budget
-                  </label>
-                  <div className="flex flex-wrap gap-2 mt-1">
-                    {budgetOptions.map((opt) => {
-                      const isSelected = selectedBudget === opt;
-                      return (
-                        <button
-                          key={opt}
-                          type="button"
-                          onClick={() => setSelectedBudget(opt)}
-                          className={`px-4 py-2 text-xs font-bold rounded-full border transition-all ${
-                            isSelected 
-                              ? "bg-blue-50 text-primary border-primary shadow-sm" 
-                              : "bg-white text-neutral-600 border-neutral-200 hover:border-neutral-300"
-                          }`}
-                        >
-                          {opt}
-                        </button>
-                      );
-                    })}
+                  {/* Budget selector pills */}
+                  <div className="flex flex-col gap-2">
+                    <label className="font-sans text-xs font-bold text-neutral-700 uppercase tracking-wider">
+                      Monthly Budget
+                    </label>
+                    <div className="flex flex-wrap gap-2 mt-1">
+                      {budgetOptions.map((opt) => {
+                        const isSelected = selectedBudget === opt;
+                        return (
+                          <button
+                            key={opt}
+                            type="button"
+                            onClick={() => setSelectedBudget(opt)}
+                            className={`px-4 py-2 text-xs font-bold rounded-full border transition-all ${
+                              isSelected 
+                                ? "bg-blue-50 text-primary border-primary shadow-sm" 
+                                : "bg-white text-neutral-600 border-neutral-200 hover:border-neutral-300"
+                            }`}
+                          >
+                            {opt}
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
 
-                {/* Project details */}
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="message" className="font-sans text-xs font-bold text-neutral-700 uppercase tracking-wider">
-                    Tell Me About Your Project *
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    rows={5}
-                    placeholder="Describe your business, what you're trying to achieve, and any relevant details about your target audience or current challenges..."
-                    className="rounded-xl border border-neutral-200 bg-neutral-50/50 px-4 py-3 text-sm text-neutral-900 outline-none focus:border-primary focus:bg-white transition-all font-sans resize-none"
-                  />
-                </div>
+                  {/* Project details */}
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="message" className="font-sans text-xs font-bold text-neutral-700 uppercase tracking-wider">
+                      Tell Me About Your Project *
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      rows={5}
+                      placeholder="Describe your business, what you're trying to achieve, and any relevant details about your target audience or current challenges..."
+                      className="rounded-xl border border-neutral-200 bg-neutral-50/50 px-4 py-3 text-sm text-neutral-900 outline-none focus:border-primary focus:bg-white transition-all font-sans resize-none"
+                    />
+                  </div>
 
-                <div className="flex flex-col sm:flex-row items-center gap-4 mt-2">
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary hover:bg-primary-hover disabled:opacity-70 disabled:cursor-not-allowed px-8 py-4 font-sans text-xs font-bold text-white shadow-md transition-all hover:scale-[1.01] active:scale-[0.99]"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        Sending... <Icons.Loader2 className="h-4 w-4 animate-spin" />
-                      </>
-                    ) : (
-                      <>
-                        Send Message <Icons.ArrowRight className="h-4 w-4" />
-                      </>
-                    )}
-                  </button>
-                  <span className="font-sans text-xs text-neutral-400">
-                    I respond to every message personally within 24 hours.
-                  </span>
-                </div>
-              </form>
-            )}
+                  <div className="flex flex-col sm:flex-row items-center gap-4 mt-2">
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary hover:bg-primary-hover disabled:opacity-70 disabled:cursor-not-allowed px-8 py-4 font-sans text-xs font-bold text-white shadow-md transition-all hover:scale-[1.01] active:scale-[0.99]"
+                    >
+                      {isSubmitting ? (
+                        <>
+                          Sending... <Icons.Loader2 className="h-4 w-4 animate-spin" />
+                        </>
+                      ) : (
+                        <>
+                          Send Message <Icons.ArrowRight className="h-4 w-4" />
+                        </>
+                      )}
+                    </button>
+                    <span className="font-sans text-xs text-neutral-400">
+                      I respond to every message personally within 24 hours.
+                    </span>
+                  </div>
+                </form>
+              )}
+            </div>
+
+            {/* Interactive World Map Component */}
+            <WorldMap />
           </div>
 
           {/* Right Column: Widgets */}
