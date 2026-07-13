@@ -37,18 +37,18 @@ export default function AboutPage() {
   ];
 
   const toolsList = [
-    { name: "Ahrefs", desc: "SEO Research", icon: "/Emoji/mag.png" },
-    { name: "SEMrush", desc: "Competitor Analysis", icon: "/Emoji/bar_chart.png" },
-    { name: "WordPress", desc: "Web Development", icon: "/Emoji/computer.png" },
-    { name: "Shopify", desc: "E-Commerce", icon: "/Emoji/shopping_trolley.png" },
-    { name: "Figma", desc: "UI/UX Design", icon: "/Emoji/triangular_ruler.png" },
-    { name: "Meta Ads Manager", desc: "Performance Ads", icon: "/Emoji/dart.png" },
-    { name: "Google Ads", desc: "Search & Display", icon: "/Emoji/red_circle.png" },
-    { name: "Google Tag Manager", desc: "Tracking & Analytics", icon: "/Emoji/label.png" },
-    { name: "Google Analytics 4", desc: "Performance Tracking", icon: "/Emoji/chart_with_upwards_trend.png" },
-    { name: "n8n", desc: "Automation", icon: "/Emoji/gear.png" },
-    { name: "Adobe Suite", desc: "Graphic Design", icon: "/Emoji/art.png" },
-    { name: "Screaming Frog", desc: "Technical SEO", icon: "/Emoji/frog.png" }
+    { name: "Ahrefs", desc: "SEO Research", icon: "/Emoji/mag.png", hoverBg: "hover:bg-[#E8F2FF]", hoverBorder: "hover:border-blue-200/60" },
+    { name: "SEMrush", desc: "Competitor Analysis", icon: "/Emoji/bar_chart.png", hoverBg: "hover:bg-[#EDFBF3]", hoverBorder: "hover:border-green-200/60" },
+    { name: "WordPress", desc: "Web Development", icon: "/Emoji/computer.png", hoverBg: "hover:bg-[#E8F2FF]", hoverBorder: "hover:border-blue-200/60" },
+    { name: "Shopify", desc: "E-Commerce", icon: "/Emoji/shopping_trolley.png", hoverBg: "hover:bg-[#EDFBF3]", hoverBorder: "hover:border-green-200/60" },
+    { name: "Figma", desc: "UI/UX Design", icon: "/Emoji/triangular_ruler.png", hoverBg: "hover:bg-[#F0EBFF]", hoverBorder: "hover:border-purple-200/60" },
+    { name: "Meta Ads Manager", desc: "Performance Ads", icon: "/Emoji/dart.png", hoverBg: "hover:bg-[#F0EBFF]", hoverBorder: "hover:border-purple-200/60" },
+    { name: "Google Ads", desc: "Search & Display", icon: "/Emoji/red_circle.png", hoverBg: "hover:bg-[#FFF8EB]", hoverBorder: "hover:border-orange-200/60" },
+    { name: "Google Tag Manager", desc: "Tracking & Analytics", icon: "/Emoji/label.png", hoverBg: "hover:bg-[#E6FBFD]", hoverBorder: "hover:border-cyan-200/60" },
+    { name: "Google Analytics 4", desc: "Performance Tracking", icon: "/Emoji/chart_with_upwards_trend.png", hoverBg: "hover:bg-[#FFF8EB]", hoverBorder: "hover:border-orange-200/60" },
+    { name: "n8n", desc: "Automation", icon: "/Emoji/gear.png", hoverBg: "hover:bg-[#FFF8EB]", hoverBorder: "hover:border-orange-200/60" },
+    { name: "Adobe Suite", desc: "Graphic Design", icon: "/Emoji/art.png", hoverBg: "hover:bg-[#FFF8EB]", hoverBorder: "hover:border-orange-200/60" },
+    { name: "Screaming Frog", desc: "Technical SEO", icon: "/Emoji/frog.png", hoverBg: "hover:bg-[#EDFBF3]", hoverBorder: "hover:border-green-200/60" }
   ];
 
   const bottomCtaServices = [
@@ -336,16 +336,18 @@ export default function AboutPage() {
             {toolsList.map((tool) => (
               <div 
                 key={tool.name} 
-                className="bg-neutral-50/70 border border-neutral-100/50 rounded-2xl p-4 px-5 flex items-center gap-4 hover:shadow-sm transition-all duration-300"
+                className={`group bg-neutral-50/70 border border-neutral-100/50 rounded-2xl p-4 px-5 flex items-center gap-4 transition-all duration-300 transform hover:-translate-y-1 hover:scale-[1.02] hover:shadow-md active:scale-[0.99] ${tool.hoverBg} ${tool.hoverBorder}`}
               >
-                <div className="shrink-0 flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-sm border border-neutral-100/50 p-2 relative">
-                  <Image
-                    src={tool.icon}
-                    alt={tool.name}
-                    width={20}
-                    height={20}
-                    className="object-contain"
-                  />
+                <div className="shrink-0 flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-sm border border-neutral-100/50 p-2 relative overflow-hidden">
+                  <div className="transition-transform duration-300 group-hover:scale-110 group-hover:rotate-[5deg]">
+                    <Image
+                      src={tool.icon}
+                      alt={tool.name}
+                      width={20}
+                      height={20}
+                      className="object-contain"
+                    />
+                  </div>
                 </div>
                 <div>
                   <h4 className="font-sans font-bold text-xs sm:text-sm text-neutral-800">
