@@ -1217,6 +1217,80 @@ export default async function CategoryPage({ params }: PageProps) {
           </div>
         </section>
       )}
+
+      {/* Why Choose Us Section (Dark Theme) */}
+      <section className="py-20 lg:py-28 bg-[#09090B] text-white border-t border-neutral-900 relative z-10 text-left">
+        <div className="container mx-auto max-w-7xl px-6">
+          {/* Header */}
+          <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-20">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-950/40 border border-blue-800/60 px-4 py-1.5 text-xs font-semibold text-blue-400 uppercase tracking-widest mb-6">
+              ★ WHY DIGITAL WORLD
+            </span>
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-white tracking-tight mb-6">
+              Why 120+ clients choose us.
+            </h2>
+          </div>
+
+          {/* Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Results, Not Reports",
+                description: "We obsess over one metric: your revenue. Every action we take is tied to measurable business outcomes — not vanity metrics.",
+                icon: Icons.BarChart3,
+              },
+              {
+                title: "No Long-Term Lock-ins",
+                description: "Month-to-month engagements available. We earn your trust with results — not 12-month contracts. Confident enough to work that way.",
+                icon: Icons.Rocket,
+              },
+              {
+                title: "Global Experience",
+                description: "11 countries, dozens of industries. We understand how search behaviour, competition, and algorithm nuances differ across markets.",
+                icon: Icons.Globe,
+              },
+              {
+                title: "Direct Access",
+                description: "You work directly with Kamrujjaman — no junior account managers, no handoffs. Expert eyes on your campaign, always.",
+                icon: Icons.Handshake,
+              },
+              {
+                title: "Transparent Process",
+                description: "Full access to our work, tools, and data. You own everything we create — content, links, strategies. Nothing is withheld.",
+                icon: Icons.Search,
+              },
+              {
+                title: "Fast Communication",
+                description: "Reach us via Email, WhatsApp, or LinkedIn. Responses within hours, weekly updates guaranteed — across all 11 time zones we serve.",
+                icon: Icons.Zap,
+              },
+            ].map((card, idx) => {
+              const Icon = card.icon;
+              return (
+                <div
+                  key={idx}
+                  className="flex flex-col rounded-2xl border border-neutral-800/60 bg-neutral-900/40 p-8 shadow-sm transition-all duration-300 hover:shadow-[0_12px_40px_rgba(0,0,0,0.4)] hover:border-blue-500/20 group"
+                >
+                  {/* Icon Circle */}
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-950/40 text-blue-400 mb-6 border border-blue-900/50 transition-colors duration-300 group-hover:bg-blue-600 group-hover:text-white">
+                    <Icon className="h-5 w-5" />
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="font-sans font-bold text-lg text-white mb-3">
+                    {card.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="font-sans text-sm text-neutral-400 leading-relaxed">
+                    {card.description}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
     </article>
   );
 }
