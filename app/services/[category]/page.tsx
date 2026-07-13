@@ -499,14 +499,18 @@ export default async function CategoryPage({ params }: PageProps) {
                     </div>
 
                     {/* Right Column: Free for Image Placeholder (5/12) */}
-                    <div className="lg:col-span-5 relative w-full aspect-[4/3] rounded-[2rem] overflow-hidden shadow-sm border border-neutral-100 flex items-center justify-center bg-neutral-100">
+                    <div className={`lg:col-span-5 relative w-full aspect-[4/3] rounded-[2rem] overflow-hidden shadow-sm border border-neutral-100/50 flex items-center justify-center p-6 transition-colors duration-300 ${
+                      ["local-seo", "youtube-video-seo", "saas-seo", "ai-seo"].includes(sub.slug)
+                        ? "bg-[#F4F7FA]"
+                        : "bg-white"
+                    }`}>
                       {imagePath ? (
                         <div className="relative w-full h-full">
                           <Image
                             src={imagePath}
                             alt={sub.name}
                             fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                            className="object-contain transition-transform duration-500 group-hover:scale-103"
                           />
                         </div>
                       ) : (
