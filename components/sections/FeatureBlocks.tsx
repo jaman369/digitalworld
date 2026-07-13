@@ -48,7 +48,7 @@ export default function FeatureBlocks() {
       ],
       iconName: "Laptop",
       ctaLink: "/services/web-design-dev",
-      image: "/All Service Images/web-main.png",
+      image: "/All Service Images/web-main.jpg",
       reverse: false
     },
     {
