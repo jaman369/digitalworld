@@ -41,14 +41,14 @@ const categoryStyles: Record<string, {
     hoverIconText: "group-hover:text-white",
   },
   "ai-automation": {
-    hoverBg: "hover:bg-[#E6FDFF]",
+    hoverBg: "hover:bg-[#E6FBFD]",
     hoverBorder: "hover:border-cyan-200/60",
     hoverText: "group-hover:text-cyan-700",
     hoverIconBg: "group-hover:bg-cyan-600",
     hoverIconText: "group-hover:text-white",
   },
   "china-sourcing": {
-    hoverBg: "hover:bg-[#FFFDE6]",
+    hoverBg: "hover:bg-[#FFF9E6]",
     hoverBorder: "hover:border-amber-200/60",
     hoverText: "group-hover:text-amber-700",
     hoverIconBg: "group-hover:bg-amber-600",
