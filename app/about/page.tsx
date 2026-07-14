@@ -87,8 +87,9 @@ export default function AboutPage() {
             
             {/* Left Biography Text */}
             <div className="lg:col-span-7 flex flex-col items-start">
-              <span className="text-[10px] sm:text-xs font-bold text-sky-500 uppercase tracking-[0.25em] mb-4">
-                ABOUT KAMRUJJAMAN MUFTI
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3.5 py-1.5 text-xs font-semibold text-blue-600 uppercase tracking-wider mb-6 border border-blue-100/50">
+                <span className="h-1.5 w-1.5 rounded-full bg-blue-600 animate-pulse" />
+                ABOUT ME
               </span>
               <h1 className="font-serif text-4xl sm:text-5xl lg:text-[3.5rem] font-bold text-neutral-900 tracking-tight leading-[1.1] mb-6">
                 Hi, I&apos;m <br className="sm:hidden" />
@@ -96,74 +97,47 @@ export default function AboutPage() {
                 <span className="text-primary italic font-serif">Mufti.</span>
               </h1>
               <p className="font-sans text-sm sm:text-base text-neutral-500 leading-relaxed max-w-xl mb-8">
-                A results-driven SEO specialist & full-stack web developer dedicated to helping brands bypass standard digital bottlenecks. I build search authority and custom CRM pipelines that scale operations.
+                I am a digital marketing expert with a focus on SEO, Paid Ads, Web Design, and Content Marketing. I help businesses achieve measurable growth through data-driven strategies and creative execution.
               </p>
               
               <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-8">
                 <Link
-                  href="/contact"
+                  href="/portfolio"
                   className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary hover:bg-primary-hover px-8 py-4 font-sans text-xs font-bold text-white shadow-md transition-all hover:scale-[1.02] active:scale-[0.99]"
                 >
-                  Get in Touch <Icons.ArrowRight className="h-4 w-4" />
+                  View Work
                 </Link>
                 <Link
-                  href="/portfolio"
+                  href="/contact"
                   className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-neutral-200 bg-white hover:bg-neutral-50 px-8 py-4 font-sans text-xs font-bold text-neutral-700 shadow-sm transition-all"
                 >
-                  View Portfolio
+                  Contact Me &rarr;
                 </Link>
               </div>
 
               {/* Badges list */}
               <div className="flex flex-wrap gap-2 border-t border-neutral-100 pt-6 w-full max-w-xl">
-                {["Google Ads", "SEO", "Full Stack", "WordPress", "Shopify"].map((tag) => (
-                  <span key={tag} className="bg-neutral-50 border border-neutral-200/60 text-neutral-500 text-[10px] font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider">
+                {["English", "Hindi", "Urdu", "Bengali", "Arabic"].map((tag) => (
+                  <span key={tag} className="bg-neutral-50 border border-neutral-200/60 text-neutral-500 text-[10px] font-semibold px-3.5 py-1.5 rounded-full">
                     {tag}
                   </span>
                 ))}
               </div>
             </div>
 
-            {/* Right Profile Card (Redesigned matching screenshot) */}
+            {/* Right Profile Photo Container */}
             <div className="lg:col-span-5 relative flex justify-center">
               {/* Radial light glow backplate */}
-              <div className="absolute -inset-10 bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.15)_0%,transparent_60%)] -z-10 pointer-events-none" />
+              <div className="absolute -inset-10 bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.12)_0%,transparent_60%)] -z-10 pointer-events-none" />
               
-              <div className="relative w-full max-w-[380px] rounded-[2rem] bg-white border border-neutral-200/80 p-8 shadow-[0_15px_35px_rgba(0,0,0,0.03)] flex flex-col items-center text-center">
-                {/* Avatar with cyan border ring */}
-                <div className="relative h-28 w-28 rounded-full overflow-hidden border-4 border-white shadow-md mb-6 ring-4 ring-sky-100/50">
-                  <Image
-                    src="/Kamrujjaman Mufti Image/kamrujjaman-mufti.jpg"
-                    alt="Kamrujjaman Mufti"
-                    fill
-                    className="object-cover"
-                    priority
-                  />
-                </div>
-
-                {/* Name & Role */}
-                <h3 className="font-sans font-bold text-lg text-neutral-900 mb-1">
-                  Kamrujjaman Mufti
-                </h3>
-                <p className="font-sans text-xs text-neutral-400 font-medium mb-6">
-                  SEO Expert & Full-Stack Developer
-                </p>
-
-                {/* Mini stats cards grid */}
-                <div className="grid grid-cols-3 gap-3.5 w-full border-t border-neutral-100 pt-6">
-                  <div className="bg-neutral-50 border border-neutral-200/50 rounded-xl p-2.5 flex flex-col items-center justify-center">
-                    <span className="font-serif text-base font-bold text-neutral-800">5+</span>
-                    <span className="font-sans text-[8px] font-bold text-neutral-400 uppercase tracking-wider mt-0.5 text-center leading-none">Years Exp</span>
-                  </div>
-                  <div className="bg-neutral-50 border border-neutral-200/50 rounded-xl p-2.5 flex flex-col items-center justify-center">
-                    <span className="font-serif text-base font-bold text-neutral-800">150+</span>
-                    <span className="font-sans text-[8px] font-bold text-neutral-400 uppercase tracking-wider mt-0.5 text-center leading-none">Projects</span>
-                  </div>
-                  <div className="bg-neutral-50 border border-neutral-200/50 rounded-xl p-2.5 flex flex-col items-center justify-center">
-                    <span className="font-serif text-base font-bold text-neutral-800">120+</span>
-                    <span className="font-sans text-[8px] font-bold text-neutral-400 uppercase tracking-wider mt-0.5 text-center leading-none">Clients</span>
-                  </div>
-                </div>
+              <div className="relative w-full max-w-[420px] aspect-square rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.08)] border border-neutral-150/50">
+                <Image
+                  src="/Kamrujjaman Mufti Image/kamrujjaman-mufti.jpg"
+                  alt="Kamrujjaman Mufti"
+                  fill
+                  className="object-cover"
+                  priority
+                />
               </div>
             </div>
 
