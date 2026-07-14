@@ -3,7 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import * as Icons from "lucide-react";
 import { servicesData } from "@/data/services";
-import SeoAuditTool from "@/components/sections/SeoAuditTool";
 
 interface PageProps {
   params: Promise<{ category: string }>;
@@ -439,8 +438,6 @@ export default async function CategoryPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* SEO Audit Tool — only on /services/seo */}
-      {category.slug === "seo" && <SeoAuditTool />}
 
       {/* Sub-items Anchor List */}
       <section id="services-list" className="py-20 lg:py-24 bg-neutral-50/20 border-t border-neutral-100 scroll-mt-20">
