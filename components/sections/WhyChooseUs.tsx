@@ -1,39 +1,39 @@
 "use client";
 
 import { motion } from "framer-motion";
-import * as Icons from "lucide-react";
+import Image from "next/image";
 
 export default function WhyChooseUs() {
   const cards = [
     {
       title: "Data-driven strategies",
       description: "No assumptions. We build our growth campaigns based on hard competitor analytics and real user intent metrics.",
-      icon: Icons.BarChart3,
+      emoji: "/Emoji/bar_chart.png",
     },
     {
       title: "5+ years of experience",
       description: "Having navigated through search engine algorithm core updates, we know what drives sustainable ranking gains.",
-      icon: Icons.Trophy,
+      emoji: "/Emoji/trophy.png",
     },
     {
       title: "High ROI campaigns",
       description: "Every dollar you invest is optimized to target buyers at the bottom of the funnel, minimizing waste.",
-      icon: Icons.TrendingUp,
+      emoji: "/Emoji/moneybag.png",
     },
     {
       title: "Custom solutions",
       description: "We don't do pre-packaged cookie-cutter services. Every site is analyzed to get a bespoke roadmap.",
-      icon: Icons.Settings,
+      emoji: "/Emoji/gear.png",
     },
     {
       title: "24/7 dedicated support",
       description: "Clear, direct communication channels. We act as an extension of your team, responding within hours.",
-      icon: Icons.MessageSquare,
+      emoji: "/Emoji/speech_balloon.png",
     },
     {
       title: "Transparent reporting",
       description: "Understand exactly what you are paying for with simplified keyword progression and traffic conversion dashboards.",
-      icon: Icons.FileText,
+      emoji: "/Emoji/memo.png",
     },
   ];
 
@@ -79,17 +79,21 @@ export default function WhyChooseUs() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {cards.map((card, idx) => {
-            const Icon = card.icon;
-
             return (
               <motion.div
                 key={idx}
                 variants={cardVariants}
                 className="flex flex-col rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-premium hover:border-primary/20"
               >
-                {/* Icon Circle */}
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-light text-primary mb-6">
-                  <Icon className="h-5 w-5" />
+                {/* 3D Emoji Icon Circle */}
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-neutral-50 shadow-sm border border-neutral-150 p-2.5 mb-6 relative">
+                  <Image
+                    src={card.emoji}
+                    alt={card.title}
+                    width={26}
+                    height={26}
+                    className="object-contain"
+                  />
                 </div>
 
                 {/* Title */}
