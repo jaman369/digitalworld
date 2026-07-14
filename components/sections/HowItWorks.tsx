@@ -26,7 +26,7 @@ export default function HowItWorks() {
       <div className="container mx-auto max-w-7xl px-6">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-20">
+        <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
           <span className="text-[10px] sm:text-xs font-bold text-sky-500 uppercase tracking-[0.25em] mb-4 block">
             HOW IT WORKS
           </span>
@@ -54,17 +54,17 @@ export default function HowItWorks() {
               className="flex flex-col items-center text-center group cursor-default"
             >
               {/* Step number circle */}
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white border border-neutral-200/80 text-blue-600 font-serif text-lg font-bold shadow-[0_4px_12px_rgba(0,0,0,0.01)] mb-6 z-10 transition-all duration-300 group-hover:bg-[#0076FF] group-hover:border-[#0076FF] group-hover:text-white group-hover:scale-108 group-hover:shadow-[0_8px_20px_rgba(0,118,255,0.15)]">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white border border-neutral-200/80 text-blue-600 font-serif text-xl font-semibold shadow-[0_4px_12px_rgba(0,0,0,0.01)] mb-5 z-10 transition-all duration-300 group-hover:bg-[#0076FF] group-hover:border-[#0076FF] group-hover:text-white group-hover:scale-108 group-hover:shadow-[0_8px_20px_rgba(0,118,255,0.15)]">
                 0{step.stepNumber}
               </div>
 
               {/* Title */}
-              <h3 className="font-sans font-bold text-sm sm:text-base text-neutral-800 mb-3 transition-colors duration-300 group-hover:text-neutral-900">
+              <h3 className="font-sans font-bold text-sm sm:text-base text-neutral-800 mb-2 transition-colors duration-300 group-hover:text-neutral-900">
                 {step.title}
               </h3>
 
               {/* Description */}
-              <p className="font-sans text-xs text-neutral-400 leading-relaxed max-w-[240px] mx-auto">
+              <p className="font-sans text-xs sm:text-[13px] text-neutral-500 leading-relaxed max-w-[260px] mx-auto">
                 {step.description}
               </p>
             </motion.div>
