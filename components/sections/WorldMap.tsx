@@ -75,111 +75,14 @@ export default function WorldMap() {
           </svg>
         </div>
 
-        {/* Map SVG Landmass Paths */}
-        <svg 
-          viewBox="0 0 1000 500" 
-          className="absolute inset-0 w-full h-full drop-shadow-[0_10px_20px_rgba(0,0,0,0.06)]"
-        >
-          {/* North America */}
-          <path
-            d="M 120,60 L 150,50 170,55 190,80 180,120 120,150 90,130 80,90 Z"
-            fill="#2C5E6B"
-            opacity="0.9"
-          />
-          <path
-            d="M 190,120 L 220,140 230,190 200,240 150,230 140,180 170,140 Z"
-            fill="#2C5E6B"
-            opacity="0.95"
-          />
-          {/* Central America bridge */}
-          <path
-            d="M 200,240 L 220,260 230,290 220,295 210,280 Z"
-            fill="#2C5E6B"
-            opacity="0.85"
-          />
-          
-          {/* Greenland */}
-          <path
-            d="M 260,30 L 290,40 310,80 280,110 250,90 245,50 Z"
-            fill="#598495"
-            opacity="0.8"
-          />
-
-          {/* South America */}
-          <path
-            d="M 230,290 L 260,310 290,340 310,380 290,450 270,480 260,470 250,420 220,340 225,300 Z"
-            fill="#C4924A"
-            opacity="0.9"
-          />
-
-          {/* Europe */}
-          <path
-            d="M 450,110 L 480,120 510,130 520,160 480,180 440,165 435,130 Z"
-            fill="#457283"
-            opacity="0.95"
-          />
-          {/* UK & Ireland Isles */}
-          <path
-            d="M 440,120 A 8 8 0 1 1 440,136 A 8 8 0 1 1 440,120 Z"
-            fill="#457283"
-            opacity="0.9"
-          />
-
-          {/* Africa */}
-          <path
-            d="M 460,220 L 510,210 550,235 560,270 540,320 525,380 500,370 480,310 450,260 Z"
-            fill="#DCA852"
-            opacity="0.92"
-          />
-          {/* Madagascar */}
-          <path
-            d="M 555,340 L 565,345 560,370 550,365 Z"
-            fill="#DCA852"
-            opacity="0.85"
-          />
-
-          {/* Asia / Eurasia East */}
-          <path
-            d="M 510,130 L 600,100 700,120 800,150 820,180 780,240 760,270 730,290 680,270 630,250 560,240 540,210 520,160 Z"
-            fill="#1E424D"
-            opacity="0.95"
-          />
-          {/* India segment */}
-          <path
-            d="M 620,245 L 650,250 645,280 630,295 620,280 Z"
-            fill="#1E424D"
-            opacity="0.9"
-          />
-          {/* Japan */}
-          <path
-            d="M 830,170 Q 845,190 840,210"
-            stroke="#1E424D"
-            strokeWidth="5"
-            strokeLinecap="round"
-            fill="none"
-          />
-          {/* Indonesia / SE Asia */}
-          <path
-            d="M 720,300 L 750,315 780,310 790,330 760,340 730,320 Z"
-            fill="#1E424D"
-            opacity="0.88"
-          />
-
-          {/* Australia */}
-          <path
-            d="M 800,350 L 850,345 880,370 870,410 820,420 790,390 Z"
-            fill="#E6C58B"
-            opacity="0.95"
-          />
-          {/* New Zealand */}
-          <path
-            d="M 890,420 L 900,435 M 900,440 L 910,460"
-            stroke="#E6C58B"
-            strokeWidth="4"
-            strokeLinecap="round"
-            fill="none"
-          />
-        </svg>
+        {/* World Map Image Background */}
+        <Image
+          src="/world-map.png"
+          alt="World Map"
+          fill
+          className="object-cover pointer-events-none select-none"
+          priority
+        />
 
         {/* Glowing Interactive Pulse Pins */}
         {countries.map((country) => (
