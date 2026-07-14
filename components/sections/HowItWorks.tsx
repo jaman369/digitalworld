@@ -30,7 +30,7 @@ export default function HowItWorks() {
           <span className="text-[10px] sm:text-xs font-bold text-sky-500 uppercase tracking-[0.25em] mb-4 block">
             HOW IT WORKS
           </span>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-neutral-900 leading-tight">
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-neutral-900 leading-[1.3]">
             A simple process. <br className="hidden sm:inline" />
             Exceptional results.
           </h2>
@@ -45,7 +45,7 @@ export default function HowItWorks() {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-12 lg:gap-y-0 gap-x-8 relative"
         >
           {/* Connector Line in background (Desktop only) */}
-          <div className="absolute top-[28px] left-[12.5%] right-[12.5%] h-px bg-neutral-200/80 -z-0 hidden lg:block" />
+          <div className="absolute top-[32px] left-[12.5%] right-[12.5%] h-px bg-neutral-200/80 -z-0 hidden lg:block" />
 
           {processStepsData.map((step) => (
             <motion.div
@@ -54,7 +54,7 @@ export default function HowItWorks() {
               className="flex flex-col items-center text-center group cursor-default"
             >
               {/* Step number circle */}
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white border border-neutral-200/80 text-blue-600 font-serif text-xl font-semibold shadow-[0_4px_12px_rgba(0,0,0,0.01)] mb-5 z-10 transition-all duration-300 group-hover:bg-[#0076FF] group-hover:border-[#0076FF] group-hover:text-white group-hover:scale-108 group-hover:shadow-[0_8px_20px_rgba(0,118,255,0.15)]">
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white border border-neutral-200/80 text-blue-600 font-serif text-2xl font-semibold shadow-[0_4px_12px_rgba(0,0,0,0.01)] mb-5 z-10 transition-all duration-300 group-hover:bg-[#0076FF] group-hover:border-[#0076FF] group-hover:text-white group-hover:scale-108 group-hover:shadow-[0_8px_20px_rgba(0,118,255,0.15)]">
                 0{step.stepNumber}
               </div>
 
