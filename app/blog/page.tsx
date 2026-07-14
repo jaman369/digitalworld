@@ -55,7 +55,7 @@ export default function BlogPage() {
   };
 
   return (
-    <article className="min-h-screen bg-white py-20 lg:py-28">
+    <article className="min-h-screen bg-transparent py-20 lg:py-28">
       {/* Background glow overlay */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(0,118,255,0.03)_0%,transparent_60%)] pointer-events-none" />
 

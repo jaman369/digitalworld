@@ -34,7 +34,7 @@ export default async function BlogPostPage({ params }: PostPageProps) {
   }
 
   return (
-    <article className="min-h-screen bg-white">
+    <article className="min-h-screen bg-transparent">
       {/* Article Header Banner */}
       <section className="relative overflow-hidden bg-neutral-900 py-20 lg:py-24 text-white">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_bottom,rgba(0,118,255,0.12)_0%,transparent_60%)]" />

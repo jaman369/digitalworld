@@ -48,7 +48,7 @@ export default function FeatureBlocks() {
       ],
       iconName: "Laptop",
       ctaLink: "/services/web-design-dev",
-      image: "/All Service Images/web-main.jpg",
+      image: "/All Service Images/web-main.png",
       reverse: false
     },
     {
@@ -99,16 +99,14 @@ export default function FeatureBlocks() {
   ];
 
   return (
-    <div className="relative z-10 bg-white">
-      {features.map((feat, idx) => {
+    <div className="relative z-10 bg-transparent">
+      {features.map((feat) => {
         const Icon = (Icons[feat.iconName as keyof typeof Icons] || Icons.HelpCircle) as React.ComponentType<{ className?: string }>;
 
         return (
           <section 
             key={feat.id} 
-            className={`py-20 lg:py-28 border-b border-neutral-100 ${
-              idx % 2 === 1 ? "bg-neutral-50" : "bg-white"
-            }`}
+            className="py-20 lg:py-28 border-b border-neutral-100 bg-transparent"
           >
             <div className="container mx-auto max-w-7xl px-6">
               <div className={`grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center`}>

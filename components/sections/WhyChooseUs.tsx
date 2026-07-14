@@ -1,39 +1,39 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
+import * as Icons from "lucide-react";
 
 export default function WhyChooseUs() {
   const cards = [
     {
       title: "Data-driven strategies",
       description: "No assumptions. We build our growth campaigns based on hard competitor analytics and real user intent metrics.",
-      emoji: "/Emoji/bar_chart.png",
+      icon: Icons.BarChart3,
     },
     {
       title: "5+ years of experience",
       description: "Having navigated through search engine algorithm core updates, we know what drives sustainable ranking gains.",
-      emoji: "/Emoji/trophy.png",
+      icon: Icons.Trophy,
     },
     {
       title: "High ROI campaigns",
       description: "Every dollar you invest is optimized to target buyers at the bottom of the funnel, minimizing waste.",
-      emoji: "/Emoji/moneybag.png",
+      icon: Icons.TrendingUp,
     },
     {
       title: "Custom solutions",
       description: "We don't do pre-packaged cookie-cutter services. Every site is analyzed to get a bespoke roadmap.",
-      emoji: "/Emoji/gear.png",
+      icon: Icons.Settings,
     },
     {
       title: "24/7 dedicated support",
       description: "Clear, direct communication channels. We act as an extension of your team, responding within hours.",
-      emoji: "/Emoji/speech_balloon.png",
+      icon: Icons.MessageSquare,
     },
     {
       title: "Transparent reporting",
       description: "Understand exactly what you are paying for with simplified keyword progression and traffic conversion dashboards.",
-      emoji: "/Emoji/memo.png",
+      icon: Icons.FileText,
     },
   ];
 
@@ -55,7 +55,7 @@ export default function WhyChooseUs() {
   };
 
   return (
-    <section className="py-20 lg:py-32 bg-neutral-50 relative z-10 border-b border-neutral-100">
+    <section className="py-20 lg:py-32 bg-transparent relative z-10 border-b border-neutral-100">
       <div className="container mx-auto max-w-7xl px-6">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-24">
@@ -79,21 +79,17 @@ export default function WhyChooseUs() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {cards.map((card, idx) => {
+            const Icon = card.icon;
+
             return (
               <motion.div
                 key={idx}
                 variants={cardVariants}
                 className="flex flex-col rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-premium hover:border-primary/20"
               >
-                {/* 3D Emoji Icon Circle */}
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-neutral-50 shadow-sm border border-neutral-150 p-2.5 mb-6 relative">
-                  <Image
-                    src={card.emoji}
-                    alt={card.title}
-                    width={26}
-                    height={26}
-                    className="object-contain"
-                  />
+                {/* Icon Circle */}
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-light text-primary mb-6">
+                  <Icon className="h-5 w-5" />
                 </div>
 
                 {/* Title */}

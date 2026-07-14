@@ -71,7 +71,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-white pt-4 pb-0 lg:pt-6 lg:pb-0 flex flex-col justify-between h-[660px] lg:h-[720px]">
+    <section className="relative overflow-hidden bg-transparent pt-4 pb-0 lg:pt-6 lg:pb-0 flex flex-col justify-between h-[660px] lg:h-[720px]">
       {/* Background gradients */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(0,118,255,0.05)_0%,transparent_60%)]" />
 
@@ -183,7 +183,7 @@ export default function Hero() {
       </div>
 
       {/* Rotating Marquee Banner */}
-      <div className="relative mt-auto border-y border-neutral-100 bg-neutral-50 py-5 overflow-hidden">
+      <div className="relative mt-auto border-y border-neutral-100 bg-transparent py-5 overflow-hidden">
         <div className="flex w-[200%] animate-marquee">
           {/* Double list to create seamless infinite scroll loop */}
           {[...countries, ...countries, ...countries, ...countries].map((country, idx) => (

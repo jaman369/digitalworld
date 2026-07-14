@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
 import { countriesData } from "@/data/countries";
 
@@ -22,34 +21,20 @@ export default function AboutPage() {
   ];
 
   const expertiseData = [
-    { title: "Search Engine Optimization", icon: Icons.Search, desc: "Optimize GBP mappings, crawl budgets, and entity relevance architectures.", iconColor: "text-blue-600 bg-blue-50", barColor: "bg-blue-500" },
-    { title: "Pay Per Click Campaigns", icon: Icons.Target, desc: "Scale acquisitions predictably across Google Search, Shopping, and Smart Bidding campaigns.", iconColor: "text-sky-600 bg-sky-50", barColor: "bg-sky-400" },
-    { title: "Social Media Advertising", icon: Icons.Smartphone, desc: "Configure custom Meta Pixels, lookalike loops, and creative hooks.", iconColor: "text-purple-600 bg-purple-50", barColor: "bg-purple-500" },
-    { title: "Web Development", icon: Icons.Laptop, desc: "Stunning custom-coded Next.js/Vite visual frontends optimized for transaction speeds.", iconColor: "text-indigo-600 bg-indigo-50", barColor: "bg-indigo-500" },
-    { title: "Sourcing Services", icon: Icons.Truck, desc: "Verify manufacturing licenses, factory compliance reports, and cargo routes.", iconColor: "text-amber-600 bg-amber-50", barColor: "bg-amber-500" },
-    { title: "Content Marketing", icon: Icons.PenTool, desc: "Draft high-converting copy frameworks, editorial briefs, and syndication strategies.", iconColor: "text-emerald-600 bg-emerald-50", barColor: "bg-emerald-500" }
+    { title: "Search Engine Optimization", icon: Icons.Search, desc: "Optimize GBP mappings, crawl budgets, and entity relevance architectures.", color: "bg-blue-50 text-blue-600" },
+    { title: "Pay Per Click Campaigns", icon: Icons.Target, desc: "Scale acquisitions predictably across Google Search, Shopping, and Smart Bidding campaigns.", color: "bg-orange-50 text-orange-600" },
+    { title: "Social Media Advertising", icon: Icons.Smartphone, desc: "Configure custom Meta Pixels, lookalike loops, and creative hooks.", color: "bg-purple-50 text-purple-600" },
+    { title: "Web Development", icon: Icons.Laptop, desc: "Stunning custom-coded Next.js/Vite visual frontends optimized for transaction speeds.", color: "bg-blue-50 text-blue-600" },
+    { title: "Sourcing Services", icon: Icons.Truck, desc: "Verify manufacturing licenses, factory compliance reports, and cargo routes.", color: "bg-orange-50 text-orange-600" },
+    { title: "Content Marketing", icon: Icons.PenTool, desc: "Draft high-converting copy frameworks, editorial briefs, and syndication strategies.", color: "bg-amber-50 text-amber-600" }
   ];
 
   const valuesData = [
-    { title: "Data-Driven Decisions", desc: "Analyze patterns before making moves.", color: "bg-blue-50/50 border-blue-100/60 text-blue-900" },
-    { title: "Absolute Transparency", desc: "Direct communication and honest progress.", color: "bg-emerald-50/50 border-emerald-100/60 text-emerald-900" },
-    { title: "Creative Solutions", desc: "Unique hooks and custom-designed funnels.", color: "bg-amber-50/50 border-amber-100/60 text-amber-900" },
-    { title: "Client Focused", desc: "Your growth is our target. Full alignment.", color: "bg-violet-50/50 border-violet-100/60 text-violet-900" }
+    { title: "Data-Driven Decisions", desc: "Analyze patterns before making moves.", color: "bg-blue-50/50 border-blue-100 text-blue-900" },
+    { title: "Absolute Transparency", desc: "Direct communication and honest progress.", color: "bg-emerald-50/50 border-emerald-100 text-emerald-900" },
+    { title: "Creative Solutions", desc: "Unique hooks and custom-designed funnels.", color: "bg-amber-50/50 border-amber-100 text-amber-900" },
+    { title: "Client Focused", desc: "Your growth is our target. Full alignment.", color: "bg-violet-50/50 border-violet-100 text-violet-900" }
   ];
-
-  const originalSpecialties: Record<string, string> = {
-    us: "Organic Traffic Hub",
-    uk: "Lead Gen Core",
-    ca: "B2B Optimization",
-    au: "Ecommerce Scale",
-    ie: "SaaS Strategy",
-    ae: "High ROI Ads",
-    za: "Conversion Lift",
-    de: "Technical Search",
-    nl: "SEO Entities",
-    nz: "Paid Scale",
-    bd: "Home Operations"
-  };
 
   const toolsList = [
     { name: "Ahrefs", desc: "SEO Research", icon: "/Emoji/mag.png" },
@@ -67,7 +52,7 @@ export default function AboutPage() {
   ];
 
   const bottomCtaServices = [
-    { title: "Search Engine Optimization", desc: "Grow search footprint and capture high-intent buyers.", link: "/services/seo", icon: Icons.Search },
+    { title: "SEO Agency", desc: "Grow search footprint and capture high-intent buyers.", link: "/services/seo", icon: Icons.Search },
     { title: "PPC & Paid Ads", desc: "Accelerate conversions through targeted search bidding.", link: "/services/ppc", icon: Icons.Target },
     { title: "Web Design & Dev", desc: "Custom visual frontends optimized for speed and UX.", link: "/services/web-design-dev", icon: Icons.Laptop },
     { title: "Content & Strategy", desc: "Build authority and lists that drive stable acquisitions.", link: "/services/content-marketing", icon: Icons.PenTool },
@@ -76,61 +61,57 @@ export default function AboutPage() {
   ];
 
   return (
-    <article className="min-h-screen bg-white">
+    <article className="min-h-screen bg-transparent">
       
       {/* 1. About Hero Section */}
-      <section className="relative overflow-hidden bg-white py-20 lg:py-28">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(0,118,255,0.02)_0%,transparent_60%)] pointer-events-none" />
+      <section className="relative overflow-hidden bg-transparent py-20 lg:py-28">
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(0,118,255,0.03)_0%,transparent_60%)] pointer-events-none" />
         
         <div className="container mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
             {/* Left Biography Text */}
             <div className="lg:col-span-7 flex flex-col items-start">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 px-3.5 py-1.5 text-xs font-semibold text-blue-600 uppercase tracking-wider mb-6 border border-blue-100/50">
-                <span className="h-1.5 w-1.5 rounded-full bg-blue-600 animate-pulse" />
-                ABOUT ME
+              <span className="text-[10px] sm:text-xs font-bold text-primary uppercase tracking-[0.25em] mb-4">
+                INTRODUCING
               </span>
               <h1 className="font-serif text-4xl sm:text-5xl lg:text-[3.5rem] font-bold text-neutral-900 tracking-tight leading-[1.1] mb-6">
                 Hi, I&apos;m <br className="sm:hidden" />
                 Kamrujjaman <br />
                 <span className="text-primary italic font-serif">Mufti.</span>
               </h1>
-              <p className="font-sans text-sm sm:text-base text-neutral-500 leading-relaxed max-w-xl mb-8">
-                I am a digital marketing expert with a focus on SEO, Paid Ads, Web Design, and Content Marketing. I help businesses achieve measurable growth through data-driven strategies and creative execution.
+              <p className="font-sans text-sm sm:text-base text-neutral-500 leading-relaxed max-w-2xl mb-8">
+                Full-service digital marketing expert with 5 years of hands-on experience helping businesses of all sizes grow through SEO, web development, paid ads, and content marketing.
               </p>
               
               <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-8">
                 <Link
-                  href="/portfolio"
+                  href="/contact"
                   className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary hover:bg-primary-hover px-8 py-4 font-sans text-xs font-bold text-white shadow-md transition-all hover:scale-[1.02] active:scale-[0.99]"
                 >
-                  View Work
+                  Book Call <Icons.ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
                   href="/contact"
                   className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-neutral-200 bg-white hover:bg-neutral-50 px-8 py-4 font-sans text-xs font-bold text-neutral-700 shadow-sm transition-all"
                 >
-                  Contact Me &rarr;
+                  Contact Me
                 </Link>
               </div>
 
               {/* Badges list */}
-              <div className="flex flex-wrap gap-2 border-t border-neutral-100 pt-6 w-full max-w-xl">
-                {["English", "Hindi", "Urdu", "Bengali", "Arabic"].map((tag) => (
-                  <span key={tag} className="bg-neutral-50 border border-neutral-200/60 text-neutral-500 text-[10px] font-semibold px-3.5 py-1.5 rounded-full">
+              <div className="flex flex-wrap gap-2 border-t border-neutral-100 pt-6 w-full">
+                {["Digital", "SEO", "PPC", "Web", "Sourcing", "AI"].map((tag) => (
+                  <span key={tag} className="bg-neutral-50 border border-neutral-200/60 text-neutral-500 text-[10px] font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider">
                     {tag}
                   </span>
                 ))}
               </div>
             </div>
 
-            {/* Right Profile Photo Container */}
+            {/* Right Image Frame */}
             <div className="lg:col-span-5 relative flex justify-center">
-              {/* Radial light glow backplate */}
-              <div className="absolute -inset-10 bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.12)_0%,transparent_60%)] -z-10 pointer-events-none" />
-              
-              <div className="relative w-full max-w-[420px] aspect-square rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.08)] border border-neutral-150/50">
+              <div className="relative w-full max-w-[380px] aspect-[4/5] rounded-[2rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.08)] border border-neutral-100">
                 <Image
                   src="/Kamrujjaman Mufti Image/kamrujjaman-mufti.jpg"
                   alt="Kamrujjaman Mufti"
@@ -152,7 +133,7 @@ export default function AboutPage() {
             
             {/* Left Timeline Copy */}
             <div className="lg:col-span-6 flex flex-col justify-center">
-              <span className="text-[10px] sm:text-xs font-bold text-sky-500 uppercase tracking-[0.25em] mb-4">
+              <span className="text-[10px] sm:text-xs font-bold text-primary uppercase tracking-[0.25em] mb-4">
                 MY JOURNEY
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-neutral-900 leading-tight tracking-tight mb-6">
@@ -177,7 +158,7 @@ export default function AboutPage() {
                   {idx < timelineData.length - 1 && (
                     <div className="absolute left-2.5 top-6 bottom-[-2.5rem] w-0.5 bg-neutral-200" />
                   )}
-                  {/* Timeline indicator circle */}
+                  {/* Timeline indicator circle (mockup radio style) */}
                   <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-primary bg-white relative z-10 mt-1">
                     <div className="w-1.5 h-1.5 rounded-full bg-primary" />
                   </div>
@@ -216,7 +197,7 @@ export default function AboutPage() {
             {statsMetrics.map((stat) => (
               <div 
                 key={stat.label} 
-                className="bg-white border border-neutral-150/80 rounded-3xl p-8 shadow-[0_8px_30px_rgba(0,0,0,0.01)] hover:shadow-premium transition-all duration-300 flex flex-col items-center justify-center"
+                className="bg-white border border-neutral-100 rounded-3xl p-8 shadow-[0_8px_30px_rgba(0,0,0,0.01)] hover:shadow-premium transition-all duration-300 flex flex-col items-center justify-center"
               >
                 <span className="font-serif text-4xl sm:text-5xl font-bold text-neutral-900 tracking-tight mb-2">
                   {stat.value}
@@ -230,7 +211,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 4. What I do best (Services Grid - Redesigned matching screenshot) */}
+      {/* 4. What I do best (Services Grid) */}
       <section className="py-20 lg:py-28 bg-neutral-50/50 border-t border-b border-neutral-100">
         <div className="container mx-auto max-w-7xl px-6 text-center">
           <span className="text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-[0.2em] mb-4 inline-block">
@@ -244,19 +225,17 @@ export default function AboutPage() {
             {expertiseData.map((item, idx) => (
               <div 
                 key={idx}
-                className="relative overflow-hidden bg-white border border-neutral-200/60 rounded-3xl p-8 text-left shadow-sm hover:shadow-premium hover:border-primary/20 transition-all duration-300"
+                className="bg-white border border-neutral-200/60 rounded-3xl p-8 text-left shadow-sm hover:shadow-premium hover:border-primary/20 transition-all duration-300"
               >
-                <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${item.iconColor} mb-6`}>
+                <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${item.color} mb-6`}>
                   <item.icon className="h-6 w-6" />
                 </div>
                 <h3 className="font-sans font-bold text-lg text-neutral-900 mb-3">
                   {item.title}
                 </h3>
-                <p className="font-sans text-xs sm:text-sm text-neutral-500 leading-relaxed mb-4">
+                <p className="font-sans text-xs sm:text-sm text-neutral-500 leading-relaxed">
                   {item.desc}
                 </p>
-                {/* Accent line at the bottom matching screenshot */}
-                <div className={`absolute bottom-0 left-0 right-0 h-1 ${item.barColor}`} />
               </div>
             ))}
           </div>
@@ -286,7 +265,7 @@ export default function AboutPage() {
                 <h4 className="font-sans font-bold text-base mb-3 leading-snug">
                   {item.title}
                 </h4>
-                <p className="font-sans text-xs leading-relaxed opacity-85">
+                <p className="font-sans text-xs leading-relaxed opacity-80">
                   {item.desc}
                 </p>
               </div>
@@ -296,7 +275,7 @@ export default function AboutPage() {
       </section>
 
       {/* 6. Bangladesh / Global Reach */}
-      <section className="py-20 lg:py-28 bg-[#FAFBFD] border-t border-b border-neutral-100">
+      <section className="py-20 lg:py-28 bg-neutral-50/50 border-t border-b border-neutral-100">
         <div className="container mx-auto max-w-7xl px-6 text-center">
           <span className="text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-[0.2em] mb-4 inline-block">
             GLOBAL REACH
@@ -309,7 +288,7 @@ export default function AboutPage() {
             {countriesData.map((country) => (
               <div 
                 key={country.id}
-                className="bg-white border border-neutral-200/50 rounded-2xl p-5 shadow-[0_6px_20px_rgba(0,0,0,0.01)] flex flex-col items-center justify-center text-center"
+                className="bg-white border border-neutral-100 rounded-2xl p-5 shadow-[0_6px_20px_rgba(0,0,0,0.01)] flex flex-col items-center justify-center text-center"
               >
                 <div className="relative w-10 h-7 mb-3 overflow-hidden rounded border border-neutral-100/50 shadow-sm shrink-0">
                   <Image
@@ -332,10 +311,10 @@ export default function AboutPage() {
                   />
                 </div>
                 <h4 className="font-sans font-bold text-sm text-neutral-800 mb-0.5">
-                  {country.flagCode}
+                  {country.name}
                 </h4>
-                <p className="font-sans text-[9px] font-semibold text-neutral-400 uppercase tracking-wider text-center">
-                  {originalSpecialties[country.id] || country.specialtyTag}
+                <p className="font-sans text-[10px] font-semibold text-neutral-400 uppercase tracking-wider">
+                  {country.specialtyTag}
                 </p>
               </div>
             ))}
@@ -353,39 +332,13 @@ export default function AboutPage() {
             Tools I use every day.
           </h2>
 
-          <motion.div 
-            variants={{
-              hidden: { opacity: 0 },
-              visible: {
-                opacity: 1,
-                transition: { staggerChildren: 0.05 }
-              }
-            }}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto text-left"
-          >
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto text-left">
             {toolsList.map((tool) => (
-              <motion.div 
+              <div 
                 key={tool.name} 
-                variants={{
-                  hidden: { opacity: 0, y: 15 },
-                  visible: {
-                    opacity: 1,
-                    y: 0,
-                    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }
-                  }
-                }}
-                whileHover={{ 
-                  y: -5,
-                  scale: 1.02,
-                  boxShadow: "0 10px 30px -10px rgba(0, 118, 255, 0.08)",
-                  borderColor: "rgba(0, 118, 255, 0.15)"
-                }}
-                className="group bg-neutral-50/70 border border-neutral-100/50 rounded-2xl p-4 px-5 flex items-center gap-4 cursor-default transition-all duration-300"
+                className="bg-neutral-50/70 border border-neutral-100/50 rounded-2xl p-4 px-5 flex items-center gap-4 hover:shadow-sm transition-all duration-300"
               >
-                <div className="shrink-0 flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-sm border border-neutral-100/50 p-2 relative transition-transform duration-300 group-hover:scale-105">
+                <div className="shrink-0 flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-sm border border-neutral-100/50 p-2 relative">
                   <Image
                     src={tool.icon}
                     alt={tool.name}
@@ -402,17 +355,17 @@ export default function AboutPage() {
                     {tool.desc}
                   </p>
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* 8. One expert. All services. Real results. (CTA Redesigned matching screenshot) */}
-      <section className="py-20 lg:py-28 border-t border-neutral-100 bg-[#FAFBFD]/50">
+      {/* 8. One expert. All services. Real results. (CTA) */}
+      <section className="py-20 lg:py-28 border-t border-neutral-100 bg-transparent">
         <div className="container mx-auto max-w-7xl px-6 text-center">
           <span className="text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-[0.2em] mb-4 inline-block">
-            SERVICES
+            CONTACT
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-neutral-900 tracking-tight mb-12">
             One expert. <br />All services. Real results.
@@ -420,65 +373,27 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {bottomCtaServices.map((svc, idx) => (
-              <div 
+              <Link 
                 key={idx}
-                className="group bg-white border border-neutral-200/60 rounded-3xl p-7 shadow-sm hover:shadow-premium transition-all duration-300 flex flex-col justify-between text-left"
+                href={svc.link}
+                className="group bg-white border border-neutral-200/60 rounded-3xl p-6 shadow-sm hover:shadow-premium hover:border-primary/20 text-left transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/5 text-primary mb-5 transition-colors group-hover:bg-primary group-hover:text-white">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/5 text-primary mb-4 transition-colors group-hover:bg-primary group-hover:text-white">
                     <svc.icon className="h-5 w-5" />
                   </div>
                   <h4 className="font-sans font-bold text-sm sm:text-base text-neutral-900 mb-2">
                     {svc.title}
                   </h4>
-                  <p className="font-sans text-xs sm:text-[13px] text-neutral-500 leading-relaxed mb-6">
+                  <p className="font-sans text-xs text-neutral-500 leading-relaxed mb-6">
                     {svc.desc}
                   </p>
                 </div>
-                <Link 
-                  href={svc.link}
-                  className="font-sans text-xs font-bold text-primary hover:text-primary-hover inline-flex items-center gap-1.5 mt-auto self-start"
-                >
-                  Learn More <Icons.ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-                </Link>
-              </div>
+                <div className="font-sans text-[10px] font-bold text-primary hover:text-primary-hover flex items-center gap-1 mt-auto">
+                  Learn More <Icons.ArrowUpRight className="h-3 w-3" />
+                </div>
+              </Link>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 9. Dark Footer CTA Section (New section matching screenshot) */}
-      <section className="relative overflow-hidden bg-[#0A0D14] py-24 lg:py-32 text-white text-center border-t border-neutral-900">
-        {/* Radial light glow backplate */}
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.06)_0%,transparent_70%)] pointer-events-none" />
-
-        <div className="container mx-auto max-w-4xl px-6 relative z-10 flex flex-col items-center">
-          <span className="inline-flex items-center rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider mb-6">
-            KICKSTART YOUR PROJECT
-          </span>
-
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-bold tracking-tight leading-[1.2] mb-6">
-            Let&apos;s build <br />
-            something great.
-          </h2>
-
-          <p className="font-sans text-sm sm:text-base text-neutral-400 leading-relaxed max-w-xl mb-10">
-            Get in touch for a free audit, consultation, or custom proposal tailored to your business.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
-            <Link
-              href="/contact"
-              className="flex w-full sm:w-auto items-center justify-center rounded-full bg-white hover:bg-neutral-100 px-8 py-4 font-sans text-xs font-bold text-neutral-900 shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
-            >
-              Book Free Consultation
-            </Link>
-            <Link
-              href="/contact"
-              className="flex w-full sm:w-auto items-center justify-center rounded-full border border-neutral-700 hover:bg-neutral-800 px-8 py-4 font-sans text-xs font-bold text-white shadow-sm transition-all"
-            >
-              Contact Agent
-            </Link>
           </div>
         </div>
       </section>

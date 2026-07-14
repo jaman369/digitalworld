@@ -5,37 +5,15 @@
 @layer base {
   body {
     @apply antialiased min-h-screen text-neutral-900;
-    background: repeating-linear-gradient(to bottom, #FCFDFF, #FAFBFD 800px, #D7EEFB 1500px, #FCFDFF 1600px);
+    background-image: repeating-linear-gradient(
+      180deg,
+      #FCFDFF 0px,
+      #FAFBFD 400px,
+      #D7EEFB 1000px,
+      #FCE5FC 1600px,
+      #FAFBFD 2200px,
+      #FCFDFF 2600px
+    );
     background-attachment: scroll;
   }
 }
-
-/* Make standard page and section backgrounds transparent so the body gradient shows through */
-article.bg-white,
-section.bg-white,
-section.bg-neutral-50,
-main.bg-white,
-.min-h-screen.bg-white,
-.bg-white.py-20,
-.bg-white.py-24,
-.bg-white.py-28,
-.bg-white.py-32,
-.bg-neutral-50.py-20,
-.bg-neutral-50.py-32 {
-  background-color: transparent !important;
-}
-
-/* Ensure stats bar card, why choose us cards, testimonials, and other micro-cards remain floating white panels */
-div.rounded-2xl.bg-white,
-div.rounded-3xl.bg-white,
-div.rounded-\[2rem\].bg-white,
-div.rounded-xl.bg-white,
-div.rounded-lg.bg-white,
-.rounded-2xl.bg-white,
-.rounded-3xl.bg-white,
-.rounded-\[2rem\].bg-white,
-.rounded-xl.bg-white,
-.rounded-lg.bg-white {
-  background-color: #ffffff;
-}
-

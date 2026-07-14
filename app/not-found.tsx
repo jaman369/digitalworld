@@ -3,7 +3,7 @@ import * as Icons from "lucide-react";
 
 export default function NotFound() {
   return (
-    <article className="min-h-[calc(100vh-80px)] bg-white flex flex-col justify-center py-20">
+    <article className="min-h-[calc(100vh-80px)] bg-transparent flex flex-col justify-center py-20">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(0,118,255,0.04)_0%,transparent_60%)] pointer-events-none" />
 
       <div className="container mx-auto max-w-xl px-6 text-center flex flex-col items-center">

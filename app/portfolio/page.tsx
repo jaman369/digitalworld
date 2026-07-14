@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function PortfolioPage() {
   return (
-    <article className="min-h-screen bg-white py-20 lg:py-32">
+    <article className="min-h-screen bg-transparent py-20 lg:py-32">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(0,118,255,0.03)_0%,transparent_60%)] pointer-events-none" />
       
       <div className="container mx-auto max-w-7xl px-6">

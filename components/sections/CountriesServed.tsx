@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { countriesData } from "@/data/countries";
-import * as Icons from "lucide-react";
 
 export default function CountriesServed() {
   const containerVariants = {
@@ -24,43 +23,37 @@ export default function CountriesServed() {
   };
 
   return (
-    <section className="py-20 lg:py-28 bg-black relative z-10 border-b border-neutral-900">
+    <section className="py-20 lg:py-32 bg-transparent relative z-10 border-b border-neutral-100">
       <div className="container mx-auto max-w-7xl px-6">
-        
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-20">
-          <span className="text-[10px] sm:text-xs font-bold text-sky-400 uppercase tracking-[0.25em] mb-4 block">
-            OUR CLIENTS
+        <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-24">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-light px-4 py-1.5 text-xs font-semibold text-primary uppercase tracking-wider mb-6">
+            Global Reach
           </span>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-white tracking-tight mb-6">
-            Trusted by businesses <br className="hidden sm:inline" />
-            across{" "}
-            <span className="bg-gradient-to-r from-sky-400 via-blue-500 to-[#10B981] bg-clip-text text-transparent italic font-serif">
-              11 countries.
-            </span>
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight mb-6">
+            Trusted by businesses across 11 countries
           </h2>
-          <p className="font-sans text-sm sm:text-base text-neutral-400 leading-relaxed max-w-2xl mx-auto">
-            From solo e-commerce brands to growing agencies — our clients span 4 continents and the most competitive digital markets in the world.
+          <p className="font-sans text-base sm:text-lg text-neutral-500 leading-relaxed">
+            We manage search optimization campaigns and custom CRM pipelines for international brands operating across multiple regions.
           </p>
         </div>
 
-        {/* Unified Grid Container */}
+        {/* Flags Grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 border border-neutral-800/60 bg-neutral-950/20 rounded-[2rem] overflow-hidden"
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6"
         >
-          {/* 11 Country Cards */}
           {countriesData.map((country) => (
             <motion.div
               key={country.id}
               variants={itemVariants}
-              className="flex flex-col items-center justify-center p-8 border border-neutral-800/40 -mr-px -mb-px bg-transparent transition-all duration-300 hover:bg-neutral-900/30 text-center"
+              className="flex flex-col items-center justify-center p-6 rounded-2xl border border-neutral-200 bg-white shadow-sm transition-all duration-300 hover:shadow-md text-center"
             >
               {/* Flag Image */}
-              <div className="relative h-7 w-10 overflow-hidden rounded shadow-sm mb-4 border border-neutral-800/40">
+              <div className="relative h-10 w-14 overflow-hidden rounded border border-neutral-100 shadow-sm mb-4">
                 <Image
                   src={country.flagPath}
                   alt={`${country.name} flag`}
@@ -70,44 +63,19 @@ export default function CountriesServed() {
               </div>
 
               {/* Name */}
-              <span className="font-sans font-bold text-sm text-white mb-1">
+              <span className="font-sans font-bold text-sm text-neutral-800 mb-1">
                 {country.name}
               </span>
 
-              {/* Specialty Subtext */}
-              <span className="font-sans text-[10px] sm:text-xs text-neutral-500">
-                {country.specialtyTag}
-              </span>
+              {/* Specialty Tag */}
+              {country.specialtyTag && (
+                <span className="font-sans text-[10px] font-semibold text-primary bg-primary-light px-2 py-0.5 rounded-full border border-primary/5">
+                  {country.specialtyTag}
+                </span>
+              )}
             </motion.div>
           ))}
-
-          {/* 12th Card: Growing */}
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-col items-center justify-center p-8 border border-neutral-800/40 -mr-px -mb-px bg-transparent transition-all duration-300 hover:bg-neutral-900/30 text-center"
-          >
-            {/* Plus Icon */}
-            <div className="flex h-7 w-10 items-center justify-center mb-4">
-              <Icons.Plus className="h-5 w-5 text-blue-500" />
-            </div>
-
-            {/* Name */}
-            <span className="font-sans font-bold text-sm text-blue-500 mb-1">
-              Growing
-            </span>
-
-            {/* Subtext */}
-            <span className="font-sans text-[10px] sm:text-xs text-neutral-500">
-              More markets soon
-            </span>
-          </motion.div>
-
-          {/* 3 Empty filler cells to complete the 15-cell grid for 5-column desktop alignment */}
-          <div className="hidden lg:flex border border-neutral-800/40 -mr-px -mb-px bg-transparent pointer-events-none" />
-          <div className="hidden lg:flex border border-neutral-800/40 -mr-px -mb-px bg-transparent pointer-events-none" />
-          <div className="hidden lg:flex border border-neutral-800/40 -mr-px -mb-px bg-transparent pointer-events-none" />
         </motion.div>
-
       </div>
     </section>
   );

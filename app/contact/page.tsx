@@ -4,7 +4,6 @@ import { useState } from "react";
 import Image from "next/image";
 import * as Icons from "lucide-react";
 import { countriesData } from "@/data/countries";
-import WorldMap from "@/components/sections/WorldMap";
 
 export default function ContactPage() {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
@@ -137,7 +136,7 @@ export default function ContactPage() {
   };
 
   return (
-    <article className="min-h-screen bg-white">
+    <article className="min-h-screen bg-transparent">
       {/* Background glow overlay */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(0,118,255,0.03)_0%,transparent_60%)] pointer-events-none" />
 
@@ -160,10 +159,8 @@ export default function ContactPage() {
       <section className="pb-24 lg:pb-32 container mx-auto max-w-7xl px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
-          {/* Left Column */}
-          <div className="lg:col-span-7 xl:col-span-8 flex flex-col gap-8">
-            {/* Form Card */}
-            <div className="bg-white border border-neutral-100 rounded-[2rem] shadow-[0_12px_40px_rgba(0,0,0,0.03)] p-8 lg:p-12">
+          {/* Left Column: Form Card */}
+          <div className="lg:col-span-7 xl:col-span-8 bg-white border border-neutral-100 rounded-[2rem] shadow-[0_12px_40px_rgba(0,0,0,0.03)] p-8 lg:p-12">
             <h2 className="font-serif text-2xl font-bold text-neutral-900 mb-2">
               Tell me about your project
             </h2>
@@ -358,10 +355,6 @@ export default function ContactPage() {
                 </div>
               </form>
             )}
-            </div>
-
-            {/* Interactive World Map Component */}
-            <WorldMap />
           </div>
 
           {/* Right Column: Widgets */}
@@ -491,7 +484,7 @@ export default function ContactPage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-20 lg:py-28 border-t border-neutral-100 bg-neutral-50/50">
+      <section className="py-20 lg:py-28 border-t border-neutral-100 bg-transparent">
         <div className="container mx-auto max-w-4xl px-6">
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-neutral-900 text-center mb-12">
             Frequently asked questions
