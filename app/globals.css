@@ -5,7 +5,7 @@
 @layer base {
   body {
     @apply antialiased min-h-screen text-neutral-900;
-    background: repeating-linear-gradient(to bottom, #FCFDFF, #D7EEFB 1200px, #FCFDFF 2400px);
+    background: repeating-linear-gradient(to bottom, #FCFDFF, #FAFBFD 800px, #D7EEFB 1500px, #FCFDFF 1600px);
     background-attachment: scroll;
   }
 }
