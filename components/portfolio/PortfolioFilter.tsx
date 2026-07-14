@@ -9,7 +9,7 @@ interface PortfolioFilterProps {
   items: PortfolioItem[];
 }
 
-type FilterCategory = "ALL" | "SEO" | "PPC" | "WEB" | "CONTENT";
+type FilterCategory = "ALL" | "SEO" | "PPC" | "WEB" | "CONTENT" | "AI";
 
 export default function PortfolioFilter({ items }: PortfolioFilterProps) {
   const [activeFilter, setActiveFilter] = useState<FilterCategory>("ALL");
@@ -20,6 +20,7 @@ export default function PortfolioFilter({ items }: PortfolioFilterProps) {
     { label: "PPC / Bidding", category: "PPC" as FilterCategory },
     { label: "Web Design & Dev", category: "WEB" as FilterCategory },
     { label: "Content & PR", category: "CONTENT" as FilterCategory },
+    { label: "AI Automation", category: "AI" as FilterCategory },
   ];
 
   const getFilteredItems = () => {
