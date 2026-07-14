@@ -126,7 +126,7 @@ export default function ServicesGrid() {
               <motion.div
                 key={category.id}
                 variants={cardVariants}
-                className={`group flex flex-col rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-premium ${styles.hoverBg} ${styles.hoverBorder}`}
+                className={`group flex flex-col rounded-[2rem] border border-white bg-white/85 p-8 shadow-[10px_10px_20px_rgba(165,180,203,0.25),_-10px_-10px_20px_rgba(255,255,255,0.95)] transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-[14px_14px_28px_rgba(165,180,203,0.35),_-14px_-14px_28px_rgba(255,255,255,1)] ${styles.hoverBg} ${styles.hoverBorder}`}
               >
                 {/* Header info */}
                 <div className="flex items-start gap-4 mb-6">
