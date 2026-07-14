@@ -36,6 +36,6 @@ div.rounded-lg.bg-white,
 .rounded-\[2rem\].bg-white,
 .rounded-xl.bg-white,
 .rounded-lg.bg-white {
-  background-color: #ffffff !important;
+  background-color: #ffffff;
 }
 
