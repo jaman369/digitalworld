@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { portfolioData } from "@/data/portfolio";
 import PortfolioFilter from "@/components/portfolio/PortfolioFilter";
+import PortfolioCTA from "@/components/portfolio/PortfolioCTA";
 
 export const metadata: Metadata = {
   title: "Case Studies & Portfolio - Digital World",
@@ -31,6 +32,9 @@ export default function PortfolioPage() {
         {/* Portfolio Filter Component */}
         <PortfolioFilter items={portfolioData} />
       </div>
+
+      {/* CTA Section */}
+      <PortfolioCTA />
     </article>
   );
 }
