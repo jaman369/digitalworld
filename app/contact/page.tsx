@@ -415,9 +415,9 @@ export default function ContactPage() {
               <div className="flex flex-col gap-4">
                 {[
                   { icon: Icons.Mail, label: "EMAIL", val: "kj.jaman369@gmail.com", href: "mailto:kj.jaman369@gmail.com", color: "bg-blue-50 text-blue-600" },
-                  { icon: Icons.Phone, label: "WHATSAPP / PHONE", val: "+880 1768-667020", href: "https://wa.me/8801768667020", color: "bg-emerald-50 text-emerald-600" },
-                  { icon: Icons.Linkedin, label: "LINKEDIN", val: "linkedin.com/in/kamrujjaman-mufti", href: "https://linkedin.com/in/kamrujjaman-mufti", color: "bg-blue-50 text-blue-600" },
-                  { icon: Icons.Facebook, label: "FACEBOOK", val: "facebook.com/digitalworldweb", href: "https://facebook.com/digitalworldweb", color: "bg-blue-50 text-blue-600" },
+                  { icon: Icons.Phone, label: "WHATSAPP / PHONE", val: "+880 1798-667820", href: "tel:+8801798667820", color: "bg-emerald-50 text-emerald-600" },
+                  { icon: Icons.Linkedin, label: "LINKEDIN", val: "linkedin.com/in/kamrujjaman-mufti", href: "https://www.linkedin.com/in/kamrujjaman-mufti/", color: "bg-blue-50 text-blue-600" },
+                  { icon: Icons.Facebook, label: "FACEBOOK", val: "facebook.com/digitalworld1988", href: "https://www.facebook.com/digitalworld1988", color: "bg-blue-50 text-blue-600" },
                   { icon: Icons.MapPin, label: "LOCATION", val: "Dhaka, Bangladesh (Remote)", href: "#", color: "bg-orange-50 text-orange-600" }
                 ].map((item, idx) => (
                   <a 
