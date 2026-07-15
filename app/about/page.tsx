@@ -1,9 +1,66 @@
 "use client";
 
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import * as Icons from "lucide-react";
 import { countriesData } from "@/data/countries";
+
+/* ── Animated Counter Hook ─────────────────────────────────── */
+function useCountUp(end: number, duration: number, start: boolean) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!start) return;
+    let raf: number;
+    const startTime = performance.now();
+
+    const tick = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // ease-out-quart for a smooth deceleration
+      const eased = 1 - Math.pow(1 - progress, 4);
+      setCount(Math.round(eased * end));
+
+      if (progress < 1) {
+        raf = requestAnimationFrame(tick);
+      }
+    };
+
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [end, duration, start]);
+
+  return count;
+}
+
+/* ── Single stat card with animated number ──────────────────── */
+function AnimatedStat({
+  numericValue,
+  suffix,
+  label,
+  isVisible,
+}: {
+  numericValue: number;
+  suffix: string;
+  label: string;
+  isVisible: boolean;
+}) {
+  const count = useCountUp(numericValue, 2200, isVisible);
+
+  return (
+    <div
+      className="bg-white border border-neutral-100 rounded-3xl p-8 shadow-[0_8px_30px_rgba(0,0,0,0.01)] hover:shadow-premium transition-all duration-300 flex flex-col items-center justify-center"
+    >
+      <span className="font-serif text-4xl sm:text-5xl font-bold text-neutral-900 tracking-tight mb-2">
+        {isVisible ? count : 0}{suffix}
+      </span>
+      <span className="font-sans text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-widest text-center">
+        {label}
+      </span>
+    </div>
+  );
+}
 
 export default function AboutPage() {
   const timelineData = [
@@ -14,11 +71,33 @@ export default function AboutPage() {
   ];
 
   const statsMetrics = [
-    { value: "150+", label: "Projects Delivered" },
-    { value: "120+", label: "Happy Clients" },
-    { value: "5", label: "Years Experience" },
-    { value: "11", label: "Countries Served" }
+    { numericValue: 150, suffix: "+", label: "Projects Delivered" },
+    { numericValue: 120, suffix: "+", label: "Happy Clients" },
+    { numericValue: 5, suffix: "", label: "Years Experience" },
+    { numericValue: 11, suffix: "", label: "Countries Served" }
   ];
+
+  // IntersectionObserver for the metrics section
+  const metricsRef = useRef<HTMLDivElement>(null);
+  const [metricsVisible, setMetricsVisible] = useState(false);
+
+  useEffect(() => {
+    const node = metricsRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setMetricsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.25 }
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   const expertiseData = [
     { title: "Search Engine Optimization", icon: Icons.Search, desc: "Optimize GBP mappings, crawl budgets, and entity relevance architectures.", color: "bg-blue-50 text-blue-600" },
@@ -193,19 +272,15 @@ export default function AboutPage() {
             in <span className="text-primary italic font-serif font-medium">4 numbers.</span>
           </h2>
           
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+          <div ref={metricsRef} className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
             {statsMetrics.map((stat) => (
-              <div 
-                key={stat.label} 
-                className="bg-white border border-neutral-100 rounded-3xl p-8 shadow-[0_8px_30px_rgba(0,0,0,0.01)] hover:shadow-premium transition-all duration-300 flex flex-col items-center justify-center"
-              >
-                <span className="font-serif text-4xl sm:text-5xl font-bold text-neutral-900 tracking-tight mb-2">
-                  {stat.value}
-                </span>
-                <span className="font-sans text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-widest text-center">
-                  {stat.label}
-                </span>
-              </div>
+              <AnimatedStat
+                key={stat.label}
+                numericValue={stat.numericValue}
+                suffix={stat.suffix}
+                label={stat.label}
+                isVisible={metricsVisible}
+              />
             ))}
           </div>
         </div>
