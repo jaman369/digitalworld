@@ -299,146 +299,50 @@ export const servicesData: ServiceCategory[] = [
       {
         name: "Website Design (UI/UX)",
         slug: "website-design-ui-ux",
-        tagline: "Form follows function, but first it converts.",
-        description: "User-centered design that balances aesthetics with functionality. We create intuitive interfaces that guide visitors toward conversion while delivering a delightful experience.",
-        benefits: [
-          "Custom responsive web design",
-          "Wireframing & prototyping",
-          "User journey mapping",
-          "Conversion-optimized layouts",
-          "Interactive prototypes",
-          "Design systems & UI kits"
-        ],
-        primaryCtaText: "Get UI/UX Quote",
-        primaryCtaLink: "/contact?service=website-design-ui-ux",
-        secondaryCtaText: "📁 View Case Studies",
-        secondaryCtaLink: "/portfolio?service=website-design-ui-ux"
+        description: "Modern, high-conversion visual mockups.",
+        benefits: ["Create intuitive desktop and mobile user flows", "Figma pixel-perfect UI style setups", "Conversion rate optimization design checks"]
       },
       {
         name: "WordPress Development",
         slug: "wordpress-development",
-        tagline: "Prevent WordPress from bulk or bloat.",
-        description: "Custom WordPress themes and plugins, optimized for speed, security, and SEO. We build sites that are easy to manage and grow with your business.",
-        benefits: [
-          "Custom theme development",
-          "Plugin development & customization",
-          "WooCommerce integration",
-          "Speed & security optimization",
-          "Headless WordPress setups",
-          "Easy content editor configuration"
-        ],
-        primaryCtaText: "Create WordPress Site",
-        primaryCtaLink: "/contact?service=wordpress-development",
-        secondaryCtaText: "📁 View Case Studies",
-        secondaryCtaLink: "/portfolio?service=wordpress-development"
+        description: "Robust content systems and custom configurations.",
+        benefits: ["Custom theme build and plugin cleanups", "Fast backend dashboard speeds", "Technical search-friendly configurations"]
       },
       {
         name: "Shopify Development",
         slug: "shopify-development",
-        tagline: "Shopify stores built to sell from day one.",
-        description: "We build Shopify stores that are fast, beautiful, and conversion-optimised. From custom theme development to complex app integrations — we've helped brands in the UK, USA, and Australia increase conversions by up to 180% within 60 days of launch.",
-        benefits: [
-          "Custom Shopify theme development & design",
-          "Product page & checkout optimisation",
-          "Shopify app integration & custom Liquid coding",
-          "International markets & multi-currency setup",
-          "Shopify migration from WooCommerce or other platforms",
-          "Core Web Vitals & mobile performance tuning"
-        ],
-        primaryCtaText: "Build My Shopify Store",
-        primaryCtaLink: "/contact?service=shopify-development",
-        secondaryCtaText: "📁 See Store Examples",
-        secondaryCtaLink: "/portfolio?service=shopify-development"
+        description: "Scalable stores optimized for transaction logs.",
+        benefits: ["Configure product pages and checkout flows", "Responsive catalog page architectures", "Setup cart drawers and discounts logic"]
       },
       {
         name: "Landing Page Design",
         slug: "landing-page-design",
-        tagline: "Landing pages engineered to convert visitors into buyers.",
-        description: "High-converting landing pages designed with psychological triggers, compelling copy, and clear CTAs that turn visitors into leads and customers.",
-        benefits: [
-          "A/B tested page layouts",
-          "Conversion-focused copywriting",
-          "Lead capture form integration",
-          "Analytics & tracking setup",
-          "Rapid deployment pages",
-          "Multi-variant testing setup"
-        ],
-        primaryCtaText: "Design Landing Page",
-        primaryCtaLink: "/contact?service=landing-page-design",
-        secondaryCtaText: "📁 View Case Studies",
-        secondaryCtaLink: "/portfolio?service=landing-page-design"
+        description: "Vibrant custom sales pages built for ads.",
+        benefits: ["Fast single-page conversion structures", "Integrate analytics and lead capture systems", "Form validation structures"]
       },
       {
         name: "Website Speed Optimization",
         slug: "website-speed-optimization",
-        tagline: "Every millisecond counts for your bottom line.",
-        description: "Core Web Vitals optimization, image compression, code minification, and caching strategies that make your site blazing fast and Google-approved.",
-        benefits: [
-          "Core Web Vitals optimization",
-          "Image & asset compression",
-          "CDN & caching setup",
-          "Code minification & lazy loading",
-          "Database optimization",
-          "Server response time optimization"
-        ],
-        primaryCtaText: "Optimize Speed",
-        primaryCtaLink: "/contact?service=website-speed-optimization",
-        secondaryCtaText: "📁 View Case Studies",
-        secondaryCtaLink: "/portfolio?service=website-speed-optimization"
+        description: "Accelerate page loads and Core Web Vitals.",
+        benefits: ["Compress image scripts and defer code load", "Clean server response and cache setups", "Pass Google PageSpeed audits"]
       },
       {
         name: "Website Maintenance",
         slug: "website-maintenance",
-        tagline: "Keep your site secure, updated & always running.",
-        description: "Ongoing maintenance, security monitoring, plugin updates, and performance monitoring to ensure your website runs smoothly 24/7.",
-        benefits: [
-          "Regular security updates",
-          "Plugin & theme updates",
-          "Daily backups & monitoring",
-          "Performance reporting",
-          "Priority support & edits",
-          "Downtime emergency fix"
-        ],
-        primaryCtaText: "Get Maintenance",
-        primaryCtaLink: "/contact?service=website-maintenance",
-        secondaryCtaText: "📁 View Case Studies",
-        secondaryCtaLink: "/portfolio?service=website-maintenance"
+        description: "Security fixes and server maintenance.",
+        benefits: ["Uptime checking and server debugging", "Secure daily backups and update schedules", "Priority fixes for theme bugs"]
       },
       {
         name: "Website Migration",
         slug: "website-migration",
-        tagline: "Seamless site migration with zero ranking loss.",
-        description: "Moving websites can be risky. We ensure a seamless transition of your domain, database, CMS, and link structure with zero downtime and preserved search rankings.",
-        benefits: [
-          "CMS platform transitions (e.g. WordPress to Shopify)",
-          "Full database, user registry & asset transfer",
-          "301 redirect mapping & server-level configuration",
-          "Pre and post-migration SEO ranking audits",
-          "Broken link verification & redirect mapping",
-          "Secure domain name server (DNS) transfers"
-        ],
-        primaryCtaText: "Migrate Website",
-        primaryCtaLink: "/contact?service=website-migration",
-        secondaryCtaText: "📁 View Case Studies",
-        secondaryCtaLink: "/portfolio?service=website-migration"
+        description: "Secure domain transfers and redirects configurations.",
+        benefits: ["Zero search visibility drop migrations", "Setup redirect templates and audit paths", "Database database safe movements"]
       },
       {
         name: "CMS Setup",
         slug: "cms-setup",
-        tagline: "CMS setup configured exactly for your team.",
-        description: "We configure, customize, and optimize your chosen CMS platform to give you a powerful, flexible, and easy-to-use editor interface.",
-        benefits: [
-          "CMS platform recommendations (WordPress, Shopify, Webflow, etc.)",
-          "Standard theme installation & base configuration",
-          "Setup of essential security, SEO & speed plugins/apps",
-          "Custom fields & content architecture modeling",
-          "Role-based user permissions & approval flows",
-          "Dashboard cleanups & administrative documentation"
-        ],
-        primaryCtaText: "Setup CMS",
-        primaryCtaLink: "/contact?service=cms-setup",
-        secondaryCtaText: "📁 View Case Studies",
-        secondaryCtaLink: "/portfolio?service=cms-setup"
+        description: "Setup headless and traditional CMS engines.",
+        benefits: ["Configure Sanity, Contentful, or Strapi panels", "Establish direct API fetch channels", "Train admin teams on updates"]
       }
     ]
   },

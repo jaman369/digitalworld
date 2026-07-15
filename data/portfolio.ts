@@ -60,15 +60,5 @@ export const portfolioData: PortfolioItem[] = [
     resultStat: "4.8x Bidding ROAS",
     image: "https://picsum.photos/600/400?random=66",
     tags: ["Meta Ads", "TikTok Video Ads", "Shopify Catalog Sync"]
-  },
-  {
-    id: "portfolio-7",
-    client: "Nexus Operations",
-    industry: "Logistics & Supply Chain",
-    serviceType: "AI",
-    description: "Designed custom intelligent ticket routing and automated client email parsing pipelines using n8n and OpenAI.",
-    resultStat: "85% Manual Hours Saved",
-    image: "https://picsum.photos/600/400?random=77",
-    tags: ["n8n Workflows", "OpenAI Integration", "CRM Automation"]
   }
 ];

@@ -3,7 +3,7 @@ import { servicesData } from "@/data/services";
 import { blogData } from "@/data/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://digitalworld-beige.vercel.app";
+  const baseUrl = "https://k-jdigitalworld.vercel.app";
 
   // Standard Pages
   const staticPages = ["", "/about", "/portfolio", "/blog", "/contact"].map((route) => ({

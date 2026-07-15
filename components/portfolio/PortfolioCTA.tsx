@@ -29,7 +29,7 @@ export default function PortfolioCTA() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden py-28 lg:py-36 bg-transparent"
+      className="relative overflow-hidden pt-20 pb-4 lg:pt-24 lg:pb-6 bg-transparent"
     >
       {/* Soft radial glow behind the content */}
       <div className="absolute inset-0 -z-10 flex items-center justify-center pointer-events-none">
@@ -43,7 +43,7 @@ export default function PortfolioCTA() {
             : "opacity-0 translate-y-8"
         }`}
       >
-        <h2 className="font-serif text-3xl sm:text-4xl lg:text-[3.25rem] font-bold text-neutral-900 tracking-tight leading-[1.15] mb-6">
+        <h2 className="font-serif text-3xl sm:text-4xl lg:text-[3.25rem] font-bold text-neutral-900 tracking-tight leading-[1.45] mb-6">
           Ready to be our next{" "}
           <br className="sm:hidden" />
           <span className="text-primary italic font-serif font-medium">
