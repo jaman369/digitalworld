@@ -43,7 +43,7 @@ export default function PortfolioCTA() {
             : "opacity-0 translate-y-8"
         }`}
       >
-        <h2 className="font-serif text-3xl sm:text-4xl lg:text-[3.25rem] font-bold text-neutral-900 tracking-tight leading-[1.45] mb-6">
+        <h2 className="font-serif text-3xl sm:text-4xl lg:text-[3.25rem] font-bold text-neutral-900 tracking-tight leading-[1.6] mb-6">
           Ready to be our next{" "}
           <br className="sm:hidden" />
           <span className="text-primary italic font-serif font-medium">
