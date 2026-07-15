@@ -9,7 +9,7 @@ interface PortfolioFilterProps {
   items: PortfolioItem[];
 }
 
-type FilterCategory = "ALL" | "SEO" | "PPC" | "WEB" | "CONTENT" | "AI";
+type FilterCategory = "ALL" | "SEO" | "PPC" | "WEB" | "AI" | "CONTENT";
 
 export default function PortfolioFilter({ items }: PortfolioFilterProps) {
   const [activeFilter, setActiveFilter] = useState<FilterCategory>("ALL");
@@ -19,8 +19,8 @@ export default function PortfolioFilter({ items }: PortfolioFilterProps) {
     { label: "SEO / Search", category: "SEO" as FilterCategory },
     { label: "PPC / Bidding", category: "PPC" as FilterCategory },
     { label: "Web Design & Dev", category: "WEB" as FilterCategory },
-    { label: "Content & PR", category: "CONTENT" as FilterCategory },
     { label: "AI Automation", category: "AI" as FilterCategory },
+    { label: "Content & PR", category: "CONTENT" as FilterCategory },
   ];
 
   const getFilteredItems = () => {
@@ -30,6 +30,7 @@ export default function PortfolioFilter({ items }: PortfolioFilterProps) {
     return items.filter((item) => {
       const type = item.serviceType.toUpperCase();
       if (activeFilter === "WEB") return type === "WEB" || type.includes("DEV");
+      if (activeFilter === "AI") return type === "AI" || type.includes("AUTOMATION");
       return type === activeFilter;
     });
   };
