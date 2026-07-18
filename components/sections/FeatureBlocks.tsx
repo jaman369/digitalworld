@@ -122,7 +122,7 @@ export default function FeatureBlocks() {
                     alt={feat.title}
                     fill
                     className="object-cover"
-                    sizes="(max-w-768px) 100vw, 50vw"
+                    sizes="(max-w: 768px) 100vw, 50vw"
                   />
                 </div>
 

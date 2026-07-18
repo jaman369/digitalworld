@@ -206,41 +206,48 @@ export default function WorldMap() {
         ))}
 
         {/* Dynamic Float Tooltip Card */}
-        {hoveredCountry && (
-          <div 
-            className="absolute z-30 pointer-events-none bg-white border border-neutral-100/80 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] p-4 flex items-center gap-3.5 transition-all duration-300 -translate-x-1/2"
-            style={{ 
-              left: hoveredCountry.x, 
-              top: `calc(${hoveredCountry.y} - 72px)` 
-            }}
-          >
-            {/* Flag container */}
-            <div className="relative w-9 h-6 rounded border border-neutral-100 shadow-sm overflow-hidden shrink-0">
-              <Image
-                src={hoveredCountry.flagPath}
-                alt={hoveredCountry.name}
-                fill
-                className="object-cover"
-              />
-            </div>
-            
-            {/* Meta details */}
-            <div className="min-w-[140px]">
-              <span className="block text-[10px] font-bold text-primary uppercase tracking-widest leading-none mb-1">
-                {hoveredCountry.id === "bd" ? "KJ HEADQUARTERS" : "SERVED COUNTRY"}
-              </span>
-              <h5 className="font-sans font-bold text-xs text-neutral-800 leading-tight">
-                {hoveredCountry.name}
-              </h5>
-              <p className="font-sans text-[9px] text-neutral-400 leading-normal mt-0.5">
-                {hoveredCountry.specialty}
-              </p>
-            </div>
+        {hoveredCountry && (() => {
+          const isTopHalf = parseFloat(hoveredCountry.y) < 35;
+          return (
+            <div 
+              className="absolute z-30 pointer-events-none bg-white border border-neutral-100/80 rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.12)] p-4 flex items-center gap-3.5 transition-all duration-300 -translate-x-1/2"
+              style={{ 
+                left: hoveredCountry.x, 
+                top: isTopHalf ? `calc(${hoveredCountry.y} + 20px)` : `calc(${hoveredCountry.y} - 72px)` 
+              }}
+            >
+              {/* Flag container */}
+              <div className="relative w-9 h-6 rounded border border-neutral-100 shadow-sm overflow-hidden shrink-0">
+                <Image
+                  src={hoveredCountry.flagPath}
+                  alt={hoveredCountry.name}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              
+              {/* Meta details */}
+              <div className="min-w-[140px]">
+                <span className="block text-[10px] font-bold text-primary uppercase tracking-widest leading-none mb-1">
+                  {hoveredCountry.id === "bd" ? "KJ HEADQUARTERS" : "SERVED COUNTRY"}
+                </span>
+                <h5 className="font-sans font-bold text-xs text-neutral-800 leading-tight">
+                  {hoveredCountry.name}
+                </h5>
+                <p className="font-sans text-[9px] text-neutral-400 leading-normal mt-0.5">
+                  {hoveredCountry.specialty}
+                </p>
+              </div>
 
-            {/* Anchor pointing arrow */}
-            <div className="absolute bottom-[-6px] left-1/2 -translate-x-1/2 w-3 h-3 bg-white border-r border-b border-neutral-100/80 rotate-45" />
-          </div>
-        )}
+              {/* Anchor pointing arrow */}
+              {isTopHalf ? (
+                <div className="absolute top-[-6px] left-1/2 -translate-x-1/2 w-3 h-3 bg-white border-l border-t border-neutral-100/80 rotate-45" />
+              ) : (
+                <div className="absolute bottom-[-6px] left-1/2 -translate-x-1/2 w-3 h-3 bg-white border-r border-b border-neutral-100/80 rotate-45" />
+              )}
+            </div>
+          );
+        })()}
       </div>
 
       {/* Decorative Wooden Board Wall Mounts */}
