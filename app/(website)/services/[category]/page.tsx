@@ -446,8 +446,9 @@ export default async function CategoryPage({ params }: PageProps) {
         <div className="container mx-auto max-w-7xl px-6">
           <div className="flex flex-col gap-12 lg:gap-16">
             {category.subItems.map((sub) => {
-              const imagePath = subItemImages[sub.slug] || sub.image;
               const dbSvc = dbServices.find((s) => s.slug === sub.slug);
+              const imagePath = dbSvc?.imagePath || subItemImages[sub.slug] || sub.image;
+              const imageAltVal = dbSvc?.imageAlt || sub.name;
               
               const nameVal = dbSvc?.name || sub.name;
               const taglineVal = dbSvc?.tagline || sub.tagline || sub.name;
@@ -522,7 +523,7 @@ export default async function CategoryPage({ params }: PageProps) {
                         <div className="relative w-full h-full">
                           <Image
                             src={imagePath}
-                            alt={sub.name}
+                            alt={imageAltVal}
                             fill
                             className="object-contain transition-transform duration-500 group-hover:scale-103"
                           />

@@ -10,7 +10,7 @@ export async function GET() {
     }
 
     const services = await db.servicePage.findMany({
-      orderBy: { name: "asc" }
+      orderBy: { sortOrder: "asc" }
     });
     return NextResponse.json(services);
   } catch {
@@ -29,6 +29,8 @@ export async function POST(request: Request) {
     const {
       name,
       slug,
+      categoryName,
+      sortOrder,
       tagline,
       description,
       benefits,
@@ -36,6 +38,8 @@ export async function POST(request: Request) {
       primaryCtaLink,
       secondaryCtaText,
       secondaryCtaLink,
+      imagePath,
+      imageAlt,
       faqItems,
     } = body;
 
@@ -43,30 +47,28 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Name and Slug are required" }, { status: 400 });
     }
 
+    const updateData = {
+      name,
+      categoryName: categoryName || "SEO",
+      sortOrder: sortOrder !== undefined ? Number(sortOrder) : 0,
+      tagline: tagline || "",
+      description: description || "",
+      benefits: typeof benefits === "string" ? benefits : JSON.stringify(benefits || []),
+      primaryCtaText: primaryCtaText || "Get Started",
+      primaryCtaLink: primaryCtaLink || "/contact",
+      secondaryCtaText: secondaryCtaText || "",
+      secondaryCtaLink: secondaryCtaLink || "",
+      imagePath: imagePath || null,
+      imageAlt: imageAlt || null,
+      faqItems: typeof faqItems === "string" ? faqItems : JSON.stringify(faqItems || []),
+    };
+
     const updated = await db.servicePage.upsert({
       where: { slug },
-      update: {
-        name,
-        tagline: tagline || "",
-        description: description || "",
-        benefits: typeof benefits === "string" ? benefits : JSON.stringify(benefits || []),
-        primaryCtaText: primaryCtaText || "Get Started",
-        primaryCtaLink: primaryCtaLink || "/contact",
-        secondaryCtaText: secondaryCtaText || "",
-        secondaryCtaLink: secondaryCtaLink || "",
-        faqItems: typeof faqItems === "string" ? faqItems : JSON.stringify(faqItems || []),
-      },
+      update: updateData,
       create: {
-        name,
         slug,
-        tagline: tagline || "",
-        description: description || "",
-        benefits: typeof benefits === "string" ? benefits : JSON.stringify(benefits || []),
-        primaryCtaText: primaryCtaText || "Get Started",
-        primaryCtaLink: primaryCtaLink || "/contact",
-        secondaryCtaText: secondaryCtaText || "",
-        secondaryCtaLink: secondaryCtaLink || "",
-        faqItems: typeof faqItems === "string" ? faqItems : JSON.stringify(faqItems || []),
+        ...updateData,
       },
     });
 

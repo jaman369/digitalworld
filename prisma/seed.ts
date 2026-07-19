@@ -48,12 +48,15 @@ async function main() {
   console.log("Seeded system settings successfully.");
 
   // 3. Seed Service Pages from static list
+  let orderIndex = 1;
   for (const cat of servicesData) {
     for (const sub of cat.subItems) {
       await prisma.servicePage.upsert({
         where: { slug: sub.slug },
         update: {
           name: sub.name,
+          categoryName: cat.title,
+          sortOrder: orderIndex,
           tagline: sub.tagline || "",
           description: sub.description || "",
           benefits: JSON.stringify(sub.benefits || []),
@@ -61,10 +64,14 @@ async function main() {
           primaryCtaLink: sub.primaryCtaLink || "/contact",
           secondaryCtaText: sub.secondaryCtaText || "",
           secondaryCtaLink: sub.secondaryCtaLink || "",
+          imagePath: sub.image || null,
+          imageAlt: sub.name,
         },
         create: {
           slug: sub.slug,
           name: sub.name,
+          categoryName: cat.title,
+          sortOrder: orderIndex,
           tagline: sub.tagline || "",
           description: sub.description || "",
           benefits: JSON.stringify(sub.benefits || []),
@@ -72,8 +79,11 @@ async function main() {
           primaryCtaLink: sub.primaryCtaLink || "/contact",
           secondaryCtaText: sub.secondaryCtaText || "",
           secondaryCtaLink: sub.secondaryCtaLink || "",
+          imagePath: sub.image || null,
+          imageAlt: sub.name,
         },
       });
+      orderIndex++;
     }
   }
   console.log("Seeded service pages successfully.");

@@ -73,6 +73,8 @@ model ServicePage {
   id              String      @id @default(uuid())
   name            String      @unique
   slug            String      @unique
+  categoryName    String      @default("SEO")
+  sortOrder       Int         @default(0)
   tagline         String
   description     String
   benefits        String      // JSON string list of benefits
@@ -81,6 +83,7 @@ model ServicePage {
   secondaryCtaText String?
   secondaryCtaLink String?
   imagePath       String?     // Custom mockup URL or icon
+  imageAlt        String?     // Image alt tag text
   pricingPlan     String?     // Package data structured in JSON string
   faqItems        String?     // FAQ structures (for FAQSchema generation)
   seoTitle        String?
