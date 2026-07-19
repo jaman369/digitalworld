@@ -1,0 +1,129 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           String      @id @default(uuid())
+  email        String      @unique
+  name         String
+  passwordHash String
+  role         String      @default("WRITER") // ADMIN, EDITOR, SEO_MANAGER, WRITER, DEVELOPER
+  twoFactorKey String?
+  isActive     Boolean     @default(true)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  auditLogs    AuditLog[]
+  posts        BlogPost[]
+}
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  action    String   // e.g. "UPDATE_SERVICE"
+  details   String   // JSON string of modifications
+  ipAddress String
+  createdAt DateTime @default(now())
+}
+
+model BlogPost {
+  id              String         @id @default(uuid())
+  title           String
+  slug            String         @unique
+  excerpt         String
+  content         String
+  featuredImage   String
+  imageAltText    String
+  authorId        String
+  author          User           @relation(fields: [authorId], references: [id])
+  categoryId      String
+  category        BlogCategory   @relation(fields: [categoryId], references: [id])
+  tags            BlogTag[]
+  publishedAt     DateTime?
+  isDraft         Boolean        @default(true)
+  seoTitle        String?
+  seoDescription  String?
+  canonicalUrl    String?
+  robotsSettings  String         @default("index, follow")
+  schemas         String?        // JSON string of auto-generated article schemas
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+}
+
+model BlogCategory {
+  id    String     @id @default(uuid())
+  name  String     @unique
+  slug  String     @unique
+  posts BlogPost[]
+}
+
+model BlogTag {
+  id    String     @id @default(uuid())
+  name  String     @unique
+  slug  String     @unique
+  posts BlogPost[]
+}
+
+model ServicePage {
+  id              String      @id @default(uuid())
+  name            String      @unique
+  slug            String      @unique
+  tagline         String
+  description     String
+  benefits        String      // JSON string list of benefits
+  primaryCtaText  String
+  primaryCtaLink  String
+  secondaryCtaText String?
+  secondaryCtaLink String?
+  imagePath       String?     // Custom mockup URL or icon
+  pricingPlan     String?     // Package data structured in JSON string
+  faqItems        String?     // FAQ structures (for FAQSchema generation)
+  seoTitle        String?
+  seoDescription  String?
+  schemaSettings  String?     // Service / Product schema details in JSON string
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}
+
+model PortfolioProject {
+  id           String   @id @default(uuid())
+  title        String
+  slug         String   @unique
+  clientName   String
+  industry     String
+  servicesUsed String   // JSON string list
+  resultsLabel String   // e.g. "+180% Conversions"
+  gallery      String   // JSON string list
+  caseStudy    String
+  seoTitle     String?
+  seoDesc      String?
+  createdAt    DateTime @default(now())
+}
+
+model Lead {
+  id          String     @id @default(uuid())
+  formType    String     // e.g. "CONTACT", "QUOTE", "NEWSLETTER"
+  name        String?
+  email       String
+  phone       String?
+  message     String?
+  status      String     @default("NEW") // NEW, CONTACTED, QUALIFIED, PROPOSAL_SENT, CLOSED, SPAM
+  assignedTo  String?
+  notes       String?
+  ipAddress   String
+  createdAt   DateTime   @default(now())
+}
+
+model Redirect {
+  id          String   @id @default(uuid())
+  sourcePath  String   @unique // e.g. "/services/old-name"
+  targetPath  String   // e.g. "/services/web-design-dev"
+  statusCode  Int      @default(301) // 301 or 302
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+}
