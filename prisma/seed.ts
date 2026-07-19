@@ -4,29 +4,35 @@ import bcrypt from "bcryptjs";
 const prisma = new PrismaClient();
 
 async function main() {
-  const email = "admin@digitalworld.com";
-  
-  const existingAdmin = await prisma.user.findUnique({
+  const email = "kj.jaman369@gmail.com";
+  const passwordHash = await bcrypt.hash("kj-jaman#^(", 10);
+
+  // Remove old generic admin user if it exists
+  await prisma.user.deleteMany({
+    where: { email: "admin@digitalworld.com" }
+  }).catch(() => {});
+
+  // Upsert the new admin user
+  await prisma.user.upsert({
     where: { email },
+    update: {
+      name: "Kamrujjaman Mufti",
+      passwordHash,
+      role: "ADMIN",
+      isActive: true,
+    },
+    create: {
+      email,
+      name: "Kamrujjaman Mufti",
+      passwordHash,
+      role: "ADMIN",
+      isActive: true,
+    },
   });
 
-  if (!existingAdmin) {
-    const passwordHash = await bcrypt.hash("admin-digital-world", 10);
-    await prisma.user.create({
-      data: {
-        email,
-        name: "Admin User",
-        passwordHash,
-        role: "ADMIN",
-        isActive: true,
-      },
-    });
-    console.log("Seeded default admin user successfully.");
-    console.log("Email: admin@digitalworld.com");
-    console.log("Password: admin-digital-world");
-  } else {
-    console.log("Admin user already exists. Skipping seed.");
-  }
+  console.log("Seeded default admin user successfully.");
+  console.log("Email: kj.jaman369@gmail.com");
+  console.log("Password: kj-jaman#^(");
 }
 
 main()
