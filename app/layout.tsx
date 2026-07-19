@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import "./globals.css";
 
 const sansFont = Inter({
@@ -33,11 +31,7 @@ export default function RootLayout({
       className={`${sansFont.variable} ${serifFont.variable} antialiased`}
     >
       <body className="text-neutral-900 font-sans min-h-screen flex flex-col">
-        <Header />
-        <main className="flex-grow pt-20">
-          {children}
-        </main>
-        <Footer />
+        {children}
       </body>
     </html>
   );
