@@ -1,8 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import * as Icons from "lucide-react";
+import { getSettings } from "@/lib/settings";
 
-export default function Footer() {
+export default async function Footer() {
+  const settings = await getSettings();
+
   const flags = [
     { src: "/Flag emoji/United States.svg", alt: "USA" },
     { src: "/Flag emoji/United Kingdom.svg", alt: "UK" },
@@ -47,9 +50,9 @@ export default function Footer() {
 
             {/* Socials Row */}
             <div className="flex gap-2">
-              <Link href="#" className="flex h-9 w-9 items-center justify-center rounded-lg bg-neutral-800 text-neutral-400 hover:bg-primary hover:text-white transition-colors" aria-label="Facebook">
+              <a href={settings.facebookUrl} target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-lg bg-neutral-800 text-neutral-400 hover:bg-primary hover:text-white transition-colors" aria-label="Facebook">
                 <Icons.Facebook className="h-4 w-4" />
-              </Link>
+              </a>
               <Link href="#" className="flex h-9 w-9 items-center justify-center rounded-lg bg-neutral-800 text-neutral-400 hover:bg-primary hover:text-white transition-colors" aria-label="Instagram">
                 <Icons.Instagram className="h-4 w-4" />
               </Link>
@@ -59,9 +62,9 @@ export default function Footer() {
               <Link href="#" className="flex h-9 w-9 items-center justify-center rounded-lg bg-neutral-800 text-neutral-400 hover:bg-primary hover:text-white transition-colors" aria-label="Youtube">
                 <Icons.Youtube className="h-4 w-4" />
               </Link>
-              <Link href="#" className="flex h-9 w-9 items-center justify-center rounded-lg bg-neutral-800 text-neutral-400 hover:bg-primary hover:text-white transition-colors" aria-label="LinkedIn">
+              <a href={settings.linkedinUrl} target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-lg bg-neutral-800 text-neutral-400 hover:bg-primary hover:text-white transition-colors" aria-label="LinkedIn">
                 <Icons.Linkedin className="h-4 w-4" />
-              </Link>
+              </a>
             </div>
             
             <Link
@@ -106,8 +109,8 @@ export default function Footer() {
               <li><Link href="/portfolio" className="text-neutral-400 hover:text-white transition-colors">Portfolio</Link></li>
               <li><Link href="/blog" className="text-neutral-400 hover:text-white transition-colors">Blog</Link></li>
               <li><Link href="/contact" className="text-neutral-400 hover:text-white transition-colors">Contact</Link></li>
-              <li className="text-neutral-400 break-all"><a href="mailto:kj.jaman369@gmail.com" className="hover:text-white">kj.jaman369@gmail.com</a></li>
-              <li className="text-neutral-400">+880 1798-667820</li>
+              <li className="text-neutral-400 break-all"><a href={`mailto:${settings.email}`} className="hover:text-white">{settings.email}</a></li>
+              <li className="text-neutral-400"><a href={`tel:${settings.phone.replace(/\s+/g, '')}`} className="hover:text-white">{settings.phone}</a></li>
             </ul>
           </div>
         </div>

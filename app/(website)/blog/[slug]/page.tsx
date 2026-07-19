@@ -3,21 +3,37 @@ import Link from "next/link";
 import Image from "next/image";
 import * as Icons from "lucide-react";
 import { blogData } from "@/data/blog";
+import { db } from "@/lib/db";
 
 interface PostPageProps {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
-  return blogData.map((post) => ({
+  const posts = await db.blogPost.findMany({
+    where: { isDraft: false },
+    select: { slug: true }
+  }).catch(() => []);
+
+  return posts.map((post) => ({
     slug: post.slug,
   }));
 }
 
 export async function generateMetadata({ params }: PostPageProps) {
   const { slug } = await params;
-  const post = blogData.find((p) => p.slug === slug);
-  if (!post) return {};
+  const post = await db.blogPost.findUnique({
+    where: { slug }
+  }).catch(() => null);
+
+  if (!post) {
+    const staticPost = blogData.find((p) => p.slug === slug);
+    if (!staticPost) return {};
+    return {
+      title: `${staticPost.title} - Digital World`,
+      description: staticPost.excerpt,
+    };
+  }
 
   return {
     title: `${post.title} - Digital World`,
@@ -27,10 +43,44 @@ export async function generateMetadata({ params }: PostPageProps) {
 
 export default async function BlogPostPage({ params }: PostPageProps) {
   const { slug } = await params;
-  const post = blogData.find((p) => p.slug === slug);
+  const post = await db.blogPost.findUnique({
+    where: { slug },
+    include: { category: true }
+  }).catch(() => null);
 
+  let renderPost;
   if (!post) {
-    notFound();
+    const staticPost = blogData.find((p) => p.slug === slug);
+    if (!staticPost) {
+      notFound();
+    }
+    renderPost = {
+      title: staticPost.title,
+      category: staticPost.category,
+      publishedAt: staticPost.publishedAt,
+      readingTime: staticPost.readingTime,
+      image: staticPost.image,
+      content: staticPost.content,
+      author: staticPost.author,
+    };
+  } else {
+    const wordsCount = post.content ? post.content.split(/\s+/).length : 200;
+    const readingTimeVal = Math.max(1, Math.round(wordsCount / 200)) + " min read";
+    const formattedDate = post.publishedAt 
+      ? new Date(post.publishedAt).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })
+      : "Recent";
+
+    renderPost = {
+      title: post.title,
+      category: post.category?.name || "SEO",
+      publishedAt: formattedDate,
+      readingTime: readingTimeVal,
+      image: post.featuredImage || "https://picsum.photos/800/500?random=204",
+      content: post.content,
+      author: {
+        name: "Kamrujjaman Mufti",
+      }
+    };
   }
 
   return (
@@ -48,21 +98,21 @@ export default async function BlogPostPage({ params }: PostPageProps) {
           </Link>
 
           <span className="inline-block bg-primary/20 text-primary border border-primary/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6">
-            {post.category}
+            {renderPost.category}
           </span>
 
           <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight mb-6">
-            {post.title}
+            {renderPost.title}
           </h1>
 
           <div className="flex items-center gap-3.5 text-neutral-400 text-sm">
             <div className="flex h-9 w-9 items-center justify-center rounded-full bg-neutral-800 text-neutral-300 font-bold text-xs border border-neutral-700">
-              {post.author.name[0]}
+              {renderPost.author.name[0]}
             </div>
             <div>
-              <p className="font-bold text-neutral-200">{post.author.name}</p>
+              <p className="font-bold text-neutral-200">{renderPost.author.name}</p>
               <p className="text-xs text-neutral-500 mt-0.5">
-                {post.publishedAt} · {post.readingTime}
+                {renderPost.publishedAt} · {renderPost.readingTime}
               </p>
             </div>
           </div>
@@ -75,8 +125,8 @@ export default async function BlogPostPage({ params }: PostPageProps) {
           {/* Post Image Showcase */}
           <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-md border border-neutral-200/50 mb-12">
             <Image
-              src={post.image}
-              alt={post.title}
+              src={renderPost.image}
+              alt={renderPost.title}
               fill
               className="object-cover"
               priority
@@ -89,7 +139,7 @@ export default async function BlogPostPage({ params }: PostPageProps) {
                        prose-headings:font-sans prose-headings:font-bold prose-headings:text-neutral-900
                        prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-3
                        prose-p:text-sm prose-p:sm:text-base"
-            dangerouslySetInnerHTML={{ __html: post.content }}
+            dangerouslySetInnerHTML={{ __html: renderPost.content }}
           />
 
           {/* Article Footer Share/Action */}

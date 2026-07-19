@@ -127,3 +127,8 @@ model Redirect {
   isActive    Boolean  @default(true)
   createdAt   DateTime @default(now())
 }
+
+model SystemSetting {
+  key   String @id
+  value String
+}

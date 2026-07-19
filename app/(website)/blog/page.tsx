@@ -1,15 +1,71 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { blogData } from "@/data/blog";
 import Link from "next/link";
 import Image from "next/image";
 import * as Icons from "lucide-react";
+import { BlogPost } from "@/types";
+
+interface DbPostCategory {
+  name: string;
+}
+
+interface DbBlogPost {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  featuredImage: string | null;
+  publishedAt: string | null;
+  category: DbPostCategory | null;
+}
 
 export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [posts, setPosts] = useState<BlogPost[]>(blogData);
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+
+  useEffect(() => {
+    async function loadBlogs() {
+      try {
+        const res = await fetch("/api/blog");
+        if (res.ok) {
+          const list = await res.json();
+          if (list && list.length > 0) {
+            const mapped = list.map((p: DbBlogPost): BlogPost => {
+              const wordsCount = p.content ? p.content.split(/\s+/).length : 200;
+              const readingTimeVal = Math.max(1, Math.round(wordsCount / 200)) + " min read";
+              const formattedDate = p.publishedAt 
+                ? new Date(p.publishedAt).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })
+                : "Recent";
+              return {
+                id: p.id,
+                slug: p.slug,
+                title: p.title,
+                excerpt: p.excerpt,
+                content: p.content,
+                category: p.category?.name || "SEO",
+                publishedAt: formattedDate,
+                readingTime: readingTimeVal,
+                image: p.featuredImage || "https://picsum.photos/800/500?random=204",
+                author: {
+                  name: "Kamrujjaman Mufti",
+                  role: "Founder - Digital World",
+                }
+              };
+            });
+            setPosts(mapped);
+          }
+        }
+      } catch (err) {
+        console.error("Load blogs failed:", err);
+      }
+    }
+    loadBlogs();
+  }, []);
 
   const categories = [
     "All",
@@ -33,15 +89,12 @@ export default function BlogPage() {
     "Social Media Ads": Icons.Smartphone
   };
 
-  // Filter posts
   const filteredPosts = selectedCategory === "All"
-    ? blogData
-    : blogData.filter(post => post.category.toLowerCase() === selectedCategory.toLowerCase() || (selectedCategory === "Google Ads" && post.category === "PPC") || (selectedCategory === "E-commerce" && post.category === "E-commerce"));
+    ? posts
+    : posts.filter(post => post.category.toLowerCase() === selectedCategory.toLowerCase() || (selectedCategory === "Google Ads" && post.category === "PPC") || (selectedCategory === "E-commerce" && post.category === "E-commerce"));
 
-  // Featured Post is the first post (case study)
-  const featuredPost = blogData[0];
+  const featuredPost = posts[0];
   
-  // Grid posts are the rest (excluding featured post when in "All" view)
   const gridPosts = selectedCategory === "All"
     ? filteredPosts.slice(1)
     : filteredPosts;
@@ -79,7 +132,7 @@ export default function BlogPage() {
           <div className="flex flex-wrap items-center justify-center gap-6 text-xs font-semibold text-neutral-400 uppercase tracking-wider">
             <span className="flex items-center gap-1.5">
               <Icons.BookOpen className="h-4 w-4 text-neutral-300" />
-              {blogData.length} Articles
+              {posts.length} Articles
             </span>
             <span className="h-1 w-1 rounded-full bg-neutral-300 hidden sm:inline" />
             <span className="flex items-center gap-1.5">
@@ -364,7 +417,7 @@ export default function BlogPage() {
                 RECENT POSTS
               </h4>
               <div className="flex flex-col gap-4">
-                {blogData.slice(0, 4).map((post) => {
+                {posts.slice(0, 4).map((post) => {
                   const CategoryIcon = categoryIcons[post.category] || Icons.BookOpen;
                   
                   return (

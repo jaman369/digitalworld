@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import * as Icons from "lucide-react";
 import { servicesData } from "@/data/services";
+import { db } from "@/lib/db";
 
 interface PageProps {
   params: Promise<{ category: string }>;
@@ -354,6 +355,8 @@ export default async function CategoryPage({ params }: PageProps) {
   const { category: categorySlug } = await params;
   const category = servicesData.find((c) => c.slug === categorySlug);
 
+  const dbServices = await db.servicePage.findMany().catch(() => []);
+
   if (!category) {
     notFound();
   }
@@ -444,6 +447,17 @@ export default async function CategoryPage({ params }: PageProps) {
           <div className="flex flex-col gap-12 lg:gap-16">
             {category.subItems.map((sub) => {
               const imagePath = subItemImages[sub.slug] || sub.image;
+              const dbSvc = dbServices.find((s) => s.slug === sub.slug);
+              
+              const nameVal = dbSvc?.name || sub.name;
+              const taglineVal = dbSvc?.tagline || sub.tagline || sub.name;
+              const descriptionVal = dbSvc?.description || sub.description;
+              const benefitsVal = dbSvc?.benefits ? JSON.parse(dbSvc.benefits) : (sub.benefits || []);
+              const primaryCtaTextVal = dbSvc?.primaryCtaText || sub.primaryCtaText;
+              const primaryCtaLinkVal = dbSvc?.primaryCtaLink || sub.primaryCtaLink;
+              const secondaryCtaTextVal = dbSvc?.secondaryCtaText || sub.secondaryCtaText;
+              const secondaryCtaLinkVal = dbSvc?.secondaryCtaLink || sub.secondaryCtaLink;
+
               return (
                 <div 
                   key={sub.slug}
@@ -455,21 +469,21 @@ export default async function CategoryPage({ params }: PageProps) {
                     {/* Left Column: Content (7/12) */}
                     <div className="lg:col-span-7 flex flex-col justify-center text-left">
                       <span className="text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-[0.25em] mb-4 block">
-                        {sub.name}
+                        {nameVal}
                       </span>
                       
                       <h3 className="font-serif text-3xl sm:text-4xl font-bold text-neutral-900 leading-tight mb-6 max-w-xl">
-                        {sub.tagline || sub.name}
+                        {taglineVal}
                       </h3>
                       
                       <p className="font-sans text-xs sm:text-sm text-neutral-500 leading-relaxed mb-8 max-w-xl">
-                        {sub.description}
+                        {descriptionVal}
                       </p>
 
                       {/* Benefits checklist (single vertical column) */}
-                      {sub.benefits && sub.benefits.length > 0 && (
+                      {benefitsVal && benefitsVal.length > 0 && (
                         <ul className="flex flex-col gap-3.5 mb-8 text-left max-w-xl">
-                          {sub.benefits.map((benefit, bidx) => (
+                          {benefitsVal.map((benefit: string, bidx: number) => (
                             <li key={bidx} className="flex items-start gap-2.5 text-xs sm:text-sm text-neutral-500">
                               <Icons.Check className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
                               <span>{benefit}</span>
@@ -481,18 +495,18 @@ export default async function CategoryPage({ params }: PageProps) {
                       {/* Actions Row */}
                       <div className="flex flex-wrap items-center gap-4">
                         <Link
-                          href={sub.primaryCtaLink || `/contact?service=${sub.slug}`}
+                          href={primaryCtaLinkVal || `/contact?service=${sub.slug}`}
                           className="inline-flex items-center gap-1.5 rounded-full bg-primary hover:bg-primary-hover px-6 py-3 font-sans text-xs font-bold text-white shadow-sm transition-all hover:scale-[1.01]"
                         >
-                          {sub.primaryCtaText || "Get Started"} <Icons.ArrowRight className="h-3.5 w-3.5" />
+                          {primaryCtaTextVal || "Get Started"} <Icons.ArrowRight className="h-3.5 w-3.5" />
                         </Link>
                         
-                        {sub.secondaryCtaText && (
+                        {secondaryCtaTextVal && (
                           <Link
-                            href={sub.secondaryCtaLink || "/portfolio"}
+                            href={secondaryCtaLinkVal || "/portfolio"}
                             className="inline-flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white hover:bg-neutral-50 px-6 py-3 font-sans text-xs font-bold text-neutral-600 transition-all shadow-sm"
                           >
-                            {sub.secondaryCtaText}
+                            {secondaryCtaTextVal}
                           </Link>
                         )}
                       </div>

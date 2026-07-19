@@ -2,13 +2,44 @@ import { Metadata } from "next";
 import { portfolioData } from "@/data/portfolio";
 import PortfolioFilter from "@/components/portfolio/PortfolioFilter";
 import PortfolioCTA from "@/components/portfolio/PortfolioCTA";
+import { db } from "@/lib/db";
 
 export const metadata: Metadata = {
   title: "Case Studies & Portfolio - Digital World",
   description: "Browse our SEO, PPC, Web Design, and Content case studies showing growth and organic search visibility.",
 };
 
-export default function PortfolioPage() {
+export default async function PortfolioPage() {
+  const dbProjects = await db.portfolioProject.findMany().catch(() => []);
+
+  const dynamicItems = dbProjects.map((p) => {
+    let tags = [];
+    try { tags = JSON.parse(p.servicesUsed); } catch {}
+    let gallery = [];
+    try { gallery = JSON.parse(p.gallery); } catch {}
+
+    const serviceType = p.slug.includes("seo")
+      ? "SEO"
+      : p.slug.includes("ppc") || p.slug.includes("google") || p.slug.includes("ads")
+        ? "PPC"
+        : p.slug.includes("web") || p.slug.includes("design") || p.slug.includes("dev") || p.slug.includes("wordpress") || p.slug.includes("shopify")
+          ? "Web"
+          : "Content";
+
+    return {
+      id: p.id,
+      client: p.clientName,
+      industry: p.industry,
+      serviceType,
+      description: p.caseStudy,
+      resultStat: p.resultsLabel,
+      image: gallery[0] || "https://picsum.photos/600/400?random=11",
+      tags,
+    };
+  });
+
+  const items = dynamicItems.length > 0 ? dynamicItems : portfolioData;
+
   return (
     <article className="min-h-screen bg-transparent py-20 lg:py-32">
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(0,118,255,0.03)_0%,transparent_60%)] pointer-events-none" />
@@ -30,7 +61,7 @@ export default function PortfolioPage() {
         </div>
 
         {/* Portfolio Filter Component */}
-        <PortfolioFilter items={portfolioData} />
+        <PortfolioFilter items={items} />
       </div>
 
       {/* CTA Section */}

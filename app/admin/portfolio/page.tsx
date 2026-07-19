@@ -1,4 +1,5 @@
 import * as Icons from "lucide-react";
+import Link from "next/link";
 import { db } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
@@ -19,9 +20,12 @@ export default async function AdminPortfolioPage() {
             Publish client case studies, result summaries, galleries, and related schemas.
           </p>
         </div>
-        <button className="inline-flex items-center gap-1.5 rounded-full bg-primary hover:bg-primary-hover px-5 py-2.5 font-sans text-xs font-bold text-white shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99] self-start cursor-pointer">
+        <Link 
+          href="/admin/portfolio/new"
+          className="inline-flex items-center gap-1.5 rounded-full bg-primary hover:bg-primary-hover px-5 py-2.5 font-sans text-xs font-bold text-white shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99] self-start"
+        >
           <Icons.Plus className="h-4 w-4" /> Add Project
-        </button>
+        </Link>
       </div>
 
       <div className="bg-white border border-neutral-100 rounded-2xl p-6 shadow-[0_6px_20px_rgba(0,0,0,0.01)] flex flex-col gap-6">
@@ -50,9 +54,12 @@ export default async function AdminPortfolioPage() {
                       {project.resultsLabel}
                     </td>
                     <td className="py-4 text-right">
-                      <button className="text-xs font-bold text-primary hover:text-primary-hover px-3 py-1.5 rounded-lg border border-neutral-200 hover:border-primary/20 transition-all cursor-pointer">
+                      <Link 
+                        href={`/admin/portfolio/edit/${project.id}`}
+                        className="text-xs font-bold text-primary hover:text-primary-hover px-3 py-1.5 rounded-lg border border-neutral-200 hover:border-primary/20 transition-all"
+                      >
                         Edit Study
-                      </button>
+                      </Link>
                     </td>
                   </tr>
                 ))
