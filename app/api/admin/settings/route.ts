@@ -24,13 +24,14 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { email, phone, facebookUrl, linkedinUrl } = body;
+    const { email, phone, facebookUrl, linkedinUrl, socialLinks } = body;
 
     const data = [
       { key: "email", value: email },
       { key: "phone", value: phone },
       { key: "facebookUrl", value: facebookUrl },
       { key: "linkedinUrl", value: linkedinUrl },
+      { key: "socialLinks", value: typeof socialLinks === "string" ? socialLinks : JSON.stringify(socialLinks || []) },
     ];
 
     for (const item of data) {

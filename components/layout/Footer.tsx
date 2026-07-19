@@ -49,22 +49,33 @@ export default async function Footer() {
             </div>
 
             {/* Socials Row */}
-            <div className="flex gap-2">
-              <a href={settings.facebookUrl} target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-lg bg-neutral-800 text-neutral-400 hover:bg-primary hover:text-white transition-colors" aria-label="Facebook">
-                <Icons.Facebook className="h-4 w-4" />
-              </a>
-              <Link href="#" className="flex h-9 w-9 items-center justify-center rounded-lg bg-neutral-800 text-neutral-400 hover:bg-primary hover:text-white transition-colors" aria-label="Instagram">
-                <Icons.Instagram className="h-4 w-4" />
-              </Link>
-              <Link href="#" className="flex h-9 w-9 items-center justify-center rounded-lg bg-neutral-800 text-neutral-400 hover:bg-primary hover:text-white transition-colors" aria-label="Twitter/X">
-                <Icons.Twitter className="h-4 w-4" />
-              </Link>
-              <Link href="#" className="flex h-9 w-9 items-center justify-center rounded-lg bg-neutral-800 text-neutral-400 hover:bg-primary hover:text-white transition-colors" aria-label="Youtube">
-                <Icons.Youtube className="h-4 w-4" />
-              </Link>
-              <a href={settings.linkedinUrl} target="_blank" rel="noopener noreferrer" className="flex h-9 w-9 items-center justify-center rounded-lg bg-neutral-800 text-neutral-400 hover:bg-primary hover:text-white transition-colors" aria-label="LinkedIn">
-                <Icons.Linkedin className="h-4 w-4" />
-              </a>
+            <div className="flex gap-2 flex-wrap">
+              {settings.socialLinks?.map((link, idx) => {
+                const platformKey = link.platform.trim().toLowerCase();
+                let IconComponent = Icons.Share2;
+
+                if (platformKey.includes("facebook")) IconComponent = Icons.Facebook;
+                else if (platformKey.includes("instagram")) IconComponent = Icons.Instagram;
+                else if (platformKey.includes("twitter") || platformKey === "x") IconComponent = Icons.Twitter;
+                else if (platformKey.includes("youtube")) IconComponent = Icons.Youtube;
+                else if (platformKey.includes("linkedin")) IconComponent = Icons.Linkedin;
+                else if (platformKey.includes("github")) IconComponent = Icons.Github;
+                else if (platformKey.includes("tiktok")) IconComponent = Icons.Music;
+                else if (platformKey.includes("pinterest")) IconComponent = Icons.Pin;
+
+                return (
+                  <a
+                    key={idx}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex h-9 w-9 items-center justify-center rounded-lg bg-neutral-800 text-neutral-400 hover:bg-primary hover:text-white transition-colors animate-fade-in"
+                    aria-label={link.platform}
+                  >
+                    <IconComponent className="h-4 w-4" />
+                  </a>
+                );
+              })}
             </div>
             
             <Link

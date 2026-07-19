@@ -3,11 +3,17 @@
 import { useEffect, useState } from "react";
 import * as Icons from "lucide-react";
 
+interface SocialLink {
+  platform: string;
+  url: string;
+}
+
 export default function AdminSettingsPage() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [facebookUrl, setFacebookUrl] = useState("");
   const [linkedinUrl, setLinkedinUrl] = useState("");
+  const [socialLinks, setSocialLinks] = useState<SocialLink[]>([]);
 
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -25,6 +31,21 @@ export default function AdminSettingsPage() {
           setPhone(map.get("phone") || "+880 1798-667820");
           setFacebookUrl(map.get("facebookUrl") || "https://www.facebook.com/digitalworld1988");
           setLinkedinUrl(map.get("linkedinUrl") || "https://www.linkedin.com/in/kamrujjaman-mufti/");
+
+          const rawSocialLinks = map.get("socialLinks");
+          let parsedSocials: SocialLink[] = [];
+          if (rawSocialLinks) {
+            try {
+              parsedSocials = JSON.parse(rawSocialLinks);
+            } catch {}
+          }
+          if (parsedSocials.length === 0) {
+            parsedSocials = [
+              { platform: "Facebook", url: map.get("facebookUrl") || "https://www.facebook.com/digitalworld1988" },
+              { platform: "LinkedIn", url: map.get("linkedinUrl") || "https://www.linkedin.com/in/kamrujjaman-mufti/" }
+            ];
+          }
+          setSocialLinks(parsedSocials);
         }
       } catch (err) {
         console.error("Fetch settings error:", err);
@@ -35,19 +56,40 @@ export default function AdminSettingsPage() {
     fetchSettings();
   }, []);
 
+  const handleAddSocial = () => {
+    setSocialLinks([...socialLinks, { platform: "Instagram", url: "" }]);
+  };
+
+  const handleRemoveSocial = (index: number) => {
+    setSocialLinks(socialLinks.filter((_, idx) => idx !== index));
+  };
+
+  const handleSocialChange = (index: number, key: "platform" | "url", value: string) => {
+    setSocialLinks(
+      socialLinks.map((link, idx) =>
+        idx === index ? { ...link, [key]: value } : link
+      )
+    );
+  };
+
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSaving(true);
     setMessage("");
     setError("");
 
+    const fb = socialLinks.find(s => s.platform.toLowerCase().includes("facebook"))?.url || facebookUrl;
+    const li = socialLinks.find(s => s.platform.toLowerCase().includes("linkedin"))?.url || linkedinUrl;
+
     try {
       const res = await fetch("/api/admin/settings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, phone, facebookUrl, linkedinUrl }),
+        body: JSON.stringify({ email, phone, facebookUrl: fb, linkedinUrl: li, socialLinks }),
       });
       if (res.ok) {
+        setFacebookUrl(fb);
+        setLinkedinUrl(li);
         setMessage("Settings updated successfully!");
       } else {
         throw new Error("Failed to save settings");
@@ -123,31 +165,61 @@ export default function AdminSettingsPage() {
         </div>
 
         <div className="bg-white border border-neutral-100 rounded-2xl p-6 shadow-[0_6px_20px_rgba(0,0,0,0.01)] flex flex-col gap-5">
-          <h3 className="font-sans font-bold text-base text-neutral-800 border-b border-neutral-100 pb-3 flex items-center gap-2">
-            <Icons.Share2 className="h-5 w-5 text-neutral-400" />
-            Social Profile Links
+          <h3 className="font-sans font-bold text-base text-neutral-800 border-b border-neutral-100 pb-3 flex items-center justify-between">
+            <span className="flex items-center gap-2">
+              <Icons.Share2 className="h-5 w-5 text-neutral-400" />
+              Social Profile Links
+            </span>
+            <button
+              type="button"
+              onClick={handleAddSocial}
+              className="inline-flex items-center gap-1 rounded-lg border border-primary/20 hover:border-primary bg-primary/5 hover:bg-primary/10 px-2.5 py-1 text-xs font-bold text-primary transition-all cursor-pointer"
+            >
+              <Icons.Plus className="h-3.5 w-3.5" />
+              Add Link
+            </button>
           </h3>
           <div className="flex flex-col gap-4">
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-bold text-neutral-400 uppercase tracking-wider">Facebook Page Link</label>
-              <input
-                type="url"
-                required
-                value={facebookUrl}
-                onChange={(e) => setFacebookUrl(e.target.value)}
-                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-3.5 text-sm outline-none text-neutral-700 focus:border-primary focus:ring-2 focus:ring-primary/10"
-              />
-            </div>
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-bold text-neutral-400 uppercase tracking-wider">LinkedIn Profile Link</label>
-              <input
-                type="url"
-                required
-                value={linkedinUrl}
-                onChange={(e) => setLinkedinUrl(e.target.value)}
-                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-3.5 text-sm outline-none text-neutral-700 focus:border-primary focus:ring-2 focus:ring-primary/10"
-              />
-            </div>
+            {socialLinks.map((link, idx) => (
+              <div key={idx} className="flex gap-3 items-end border-b border-neutral-50 pb-3 last:border-b-0 last:pb-0">
+                <div className="flex flex-col gap-1.5 w-1/3">
+                  <label className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider">Platform</label>
+                  <select
+                    value={link.platform}
+                    onChange={(e) => handleSocialChange(idx, "platform", e.target.value)}
+                    className="rounded-xl border border-neutral-200 bg-white py-2 px-3 text-xs outline-none text-neutral-700 focus:border-primary focus:ring-1 focus:ring-primary/10 cursor-pointer"
+                  >
+                    <option value="Facebook">Facebook</option>
+                    <option value="LinkedIn">LinkedIn</option>
+                    <option value="Instagram">Instagram</option>
+                    <option value="Twitter">Twitter / X</option>
+                    <option value="YouTube">YouTube</option>
+                    <option value="TikTok">TikTok</option>
+                    <option value="Pinterest">Pinterest</option>
+                    <option value="GitHub">GitHub</option>
+                  </select>
+                </div>
+                <div className="flex flex-col gap-1.5 flex-1">
+                  <label className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider">Profile Link URL</label>
+                  <input
+                    type="url"
+                    required
+                    value={link.url}
+                    onChange={(e) => handleSocialChange(idx, "url", e.target.value)}
+                    placeholder="https://..."
+                    className="rounded-xl border border-neutral-200 bg-white py-2 px-3.5 text-xs outline-none text-neutral-700 focus:border-primary focus:ring-1 focus:ring-primary/10 font-mono"
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleRemoveSocial(idx)}
+                  disabled={socialLinks.length <= 1}
+                  className="h-8.5 w-8.5 rounded-xl border border-red-100 hover:border-red-200 bg-red-50/50 hover:bg-red-50 text-red-500 flex items-center justify-center transition-all cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                >
+                  <Icons.Trash className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            ))}
           </div>
         </div>
 
