@@ -97,9 +97,14 @@ export default function AdminServicesPage() {
     setIsEditing(true);
   };
 
-  const handleSave = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSave = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     if (!activeService) return;
+
+    if (!editName.trim()) {
+      setFeedbackError("Service Title is required.");
+      return;
+    }
 
     setIsSaving(true);
     setFeedbackMessage("");
@@ -135,12 +140,14 @@ export default function AdminServicesPage() {
       if (response.ok) {
         const updated = await response.json();
         // Update local list state
-        setServices(services.map((s) => (s.id === updated.id ? updated : s)));
-        setFeedbackMessage("Service updated successfully!");
+        setServices((prev) =>
+          prev.map((s) => (s.slug === updated.slug || s.id === updated.id ? updated : s))
+        );
+        setFeedbackMessage("Service changes saved & applied live!");
         setTimeout(() => {
           setIsEditing(false);
           setActiveService(null);
-        }, 1200);
+        }, 1400);
       } else {
         const errorData = await response.json();
         setFeedbackError(errorData.error || "Failed to update service");
@@ -472,7 +479,8 @@ export default function AdminServicesPage() {
                   Cancel
                 </button>
                 <button
-                  type="submit"
+                  type="button"
+                  onClick={(e) => handleSave(e)}
                   disabled={isSaving}
                   className="flex-1 flex items-center justify-center gap-2 py-3 text-xs font-bold text-white bg-primary hover:bg-primary-hover disabled:bg-neutral-200 border-0 rounded-full cursor-pointer transition-all shadow-sm"
                 >

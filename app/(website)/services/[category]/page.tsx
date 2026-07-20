@@ -5,6 +5,9 @@ import * as Icons from "lucide-react";
 import { servicesData } from "@/data/services";
 import { db } from "@/lib/db";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 interface PageProps {
   params: Promise<{ category: string }>;
 }

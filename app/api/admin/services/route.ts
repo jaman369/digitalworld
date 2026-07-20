@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 
@@ -71,6 +72,13 @@ export async function POST(request: Request) {
         ...updateData,
       },
     });
+
+    try {
+      revalidatePath("/services/[category]");
+      revalidatePath("/", "layout");
+    } catch (revalErr) {
+      console.error("Revalidate cache error:", revalErr);
+    }
 
     return NextResponse.json(updated);
   } catch (error) {
