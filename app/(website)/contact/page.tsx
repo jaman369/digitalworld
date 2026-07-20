@@ -15,19 +15,30 @@ export default function ContactPage() {
     linkedinUrl: "https://www.linkedin.com/in/kamrujjaman-mufti/",
   });
 
+  const [faqs, setFaqs] = useState<{ id: string; question: string; answer: string; category?: string }[]>([]);
+
   useEffect(() => {
-    async function loadSettings() {
+    async function loadData() {
       try {
-        const res = await fetch("/api/settings");
-        if (res.ok) {
-          const data = await res.json();
+        const [settRes, faqRes] = await Promise.all([
+          fetch("/api/settings"),
+          fetch("/api/faq")
+        ]);
+        if (settRes.ok) {
+          const data = await settRes.json();
           setSettings(data);
         }
+        if (faqRes.ok) {
+          const faqData = await faqRes.json();
+          if (Array.isArray(faqData) && faqData.length > 0) {
+            setFaqs(faqData);
+          }
+        }
       } catch (err) {
-        console.error("Load settings failed:", err);
+        console.error("Load settings/faq failed:", err);
       }
     }
-    loadSettings();
+    loadData();
   }, []);
 
   // Form State
@@ -63,28 +74,24 @@ export default function ContactPage() {
 
   const contactFaq = [
     {
-      q: "Do you work with clients outside Bangladesh?",
-      a: "Yes, absolutely. We work with clients globally (USA, UK, Canada, Australia, Europe, etc.). We operate remote-first, utilizing Slack, email, and Zoom to ensure seamless communication regardless of your timezone."
+      id: "cfaq-1",
+      question: "Do you work with clients outside Bangladesh?",
+      answer: "Yes, absolutely. We work with clients globally (USA, UK, Canada, Australia, Europe, etc.). We operate remote-first, utilizing Slack, email, and Zoom to ensure seamless communication regardless of your timezone."
     },
     {
-      q: "How long does it take to see SEO results?",
-      a: "Typically, you will start seeing initial ranking movements and traffic improvements within 3 to 6 months. SEO is a compounding long-term strategy that delivers sustainable organic growth over time."
+      id: "cfaq-2",
+      question: "How long does it take to see SEO results?",
+      answer: "Typically, you will start seeing initial ranking movements and traffic improvements within 3 to 6 months. SEO is a compounding long-term strategy that delivers sustainable organic growth over time."
     },
     {
-      q: "What is your pricing structure?",
-      a: "Our pricing is project-based and tailored to your specific goals and requirements. We offer monthly packages for retainer services (like SEO and PPC) and flat-rate pricing for development projects."
+      id: "cfaq-3",
+      question: "What is your pricing structure?",
+      answer: "Our pricing is project-based and tailored to your specific goals and requirements. We offer monthly packages for retainer services (like SEO and PPC) and flat-rate pricing for development projects."
     },
     {
-      q: "Do you offer a free consultation?",
-      a: "Yes, we offer a free 30-minute strategy consultation call to discuss your project, evaluate your current digital footprint, and align on how we can help you grow."
-    },
-    {
-      q: "Can you handle multiple services at once?",
-      a: "Yes, many of our clients combine services (for example, SEO and Web Development or PPC and Content Strategy) for a unified growth strategy."
-    },
-    {
-      q: "How do I pay — and what currency?",
-      a: "We accept major credit cards, bank wire transfers, and Payoneer/Wise payments. Transactions are usually handled in USD or your local currency."
+      id: "cfaq-4",
+      question: "Do you offer a free consultation?",
+      answer: "Yes, we offer a free 30-minute strategy consultation call to discuss your project, evaluate your current digital footprint, and align on how we can help you grow."
     }
   ];
 
@@ -528,15 +535,15 @@ export default function ContactPage() {
           </h2>
           
           <div className="flex flex-col border-t border-neutral-100">
-            {contactFaq.map((item, idx) => {
+            {(faqs.length > 0 ? faqs : contactFaq).map((item, idx) => {
               const isOpen = activeFaq === idx;
               return (
-                <div key={idx} className="border-b border-neutral-100">
+                <div key={item.id || idx} className="border-b border-neutral-100">
                   <button
                     onClick={() => setActiveFaq(isOpen ? null : idx)}
                     className="flex w-full items-center justify-between py-6 font-sans font-bold text-sm sm:text-base text-neutral-800 text-left outline-none transition-colors hover:text-primary"
                   >
-                    <span>{item.q}</span>
+                    <span>{item.question}</span>
                     <div className="flex h-6 w-6 items-center justify-center rounded-full border border-neutral-200 bg-white shrink-0 ml-4">
                       {isOpen ? (
                         <Icons.Minus className="h-3.5 w-3.5 text-neutral-400" />
@@ -552,7 +559,7 @@ export default function ContactPage() {
                     }`}
                   >
                     <div className="overflow-hidden font-sans text-xs sm:text-sm text-neutral-500 leading-relaxed">
-                      {item.a}
+                      {item.answer}
                     </div>
                   </div>
                 </div>

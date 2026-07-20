@@ -24,6 +24,7 @@ export default function AdminSidebar({ session }: SidebarProps) {
     { name: "Blog Posts", href: "/admin/blog", icon: Icons.FileText },
     { name: "Portfolio", href: "/admin/portfolio", icon: Icons.FolderDot },
     { name: "Leads / Inquiries", href: "/admin/leads", icon: Icons.Inbox },
+    { name: "FAQ Management", href: "/admin/faq", icon: Icons.HelpCircle },
     { name: "Settings", href: "/admin/settings", icon: Icons.Settings },
   ];
 
