@@ -4,6 +4,7 @@ import Image from "next/image";
 import * as Icons from "lucide-react";
 import { servicesData } from "@/data/services";
 import { db } from "@/lib/db";
+import { getCloudData, CloudPayload } from "@/lib/cloudSync";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -358,7 +359,12 @@ export default async function CategoryPage({ params }: PageProps) {
   const { category: categorySlug } = await params;
   const category = servicesData.find((c) => c.slug === categorySlug);
 
-  const dbServices = await db.servicePage.findMany().catch(() => []);
+  const [dbServices, cloudData] = await Promise.all([
+    db.servicePage.findMany().catch(() => []),
+    getCloudData().catch(() => ({} as CloudPayload))
+  ]);
+
+  const cloudServices = cloudData.services || {};
 
   if (!category) {
     notFound();
@@ -449,7 +455,8 @@ export default async function CategoryPage({ params }: PageProps) {
         <div className="container mx-auto max-w-7xl px-6">
           <div className="flex flex-col gap-12 lg:gap-16">
             {category.subItems.map((sub) => {
-              const dbSvc = dbServices.find((s) => {
+              const cloudSvc = cloudServices[sub.slug];
+              const dbSvc = cloudSvc || dbServices.find((s) => {
                 if (!s) return false;
                 const sSlug = (s.slug || "").toLowerCase().trim();
                 const subSlug = (sub.slug || "").toLowerCase().trim();

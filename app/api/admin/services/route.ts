@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { servicesData } from "@/data/services";
+import { getCloudData, saveCloudData } from "@/lib/cloudSync";
 
 export async function GET() {
   try {
@@ -45,7 +46,19 @@ export async function GET() {
       });
     }
 
-    return NextResponse.json(services);
+    // Merge SQLite records with persistent cloud overrides
+    const cloudData = await getCloudData();
+    const cloudServices = cloudData.services || {};
+
+    const merged = services.map((s) => {
+      const override = cloudServices[s.slug];
+      if (override) {
+        return { ...s, ...override };
+      }
+      return s;
+    });
+
+    return NextResponse.json(merged);
   } catch (error) {
     console.error("GET services error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
@@ -105,6 +118,16 @@ export async function POST(request: Request) {
         ...updateData,
       },
     });
+
+    // Save to persistent cloud bin for Vercel serverless durability
+    try {
+      const cloudData = await getCloudData();
+      const existingServices = cloudData.services || {};
+      existingServices[slug] = { ...updateData, id: updated.id, slug };
+      await saveCloudData({ services: existingServices });
+    } catch (cloudErr) {
+      console.error("Save cloud data error:", cloudErr);
+    }
 
     try {
       revalidatePath("/services/[category]");
