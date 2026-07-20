@@ -1,43 +1,76 @@
-import { getScriptSettings } from "@/lib/codeSnippets";
+"use client";
+
+import { useEffect, useState } from "react";
 import Script from "next/script";
 
-export default async function ScriptInjector() {
-  const settings = await getScriptSettings().catch(() => null);
+interface CodeSnippet {
+  id: string;
+  name: string;
+  location: "header" | "body_open" | "footer";
+  code: string;
+  isActive: boolean;
+}
+
+interface ScriptSettings {
+  gaMeasurementId?: string;
+  gtmContainerId?: string;
+  metaPixelId?: string;
+  googleSiteVerification?: string;
+  snippets: CodeSnippet[];
+}
+
+export default function ScriptInjector() {
+  const [settings, setSettings] = useState<ScriptSettings | null>(null);
+
+  useEffect(() => {
+    fetch("/api/code-snippets", { cache: "no-store" })
+      .then((res) => res.json())
+      .then((data) => setSettings(data))
+      .catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    if (!settings) return;
+
+    const activeSnippets = (settings.snippets || []).filter(
+      (s) => s.isActive && s.code && s.code.trim().length > 0
+    );
+
+    activeSnippets.forEach((snippet) => {
+      const elementId = `custom-snippet-${snippet.id}`;
+      if (document.getElementById(elementId)) return;
+
+      const container = document.createElement("div");
+      container.id = elementId;
+      container.innerHTML = snippet.code;
+
+      const scriptTags = container.querySelectorAll("script");
+      scriptTags.forEach((oldScript) => {
+        const newScript = document.createElement("script");
+        Array.from(oldScript.attributes).forEach((attr) =>
+          newScript.setAttribute(attr.name, attr.value)
+        );
+        newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+        oldScript.parentNode?.replaceChild(newScript, oldScript);
+      });
+
+      if (snippet.location === "header") {
+        document.head.appendChild(container);
+      } else if (snippet.location === "body_open") {
+        document.body.insertBefore(container, document.body.firstChild);
+      } else {
+        document.body.appendChild(container);
+      }
+    });
+  }, [settings]);
+
   if (!settings) return null;
 
-  const {
-    gaMeasurementId,
-    gtmContainerId,
-    metaPixelId,
-    googleSiteVerification,
-    snippets = [],
-  } = settings;
-
-  const activeSnippets = snippets.filter((s) => s.isActive && s.code && s.code.trim().length > 0);
-
-  const headerSnippets = activeSnippets.filter((s) => s.location === "header");
-  const bodyOpenSnippets = activeSnippets.filter((s) => s.location === "body_open");
-  const footerSnippets = activeSnippets.filter((s) => s.location === "footer");
-
-  // Google Search Console meta tag cleaning
-  let gscContent = "";
-  if (googleSiteVerification) {
-    if (googleSiteVerification.includes("content=")) {
-      const match = googleSiteVerification.match(/content=["']([^"']+)["']/i);
-      gscContent = match ? match[1] : googleSiteVerification;
-    } else {
-      gscContent = googleSiteVerification.replace(/<[^>]*>/g, "").trim();
-    }
-  }
+  const { gaMeasurementId, gtmContainerId, metaPixelId } = settings;
 
   return (
     <>
-      {/* 1. Google Search Console Meta Verification */}
-      {gscContent && (
-        <meta name="google-site-verification" content={gscContent} />
-      )}
-
-      {/* 2. Google Analytics 4 (GA4) */}
+      {/* Google Analytics 4 (GA4) */}
       {gaMeasurementId && gaMeasurementId.trim().length > 0 && (
         <>
           <Script
@@ -55,7 +88,7 @@ export default async function ScriptInjector() {
         </>
       )}
 
-      {/* 3. Google Tag Manager (GTM) */}
+      {/* Google Tag Manager (GTM) */}
       {gtmContainerId && gtmContainerId.trim().length > 0 && (
         <Script id="gtm-init" strategy="afterInteractive">
           {`
@@ -68,7 +101,7 @@ export default async function ScriptInjector() {
         </Script>
       )}
 
-      {/* 4. Meta (Facebook) Pixel */}
+      {/* Meta (Facebook) Pixel */}
       {metaPixelId && metaPixelId.trim().length > 0 && (
         <Script id="meta-pixel-init" strategy="afterInteractive">
           {`
@@ -85,30 +118,6 @@ export default async function ScriptInjector() {
           `}
         </Script>
       )}
-
-      {/* 5. Custom Header Snippets */}
-      {headerSnippets.map((snippet) => (
-        <div
-          key={snippet.id}
-          dangerouslySetInnerHTML={{ __html: snippet.code }}
-        />
-      ))}
-
-      {/* 6. Custom Body Open Snippets */}
-      {bodyOpenSnippets.map((snippet) => (
-        <div
-          key={snippet.id}
-          dangerouslySetInnerHTML={{ __html: snippet.code }}
-        />
-      ))}
-
-      {/* 7. Custom Footer Snippets */}
-      {footerSnippets.map((snippet) => (
-        <div
-          key={snippet.id}
-          dangerouslySetInnerHTML={{ __html: snippet.code }}
-        />
-      ))}
     </>
   );
 }
