@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
+import ScriptInjector from "@/components/layout/ScriptInjector";
 import "./globals.css";
 
 const sansFont = Inter({
@@ -30,6 +31,9 @@ export default function RootLayout({
       lang="en"
       className={`${sansFont.variable} ${serifFont.variable} antialiased`}
     >
+      <head>
+        <ScriptInjector />
+      </head>
       <body className="text-neutral-900 font-sans min-h-screen flex flex-col">
         {children}
       </body>

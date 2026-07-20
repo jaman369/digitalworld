@@ -22,6 +22,7 @@ export interface CloudPayload {
   services?: Record<string, CloudServiceRecord>;
   faqs?: Array<Record<string, unknown>>;
   settings?: Record<string, unknown>;
+  scripts?: Record<string, unknown>;
 }
 
 let memoryCache: CloudPayload | null = null;

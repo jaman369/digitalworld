@@ -25,6 +25,7 @@ export default function AdminSidebar({ session }: SidebarProps) {
     { name: "Portfolio", href: "/admin/portfolio", icon: Icons.FolderDot },
     { name: "Leads / Inquiries", href: "/admin/leads", icon: Icons.Inbox },
     { name: "FAQ Management", href: "/admin/faq", icon: Icons.HelpCircle },
+    { name: "Custom Code (WPCode)", href: "/admin/code-snippets", icon: Icons.Code2 },
     { name: "Settings", href: "/admin/settings", icon: Icons.Settings },
   ];
 
