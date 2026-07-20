@@ -449,13 +449,25 @@ export default async function CategoryPage({ params }: PageProps) {
         <div className="container mx-auto max-w-7xl px-6">
           <div className="flex flex-col gap-12 lg:gap-16">
             {category.subItems.map((sub) => {
-              const dbSvc = dbServices.find((s) => s.slug === sub.slug);
+              const dbSvc = dbServices.find((s) => {
+                if (!s) return false;
+                const sSlug = (s.slug || "").toLowerCase().trim();
+                const subSlug = (sub.slug || "").toLowerCase().trim();
+                const sName = (s.name || "").toLowerCase().trim();
+                const subName = (sub.name || "").toLowerCase().trim();
+                return (
+                  sSlug === subSlug ||
+                  sName === subName ||
+                  sSlug === subName.replace(/[^a-z0-9]+/g, "-") ||
+                  subSlug === sName.replace(/[^a-z0-9]+/g, "-")
+                );
+              });
               const imagePath = dbSvc?.imagePath || subItemImages[sub.slug] || sub.image;
               const imageAltVal = dbSvc?.imageAlt || sub.name;
               
               const nameVal = dbSvc?.name || sub.name;
               const taglineVal = dbSvc?.tagline || sub.tagline || sub.name;
-              const descriptionVal = dbSvc?.description || sub.description;
+              const descriptionVal = dbSvc?.description ? dbSvc.description : sub.description;
               const benefitsVal = dbSvc?.benefits ? JSON.parse(dbSvc.benefits) : (sub.benefits || []);
               const primaryCtaTextVal = dbSvc?.primaryCtaText || sub.primaryCtaText;
               const primaryCtaLinkVal = dbSvc?.primaryCtaLink || sub.primaryCtaLink;

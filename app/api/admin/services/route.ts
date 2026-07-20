@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { servicesData } from "@/data/services";
 
 export async function GET() {
   try {
@@ -10,11 +11,43 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const services = await db.servicePage.findMany({
+    let services = await db.servicePage.findMany({
       orderBy: { sortOrder: "asc" }
     });
+
+    // Auto-seed database if empty
+    if (services.length === 0) {
+      let orderIndex = 1;
+      for (const cat of servicesData) {
+        for (const sub of cat.subItems) {
+          await db.servicePage.upsert({
+            where: { slug: sub.slug },
+            update: {},
+            create: {
+              name: sub.name,
+              slug: sub.slug,
+              categoryName: cat.title,
+              sortOrder: orderIndex,
+              tagline: sub.tagline || "",
+              description: sub.description || "",
+              benefits: JSON.stringify(sub.benefits || []),
+              primaryCtaText: sub.primaryCtaText || "Get Started",
+              primaryCtaLink: sub.primaryCtaLink || `/contact?service=${sub.slug}`,
+              secondaryCtaText: sub.secondaryCtaText || null,
+              secondaryCtaLink: sub.secondaryCtaLink || null,
+            },
+          });
+          orderIndex++;
+        }
+      }
+      services = await db.servicePage.findMany({
+        orderBy: { sortOrder: "asc" }
+      });
+    }
+
     return NextResponse.json(services);
-  } catch {
+  } catch (error) {
+    console.error("GET services error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
