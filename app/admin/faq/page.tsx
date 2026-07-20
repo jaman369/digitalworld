@@ -49,13 +49,17 @@ export default function AdminFAQPage() {
 
   const handleAddFaq = () => {
     const newId = `faq-${Date.now()}`;
+    const targetCategory = selectedCategory === "All" ? "General" : selectedCategory;
     const newFaq: FAQItem = {
       id: newId,
-      question: "New Frequently Asked Question",
-      answer: "Provide a detailed and helpful response here...",
-      category: "General",
+      question: "",
+      answer: "",
+      category: targetCategory,
     };
+    // Add new FAQ to top of array and clear search so it's instantly visible
     setFaqs([newFaq, ...faqs]);
+    setSearchQuery("");
+    setFeedbackError("");
   };
 
   const handleRemoveFaq = (id: string) => {
@@ -78,8 +82,20 @@ export default function AdminFAQPage() {
     setFaqs(newFaqs);
   };
 
-  const handleSave = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSave = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+
+    // Custom validation check across all items
+    const hasEmptyFields = faqs.some(
+      (f) => !f.question || !f.question.trim() || !f.answer || !f.answer.trim()
+    );
+
+    if (hasEmptyFields) {
+      setFeedbackError("Please fill in both Question and Answer for all FAQ items before saving.");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
     setIsSaving(true);
     setFeedbackMessage("");
     setFeedbackError("");
@@ -93,14 +109,17 @@ export default function AdminFAQPage() {
 
       if (response.ok) {
         setFeedbackMessage("Frequently Asked Questions saved & updated live!");
-        setTimeout(() => setFeedbackMessage(""), 3500);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        setTimeout(() => setFeedbackMessage(""), 4000);
       } else {
         const errorData = await response.json();
         setFeedbackError(errorData.error || "Failed to save FAQs");
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }
     } catch (err) {
       console.error(err);
       setFeedbackError("An error occurred while saving FAQs.");
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } finally {
       setIsSaving(false);
     }
@@ -127,7 +146,7 @@ export default function AdminFAQPage() {
   }
 
   return (
-    <div className="flex flex-col gap-8 pb-12">
+    <div className="flex flex-col gap-8 pb-16">
       {/* Title Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
@@ -155,15 +174,15 @@ export default function AdminFAQPage() {
       <form onSubmit={handleSave} className="flex flex-col gap-6">
         {/* Feedback Banners */}
         {feedbackMessage && (
-          <div className="flex items-center gap-2 rounded-xl bg-emerald-50 border border-emerald-100 p-4 text-xs text-emerald-600 font-semibold animate-fade-in">
-            <Icons.CheckCircle2 className="h-4.5 w-4.5 shrink-0" />
+          <div className="flex items-center gap-2 rounded-xl bg-emerald-50 border border-emerald-100 p-4 text-xs text-emerald-600 font-semibold animate-fade-in shadow-xs">
+            <Icons.CheckCircle2 className="h-4.5 w-4.5 shrink-0 text-emerald-500" />
             <span>{feedbackMessage}</span>
           </div>
         )}
 
         {feedbackError && (
-          <div className="flex items-center gap-2 rounded-xl bg-red-50 border border-red-100 p-4 text-xs text-red-600 font-semibold">
-            <Icons.AlertCircle className="h-4.5 w-4.5 shrink-0" />
+          <div className="flex items-center gap-2 rounded-xl bg-red-50 border border-red-100 p-4 text-xs text-red-600 font-semibold animate-fade-in shadow-xs">
+            <Icons.AlertCircle className="h-4.5 w-4.5 shrink-0 text-red-500" />
             <span>{feedbackError}</span>
           </div>
         )}
@@ -266,7 +285,6 @@ export default function AdminFAQPage() {
                       </label>
                       <input
                         type="text"
-                        required
                         value={faqItem.question}
                         onChange={(e) => handleFieldChange(faqItem.id, "question", e.target.value)}
                         className="w-full rounded-xl border border-neutral-200 bg-white py-2.5 px-3.5 text-sm font-semibold text-neutral-800 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10"
@@ -279,7 +297,6 @@ export default function AdminFAQPage() {
                         Answer
                       </label>
                       <textarea
-                        required
                         rows={3}
                         value={faqItem.answer}
                         onChange={(e) => handleFieldChange(faqItem.id, "answer", e.target.value)}
@@ -293,17 +310,27 @@ export default function AdminFAQPage() {
             })
           ) : (
             <div className="bg-white border border-neutral-100 rounded-2xl p-12 text-center text-neutral-400 font-medium text-sm">
-              No FAQ items found matching search parameters.
+              No FAQ items found matching search parameters. Click &quot;Add New FAQ&quot; to create one!
             </div>
           )}
         </div>
 
         {/* Bottom Save Sticky Bar */}
-        <div className="sticky bottom-6 flex justify-end">
+        <div className="sticky bottom-6 flex items-center justify-between bg-white/80 backdrop-blur-md border border-neutral-200/80 p-3.5 rounded-2xl shadow-xl z-20">
           <button
-            type="submit"
+            type="button"
+            onClick={handleAddFaq}
+            className="inline-flex items-center gap-2 rounded-full border border-neutral-200 hover:border-neutral-300 bg-neutral-50 hover:bg-neutral-100 px-5 py-2.5 text-xs font-bold text-neutral-700 transition-all cursor-pointer"
+          >
+            <Icons.Plus className="h-4 w-4 text-neutral-500" />
+            Add New FAQ
+          </button>
+
+          <button
+            type="button"
+            onClick={() => handleSave()}
             disabled={isSaving}
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-primary hover:bg-primary-hover disabled:bg-neutral-200 px-8 py-3.5 font-sans text-xs font-bold text-white shadow-lg transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer border-0"
+            className="inline-flex items-center justify-center gap-2 rounded-full bg-primary hover:bg-primary-hover disabled:bg-neutral-200 px-8 py-3.5 font-sans text-xs font-bold text-white shadow-md transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer border-0"
           >
             {isSaving ? (
               <>
