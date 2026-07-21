@@ -1,4 +1,10 @@
-const BIN_URL = "https://extendsclass.com/api/json-storage/bin/dabaded";
+/**
+ * Cloud Sync — persistent JSON storage for Vercel serverless.
+ *
+ * Uses jsonblob.com REST API which reliably persists GET/PUT operations
+ * (migrated from extendsclass.com which stopped persisting PUT writes).
+ */
+const BIN_URL = "https://jsonblob.com/api/jsonBlob/019f82d8-da7f-7324-a73b-f5ef41a31206";
 
 export interface CloudServiceRecord {
   id?: string;
@@ -38,7 +44,10 @@ export async function getCloudData(): Promise<CloudPayload> {
   try {
     const res = await fetch(BIN_URL, {
       cache: "no-store",
-      headers: { "Content-Type": "application/json" }
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
     });
     if (res.ok) {
       const data = (await res.json()) as CloudPayload;
@@ -66,12 +75,20 @@ export async function saveCloudData(update: Partial<CloudPayload>): Promise<bool
 
     const res = await fetch(BIN_URL, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+      },
       body: JSON.stringify(updatedPayload),
       cache: "no-store",
     });
 
-    return res.ok;
+    if (!res.ok) {
+      console.error("Cloud save failed with status:", res.status);
+      return false;
+    }
+
+    return true;
   } catch (err) {
     console.error("Cloud save error:", err);
     return false;
