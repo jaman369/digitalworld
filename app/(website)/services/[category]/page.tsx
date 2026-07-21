@@ -13,11 +13,9 @@ interface PageProps {
   params: Promise<{ category: string }>;
 }
 
-export async function generateStaticParams() {
-  return servicesData.map((category) => ({
-    category: category.slug,
-  }));
-}
+/* generateStaticParams removed to enable fully dynamic rendering.
+   This ensures admin CMS edits from the cloud sync are always
+   reflected immediately on the live website. */
 
 export async function generateMetadata({ params }: PageProps) {
   const { category: categorySlug } = await params;
@@ -475,7 +473,15 @@ export default async function CategoryPage({ params }: PageProps) {
               const nameVal = dbSvc?.name || sub.name;
               const taglineVal = dbSvc?.tagline || sub.tagline || sub.name;
               const descriptionVal = dbSvc?.description ? dbSvc.description : sub.description;
-              const benefitsVal = dbSvc?.benefits ? JSON.parse(dbSvc.benefits) : (sub.benefits || []);
+              let benefitsVal: string[] = sub.benefits || [];
+              if (dbSvc?.benefits) {
+                try {
+                  const parsed = typeof dbSvc.benefits === 'string' ? JSON.parse(dbSvc.benefits) : dbSvc.benefits;
+                  benefitsVal = Array.isArray(parsed) ? parsed : [];
+                } catch {
+                  benefitsVal = sub.benefits || [];
+                }
+              }
               const primaryCtaTextVal = dbSvc?.primaryCtaText || sub.primaryCtaText;
               const primaryCtaLinkVal = dbSvc?.primaryCtaLink || sub.primaryCtaLink;
               const secondaryCtaTextVal = dbSvc?.secondaryCtaText || sub.secondaryCtaText;
