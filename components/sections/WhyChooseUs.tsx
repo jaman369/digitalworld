@@ -1,41 +1,37 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
+import { CloudHomepageData } from "@/lib/cloudSync";
 
 export default function WhyChooseUs() {
-  const cards = [
-    {
-      title: "Data-driven strategies",
-      description: "No assumptions. We build our growth campaigns based on hard competitor analytics and real user intent metrics.",
-      icon: Icons.BarChart3,
-    },
-    {
-      title: "5+ years of experience",
-      description: "Having navigated through search engine algorithm core updates, we know what drives sustainable ranking gains.",
-      icon: Icons.Trophy,
-    },
-    {
-      title: "High ROI campaigns",
-      description: "Every dollar you invest is optimized to target buyers at the bottom of the funnel, minimizing waste.",
-      icon: Icons.TrendingUp,
-    },
-    {
-      title: "Custom solutions",
-      description: "We don't do pre-packaged cookie-cutter services. Every site is analyzed to get a bespoke roadmap.",
-      icon: Icons.Settings,
-    },
-    {
-      title: "24/7 dedicated support",
-      description: "Clear, direct communication channels. We act as an extension of your team, responding within hours.",
-      icon: Icons.MessageSquare,
-    },
-    {
-      title: "Transparent reporting",
-      description: "Understand exactly what you are paying for with simplified keyword progression and traffic conversion dashboards.",
-      icon: Icons.FileText,
-    },
-  ];
+  const [data, setData] = useState<CloudHomepageData>({
+    whyUsEyebrow: "Why Us",
+    whyUsTitle: "Why choose Digital World",
+    whyUsSubtitle: "We partner with brands to build robust organic funnels that consistently generate revenue, not just vanity clicks.",
+    whyUsCards: [
+      { title: "Data-driven strategies", description: "No assumptions. We build our growth campaigns based on hard competitor analytics and real user intent metrics.", iconName: "BarChart3" },
+      { title: "5+ years of experience", description: "Having navigated through search engine algorithm core updates, we know what drives sustainable ranking gains.", iconName: "Trophy" },
+      { title: "High ROI campaigns", description: "Every dollar you invest is optimized to target buyers at the bottom of the funnel, minimizing waste.", iconName: "TrendingUp" },
+      { title: "Custom solutions", description: "We don't do pre-packaged cookie-cutter services. Every site is analyzed to get a bespoke roadmap.", iconName: "Settings" },
+      { title: "24/7 dedicated support", description: "Clear, direct communication channels. We act as an extension of your team, responding within hours.", iconName: "MessageSquare" },
+      { title: "Transparent reporting", description: "Understand exactly what you are paying for with simplified keyword progression and traffic conversion dashboards.", iconName: "FileText" },
+    ],
+  });
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const res = await fetch("/api/homepage");
+        if (res.ok) {
+          const hp = await res.json();
+          setData((prev) => ({ ...prev, ...hp }));
+        }
+      } catch {}
+    }
+    load();
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -54,19 +50,30 @@ export default function WhyChooseUs() {
     },
   };
 
+  const cards = data.whyUsCards && data.whyUsCards.length > 0
+    ? data.whyUsCards
+    : [
+        { title: "Data-driven strategies", description: "No assumptions. We build our growth campaigns based on hard competitor analytics and real user intent metrics.", iconName: "BarChart3" },
+        { title: "5+ years of experience", description: "Having navigated through search engine algorithm core updates, we know what drives sustainable ranking gains.", iconName: "Trophy" },
+        { title: "High ROI campaigns", description: "Every dollar you invest is optimized to target buyers at the bottom of the funnel, minimizing waste.", iconName: "TrendingUp" },
+        { title: "Custom solutions", description: "We don't do pre-packaged cookie-cutter services. Every site is analyzed to get a bespoke roadmap.", iconName: "Settings" },
+        { title: "24/7 dedicated support", description: "Clear, direct communication channels. We act as an extension of your team, responding within hours.", iconName: "MessageSquare" },
+        { title: "Transparent reporting", description: "Understand exactly what you are paying for with simplified keyword progression and traffic conversion dashboards.", iconName: "FileText" },
+      ];
+
   return (
     <section className="py-20 lg:py-32 bg-transparent relative z-10 border-b border-neutral-100">
       <div className="container mx-auto max-w-7xl px-6">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-24">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-light px-4 py-1.5 text-xs font-semibold text-primary uppercase tracking-wider mb-6">
-            Why Us
+            {data.whyUsEyebrow || "Why Us"}
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight mb-6">
-            Why choose Digital World
+            {data.whyUsTitle || "Why choose Digital World"}
           </h2>
           <p className="font-sans text-base sm:text-lg text-neutral-500 leading-relaxed">
-            We partner with brands to build robust organic funnels that consistently generate revenue, not just vanity clicks.
+            {data.whyUsSubtitle || "We partner with brands to build robust organic funnels that consistently generate revenue, not just vanity clicks."}
           </p>
         </div>
 
@@ -79,7 +86,7 @@ export default function WhyChooseUs() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {cards.map((card, idx) => {
-            const Icon = card.icon;
+            const Icon = (Icons[(card.iconName || "Sparkles") as keyof typeof Icons] || Icons.Sparkles) as React.ComponentType<{ className?: string }>;
 
             return (
               <motion.div

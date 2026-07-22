@@ -1,11 +1,32 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
 import { testimonialsData } from "@/data/testimonials";
+import { CloudHomepageData } from "@/lib/cloudSync";
 
 export default function Testimonials() {
+  const [data, setData] = useState<CloudHomepageData>({
+    testimonialsEyebrow: "Reviews",
+    testimonialsTitle: "Client Success Stories",
+    testimonialsSubtitle: "See how we help businesses globally increase organic traffic footprint, lower acquisition cost metrics, and scale stores.",
+  });
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const res = await fetch("/api/homepage");
+        if (res.ok) {
+          const hp = await res.json();
+          setData((prev) => ({ ...prev, ...hp }));
+        }
+      } catch {}
+    }
+    load();
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -29,13 +50,13 @@ export default function Testimonials() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-24">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-light px-4 py-1.5 text-xs font-semibold text-primary uppercase tracking-wider mb-6">
-            Reviews
+            {data.testimonialsEyebrow || "Reviews"}
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight mb-6">
-            Client Success Stories
+            {data.testimonialsTitle || "Client Success Stories"}
           </h2>
           <p className="font-sans text-base sm:text-lg text-neutral-500 leading-relaxed">
-            See how we help businesses globally increase organic traffic footprint, lower acquisition cost metrics, and scale stores.
+            {data.testimonialsSubtitle || "See how we help businesses globally increase organic traffic footprint, lower acquisition cost metrics, and scale stores."}
           </p>
         </div>
 

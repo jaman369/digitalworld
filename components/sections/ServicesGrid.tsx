@@ -1,9 +1,11 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
 import { servicesData } from "@/data/services";
+import { CloudHomepageData } from "@/lib/cloudSync";
 
 const categoryStyles: Record<string, {
   hoverBg: string;
@@ -57,6 +59,25 @@ const categoryStyles: Record<string, {
 };
 
 export default function ServicesGrid() {
+  const [data, setData] = useState<CloudHomepageData>({
+    servicesEyebrow: "What We Do",
+    servicesTitle: "Services built to scale.",
+    servicesSubtitle: "A comprehensive suite of growth services designed to expand your visibility, drive qualified leads, and maximize return on investment.",
+  });
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const res = await fetch("/api/homepage");
+        if (res.ok) {
+          const hp = await res.json();
+          setData((prev) => ({ ...prev, ...hp }));
+        }
+      } catch {}
+    }
+    load();
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -90,13 +111,13 @@ export default function ServicesGrid() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-24">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-light px-4 py-1.5 text-xs font-semibold text-primary uppercase tracking-wider mb-6">
-            What We Do
+            {data.servicesEyebrow || "What We Do"}
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight mb-6">
-            Services built to scale.
+            {data.servicesTitle || "Services built to scale."}
           </h2>
           <p className="font-sans text-base sm:text-lg text-neutral-500 leading-relaxed">
-            A comprehensive suite of growth services designed to expand your visibility, drive qualified leads, and maximize return on investment.
+            {data.servicesSubtitle || "A comprehensive suite of growth services designed to expand your visibility, drive qualified leads, and maximize return on investment."}
           </p>
         </div>
 

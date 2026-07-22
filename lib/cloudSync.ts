@@ -74,6 +74,7 @@ export interface CloudSettingsData {
 }
 
 export interface CloudHomepageData {
+  // Hero Banner
   heroTagline?: string;
   heroTitle?: string;
   heroSubtitle?: string;
@@ -81,11 +82,45 @@ export interface CloudHomepageData {
   heroPrimaryCtaLink?: string;
   heroSecondaryCtaText?: string;
   heroSecondaryCtaLink?: string;
-  stats?: Array<{ numericValue: number; suffix: string; label: string }>;
-  whyChooseUsTitle?: string;
-  whyChooseUsSubtitle?: string;
+
+  // Stats Bar
+  statsEyebrow?: string;
+  stats?: Array<{ id: string; value: string; label: string }>;
+
+  // Services Section
+  servicesEyebrow?: string;
+  servicesTitle?: string;
+  servicesSubtitle?: string;
+
+  // Why Choose Us Section
+  whyUsEyebrow?: string;
+  whyUsTitle?: string;
+  whyUsSubtitle?: string;
+  whyUsCards?: Array<{ title: string; description: string; iconName?: string }>;
+
+  // Process / How We Work Section
+  processEyebrow?: string;
+  processTitle?: string;
+  processSubtitle?: string;
+  processSteps?: Array<{ stepNumber: number; title: string; description: string }>;
+
+  // Testimonials Section
+  testimonialsEyebrow?: string;
   testimonialsTitle?: string;
   testimonialsSubtitle?: string;
+
+  // Final CTA Section
+  ctaEyebrow?: string;
+  ctaTitle?: string;
+  ctaSubtitle?: string;
+  ctaButtonText?: string;
+  ctaButtonLink?: string;
+
+  // SEO Metadata
+  seoTitle?: string;
+  seoDescription?: string;
+  canonicalUrl?: string;
+  ogImage?: string;
 }
 
 export interface CloudAboutData {

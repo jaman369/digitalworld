@@ -5,23 +5,77 @@ import * as Icons from "lucide-react";
 import { CloudHomepageData } from "@/lib/cloudSync";
 
 export default function AdminHomepageCMS() {
+  const [activeTab, setActiveTab] = useState<"hero" | "stats" | "services" | "why" | "process" | "testimonials" | "cta" | "seo">("hero");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [feedback, setFeedback] = useState("");
   const [error, setError] = useState("");
 
   const [formData, setFormData] = useState<CloudHomepageData>({
-    heroTagline: "FULL-SERVICE DIGITAL MARKETING AGENCY",
-    heroTitle: "Rank First. Scale Faster. Own Your Market.",
-    heroSubtitle: "We help ambitious brands capture high-intent search traffic, lower acquisition costs, and scale predictable revenue through SEO, PPC, web design, and content marketing.",
-    heroPrimaryCtaText: "Book Strategy Call",
+    // Hero
+    heroTagline: "Available for new projects · Based in Dhaka, Bangladesh",
+    heroTitle: "Grow your business beyond borders.",
+    heroSubtitle: "Digital World is a full-service digital marketing agency helping businesses in the USA, UK, Canada, UAE, Australia & beyond dominate search, ads, and the web — led by Kamrujjaman Mufti.",
+    heroPrimaryCtaText: "Start a Project",
     heroPrimaryCtaLink: "/contact",
     heroSecondaryCtaText: "Explore Services",
-    heroSecondaryCtaLink: "/services/seo",
-    whyChooseUsTitle: "Why global brands trust Digital World.",
-    whyChooseUsSubtitle: "We don't sell generic packages. We build custom growth engines designed specifically for your target metrics.",
-    testimonialsTitle: "What our clients say.",
-    testimonialsSubtitle: "Real feedback from founders, marketing directors, and e-commerce leaders worldwide.",
+    heroSecondaryCtaLink: "#services",
+
+    // Stats
+    statsEyebrow: "PROVEN TRACK RECORD",
+    stats: [
+      { id: "projects", value: "150", label: "Projects Delivered" },
+      { id: "clients", value: "120", label: "Happy Clients Worldwide" },
+      { id: "experience", value: "5", label: "Years Hands-on Experience" },
+      { id: "countries", value: "11", label: "Countries Served" },
+    ],
+
+    // Services Header
+    servicesEyebrow: "What We Do",
+    servicesTitle: "Services built to scale.",
+    servicesSubtitle: "A comprehensive suite of growth services designed to expand your visibility, drive qualified leads, and maximize return on investment.",
+
+    // Why Choose Us
+    whyUsEyebrow: "Why Us",
+    whyUsTitle: "Why choose Digital World",
+    whyUsSubtitle: "We partner with brands to build robust organic funnels that consistently generate revenue, not just vanity clicks.",
+    whyUsCards: [
+      { title: "Data-driven strategies", description: "No assumptions. We build our growth campaigns based on hard competitor analytics and real user intent metrics.", iconName: "BarChart3" },
+      { title: "5+ years of experience", description: "Having navigated through search engine algorithm core updates, we know what drives sustainable ranking gains.", iconName: "Trophy" },
+      { title: "High ROI campaigns", description: "Every dollar you invest is optimized to target buyers at the bottom of the funnel, minimizing waste.", iconName: "TrendingUp" },
+      { title: "Custom solutions", description: "We don't do pre-packaged cookie-cutter services. Every site is analyzed to get a bespoke roadmap.", iconName: "Settings" },
+      { title: "24/7 dedicated support", description: "Clear, direct communication channels. We act as an extension of your team, responding within hours.", iconName: "MessageSquare" },
+      { title: "Transparent reporting", description: "Understand exactly what you are paying for with simplified keyword progression and traffic conversion dashboards.", iconName: "FileText" },
+    ],
+
+    // Process
+    processEyebrow: "Process",
+    processTitle: "Our simple 4-step onboarding process",
+    processSubtitle: "We structure your customer acquisition funnel from initial audit to scaled delivery with absolute clarity.",
+    processSteps: [
+      { stepNumber: 1, title: "Discovery & Audit", description: "30-minute alignment call + deep technical audit of your domain." },
+      { stepNumber: 2, title: "Custom Blueprint", description: "Tailored execution roadmap matching target keywords and acquisition budgets." },
+      { stepNumber: 3, title: "Execution & Optimization", description: "On-page overhaul, technical tuning, and weekly conversion tracking." },
+      { stepNumber: 4, title: "Scale & Growth", description: "Iterative split testing, backlink acceleration, and recurring performance reports." },
+    ],
+
+    // Testimonials Header
+    testimonialsEyebrow: "Reviews",
+    testimonialsTitle: "Client Success Stories",
+    testimonialsSubtitle: "See how we help businesses globally increase organic traffic footprint, lower acquisition cost metrics, and scale stores.",
+
+    // Final CTA
+    ctaEyebrow: "Get Started",
+    ctaTitle: "Let's build something great together.",
+    ctaSubtitle: "Get in touch for a free 30-minute strategy call to audit your current search presence, examine paid bidding efficiencies, and identify growth bottlenecks.",
+    ctaButtonText: "Book Your Strategy Call",
+    ctaButtonLink: "/contact",
+
+    // SEO
+    seoTitle: "Digital World - Full Service Digital Marketing Agency",
+    seoDescription: "Full-service digital marketing agency specializing in SEO, PPC, Web Design, Content Marketing, and AI Automation.",
+    canonicalUrl: "https://digitalworld-beige.vercel.app/",
+    ogImage: "https://digitalworld-beige.vercel.app/Kamrujjaman%20Mufti%20Image/kamrujjaman-mufti.jpg",
   });
 
   useEffect(() => {
@@ -30,7 +84,9 @@ export default function AdminHomepageCMS() {
         const res = await fetch("/api/admin/homepage");
         if (res.ok) {
           const data = await res.json();
-          setFormData((prev) => ({ ...prev, ...data }));
+          if (data && Object.keys(data).length > 0) {
+            setFormData((prev) => ({ ...prev, ...data }));
+          }
         }
       } catch (err) {
         console.error("Failed to load homepage CMS:", err);
@@ -55,7 +111,7 @@ export default function AdminHomepageCMS() {
       });
 
       if (res.ok) {
-        setFeedback("Homepage content saved & updated live!");
+        setFeedback("Homepage CMS updated & live on website!");
       } else {
         const data = await res.json();
         setError(data.error || "Failed to save homepage content.");
@@ -67,6 +123,41 @@ export default function AdminHomepageCMS() {
     }
   };
 
+  // Card helpers for Why Us
+  const addWhyUsCard = () => {
+    const current = formData.whyUsCards || [];
+    setFormData({
+      ...formData,
+      whyUsCards: [...current, { title: "New Feature", description: "Feature description...", iconName: "Sparkles" }],
+    });
+  };
+
+  const updateWhyUsCard = (index: number, field: string, value: string) => {
+    const current = [...(formData.whyUsCards || [])];
+    current[index] = { ...current[index], [field]: value };
+    setFormData({ ...formData, whyUsCards: current });
+  };
+
+  const removeWhyUsCard = (index: number) => {
+    const current = [...(formData.whyUsCards || [])];
+    current.splice(index, 1);
+    setFormData({ ...formData, whyUsCards: current });
+  };
+
+  // Step helpers for Process
+  const updateProcessStep = (index: number, field: string, value: string | number) => {
+    const current = [...(formData.processSteps || [])];
+    current[index] = { ...current[index], [field]: value };
+    setFormData({ ...formData, processSteps: current });
+  };
+
+  // Stat helpers
+  const updateStat = (index: number, field: string, value: string) => {
+    const current = [...(formData.stats || [])];
+    current[index] = { ...current[index], [field]: value };
+    setFormData({ ...formData, stats: current });
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[300px]">
@@ -75,15 +166,49 @@ export default function AdminHomepageCMS() {
     );
   }
 
+  const navTabs = [
+    { id: "hero", label: "Hero Banner", icon: Icons.Sparkles },
+    { id: "stats", label: "Stats Bar", icon: Icons.BarChart3 },
+    { id: "services", label: "Services Header", icon: Icons.Layers },
+    { id: "why", label: "Why Choose Us", icon: Icons.CheckCircle2 },
+    { id: "process", label: "Process / Steps", icon: Icons.ListOrdered },
+    { id: "testimonials", label: "Testimonials Header", icon: Icons.MessageSquare },
+    { id: "cta", label: "Final CTA", icon: Icons.Megaphone },
+    { id: "seo", label: "Homepage SEO", icon: Icons.Globe },
+  ] as const;
+
   return (
-    <div className="flex flex-col gap-8 max-w-4xl">
+    <div className="flex flex-col gap-8 max-w-5xl">
       <div>
         <h1 className="font-serif text-3xl font-bold text-neutral-900 tracking-tight leading-none mb-2">
-          Homepage CMS
+          Homepage Full CMS
         </h1>
         <p className="font-sans text-sm text-neutral-500">
-          Manage Hero Banner headings, CTAs, Why Choose Us, and section copy directly on the homepage.
+          Control all text, section titles, feature cards, process steps, CTA buttons, and SEO meta tags for the homepage.
         </p>
+      </div>
+
+      {/* Tabs Navigation */}
+      <div className="flex flex-wrap gap-2 border-b border-neutral-200 pb-3">
+        {navTabs.map((tab) => {
+          const Icon = tab.icon;
+          const isActive = activeTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              type="button"
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl font-sans text-xs font-semibold transition-all cursor-pointer ${
+                isActive
+                  ? "bg-primary text-white shadow-sm"
+                  : "bg-white border border-neutral-200 text-neutral-600 hover:bg-neutral-50"
+              }`}
+            >
+              <Icon className="h-3.5 w-3.5" />
+              {tab.label}
+            </button>
+          );
+        })}
       </div>
 
       <form onSubmit={handleSave} className="bg-white border border-neutral-100 rounded-2xl p-6 sm:p-8 shadow-sm flex flex-col gap-6">
@@ -101,155 +226,476 @@ export default function AdminHomepageCMS() {
           </div>
         )}
 
-        {/* Hero Tagline */}
-        <div className="flex flex-col gap-2">
-          <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">
-            Hero Top Badge Tagline
-          </label>
-          <input
-            type="text"
-            value={formData.heroTagline || ""}
-            onChange={(e) => setFormData({ ...formData, heroTagline: e.target.value })}
-            className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10"
-          />
-        </div>
+        {/* 1. HERO TAB */}
+        {activeTab === "hero" && (
+          <div className="flex flex-col gap-6">
+            <h2 className="font-sans font-bold text-base text-neutral-900 border-b border-neutral-100 pb-3">
+              Hero Banner Settings
+            </h2>
 
-        {/* Hero Title */}
-        <div className="flex flex-col gap-2">
-          <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">
-            Hero Main Headline Title
-          </label>
-          <input
-            type="text"
-            required
-            value={formData.heroTitle || ""}
-            onChange={(e) => setFormData({ ...formData, heroTitle: e.target.value })}
-            className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 font-bold"
-          />
-        </div>
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Top Eyebrow Badge Text</label>
+              <input
+                type="text"
+                value={formData.heroTagline || ""}
+                onChange={(e) => setFormData({ ...formData, heroTagline: e.target.value })}
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary"
+              />
+            </div>
 
-        {/* Hero Subtitle */}
-        <div className="flex flex-col gap-2">
-          <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">
-            Hero Subtitle Copy
-          </label>
-          <textarea
-            rows={3}
-            value={formData.heroSubtitle || ""}
-            onChange={(e) => setFormData({ ...formData, heroSubtitle: e.target.value })}
-            className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 resize-none"
-          />
-        </div>
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Main Headline Title</label>
+              <input
+                type="text"
+                value={formData.heroTitle || ""}
+                onChange={(e) => setFormData({ ...formData, heroTitle: e.target.value })}
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 font-bold outline-none focus:border-primary"
+              />
+            </div>
 
-        {/* Primary CTA Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-neutral-100 pt-6">
-          <div className="flex flex-col gap-2">
-            <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">
-              Primary CTA Button Text
-            </label>
-            <input
-              type="text"
-              value={formData.heroPrimaryCtaText || ""}
-              onChange={(e) => setFormData({ ...formData, heroPrimaryCtaText: e.target.value })}
-              className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary"
-            />
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Subtitle Paragraph</label>
+              <textarea
+                rows={3}
+                value={formData.heroSubtitle || ""}
+                onChange={(e) => setFormData({ ...formData, heroSubtitle: e.target.value })}
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary resize-none"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Primary Button Text</label>
+                <input
+                  type="text"
+                  value={formData.heroPrimaryCtaText || ""}
+                  onChange={(e) => setFormData({ ...formData, heroPrimaryCtaText: e.target.value })}
+                  className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary"
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Primary Button Link</label>
+                <input
+                  type="text"
+                  value={formData.heroPrimaryCtaLink || ""}
+                  onChange={(e) => setFormData({ ...formData, heroPrimaryCtaLink: e.target.value })}
+                  className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 font-mono outline-none focus:border-primary"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Secondary Button Text</label>
+                <input
+                  type="text"
+                  value={formData.heroSecondaryCtaText || ""}
+                  onChange={(e) => setFormData({ ...formData, heroSecondaryCtaText: e.target.value })}
+                  className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary"
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Secondary Button Link</label>
+                <input
+                  type="text"
+                  value={formData.heroSecondaryCtaLink || ""}
+                  onChange={(e) => setFormData({ ...formData, heroSecondaryCtaLink: e.target.value })}
+                  className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 font-mono outline-none focus:border-primary"
+                />
+              </div>
+            </div>
           </div>
+        )}
 
-          <div className="flex flex-col gap-2">
-            <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">
-              Primary CTA Link URL
-            </label>
-            <input
-              type="text"
-              value={formData.heroPrimaryCtaLink || ""}
-              onChange={(e) => setFormData({ ...formData, heroPrimaryCtaLink: e.target.value })}
-              className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary font-mono"
-            />
+        {/* 2. STATS TAB */}
+        {activeTab === "stats" && (
+          <div className="flex flex-col gap-6">
+            <h2 className="font-sans font-bold text-base text-neutral-900 border-b border-neutral-100 pb-3">
+              Stats Bar Settings
+            </h2>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Section Eyebrow Title</label>
+              <input
+                type="text"
+                value={formData.statsEyebrow || ""}
+                onChange={(e) => setFormData({ ...formData, statsEyebrow: e.target.value })}
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              {(formData.stats || []).map((stat, idx) => (
+                <div key={idx} className="p-4 border border-neutral-100 rounded-xl bg-neutral-50/50 flex flex-col gap-3">
+                  <span className="text-[10px] font-bold text-neutral-400 uppercase">Stat #{idx + 1}</span>
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      placeholder="Value (e.g. 150)"
+                      value={stat.value}
+                      onChange={(e) => updateStat(idx, "value", e.target.value)}
+                      className="w-1/3 rounded-lg border border-neutral-200 bg-white py-1.5 px-3 text-xs font-bold"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Label (e.g. Projects Delivered)"
+                      value={stat.label}
+                      onChange={(e) => updateStat(idx, "label", e.target.value)}
+                      className="w-2/3 rounded-lg border border-neutral-200 bg-white py-1.5 px-3 text-xs"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* Secondary CTA Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="flex flex-col gap-2">
-            <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">
-              Secondary CTA Button Text
-            </label>
-            <input
-              type="text"
-              value={formData.heroSecondaryCtaText || ""}
-              onChange={(e) => setFormData({ ...formData, heroSecondaryCtaText: e.target.value })}
-              className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary"
-            />
+        {/* 3. SERVICES HEADER TAB */}
+        {activeTab === "services" && (
+          <div className="flex flex-col gap-6">
+            <h2 className="font-sans font-bold text-base text-neutral-900 border-b border-neutral-100 pb-3">
+              Services Grid Header Settings
+            </h2>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Eyebrow Badge</label>
+              <input
+                type="text"
+                value={formData.servicesEyebrow || ""}
+                onChange={(e) => setFormData({ ...formData, servicesEyebrow: e.target.value })}
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Section Title</label>
+              <input
+                type="text"
+                value={formData.servicesTitle || ""}
+                onChange={(e) => setFormData({ ...formData, servicesTitle: e.target.value })}
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm font-bold text-neutral-800 outline-none focus:border-primary"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Subtitle Paragraph</label>
+              <textarea
+                rows={3}
+                value={formData.servicesSubtitle || ""}
+                onChange={(e) => setFormData({ ...formData, servicesSubtitle: e.target.value })}
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary resize-none"
+              />
+            </div>
           </div>
+        )}
 
-          <div className="flex flex-col gap-2">
-            <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">
-              Secondary CTA Link URL
-            </label>
-            <input
-              type="text"
-              value={formData.heroSecondaryCtaLink || ""}
-              onChange={(e) => setFormData({ ...formData, heroSecondaryCtaLink: e.target.value })}
-              className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary font-mono"
-            />
+        {/* 4. WHY CHOOSE US TAB */}
+        {activeTab === "why" && (
+          <div className="flex flex-col gap-6">
+            <h2 className="font-sans font-bold text-base text-neutral-900 border-b border-neutral-100 pb-3">
+              Why Choose Us Section Settings
+            </h2>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Eyebrow Badge</label>
+                <input
+                  type="text"
+                  value={formData.whyUsEyebrow || ""}
+                  onChange={(e) => setFormData({ ...formData, whyUsEyebrow: e.target.value })}
+                  className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none"
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Section Title</label>
+                <input
+                  type="text"
+                  value={formData.whyUsTitle || ""}
+                  onChange={(e) => setFormData({ ...formData, whyUsTitle: e.target.value })}
+                  className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm font-bold text-neutral-800 outline-none"
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Subtitle</label>
+              <input
+                type="text"
+                value={formData.whyUsSubtitle || ""}
+                onChange={(e) => setFormData({ ...formData, whyUsSubtitle: e.target.value })}
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none"
+              />
+            </div>
+
+            {/* Feature Cards CRUD */}
+            <div className="flex items-center justify-between border-t border-neutral-100 pt-6">
+              <h3 className="text-xs font-bold text-neutral-700 uppercase tracking-wider">Feature Cards ({formData.whyUsCards?.length || 0})</h3>
+              <button
+                type="button"
+                onClick={addWhyUsCard}
+                className="flex items-center gap-1.5 text-xs font-bold text-primary hover:text-primary-hover cursor-pointer"
+              >
+                <Icons.Plus className="h-4 w-4" /> Add Card
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {(formData.whyUsCards || []).map((card, idx) => (
+                <div key={idx} className="p-4 border border-neutral-200 rounded-xl bg-white flex flex-col gap-3 relative group">
+                  <button
+                    type="button"
+                    onClick={() => removeWhyUsCard(idx)}
+                    className="absolute top-3 right-3 text-neutral-400 hover:text-red-600 transition-colors"
+                  >
+                    <Icons.Trash2 className="h-4 w-4" />
+                  </button>
+
+                  <div className="flex flex-col gap-1 pr-6">
+                    <label className="text-[10px] font-bold text-neutral-400 uppercase">Title</label>
+                    <input
+                      type="text"
+                      value={card.title}
+                      onChange={(e) => updateWhyUsCard(idx, "title", e.target.value)}
+                      className="rounded-lg border border-neutral-200 bg-white py-1.5 px-3 text-xs font-bold"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-1">
+                    <label className="text-[10px] font-bold text-neutral-400 uppercase">Description</label>
+                    <textarea
+                      rows={2}
+                      value={card.description}
+                      onChange={(e) => updateWhyUsCard(idx, "description", e.target.value)}
+                      className="rounded-lg border border-neutral-200 bg-white py-1.5 px-3 text-xs resize-none"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* Why Choose Us Headers */}
-        <div className="border-t border-neutral-100 pt-6 flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">
-              &quot;Why Choose Us&quot; Section Title
-            </label>
-            <input
-              type="text"
-              value={formData.whyChooseUsTitle || ""}
-              onChange={(e) => setFormData({ ...formData, whyChooseUsTitle: e.target.value })}
-              className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary"
-            />
+        {/* 5. PROCESS TAB */}
+        {activeTab === "process" && (
+          <div className="flex flex-col gap-6">
+            <h2 className="font-sans font-bold text-base text-neutral-900 border-b border-neutral-100 pb-3">
+              Process / How We Work Settings
+            </h2>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Eyebrow Badge</label>
+                <input
+                  type="text"
+                  value={formData.processEyebrow || ""}
+                  onChange={(e) => setFormData({ ...formData, processEyebrow: e.target.value })}
+                  className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none"
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Section Title</label>
+                <input
+                  type="text"
+                  value={formData.processTitle || ""}
+                  onChange={(e) => setFormData({ ...formData, processTitle: e.target.value })}
+                  className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm font-bold text-neutral-800 outline-none"
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Subtitle</label>
+              <input
+                type="text"
+                value={formData.processSubtitle || ""}
+                onChange={(e) => setFormData({ ...formData, processSubtitle: e.target.value })}
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none"
+              />
+            </div>
+
+            <h3 className="text-xs font-bold text-neutral-700 uppercase tracking-wider border-t border-neutral-100 pt-6">4 Process Steps</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {(formData.processSteps || []).map((step, idx) => (
+                <div key={idx} className="p-4 border border-neutral-200 rounded-xl bg-white flex flex-col gap-3">
+                  <div className="flex items-center gap-2">
+                    <span className="h-6 w-6 rounded-full bg-primary-light text-primary flex items-center justify-center font-bold text-xs">
+                      0{step.stepNumber}
+                    </span>
+                    <input
+                      type="text"
+                      value={step.title}
+                      onChange={(e) => updateProcessStep(idx, "title", e.target.value)}
+                      className="flex-1 rounded-lg border border-neutral-200 bg-white py-1.5 px-3 text-xs font-bold"
+                    />
+                  </div>
+                  <textarea
+                    rows={2}
+                    value={step.description}
+                    onChange={(e) => updateProcessStep(idx, "description", e.target.value)}
+                    className="rounded-lg border border-neutral-200 bg-white py-1.5 px-3 text-xs resize-none"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
+        )}
 
-          <div className="flex flex-col gap-2">
-            <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">
-              &quot;Why Choose Us&quot; Subtitle
-            </label>
-            <input
-              type="text"
-              value={formData.whyChooseUsSubtitle || ""}
-              onChange={(e) => setFormData({ ...formData, whyChooseUsSubtitle: e.target.value })}
-              className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary"
-            />
+        {/* 6. TESTIMONIALS HEADER TAB */}
+        {activeTab === "testimonials" && (
+          <div className="flex flex-col gap-6">
+            <h2 className="font-sans font-bold text-base text-neutral-900 border-b border-neutral-100 pb-3">
+              Testimonials Section Header
+            </h2>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Eyebrow Badge</label>
+              <input
+                type="text"
+                value={formData.testimonialsEyebrow || ""}
+                onChange={(e) => setFormData({ ...formData, testimonialsEyebrow: e.target.value })}
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Section Title</label>
+              <input
+                type="text"
+                value={formData.testimonialsTitle || ""}
+                onChange={(e) => setFormData({ ...formData, testimonialsTitle: e.target.value })}
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm font-bold text-neutral-800 outline-none"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Subtitle Paragraph</label>
+              <textarea
+                rows={3}
+                value={formData.testimonialsSubtitle || ""}
+                onChange={(e) => setFormData({ ...formData, testimonialsSubtitle: e.target.value })}
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none resize-none"
+              />
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* Testimonials Headers */}
-        <div className="border-t border-neutral-100 pt-6 flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">
-              Testimonials Section Title
-            </label>
-            <input
-              type="text"
-              value={formData.testimonialsTitle || ""}
-              onChange={(e) => setFormData({ ...formData, testimonialsTitle: e.target.value })}
-              className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary"
-            />
+        {/* 7. FINAL CTA TAB */}
+        {activeTab === "cta" && (
+          <div className="flex flex-col gap-6">
+            <h2 className="font-sans font-bold text-base text-neutral-900 border-b border-neutral-100 pb-3">
+              Final CTA Banner Settings
+            </h2>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Eyebrow Badge</label>
+              <input
+                type="text"
+                value={formData.ctaEyebrow || ""}
+                onChange={(e) => setFormData({ ...formData, ctaEyebrow: e.target.value })}
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Headline Title</label>
+              <input
+                type="text"
+                value={formData.ctaTitle || ""}
+                onChange={(e) => setFormData({ ...formData, ctaTitle: e.target.value })}
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm font-bold text-neutral-800 outline-none"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Subtitle Description</label>
+              <textarea
+                rows={3}
+                value={formData.ctaSubtitle || ""}
+                onChange={(e) => setFormData({ ...formData, ctaSubtitle: e.target.value })}
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none resize-none"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Button Text</label>
+                <input
+                  type="text"
+                  value={formData.ctaButtonText || ""}
+                  onChange={(e) => setFormData({ ...formData, ctaButtonText: e.target.value })}
+                  className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none"
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Button Link</label>
+                <input
+                  type="text"
+                  value={formData.ctaButtonLink || ""}
+                  onChange={(e) => setFormData({ ...formData, ctaButtonLink: e.target.value })}
+                  className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 font-mono outline-none"
+                />
+              </div>
+            </div>
           </div>
+        )}
 
-          <div className="flex flex-col gap-2">
-            <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">
-              Testimonials Section Subtitle
-            </label>
-            <input
-              type="text"
-              value={formData.testimonialsSubtitle || ""}
-              onChange={(e) => setFormData({ ...formData, testimonialsSubtitle: e.target.value })}
-              className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary"
-            />
+        {/* 8. SEO TAB */}
+        {activeTab === "seo" && (
+          <div className="flex flex-col gap-6">
+            <h2 className="font-sans font-bold text-base text-neutral-900 border-b border-neutral-100 pb-3">
+              Homepage SEO & Meta Settings
+            </h2>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Meta Title</label>
+              <input
+                type="text"
+                value={formData.seoTitle || ""}
+                onChange={(e) => setFormData({ ...formData, seoTitle: e.target.value })}
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none font-bold"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Meta Description</label>
+              <textarea
+                rows={3}
+                value={formData.seoDescription || ""}
+                onChange={(e) => setFormData({ ...formData, seoDescription: e.target.value })}
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none resize-none"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Canonical URL</label>
+                <input
+                  type="text"
+                  value={formData.canonicalUrl || ""}
+                  onChange={(e) => setFormData({ ...formData, canonicalUrl: e.target.value })}
+                  className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 font-mono outline-none"
+                />
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">OG Image URL</label>
+                <input
+                  type="text"
+                  value={formData.ogImage || ""}
+                  onChange={(e) => setFormData({ ...formData, ogImage: e.target.value })}
+                  className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 font-mono outline-none"
+                />
+              </div>
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* Submit */}
+        {/* Submit Button */}
         <div className="border-t border-neutral-100 pt-6 flex justify-end">
           <button
             type="submit"
@@ -261,7 +707,7 @@ export default function AdminHomepageCMS() {
                 <Icons.Loader2 className="h-4 w-4 animate-spin" /> Saving Changes...
               </>
             ) : (
-              "Save Homepage Content"
+              "Save Homepage CMS"
             )}
           </button>
         </div>

@@ -1,12 +1,32 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { statsData } from "@/data/stats";
 import { useCountUp } from "@/hooks/useCountUp";
 import { Stat } from "@/types";
+import { CloudHomepageData } from "@/lib/cloudSync";
 
 export default function StatsBar() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [data, setData] = useState<CloudHomepageData>({
+    statsEyebrow: "PROVEN TRACK RECORD",
+    stats: statsData,
+  });
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const res = await fetch("/api/homepage");
+        if (res.ok) {
+          const hp = await res.json();
+          setData((prev) => ({ ...prev, ...hp }));
+        }
+      } catch {}
+    }
+    load();
+  }, []);
+
+  const items = data.stats && data.stats.length > 0 ? data.stats : statsData;
 
   return (
     <section 
@@ -17,18 +37,18 @@ export default function StatsBar() {
         {/* Section Eyebrow Title */}
         <div className="text-center mb-6">
           <span className="text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-[0.25em] font-sans">
-            PROVEN TRACK RECORD
+            {data.statsEyebrow || "PROVEN TRACK RECORD"}
           </span>
         </div>
 
         {/* Floating Stats Card */}
         <div className="bg-white border border-neutral-100 rounded-[2rem] shadow-[0_12px_40px_rgba(0,0,0,0.03)] py-6 sm:py-8 px-6 sm:px-12">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-10 lg:gap-y-0">
-            {statsData.map((stat, idx) => (
+            {items.map((stat, idx) => (
               <StatItem 
-                key={stat.id} 
+                key={stat.id || idx} 
                 stat={stat} 
-                showDivider={idx < statsData.length - 1}
+                showDivider={idx < items.length - 1}
                 index={idx}
               />
             ))}
@@ -40,7 +60,7 @@ export default function StatsBar() {
 }
 
 interface StatItemProps {
-  stat: Stat;
+  stat: Stat | { id?: string; value: string; label: string };
   showDivider: boolean;
   index: number;
 }
@@ -50,8 +70,7 @@ function StatItem({ stat, showDivider, index }: StatItemProps) {
   const target = parseInt(stat.value, 10) || 0;
   const count = useCountUp(target, elementRef, 1500);
 
-  // Determine if it needs a '+' sign (e.g. 150+, 90+)
-  const showPlus = stat.id === "projects" || stat.id === "clients";
+  const showPlus = stat.id === "projects" || stat.id === "clients" || parseInt(stat.value, 10) > 10;
 
   return (
     <div 
