@@ -4,36 +4,86 @@ import Image from "next/image";
 import * as Icons from "lucide-react";
 import { blogData } from "@/data/blog";
 import { db } from "@/lib/db";
+import { getCloudData } from "@/lib/cloudSync";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 interface PostPageProps {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateStaticParams() {
-  const posts = await db.blogPost.findMany({
-    where: { isDraft: false },
-    select: { slug: true }
-  }).catch(() => []);
+async function getPostBySlug(slug: string) {
+  // 1. Check Cloud Sync
+  try {
+    const cloudData = await getCloudData();
+    const cloudBlog = cloudData.blog || {};
+    for (const [key, p] of Object.entries(cloudBlog)) {
+      if ((p.slug === slug || key === slug) && !p.isDraft) {
+        return {
+          title: p.title,
+          category: p.categoryName || "SEO",
+          publishedAt: p.publishedAt
+            ? new Date(p.publishedAt).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })
+            : "Recent",
+          readingTime: Math.max(1, Math.round((p.content || "").split(/\s+/).length / 200)) + " min read",
+          image: p.featuredImage || "https://picsum.photos/800/500?random=204",
+          content: p.content,
+          author: { name: "Kamrujjaman Mufti" },
+          excerpt: p.excerpt,
+        };
+      }
+    }
+  } catch {}
 
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
+  // 2. Check DB
+  try {
+    const post = await db.blogPost.findUnique({
+      where: { slug },
+      include: { category: true },
+    });
+    if (post) {
+      const wordsCount = post.content ? post.content.split(/\s+/).length : 200;
+      const readingTimeVal = Math.max(1, Math.round(wordsCount / 200)) + " min read";
+      const formattedDate = post.publishedAt
+        ? new Date(post.publishedAt).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })
+        : "Recent";
+
+      return {
+        title: post.title,
+        category: post.category?.name || "SEO",
+        publishedAt: formattedDate,
+        readingTime: readingTimeVal,
+        image: post.featuredImage || "https://picsum.photos/800/500?random=204",
+        content: post.content,
+        author: { name: "Kamrujjaman Mufti" },
+        excerpt: post.excerpt,
+      };
+    }
+  } catch {}
+
+  // 3. Check Static blogData
+  const staticPost = blogData.find((p) => p.slug === slug);
+  if (staticPost) {
+    return {
+      title: staticPost.title,
+      category: staticPost.category,
+      publishedAt: staticPost.publishedAt,
+      readingTime: staticPost.readingTime,
+      image: staticPost.image,
+      content: staticPost.content,
+      author: staticPost.author,
+      excerpt: staticPost.excerpt,
+    };
+  }
+
+  return null;
 }
 
 export async function generateMetadata({ params }: PostPageProps) {
   const { slug } = await params;
-  const post = await db.blogPost.findUnique({
-    where: { slug }
-  }).catch(() => null);
-
-  if (!post) {
-    const staticPost = blogData.find((p) => p.slug === slug);
-    if (!staticPost) return {};
-    return {
-      title: `${staticPost.title} - Digital World`,
-      description: staticPost.excerpt,
-    };
-  }
+  const post = await getPostBySlug(slug);
+  if (!post) return {};
 
   return {
     title: `${post.title} - Digital World`,
@@ -43,44 +93,10 @@ export async function generateMetadata({ params }: PostPageProps) {
 
 export default async function BlogPostPage({ params }: PostPageProps) {
   const { slug } = await params;
-  const post = await db.blogPost.findUnique({
-    where: { slug },
-    include: { category: true }
-  }).catch(() => null);
+  const renderPost = await getPostBySlug(slug);
 
-  let renderPost;
-  if (!post) {
-    const staticPost = blogData.find((p) => p.slug === slug);
-    if (!staticPost) {
-      notFound();
-    }
-    renderPost = {
-      title: staticPost.title,
-      category: staticPost.category,
-      publishedAt: staticPost.publishedAt,
-      readingTime: staticPost.readingTime,
-      image: staticPost.image,
-      content: staticPost.content,
-      author: staticPost.author,
-    };
-  } else {
-    const wordsCount = post.content ? post.content.split(/\s+/).length : 200;
-    const readingTimeVal = Math.max(1, Math.round(wordsCount / 200)) + " min read";
-    const formattedDate = post.publishedAt 
-      ? new Date(post.publishedAt).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })
-      : "Recent";
-
-    renderPost = {
-      title: post.title,
-      category: post.category?.name || "SEO",
-      publishedAt: formattedDate,
-      readingTime: readingTimeVal,
-      image: post.featuredImage || "https://picsum.photos/800/500?random=204",
-      content: post.content,
-      author: {
-        name: "Kamrujjaman Mufti",
-      }
-    };
+  if (!renderPost) {
+    notFound();
   }
 
   return (

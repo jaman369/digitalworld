@@ -1,10 +1,15 @@
 /**
  * Cloud Sync — persistent JSON storage for Vercel serverless.
  *
- * Uses jsonblob.com REST API which reliably persists GET/PUT operations
- * (migrated from extendsclass.com which stopped persisting PUT writes).
+ * Uses jsonblob.com REST API which reliably persists GET/PUT operations.
+ * This is the SINGLE SOURCE OF TRUTH for all CMS data since SQLite
+ * on Vercel is ephemeral (lost on cold starts).
+ *
+ * All admin modules save here: services, settings, FAQ, blog, portfolio.
  */
 const BIN_URL = "https://jsonblob.com/api/jsonBlob/019f82d8-da7f-7324-a73b-f5ef41a31206";
+
+/* ── Type Definitions ────────────────────────────────────── */
 
 export interface CloudServiceRecord {
   id?: string;
@@ -24,16 +29,69 @@ export interface CloudServiceRecord {
   faqItems?: string;
 }
 
+export interface CloudFaqItem {
+  id: string;
+  question: string;
+  answer: string;
+  category?: string;
+}
+
+export interface CloudBlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  featuredImage: string;
+  imageAltText: string;
+  categoryName: string;
+  isDraft: boolean;
+  publishedAt: string | null;
+  seoTitle?: string;
+  seoDescription?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface CloudPortfolioProject {
+  id: string;
+  title: string;
+  slug: string;
+  clientName: string;
+  industry: string;
+  servicesUsed: string;
+  resultsLabel: string;
+  gallery: string;
+  caseStudy: string;
+  seoTitle?: string;
+  seoDesc?: string;
+  createdAt?: string;
+}
+
+export interface CloudSettingsData {
+  email?: string;
+  phone?: string;
+  facebookUrl?: string;
+  linkedinUrl?: string;
+  socialLinks?: Array<{ platform: string; url: string }>;
+}
+
 export interface CloudPayload {
   services?: Record<string, CloudServiceRecord>;
-  faqs?: Array<Record<string, unknown>>;
-  settings?: Record<string, unknown>;
+  faqs?: CloudFaqItem[];
+  settings?: CloudSettingsData;
   scripts?: Record<string, unknown>;
+  blog?: Record<string, CloudBlogPost>;
+  portfolio?: Record<string, CloudPortfolioProject>;
 }
+
+/* ── Cache ───────────────────────────────────────────────── */
 
 let memoryCache: CloudPayload | null = null;
 let lastFetchTime = 0;
 const CACHE_TTL_MS = 1000;
+
+/* ── GET (read) ──────────────────────────────────────────── */
 
 export async function getCloudData(): Promise<CloudPayload> {
   const now = Date.now();
@@ -61,6 +119,8 @@ export async function getCloudData(): Promise<CloudPayload> {
 
   return memoryCache || {};
 }
+
+/* ── PUT (write) ─────────────────────────────────────────── */
 
 export async function saveCloudData(update: Partial<CloudPayload>): Promise<boolean> {
   try {

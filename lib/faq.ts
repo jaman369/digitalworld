@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { getCloudData } from "@/lib/cloudSync";
 
 export interface FAQItem {
   id: string;
@@ -36,9 +37,16 @@ export const defaultFaqs: FAQItem[] = [
 
 export async function getFaqs(): Promise<FAQItem[]> {
   try {
+    // 1. Try Cloud Storage first
+    const cloudData = await getCloudData();
+    if (cloudData.faqs && Array.isArray(cloudData.faqs) && cloudData.faqs.length > 0) {
+      return cloudData.faqs as FAQItem[];
+    }
+
+    // 2. Fallback to SQLite
     const setting = await db.systemSetting.findUnique({
       where: { key: "globalFaqs" }
-    });
+    }).catch(() => null);
 
     if (setting && setting.value) {
       const parsed = JSON.parse(setting.value);

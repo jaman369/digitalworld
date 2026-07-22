@@ -1,4 +1,5 @@
 import { db } from "@/lib/db";
+import { getCloudData } from "@/lib/cloudSync";
 
 export interface SocialLink {
   platform: string;
@@ -26,8 +27,34 @@ export const defaultSettings: SettingsData = {
 
 export async function getSettings(): Promise<SettingsData> {
   try {
-    const settings = await db.systemSetting.findMany();
-    const map = new Map<string, string>(settings.map(s => [s.key, s.value]));
+    // 1. Try fetching from Cloud Storage (Primary source of truth for Vercel)
+    const cloudData = await getCloudData();
+    const cloudSettings = cloudData.settings;
+
+    if (cloudSettings) {
+      const email = cloudSettings.email || defaultSettings.email;
+      const phone = cloudSettings.phone || defaultSettings.phone;
+      const facebookUrl = cloudSettings.facebookUrl || defaultSettings.facebookUrl;
+      const linkedinUrl = cloudSettings.linkedinUrl || defaultSettings.linkedinUrl;
+      const socialLinks = cloudSettings.socialLinks && cloudSettings.socialLinks.length > 0
+        ? cloudSettings.socialLinks
+        : [
+            { platform: "Facebook", url: facebookUrl },
+            { platform: "LinkedIn", url: linkedinUrl },
+          ];
+
+      return {
+        email,
+        phone,
+        facebookUrl,
+        linkedinUrl,
+        socialLinks,
+      };
+    }
+
+    // 2. Fallback to SQLite (Secondary)
+    const settings = await db.systemSetting.findMany().catch(() => []);
+    const map = new Map<string, string>(settings.map((s) => [s.key, s.value]));
     
     let socialLinks: SocialLink[] = [];
     const socialLinksStr = map.get("socialLinks");

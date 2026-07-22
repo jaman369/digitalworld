@@ -1,8 +1,13 @@
 import { Metadata } from "next";
 import { portfolioData } from "@/data/portfolio";
+import { PortfolioItem } from "@/types";
 import PortfolioFilter from "@/components/portfolio/PortfolioFilter";
 import PortfolioCTA from "@/components/portfolio/PortfolioCTA";
 import { db } from "@/lib/db";
+import { getCloudData } from "@/lib/cloudSync";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: "Case Studies & Portfolio - Digital World",
@@ -10,12 +15,23 @@ export const metadata: Metadata = {
 };
 
 export default async function PortfolioPage() {
+  const cloudData = await getCloudData();
+  const cloudPortfolio = cloudData.portfolio || {};
+
   const dbProjects = await db.portfolioProject.findMany().catch(() => []);
 
-  const dynamicItems = dbProjects.map((p) => {
-    let tags = [];
+  const projectsMap: Record<string, PortfolioItem> = {};
+
+  // 1. Seed static portfolioData
+  for (const item of portfolioData) {
+    projectsMap[item.id] = item;
+  }
+
+  // 2. Overlay DB projects
+  for (const p of dbProjects) {
+    let tags: string[] = [];
     try { tags = JSON.parse(p.servicesUsed); } catch {}
-    let gallery = [];
+    let gallery: string[] = [];
     try { gallery = JSON.parse(p.gallery); } catch {}
 
     const serviceType = p.slug.includes("seo")
@@ -26,7 +42,7 @@ export default async function PortfolioPage() {
           ? "Web"
           : "Content";
 
-    return {
+    projectsMap[p.id || p.slug] = {
       id: p.id,
       client: p.clientName,
       industry: p.industry,
@@ -36,9 +52,40 @@ export default async function PortfolioPage() {
       image: gallery[0] || "https://picsum.photos/600/400?random=11",
       tags,
     };
-  });
+  }
 
-  const items = dynamicItems.length > 0 ? dynamicItems : portfolioData;
+  // 3. Overlay Cloud projects
+  for (const [key, p] of Object.entries(cloudPortfolio)) {
+    let tags: string[] = [];
+    if (p.servicesUsed) {
+      try { tags = typeof p.servicesUsed === "string" ? JSON.parse(p.servicesUsed) : p.servicesUsed; } catch {}
+    }
+    let gallery: string[] = [];
+    if (p.gallery) {
+      try { gallery = typeof p.gallery === "string" ? JSON.parse(p.gallery) : p.gallery; } catch {}
+    }
+
+    const serviceType = p.slug.includes("seo")
+      ? "SEO"
+      : p.slug.includes("ppc") || p.slug.includes("google") || p.slug.includes("ads")
+        ? "PPC"
+        : p.slug.includes("web") || p.slug.includes("design") || p.slug.includes("dev") || p.slug.includes("wordpress") || p.slug.includes("shopify")
+          ? "Web"
+          : "Content";
+
+    projectsMap[key] = {
+      id: p.id || key,
+      client: p.clientName,
+      industry: p.industry,
+      serviceType,
+      description: p.caseStudy,
+      resultStat: p.resultsLabel,
+      image: gallery[0] || "https://picsum.photos/600/400?random=11",
+      tags: Array.isArray(tags) ? tags : [p.industry],
+    };
+  }
+
+  const items = Object.values(projectsMap);
 
   return (
     <article className="min-h-screen bg-transparent py-20 lg:py-32">
