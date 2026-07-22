@@ -2,10 +2,7 @@
  * Cloud Sync — persistent JSON storage for Vercel serverless.
  *
  * Uses jsonblob.com REST API which reliably persists GET/PUT operations.
- * This is the SINGLE SOURCE OF TRUTH for all CMS data since SQLite
- * on Vercel is ephemeral (lost on cold starts).
- *
- * All admin modules save here: services, settings, FAQ, blog, portfolio.
+ * This is the SINGLE SOURCE OF TRUTH for all CMS data.
  */
 const BIN_URL = "https://jsonblob.com/api/jsonBlob/019f82d8-da7f-7324-a73b-f5ef41a31206";
 
@@ -76,10 +73,37 @@ export interface CloudSettingsData {
   socialLinks?: Array<{ platform: string; url: string }>;
 }
 
+export interface CloudHomepageData {
+  heroTagline?: string;
+  heroTitle?: string;
+  heroSubtitle?: string;
+  heroPrimaryCtaText?: string;
+  heroPrimaryCtaLink?: string;
+  heroSecondaryCtaText?: string;
+  heroSecondaryCtaLink?: string;
+  stats?: Array<{ numericValue: number; suffix: string; label: string }>;
+  whyChooseUsTitle?: string;
+  whyChooseUsSubtitle?: string;
+  testimonialsTitle?: string;
+  testimonialsSubtitle?: string;
+}
+
+export interface CloudAboutData {
+  name?: string;
+  title?: string;
+  bioParagraph1?: string;
+  bioParagraph2?: string;
+  imagePath?: string;
+  timeline?: Array<{ years: string; role: string; company: string }>;
+  metrics?: Array<{ numericValue: number; suffix: string; label: string }>;
+}
+
 export interface CloudPayload {
   services?: Record<string, CloudServiceRecord>;
   faqs?: CloudFaqItem[];
   settings?: CloudSettingsData;
+  homepage?: CloudHomepageData;
+  about?: CloudAboutData;
   scripts?: Record<string, unknown>;
   blog?: Record<string, CloudBlogPost>;
   portfolio?: Record<string, CloudPortfolioProject>;

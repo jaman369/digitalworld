@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import * as Icons from "lucide-react";
 import { countriesData } from "@/data/countries";
+import { CloudAboutData } from "@/lib/cloudSync";
 
 /* ── Animated Counter Hook ─────────────────────────────────── */
 function useCountUp(end: number, duration: number, start: boolean) {
@@ -18,7 +19,6 @@ function useCountUp(end: number, duration: number, start: boolean) {
     const tick = (now: number) => {
       const elapsed = now - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      // ease-out-quart for a smooth deceleration
       const eased = 1 - Math.pow(1 - progress, 4);
       setCount(Math.round(eased * end));
 
@@ -63,6 +63,27 @@ function AnimatedStat({
 }
 
 export default function AboutPage() {
+  const [aboutData, setAboutData] = useState<CloudAboutData>({
+    name: "Kamrujjaman Mufti",
+    title: "Digital Marketing Expert & Web Developer",
+    bioParagraph1: "Full-service digital marketing expert with 5 years of hands-on experience helping businesses of all sizes grow through SEO, web development, paid ads, and content marketing.",
+    bioParagraph2: "Every project I take on is treated as a partnership, where your success is my success.",
+    imagePath: "/Kamrujjaman Mufti Image/kamrujjaman-mufti.jpg",
+  });
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const res = await fetch("/api/about");
+        if (res.ok) {
+          const data = await res.json();
+          setAboutData((prev) => ({ ...prev, ...data }));
+        }
+      } catch {}
+    }
+    load();
+  }, []);
+
   const timelineData = [
     { years: "2024 - Present", role: "Digital Marketing Expert", company: "KJ Digital World" },
     { years: "2022 - 2024", role: "SEO & Paid Ads Specialist", company: "Freelance / Agency Partner" },
@@ -156,11 +177,11 @@ export default function AboutPage() {
               </span>
               <h1 className="font-serif text-4xl sm:text-5xl lg:text-[3.5rem] font-bold text-neutral-900 tracking-tight leading-[1.1] mb-6">
                 Hi, I&apos;m <br className="sm:hidden" />
-                Kamrujjaman <br />
+                {aboutData.name || "Kamrujjaman"} <br />
                 <span className="text-primary italic font-serif">Mufti.</span>
               </h1>
               <p className="font-sans text-sm sm:text-base text-neutral-500 leading-relaxed max-w-2xl mb-8">
-                Full-service digital marketing expert with 5 years of hands-on experience helping businesses of all sizes grow through SEO, web development, paid ads, and content marketing.
+                {aboutData.bioParagraph1 || "Full-service digital marketing expert with 5 years of hands-on experience helping businesses of all sizes grow through SEO, web development, paid ads, and content marketing."}
               </p>
               
               <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-8">
@@ -192,8 +213,8 @@ export default function AboutPage() {
             <div className="lg:col-span-5 relative flex justify-center">
               <div className="relative w-full max-w-[380px] aspect-[4/5] rounded-[2rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.08)] border border-neutral-100">
                 <Image
-                  src="/Kamrujjaman Mufti Image/kamrujjaman-mufti.jpg"
-                  alt="Kamrujjaman Mufti"
+                  src={aboutData.imagePath || "/Kamrujjaman Mufti Image/kamrujjaman-mufti.jpg"}
+                  alt={aboutData.name || "Kamrujjaman Mufti"}
                   fill
                   className="object-cover"
                   priority
@@ -225,7 +246,7 @@ export default function AboutPage() {
                 Over the past 5 years, I&apos;ve had the privilege of working with amazing teams and clients, helping them build their online presence, increase visibility, and achieve sustainable growth.
               </p>
               <p className="font-sans text-sm sm:text-base text-neutral-500 leading-relaxed">
-                Every project I take on is treated as a partnership, where your success is my success.
+                {aboutData.bioParagraph2 || "Every project I take on is treated as a partnership, where your success is my success."}
               </p>
             </div>
 
@@ -233,15 +254,12 @@ export default function AboutPage() {
             <div className="lg:col-span-6 flex flex-col justify-center gap-8 pl-0 lg:pl-10">
               {timelineData.map((item, idx) => (
                 <div key={idx} className="flex gap-6 relative group">
-                  {/* Timeline vertical bar connector */}
                   {idx < timelineData.length - 1 && (
                     <div className="absolute left-2.5 top-6 bottom-[-2.5rem] w-0.5 bg-neutral-200" />
                   )}
-                  {/* Timeline indicator circle (mockup radio style) */}
                   <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-primary bg-white relative z-10 mt-1">
                     <div className="w-1.5 h-1.5 rounded-full bg-primary" />
                   </div>
-                  {/* Milestone info */}
                   <div>
                     <span className="inline-block bg-blue-50 border border-blue-100 text-primary text-[10px] font-bold px-3 py-1 rounded-md uppercase tracking-wider mb-2">
                       {item.years}

@@ -20,6 +20,8 @@ export default function AdminSidebar({ session }: SidebarProps) {
 
   const navItems = [
     { name: "Dashboard", href: "/admin", icon: Icons.LayoutDashboard },
+    { name: "Homepage CMS", href: "/admin/homepage", icon: Icons.Home },
+    { name: "About Page CMS", href: "/admin/about", icon: Icons.User },
     { name: "Services", href: "/admin/services", icon: Icons.Layers },
     { name: "Blog Posts", href: "/admin/blog", icon: Icons.FileText },
     { name: "Portfolio", href: "/admin/portfolio", icon: Icons.FolderDot },
@@ -53,7 +55,7 @@ export default function AdminSidebar({ session }: SidebarProps) {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-4 flex flex-col gap-1">
+      <nav className="flex-1 p-4 flex flex-col gap-1 overflow-y-auto">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = pathname === item.href;
@@ -62,13 +64,13 @@ export default function AdminSidebar({ session }: SidebarProps) {
             <LinkComponent
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-4 py-3 rounded-xl font-sans text-sm font-semibold transition-all ${
+              className={`flex items-center gap-3 px-4 py-2.5 rounded-xl font-sans text-xs font-semibold transition-all ${
                 isActive
                   ? "bg-primary-light text-primary shadow-sm"
                   : "text-neutral-500 hover:bg-neutral-50 hover:text-neutral-900"
               }`}
             >
-              <Icon className="h-4.5 w-4.5" />
+              <Icon className="h-4 w-4" />
               {item.name}
             </LinkComponent>
           );
