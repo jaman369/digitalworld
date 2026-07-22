@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
 import { CloudHomepageData } from "@/lib/cloudSync";
@@ -31,17 +32,17 @@ export default function Hero() {
   }, []);
 
   const floatingBadges = [
-    // Inner Orbit
+    // Inner Orbit: R = 190px, speed = 25s, clockwise
     { text: "Local SEO", icon: Icons.Search, orbit: "inner", angle: 0, speed: 25, direction: "cw", color: "text-blue-600 bg-blue-50 border-blue-100" },
     { text: "SaaS SEO", icon: Icons.Layers, orbit: "inner", angle: 120, speed: 25, direction: "cw", color: "text-indigo-600 bg-indigo-50 border-indigo-100" },
     { text: "Ecommerce SEO", icon: Icons.ShoppingBag, orbit: "inner", angle: 240, speed: 25, direction: "cw", color: "text-emerald-600 bg-emerald-50 border-emerald-100" },
     
-    // Middle Orbit
+    // Middle Orbit: R = 290px, speed = 35s, counter-clockwise
     { text: "WordPress", icon: Icons.Code, orbit: "mid", angle: 45, speed: 35, direction: "ccw", color: "text-sky-600 bg-sky-50 border-sky-100" },
     { text: "Shopify", icon: Icons.Store, orbit: "mid", angle: 165, speed: 35, direction: "ccw", color: "text-emerald-700 bg-emerald-50 border-emerald-100" },
     { text: "Web Design & Dev", icon: Icons.Monitor, orbit: "mid", angle: 285, speed: 35, direction: "ccw", color: "text-purple-600 bg-purple-50 border-purple-100" },
     
-    // Outer Orbit
+    // Outer Orbit: R = 395px, speed = 45s, clockwise
     { text: "Google Ads", icon: Icons.TrendingUp, orbit: "outer", angle: 15, speed: 45, direction: "cw", color: "text-amber-600 bg-amber-50 border-amber-100" },
     { text: "Facebook Ads", icon: Icons.Users, orbit: "outer", angle: 105, speed: 45, direction: "cw", color: "text-blue-700 bg-blue-50 border-blue-100" },
     { text: "Content Marketing", icon: Icons.PenTool, orbit: "outer", angle: 195, speed: 45, direction: "cw", color: "text-rose-600 bg-rose-50 border-rose-100" },
@@ -61,6 +62,17 @@ export default function Hero() {
     "Email Marketing": "rgba(124, 58, 237, 0.22)",
   };
 
+  const countries = [
+    { name: "USA", flag: "/Flag emoji/United States.svg" },
+    { name: "UK", flag: "/Flag emoji/United Kingdom.svg" },
+    { name: "Canada", flag: "/Flag emoji/Canada.svg" },
+    { name: "Australia", flag: "/Flag emoji/Australia.svg" },
+    { name: "UAE", flag: "/Flag emoji/UAE.svg" },
+    { name: "Ireland", flag: "/Flag emoji/Ireland.svg" },
+    { name: "Bangladesh", flag: "/Flag emoji/Bangladesh.svg" },
+  ];
+
+  // Stagger wrapper for entry animations
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -110,7 +122,21 @@ export default function Hero() {
             variants={itemVariants}
             className="font-serif text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-neutral-900 leading-[1.1] mb-4 pointer-events-auto"
           >
-            {data.heroTitle || "Grow your business beyond borders."}
+            {data.heroTitle ? (
+              data.heroTitle.includes("beyond borders") ? (
+                <>
+                  Grow your business<br />
+                  <span className="text-primary italic font-medium">beyond borders.</span>
+                </>
+              ) : (
+                data.heroTitle
+              )
+            ) : (
+              <>
+                Grow your business<br />
+                <span className="text-primary italic font-medium">beyond borders.</span>
+              </>
+            )}
           </motion.h1>
 
           {/* Subtext */}
@@ -132,12 +158,12 @@ export default function Hero() {
             >
               {data.heroPrimaryCtaText || "Start a Project"} <Icons.ArrowRight className="h-4 w-4" />
             </Link>
-            <Link
+            <a
               href={data.heroSecondaryCtaLink || "#services"}
               className="flex w-full sm:w-auto items-center justify-center rounded-full border border-neutral-200 bg-white hover:bg-neutral-50 px-8 py-4 font-sans text-sm font-semibold text-neutral-700 shadow-sm transition-all"
             >
               {data.heroSecondaryCtaText || "Explore Services"}
-            </Link>
+            </a>
           </motion.div>
 
           {/* Mobile Badge Cloud */}
@@ -193,6 +219,124 @@ export default function Hero() {
           })}
         </div>
       </div>
+
+      {/* Rotating Marquee Banner */}
+      <div className="relative mt-auto border-y border-neutral-100 bg-transparent py-5 overflow-hidden">
+        <div className="flex w-[200%] animate-marquee">
+          {/* Double list to create seamless infinite scroll loop */}
+          {[...countries, ...countries, ...countries, ...countries].map((country, idx) => (
+            <div
+              key={idx}
+              className="flex items-center justify-center gap-2.5 mx-12 shrink-0 select-none"
+            >
+              <div className="relative h-4 w-6 overflow-hidden rounded border border-neutral-200">
+                <Image
+                  src={country.flag}
+                  alt={country.name}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <span className="font-sans text-xs font-semibold text-neutral-400 uppercase tracking-widest">
+                {country.name}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Scoped CSS Inject for Orbit Animations */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        :root {
+          --radius-inner-x: 430px;
+          --radius-inner-y: 250px;
+          --radius-mid-x: 530px;
+          --radius-mid-y: 265px;
+          --radius-outer-x: 630px;
+          --radius-outer-y: 278px;
+          --badge-scale: 1;
+        }
+
+        @media (max-width: 1400px) {
+          :root {
+            --radius-inner-x: 390px;
+            --radius-inner-y: 240px;
+            --radius-mid-x: 480px;
+            --radius-mid-y: 255px;
+            --radius-outer-x: 570px;
+            --radius-outer-y: 268px;
+            --badge-scale: 0.9;
+          }
+        }
+
+        @media (max-width: 1200px) {
+          :root {
+            --radius-inner-x: 350px;
+            --radius-inner-y: 230px;
+            --radius-mid-x: 430px;
+            --radius-mid-y: 245px;
+            --radius-outer-x: 510px;
+            --radius-outer-y: 258px;
+            --badge-scale: 0.8;
+          }
+        }
+
+        @media (max-width: 991px) {
+          :root {
+            --radius-inner-x: 300px;
+            --radius-inner-y: 220px;
+            --radius-mid-x: 370px;
+            --radius-mid-y: 235px;
+            --radius-outer-x: 440px;
+            --radius-outer-y: 248px;
+            --badge-scale: 0.7;
+          }
+        }
+
+        .orbit-badge {
+          animation-iteration-count: infinite;
+          animation-timing-function: linear;
+          transform-origin: center center;
+          will-change: transform;
+          scale: var(--badge-scale, 1);
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03), 0 0 10px var(--glow-color);
+          transition: scale 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease !important;
+        }
+
+        .orbit-badge:hover {
+          animation-play-state: paused !important;
+          scale: calc(var(--badge-scale, 1) * 1.08) !important;
+          box-shadow: 0 12px 35px -5px var(--glow-color), 0 0 20px var(--glow-color) !important;
+          z-index: 50;
+        }
+
+        @keyframes orbit-ellipse {
+          0% { transform: translate(-50%, -50%) translate(calc(var(--radius-x)), 0); }
+          6.25% { transform: translate(-50%, -50%) translate(calc(0.9239 * var(--radius-x)), calc(0.3827 * var(--radius-y))); }
+          12.5% { transform: translate(-50%, -50%) translate(calc(0.7071 * var(--radius-x)), calc(0.7071 * var(--radius-y))); }
+          18.75% { transform: translate(-50%, -50%) translate(calc(0.3827 * var(--radius-x)), calc(0.9239 * var(--radius-y))); }
+          25% { transform: translate(-50%, -50%) translate(0, calc(var(--radius-y))); }
+          31.25% { transform: translate(-50%, -50%) translate(calc(-0.3827 * var(--radius-x)), calc(0.9239 * var(--radius-y))); }
+          37.5% { transform: translate(-50%, -50%) translate(calc(-0.7071 * var(--radius-x)), calc(0.7071 * var(--radius-y))); }
+          43.75% { transform: translate(-50%, -50%) translate(calc(-0.9239 * var(--radius-x)), calc(0.3827 * var(--radius-y))); }
+          50% { transform: translate(-50%, -50%) translate(calc(-1 * var(--radius-x)), 0); }
+          56.25% { transform: translate(-50%, -50%) translate(calc(-0.9239 * var(--radius-x)), calc(-0.3827 * var(--radius-y))); }
+          62.5% { transform: translate(-50%, -50%) translate(calc(-0.7071 * var(--radius-x)), calc(-0.7071 * var(--radius-y))); }
+          68.75% { transform: translate(-50%, -50%) translate(calc(-0.3827 * var(--radius-x)), calc(-0.9239 * var(--radius-y))); }
+          75% { transform: translate(-50%, -50%) translate(0, calc(-1 * var(--radius-y))); }
+          81.25% { transform: translate(-50%, -50%) translate(calc(0.3827 * var(--radius-x)), calc(-0.9239 * var(--radius-y))); }
+          87.5% { transform: translate(-50%, -50%) translate(calc(0.7071 * var(--radius-x)), calc(-0.7071 * var(--radius-y))); }
+          93.75% { transform: translate(-50%, -50%) translate(calc(0.9239 * var(--radius-x)), calc(-0.3827 * var(--radius-y))); }
+          100% { transform: translate(-50%, -50%) translate(calc(var(--radius-x)), 0); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .orbit-badge {
+            animation: none !important;
+            transform: translate(-50%, -50%) translate(calc(var(--radius-x)), 0) !important;
+          }
+        }
+      `}} />
     </section>
   );
 }
