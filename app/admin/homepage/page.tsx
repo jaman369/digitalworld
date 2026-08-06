@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import * as Icons from "lucide-react";
-import { CloudHomepageData } from "@/lib/cloudSync";
+import { CloudHomepageData } from "@/types";
 
 export default function AdminHomepageCMS() {
   const [activeTab, setActiveTab] = useState<"hero" | "stats" | "services" | "why" | "process" | "testimonials" | "cta" | "seo">("hero");

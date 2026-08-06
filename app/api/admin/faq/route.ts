@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { getFaqs } from "@/lib/faq";
-import { saveCloudData } from "@/lib/cloudSync";
+
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
@@ -32,26 +33,13 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Invalid FAQ list data" }, { status: 400 });
     }
 
-    // 1. Save to Cloud Sync FIRST
-    let cloudOk = false;
-    try {
-      cloudOk = await saveCloudData({ faqs });
-    } catch (cloudErr) {
-      console.error("Save FAQ to cloud error:", cloudErr);
-    }
+    await db.systemSetting.upsert({
+      where: { key: "globalFaqs" },
+      update: { value: JSON.stringify(faqs) },
+      create: { key: "globalFaqs", value: JSON.stringify(faqs) },
+    });
 
-    // 2. Best-effort save to SQLite
-    try {
-      await db.systemSetting.upsert({
-        where: { key: "globalFaqs" },
-        update: { value: JSON.stringify(faqs) },
-        create: { key: "globalFaqs", value: JSON.stringify(faqs) },
-      });
-    } catch (dbErr) {
-      console.error("Save FAQ to db error (non-fatal):", dbErr);
-    }
-
-    return NextResponse.json({ success: true, data: faqs, cloudSaved: cloudOk });
+    return NextResponse.json({ success: true, data: faqs });
   } catch (error) {
     console.error("Save FAQ error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

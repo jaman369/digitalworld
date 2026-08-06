@@ -1,5 +1,4 @@
 import { db } from "@/lib/db";
-import { getCloudData, saveCloudData, CloudPayload } from "@/lib/cloudSync";
 
 export interface CodeSnippet {
   id: string;
@@ -27,14 +26,6 @@ export const defaultScriptSettings: ScriptSettings = {
 
 export async function getScriptSettings(): Promise<ScriptSettings> {
   try {
-    const cloudData: CloudPayload = await getCloudData().catch(() => ({} as CloudPayload));
-    if (cloudData.scripts) {
-      return {
-        ...defaultScriptSettings,
-        ...(cloudData.scripts as unknown as Partial<ScriptSettings>),
-      };
-    }
-
     const setting = await db.systemSetting.findUnique({
       where: { key: "scriptSettings" },
     });
@@ -55,8 +46,6 @@ export async function getScriptSettings(): Promise<ScriptSettings> {
 
 export async function saveScriptSettings(settings: ScriptSettings): Promise<boolean> {
   try {
-    await saveCloudData({ scripts: settings as unknown as Record<string, unknown> }).catch(() => false);
-
     await db.systemSetting.upsert({
       where: { key: "scriptSettings" },
       update: { value: JSON.stringify(settings) },

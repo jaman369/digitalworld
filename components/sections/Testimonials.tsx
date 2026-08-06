@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
 import { testimonialsData } from "@/data/testimonials";
-import { CloudHomepageData } from "@/lib/cloudSync";
+import { CloudHomepageData } from "@/types";
 
 export default function Testimonials() {
   const [data, setData] = useState<CloudHomepageData>({

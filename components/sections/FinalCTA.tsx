@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import * as Icons from "lucide-react";
-import { CloudHomepageData } from "@/lib/cloudSync";
+import { CloudHomepageData } from "@/types";
 
 export default function FinalCTA() {
   const [data, setData] = useState<CloudHomepageData>({

@@ -4,7 +4,6 @@ import { PortfolioItem } from "@/types";
 import PortfolioFilter from "@/components/portfolio/PortfolioFilter";
 import PortfolioCTA from "@/components/portfolio/PortfolioCTA";
 import { db } from "@/lib/db";
-import { getCloudData } from "@/lib/cloudSync";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -15,9 +14,6 @@ export const metadata: Metadata = {
 };
 
 export default async function PortfolioPage() {
-  const cloudData = await getCloudData();
-  const cloudPortfolio = cloudData.portfolio || {};
-
   const dbProjects = await db.portfolioProject.findMany().catch(() => []);
 
   const projectsMap: Record<string, PortfolioItem> = {};
@@ -51,37 +47,6 @@ export default async function PortfolioPage() {
       resultStat: p.resultsLabel,
       image: gallery[0] || "https://picsum.photos/600/400?random=11",
       tags,
-    };
-  }
-
-  // 3. Overlay Cloud projects
-  for (const [key, p] of Object.entries(cloudPortfolio)) {
-    let tags: string[] = [];
-    if (p.servicesUsed) {
-      try { tags = typeof p.servicesUsed === "string" ? JSON.parse(p.servicesUsed) : p.servicesUsed; } catch {}
-    }
-    let gallery: string[] = [];
-    if (p.gallery) {
-      try { gallery = typeof p.gallery === "string" ? JSON.parse(p.gallery) : p.gallery; } catch {}
-    }
-
-    const serviceType = p.slug.includes("seo")
-      ? "SEO"
-      : p.slug.includes("ppc") || p.slug.includes("google") || p.slug.includes("ads")
-        ? "PPC"
-        : p.slug.includes("web") || p.slug.includes("design") || p.slug.includes("dev") || p.slug.includes("wordpress") || p.slug.includes("shopify")
-          ? "Web"
-          : "Content";
-
-    projectsMap[key] = {
-      id: p.id || key,
-      client: p.clientName,
-      industry: p.industry,
-      serviceType,
-      description: p.caseStudy,
-      resultStat: p.resultsLabel,
-      image: gallery[0] || "https://picsum.photos/600/400?random=11",
-      tags: Array.isArray(tags) ? tags : [p.industry],
     };
   }
 

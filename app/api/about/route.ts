@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
-import { getCloudData, CloudAboutData } from "@/lib/cloudSync";
+import { db } from "@/lib/db";
 
-const defaultAboutData: CloudAboutData = {
+export const dynamic = "force-dynamic";
+
+const defaultAboutData = {
   name: "Kamrujjaman Mufti",
   title: "Digital Marketing Expert & Web Developer",
   bioParagraph1: "Full-service digital marketing expert with 5 years of hands-on experience helping businesses of all sizes grow through SEO, web development, paid ads, and content marketing.",
@@ -23,11 +25,28 @@ const defaultAboutData: CloudAboutData = {
 
 export async function GET() {
   try {
-    const cloudData = await getCloudData();
-    const ab = cloudData.about || {};
+    const record = await db.aboutContent.findUnique({
+      where: { id: "default" },
+    });
+
+    if (!record) {
+      return NextResponse.json(defaultAboutData);
+    }
+
+    let parsedTimeline = defaultAboutData.timeline;
+    let parsedMetrics = defaultAboutData.metrics;
+
+    try { if (record.timeline) parsedTimeline = JSON.parse(record.timeline); } catch {}
+    try { if (record.metrics) parsedMetrics = JSON.parse(record.metrics); } catch {}
+
     return NextResponse.json({
-      ...defaultAboutData,
-      ...ab,
+      name: record.name || defaultAboutData.name,
+      title: record.title || defaultAboutData.title,
+      bioParagraph1: record.bioParagraph1 || defaultAboutData.bioParagraph1,
+      bioParagraph2: record.bioParagraph2 || defaultAboutData.bioParagraph2,
+      imagePath: record.imagePath || defaultAboutData.imagePath,
+      timeline: parsedTimeline,
+      metrics: parsedMetrics,
     });
   } catch {
     return NextResponse.json(defaultAboutData);

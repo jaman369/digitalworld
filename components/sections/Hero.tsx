@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
-import { CloudHomepageData } from "@/lib/cloudSync";
+import { CloudHomepageData } from "@/types";
 
 export default function Hero() {
   const [data, setData] = useState<CloudHomepageData>({

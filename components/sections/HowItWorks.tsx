@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { processStepsData } from "@/data/process";
-import { CloudHomepageData } from "@/lib/cloudSync";
+import { CloudHomepageData } from "@/types";
 
 export default function HowItWorks() {
   const [data, setData] = useState<CloudHomepageData>({

@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import * as Icons from "lucide-react";
 import { countriesData } from "@/data/countries";
-import { CloudAboutData } from "@/lib/cloudSync";
+import { CloudAboutData } from "@/types";
 
 /* ── Animated Counter Hook ─────────────────────────────────── */
 function useCountUp(end: number, duration: number, start: boolean) {

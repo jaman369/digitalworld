@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
-import { CloudHomepageData } from "@/lib/cloudSync";
+import { CloudHomepageData } from "@/types";
 
 export default function WhyChooseUs() {
   const [data, setData] = useState<CloudHomepageData>({

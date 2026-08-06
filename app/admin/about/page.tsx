@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import * as Icons from "lucide-react";
-import { CloudAboutData } from "@/lib/cloudSync";
+import { CloudAboutData } from "@/types";
 
 export default function AdminAboutCMS() {
   const [loading, setLoading] = useState(true);

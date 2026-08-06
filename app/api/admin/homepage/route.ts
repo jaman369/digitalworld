@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { getSession } from "@/lib/auth";
-import { getCloudData, saveCloudData, CloudHomepageData } from "@/lib/cloudSync";
+import { db } from "@/lib/db";
+
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
@@ -9,10 +12,30 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const cloudData = await getCloudData();
-    const hp = cloudData.homepage || {};
-    return NextResponse.json(hp);
-  } catch {
+    const record = await db.homepageContent.findUnique({
+      where: { id: "default" },
+    });
+
+    if (!record) {
+      return NextResponse.json({});
+    }
+
+    let parsedStats = [];
+    let parsedWhyUsCards = [];
+    let parsedProcessSteps = [];
+
+    try { if (record.stats) parsedStats = JSON.parse(record.stats); } catch {}
+    try { if (record.whyUsCards) parsedWhyUsCards = JSON.parse(record.whyUsCards); } catch {}
+    try { if (record.processSteps) parsedProcessSteps = JSON.parse(record.processSteps); } catch {}
+
+    return NextResponse.json({
+      ...record,
+      stats: parsedStats,
+      whyUsCards: parsedWhyUsCards,
+      processSteps: parsedProcessSteps,
+    });
+  } catch (error) {
+    console.error("GET admin homepage content error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
@@ -24,11 +47,64 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const body = (await request.json()) as CloudHomepageData;
+    const body = await request.json();
 
-    const cloudOk = await saveCloudData({ homepage: body });
+    const dataToSave = {
+      heroTagline: body.heroTagline || null,
+      heroTitle: body.heroTitle || null,
+      heroSubtitle: body.heroSubtitle || null,
+      heroPrimaryCtaText: body.heroPrimaryCtaText || null,
+      heroPrimaryCtaLink: body.heroPrimaryCtaLink || null,
+      heroSecondaryCtaText: body.heroSecondaryCtaText || null,
+      heroSecondaryCtaLink: body.heroSecondaryCtaLink || null,
 
-    return NextResponse.json({ success: true, cloudSaved: cloudOk, data: body });
+      statsEyebrow: body.statsEyebrow || null,
+      stats: typeof body.stats === "string" ? body.stats : JSON.stringify(body.stats || []),
+
+      servicesEyebrow: body.servicesEyebrow || null,
+      servicesTitle: body.servicesTitle || null,
+      servicesSubtitle: body.servicesSubtitle || null,
+
+      whyUsEyebrow: body.whyUsEyebrow || null,
+      whyUsTitle: body.whyUsTitle || null,
+      whyUsSubtitle: body.whyUsSubtitle || null,
+      whyUsCards: typeof body.whyUsCards === "string" ? body.whyUsCards : JSON.stringify(body.whyUsCards || []),
+
+      processEyebrow: body.processEyebrow || null,
+      processTitle: body.processTitle || null,
+      processSubtitle: body.processSubtitle || null,
+      processSteps: typeof body.processSteps === "string" ? body.processSteps : JSON.stringify(body.processSteps || []),
+
+      testimonialsEyebrow: body.testimonialsEyebrow || null,
+      testimonialsTitle: body.testimonialsTitle || null,
+      testimonialsSubtitle: body.testimonialsSubtitle || null,
+
+      ctaEyebrow: body.ctaEyebrow || null,
+      ctaTitle: body.ctaTitle || null,
+      ctaSubtitle: body.ctaSubtitle || null,
+      ctaButtonText: body.ctaButtonText || null,
+      ctaButtonLink: body.ctaButtonLink || null,
+
+      seoTitle: body.seoTitle || null,
+      seoDescription: body.seoDescription || null,
+      canonicalUrl: body.canonicalUrl || null,
+      ogImage: body.ogImage || null,
+    };
+
+    const record = await db.homepageContent.upsert({
+      where: { id: "default" },
+      update: dataToSave,
+      create: {
+        id: "default",
+        ...dataToSave,
+      },
+    });
+
+    try {
+      revalidatePath("/");
+    } catch {}
+
+    return NextResponse.json({ success: true, data: record });
   } catch (error) {
     console.error("Save homepage CMS error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

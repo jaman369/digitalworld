@@ -4,7 +4,6 @@ import Image from "next/image";
 import * as Icons from "lucide-react";
 import { blogData } from "@/data/blog";
 import { db } from "@/lib/db";
-import { getCloudData } from "@/lib/cloudSync";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -14,29 +13,7 @@ interface PostPageProps {
 }
 
 async function getPostBySlug(slug: string) {
-  // 1. Check Cloud Sync
-  try {
-    const cloudData = await getCloudData();
-    const cloudBlog = cloudData.blog || {};
-    for (const [key, p] of Object.entries(cloudBlog)) {
-      if ((p.slug === slug || key === slug) && !p.isDraft) {
-        return {
-          title: p.title,
-          category: p.categoryName || "SEO",
-          publishedAt: p.publishedAt
-            ? new Date(p.publishedAt).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })
-            : "Recent",
-          readingTime: Math.max(1, Math.round((p.content || "").split(/\s+/).length / 200)) + " min read",
-          image: p.featuredImage || "https://picsum.photos/800/500?random=204",
-          content: p.content,
-          author: { name: "Kamrujjaman Mufti" },
-          excerpt: p.excerpt,
-        };
-      }
-    }
-  } catch {}
-
-  // 2. Check DB
+  // 1. Check DB
   try {
     const post = await db.blogPost.findUnique({
       where: { slug },
@@ -62,7 +39,7 @@ async function getPostBySlug(slug: string) {
     }
   } catch {}
 
-  // 3. Check Static blogData
+  // 2. Check Static blogData
   const staticPost = blogData.find((p) => p.slug === slug);
   if (staticPost) {
     return {
@@ -100,78 +77,72 @@ export default async function BlogPostPage({ params }: PostPageProps) {
   }
 
   return (
-    <article className="min-h-screen bg-transparent">
-      {/* Article Header Banner */}
-      <section className="relative overflow-hidden bg-neutral-900 py-20 lg:py-24 text-white">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_bottom,rgba(0,118,255,0.12)_0%,transparent_60%)]" />
+    <article className="min-h-screen bg-transparent py-20 lg:py-32">
+      <div className="container mx-auto max-w-4xl px-6">
+        {/* Back Link */}
+        <Link
+          href="/blog"
+          className="inline-flex items-center gap-2 text-xs font-bold text-neutral-500 hover:text-primary mb-8 transition-colors uppercase tracking-wider"
+        >
+          <Icons.ArrowLeft className="h-4 w-4" /> Back to Blog
+        </Link>
 
-        <div className="container mx-auto max-w-4xl px-6 relative z-10">
-          <Link
-            href="/blog"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-white uppercase tracking-wider mb-8 transition-colors"
-          >
-            <Icons.ArrowLeft className="h-3.5 w-3.5" /> Back to Blog
-          </Link>
+        {/* Post Meta Header */}
+        <div className="mb-10">
+          <div className="flex items-center gap-3 mb-6">
+            <span className="inline-flex items-center rounded-full bg-primary-light px-3 py-1 text-xs font-semibold text-primary uppercase tracking-wider">
+              {renderPost.category}
+            </span>
+            <span className="text-xs text-neutral-400 font-sans">
+              {renderPost.publishedAt} · {renderPost.readingTime}
+            </span>
+          </div>
 
-          <span className="inline-block bg-primary/20 text-primary border border-primary/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-6">
-            {renderPost.category}
-          </span>
-
-          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight mb-6">
+          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight leading-[1.15] mb-6">
             {renderPost.title}
           </h1>
 
-          <div className="flex items-center gap-3.5 text-neutral-400 text-sm">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-neutral-800 text-neutral-300 font-bold text-xs border border-neutral-700">
-              {renderPost.author.name[0]}
+          {/* Author info */}
+          <div className="flex items-center gap-3 pt-4 border-t border-neutral-100">
+            <div className="relative h-10 w-10 overflow-hidden rounded-full border border-neutral-200">
+              <Image
+                src="/Kamrujjaman Mufti Image/kamrujjaman-mufti.jpg"
+                alt="Kamrujjaman Mufti"
+                fill
+                className="object-cover"
+              />
             </div>
             <div>
-              <p className="font-bold text-neutral-200">{renderPost.author.name}</p>
-              <p className="text-xs text-neutral-500 mt-0.5">
-                {renderPost.publishedAt} · {renderPost.readingTime}
-              </p>
+              <div className="font-sans text-xs font-bold text-neutral-900">
+                {renderPost.author.name}
+              </div>
+              <div className="font-sans text-[11px] text-neutral-400">
+                Digital Marketing Expert & Web Developer
+              </div>
             </div>
           </div>
         </div>
-      </section>
 
-      {/* Article Body Content */}
-      <section className="py-16 lg:py-20">
-        <div className="container mx-auto max-w-3xl px-6">
-          {/* Post Image Showcase */}
-          <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-md border border-neutral-200/50 mb-12">
-            <Image
-              src={renderPost.image}
-              alt={renderPost.title}
-              fill
-              className="object-cover"
-              priority
-            />
-          </div>
-
-          {/* HTML Render */}
-          <div 
-            className="prose prose-neutral max-w-none font-sans text-neutral-600 leading-relaxed space-y-6 
-                       prose-headings:font-sans prose-headings:font-bold prose-headings:text-neutral-900
-                       prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-3
-                       prose-p:text-sm prose-p:sm:text-base"
-            dangerouslySetInnerHTML={{ __html: renderPost.content }}
+        {/* Featured Image */}
+        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl border border-neutral-200/80 mb-12 shadow-sm">
+          <Image
+            src={renderPost.image}
+            alt={renderPost.title}
+            fill
+            className="object-cover"
           />
+        </div>
 
-          {/* Article Footer Share/Action */}
-          <div className="border-t border-neutral-100 pt-10 mt-16 text-center">
-            <h4 className="font-sans font-bold text-sm text-neutral-950 mb-4">
-              Interested in launching a campaign?
-            </h4>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 rounded-full bg-primary hover:bg-primary-hover px-6 py-3 font-sans text-xs font-bold text-white shadow-sm transition-all"
-            >
-              Start a Project <Icons.ArrowRight className="h-4 w-4" />
-            </Link>
+        {/* Post Content Body */}
+        <div className="prose prose-neutral max-w-none font-sans leading-relaxed text-neutral-700">
+          <p className="text-lg font-medium text-neutral-600 mb-6 italic">
+            {renderPost.excerpt}
+          </p>
+          <div className="whitespace-pre-line text-base leading-relaxed">
+            {renderPost.content}
           </div>
         </div>
-      </section>
+      </div>
     </article>
   );
 }

@@ -1,6 +1,6 @@
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -70,27 +70,27 @@ model BlogTag {
 }
 
 model ServicePage {
-  id              String      @id @default(uuid())
-  name            String      @unique
-  slug            String      @unique
-  categoryName    String      @default("SEO")
-  sortOrder       Int         @default(0)
-  tagline         String
-  description     String
-  benefits        String      // JSON string list of benefits
-  primaryCtaText  String
-  primaryCtaLink  String
+  id               String   @id @default(uuid())
+  name             String   @unique
+  slug             String   @unique
+  categoryName     String   @default("SEO")
+  sortOrder        Int      @default(0)
+  tagline          String
+  description      String
+  benefits         String   // JSON string list of benefits
+  primaryCtaText   String
+  primaryCtaLink   String
   secondaryCtaText String?
   secondaryCtaLink String?
-  imagePath       String?     // Custom mockup URL or icon
-  imageAlt        String?     // Image alt tag text
-  pricingPlan     String?     // Package data structured in JSON string
-  faqItems        String?     // FAQ structures (for FAQSchema generation)
-  seoTitle        String?
-  seoDescription  String?
-  schemaSettings  String?     // Service / Product schema details in JSON string
-  createdAt       DateTime    @default(now())
-  updatedAt       DateTime    @updatedAt
+  imagePath        String?  // Custom mockup URL or icon
+  imageAlt         String?  // Image alt tag text
+  pricingPlan      String?  // Package data structured in JSON string
+  faqItems         String?  // FAQ structures (for FAQSchema generation)
+  seoTitle         String?
+  seoDescription   String?
+  schemaSettings   String?  // Service / Product schema details in JSON string
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 }
 
 model PortfolioProject {
@@ -109,29 +109,78 @@ model PortfolioProject {
 }
 
 model Lead {
-  id          String     @id @default(uuid())
-  formType    String     // e.g. "CONTACT", "QUOTE", "NEWSLETTER"
-  name        String?
-  email       String
-  phone       String?
-  message     String?
-  status      String     @default("NEW") // NEW, CONTACTED, QUALIFIED, PROPOSAL_SENT, CLOSED, SPAM
-  assignedTo  String?
-  notes       String?
-  ipAddress   String
-  createdAt   DateTime   @default(now())
+  id         String   @id @default(uuid())
+  formType   String   // e.g. "CONTACT", "QUOTE", "NEWSLETTER"
+  name       String?
+  email      String
+  phone      String?
+  message    String?
+  status     String   @default("NEW") // NEW, CONTACTED, QUALIFIED, PROPOSAL_SENT, CLOSED, SPAM
+  assignedTo String?
+  notes      String?
+  ipAddress  String
+  createdAt  DateTime @default(now())
 }
 
 model Redirect {
-  id          String   @id @default(uuid())
-  sourcePath  String   @unique // e.g. "/services/old-name"
-  targetPath  String   // e.g. "/services/web-design-dev"
-  statusCode  Int      @default(301) // 301 or 302
-  isActive    Boolean  @default(true)
-  createdAt   DateTime @default(now())
+  id         String   @id @default(uuid())
+  sourcePath String   @unique // e.g. "/services/old-name"
+  targetPath String   // e.g. "/services/web-design-dev"
+  statusCode Int      @default(301) // 301 or 302
+  isActive   Boolean  @default(true)
+  createdAt  DateTime @default(now())
 }
 
 model SystemSetting {
   key   String @id
   value String
+}
+
+model HomepageContent {
+  id                   String   @id @default("default")
+  heroTagline          String?
+  heroTitle            String?
+  heroSubtitle         String?
+  heroPrimaryCtaText   String?
+  heroPrimaryCtaLink   String?
+  heroSecondaryCtaText String?
+  heroSecondaryCtaLink String?
+  statsEyebrow         String?
+  stats                String?  // JSON string array of {id, value, label}
+  servicesEyebrow      String?
+  servicesTitle        String?
+  servicesSubtitle     String?
+  whyUsEyebrow         String?
+  whyUsTitle           String?
+  whyUsSubtitle        String?
+  whyUsCards           String?  // JSON string array of cards
+  processEyebrow       String?
+  processTitle         String?
+  processSubtitle      String?
+  processSteps         String?  // JSON string array of steps
+  testimonialsEyebrow  String?
+  testimonialsTitle    String?
+  testimonialsSubtitle String?
+  ctaEyebrow           String?
+  ctaTitle             String?
+  ctaSubtitle          String?
+  ctaButtonText        String?
+  ctaButtonLink        String?
+  seoTitle             String?
+  seoDescription       String?
+  canonicalUrl         String?
+  ogImage              String?
+  updatedAt            DateTime @updatedAt
+}
+
+model AboutContent {
+  id            String   @id @default("default")
+  name          String?
+  title         String?
+  bioParagraph1 String?
+  bioParagraph2 String?
+  imagePath     String?
+  timeline      String?  // JSON string
+  metrics       String?  // JSON string
+  updatedAt     DateTime @updatedAt
 }

@@ -97,3 +97,55 @@ export interface ProcessStep {
   title: string;
   description: string;
 }
+
+export interface CloudHomepageData {
+  heroTagline?: string;
+  heroTitle?: string;
+  heroSubtitle?: string;
+  heroPrimaryCtaText?: string;
+  heroPrimaryCtaLink?: string;
+  heroSecondaryCtaText?: string;
+  heroSecondaryCtaLink?: string;
+
+  statsEyebrow?: string;
+  stats?: Array<{ id: string; value: string; label: string }>;
+
+  servicesEyebrow?: string;
+  servicesTitle?: string;
+  servicesSubtitle?: string;
+
+  whyUsEyebrow?: string;
+  whyUsTitle?: string;
+  whyUsSubtitle?: string;
+  whyUsCards?: Array<{ title: string; description: string; iconName?: string }>;
+
+  processEyebrow?: string;
+  processTitle?: string;
+  processSubtitle?: string;
+  processSteps?: Array<{ stepNumber: number; title: string; description: string }>;
+
+  testimonialsEyebrow?: string;
+  testimonialsTitle?: string;
+  testimonialsSubtitle?: string;
+
+  ctaEyebrow?: string;
+  ctaTitle?: string;
+  ctaSubtitle?: string;
+  ctaButtonText?: string;
+  ctaButtonLink?: string;
+
+  seoTitle?: string;
+  seoDescription?: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+}
+
+export interface CloudAboutData {
+  name?: string;
+  title?: string;
+  bioParagraph1?: string;
+  bioParagraph2?: string;
+  imagePath?: string;
+  timeline?: Array<{ years: string; role: string; company: string }>;
+  metrics?: Array<{ numericValue: number; suffix: string; label: string }>;
+}

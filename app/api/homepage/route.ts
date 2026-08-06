@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
-import { getCloudData, CloudHomepageData } from "@/lib/cloudSync";
+import { db } from "@/lib/db";
 
-const defaultHomepageData: CloudHomepageData = {
+export const dynamic = "force-dynamic";
+
+const defaultHomepageData = {
   // Hero Banner
   heroTagline: "Available for new projects · Based in Dhaka, Bangladesh",
   heroTitle: "Grow your business beyond borders.",
@@ -30,36 +32,12 @@ const defaultHomepageData: CloudHomepageData = {
   whyUsTitle: "Why choose Digital World",
   whyUsSubtitle: "We partner with brands to build robust organic funnels that consistently generate revenue, not just vanity clicks.",
   whyUsCards: [
-    {
-      title: "Data-driven strategies",
-      description: "No assumptions. We build our growth campaigns based on hard competitor analytics and real user intent metrics.",
-      iconName: "BarChart3",
-    },
-    {
-      title: "5+ years of experience",
-      description: "Having navigated through search engine algorithm core updates, we know what drives sustainable ranking gains.",
-      iconName: "Trophy",
-    },
-    {
-      title: "High ROI campaigns",
-      description: "Every dollar you invest is optimized to target buyers at the bottom of the funnel, minimizing waste.",
-      iconName: "TrendingUp",
-    },
-    {
-      title: "Custom solutions",
-      description: "We don't do pre-packaged cookie-cutter services. Every site is analyzed to get a bespoke roadmap.",
-      iconName: "Settings",
-    },
-    {
-      title: "24/7 dedicated support",
-      description: "Clear, direct communication channels. We act as an extension of your team, responding within hours.",
-      iconName: "MessageSquare",
-    },
-    {
-      title: "Transparent reporting",
-      description: "Understand exactly what you are paying for with simplified keyword progression and traffic conversion dashboards.",
-      iconName: "FileText",
-    },
+    { title: "Data-driven strategies", description: "No assumptions. We build our growth campaigns based on hard competitor analytics and real user intent metrics.", iconName: "BarChart3" },
+    { title: "5+ years of experience", description: "Having navigated through search engine algorithm core updates, we know what drives sustainable ranking gains.", iconName: "Trophy" },
+    { title: "High ROI campaigns", description: "Every dollar you invest is optimized to target buyers at the bottom of the funnel, minimizing waste.", iconName: "TrendingUp" },
+    { title: "Custom solutions", description: "We don't do pre-packaged cookie-cutter services. Every site is analyzed to get a bespoke roadmap.", iconName: "Settings" },
+    { title: "24/7 dedicated support", description: "Clear, direct communication channels. We act as an extension of your team, responding within hours.", iconName: "MessageSquare" },
+    { title: "Transparent reporting", description: "Understand exactly what you are paying for with simplified keyword progression and traffic conversion dashboards.", iconName: "FileText" },
   ],
 
   // Process / How We Work Section
@@ -94,11 +72,63 @@ const defaultHomepageData: CloudHomepageData = {
 
 export async function GET() {
   try {
-    const cloudData = await getCloudData();
-    const hp = cloudData.homepage || {};
+    const record = await db.homepageContent.findUnique({
+      where: { id: "default" },
+    });
+
+    if (!record) {
+      return NextResponse.json(defaultHomepageData);
+    }
+
+    // Parse JSON string fields safely
+    let parsedStats = defaultHomepageData.stats;
+    let parsedWhyUsCards = defaultHomepageData.whyUsCards;
+    let parsedProcessSteps = defaultHomepageData.processSteps;
+
+    try { if (record.stats) parsedStats = JSON.parse(record.stats); } catch {}
+    try { if (record.whyUsCards) parsedWhyUsCards = JSON.parse(record.whyUsCards); } catch {}
+    try { if (record.processSteps) parsedProcessSteps = JSON.parse(record.processSteps); } catch {}
+
     return NextResponse.json({
-      ...defaultHomepageData,
-      ...hp,
+      heroTagline: record.heroTagline || defaultHomepageData.heroTagline,
+      heroTitle: record.heroTitle || defaultHomepageData.heroTitle,
+      heroSubtitle: record.heroSubtitle || defaultHomepageData.heroSubtitle,
+      heroPrimaryCtaText: record.heroPrimaryCtaText || defaultHomepageData.heroPrimaryCtaText,
+      heroPrimaryCtaLink: record.heroPrimaryCtaLink || defaultHomepageData.heroPrimaryCtaLink,
+      heroSecondaryCtaText: record.heroSecondaryCtaText || defaultHomepageData.heroSecondaryCtaText,
+      heroSecondaryCtaLink: record.heroSecondaryCtaLink || defaultHomepageData.heroSecondaryCtaLink,
+
+      statsEyebrow: record.statsEyebrow || defaultHomepageData.statsEyebrow,
+      stats: parsedStats,
+
+      servicesEyebrow: record.servicesEyebrow || defaultHomepageData.servicesEyebrow,
+      servicesTitle: record.servicesTitle || defaultHomepageData.servicesTitle,
+      servicesSubtitle: record.servicesSubtitle || defaultHomepageData.servicesSubtitle,
+
+      whyUsEyebrow: record.whyUsEyebrow || defaultHomepageData.whyUsEyebrow,
+      whyUsTitle: record.whyUsTitle || defaultHomepageData.whyUsTitle,
+      whyUsSubtitle: record.whyUsSubtitle || defaultHomepageData.whyUsSubtitle,
+      whyUsCards: parsedWhyUsCards,
+
+      processEyebrow: record.processEyebrow || defaultHomepageData.processEyebrow,
+      processTitle: record.processTitle || defaultHomepageData.processTitle,
+      processSubtitle: record.processSubtitle || defaultHomepageData.processSubtitle,
+      processSteps: parsedProcessSteps,
+
+      testimonialsEyebrow: record.testimonialsEyebrow || defaultHomepageData.testimonialsEyebrow,
+      testimonialsTitle: record.testimonialsTitle || defaultHomepageData.testimonialsTitle,
+      testimonialsSubtitle: record.testimonialsSubtitle || defaultHomepageData.testimonialsSubtitle,
+
+      ctaEyebrow: record.ctaEyebrow || defaultHomepageData.ctaEyebrow,
+      ctaTitle: record.ctaTitle || defaultHomepageData.ctaTitle,
+      ctaSubtitle: record.ctaSubtitle || defaultHomepageData.ctaSubtitle,
+      ctaButtonText: record.ctaButtonText || defaultHomepageData.ctaButtonText,
+      ctaButtonLink: record.ctaButtonLink || defaultHomepageData.ctaButtonLink,
+
+      seoTitle: record.seoTitle || defaultHomepageData.seoTitle,
+      seoDescription: record.seoDescription || defaultHomepageData.seoDescription,
+      canonicalUrl: record.canonicalUrl || defaultHomepageData.canonicalUrl,
+      ogImage: record.ogImage || defaultHomepageData.ogImage,
     });
   } catch {
     return NextResponse.json(defaultHomepageData);

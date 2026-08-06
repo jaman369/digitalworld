@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db";
-import { getCloudData, saveCloudData } from "@/lib/cloudSync";
+
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
@@ -10,19 +11,7 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const cloudData = await getCloudData();
-    if (cloudData.settings) {
-      const s = cloudData.settings;
-      return NextResponse.json([
-        { key: "email", value: s.email || "" },
-        { key: "phone", value: s.phone || "" },
-        { key: "facebookUrl", value: s.facebookUrl || "" },
-        { key: "linkedinUrl", value: s.linkedinUrl || "" },
-        { key: "socialLinks", value: JSON.stringify(s.socialLinks || []) },
-      ]);
-    }
-
-    const settings = await db.systemSetting.findMany().catch(() => []);
+    const settings = await db.systemSetting.findMany();
     return NextResponse.json(settings);
   } catch {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
@@ -45,44 +34,23 @@ export async function POST(request: Request) {
       ? JSON.parse(socialLinks || "[]")
       : [];
 
-    const settingsPayload = {
-      email,
-      phone,
-      facebookUrl,
-      linkedinUrl,
-      socialLinks: parsedSocialLinks,
-    };
+    const data = [
+      { key: "email", value: email || "" },
+      { key: "phone", value: phone || "" },
+      { key: "facebookUrl", value: facebookUrl || "" },
+      { key: "linkedinUrl", value: linkedinUrl || "" },
+      { key: "socialLinks", value: JSON.stringify(parsedSocialLinks) },
+    ];
 
-    // 1. Save to Cloud Sync FIRST
-    let cloudOk = false;
-    try {
-      cloudOk = await saveCloudData({ settings: settingsPayload });
-    } catch (err) {
-      console.error("Save settings to cloud error:", err);
+    for (const item of data) {
+      await db.systemSetting.upsert({
+        where: { key: item.key },
+        update: { value: item.value },
+        create: { key: item.key, value: item.value },
+      });
     }
 
-    // 2. Best-effort save to SQLite
-    try {
-      const data = [
-        { key: "email", value: email },
-        { key: "phone", value: phone },
-        { key: "facebookUrl", value: facebookUrl },
-        { key: "linkedinUrl", value: linkedinUrl },
-        { key: "socialLinks", value: JSON.stringify(parsedSocialLinks) },
-      ];
-
-      for (const item of data) {
-        await db.systemSetting.upsert({
-          where: { key: item.key },
-          update: { value: item.value },
-          create: { key: item.key, value: item.value },
-        });
-      }
-    } catch (dbErr) {
-      console.error("Save settings to db error (non-fatal):", dbErr);
-    }
-
-    return NextResponse.json({ success: true, cloudSaved: cloudOk });
+    return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Save settings error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

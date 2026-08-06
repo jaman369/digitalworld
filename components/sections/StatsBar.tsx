@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { statsData } from "@/data/stats";
 import { useCountUp } from "@/hooks/useCountUp";
 import { Stat } from "@/types";
-import { CloudHomepageData } from "@/lib/cloudSync";
+import { CloudHomepageData } from "@/types";
 
 export default function StatsBar() {
   const containerRef = useRef<HTMLDivElement>(null);
