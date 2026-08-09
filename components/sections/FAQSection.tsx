@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Minus, ArrowRight } from "lucide-react";
 
@@ -170,13 +169,10 @@ export default function FAQSection() {
               <div className="relative w-full h-full rounded-[45%_55%_65%_35%/40%_50%_50%_60%] overflow-hidden shadow-2xl bg-[#FF6B35]">
                 
                 {/* Layer 1: Professional Businessman Image */}
-                <Image
+                <img
                   src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=1000"
                   alt="Have a project in mind professional"
-                  fill
-                  unoptimized
-                  className="object-cover object-right sm:object-center"
-                  priority
+                  className="absolute inset-0 w-full h-full object-cover object-right sm:object-center"
                 />
 
                 {/* Layer 2: Yellow-Orange Gradient Wave Overlay on Top-Left */}
