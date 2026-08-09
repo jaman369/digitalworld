@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, Minus, ArrowRight } from "lucide-react";
+import { Plus, Minus } from "lucide-react";
 
 interface FAQItem {
   id: string;
@@ -155,7 +155,7 @@ export default function FAQSection() {
             </div>
           </motion.div>
 
-          {/* Right Column: Exact Liquid Organic Blob CTA Card */}
+          {/* Right Column: Exact Uploaded FAQ Blob Image */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -163,76 +163,13 @@ export default function FAQSection() {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-6 relative flex justify-center items-center"
           >
-            <div className="relative w-full max-w-[540px] aspect-[1.15/1] flex items-center justify-center">
-              
-              {/* Organic Liquid Shape Container */}
-              <div className="relative w-full h-full rounded-[45%_55%_65%_35%/40%_50%_50%_60%] overflow-hidden shadow-2xl bg-[#FF6B35]">
-                
-                {/* Layer 1: Professional Businessman Image */}
-                <img
-                  src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=1000"
-                  alt="Have a project in mind professional"
-                  className="absolute inset-0 w-full h-full object-cover object-right sm:object-center"
-                />
-
-                {/* Layer 2: Yellow-Orange Gradient Wave Overlay on Top-Left */}
-                <div 
-                  className="absolute top-0 left-0 w-full h-full pointer-events-none"
-                  style={{
-                    background: "radial-gradient(circle at 10% 20%, rgba(255, 170, 0, 0.95) 0%, rgba(255, 120, 0, 0.85) 40%, transparent 70%)"
-                  }}
-                />
-
-                {/* Layer 3: Red-Orange Translucent Overlay Wave on Bottom-Left */}
-                <div 
-                  className="absolute inset-0 pointer-events-none"
-                  style={{
-                    background: "linear-gradient(135deg, rgba(255, 87, 34, 0.85) 0%, rgba(220, 38, 38, 0.75) 50%, transparent 85%)"
-                  }}
-                />
-
-                {/* Layer 4: Content Overlay inside Liquid Blob */}
-                <div className="absolute inset-0 p-8 sm:p-12 lg:p-14 flex flex-col justify-center text-white z-10 max-w-[340px] sm:max-w-[380px]">
-                  
-                  {/* Lightbulb Icon with Ray Lines */}
-                  <div className="mb-5">
-                    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-white drop-shadow-sm">
-                      <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1.3.5 2.6 1.5 3.5.8.8 1.3 1.5 1.5 2.5" />
-                      <path d="M9 18h6" />
-                      <path d="M10 22h4" />
-                      <line x1="12" y1="2" x2="12" y2="3.5" />
-                      <line x1="4.5" y1="4.5" x2="5.8" y2="5.8" />
-                      <line x1="19.5" y1="4.5" x2="18.2" y2="5.8" />
-                    </svg>
-                  </div>
-
-                  {/* Main Title */}
-                  <h3 className="font-sans text-2xl sm:text-3xl lg:text-[2.1rem] font-bold text-white tracking-tight leading-[1.25] mb-4 drop-shadow-sm">
-                    Have a project in mind? <br />
-                    Let&apos;s get to work.
-                  </h3>
-
-                  {/* Sub-text */}
-                  <p className="font-sans text-xs sm:text-sm text-white/90 leading-relaxed mb-8 font-normal drop-shadow-xs">
-                    Find out how it works and ask any questions you may have.
-                  </p>
-
-                  {/* GET IN TOUCH Action Link */}
-                  <div>
-                    <Link
-                      href="/contact"
-                      className="inline-flex items-center gap-2 font-sans text-xs font-bold uppercase tracking-widest text-white hover:text-amber-200 transition-colors group"
-                    >
-                      <span>GET IN TOUCH</span>
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </Link>
-                  </div>
-
-                </div>
-
-              </div>
-
-            </div>
+            <Link href="/contact" className="relative block w-full max-w-[500px] transition-transform duration-300 hover:scale-[1.02]">
+              <img
+                src="/images/faq-blob.png"
+                alt="Have a project in mind? Let's get to work."
+                className="w-full h-auto object-contain drop-shadow-xl select-none"
+              />
+            </Link>
           </motion.div>
 
         </div>
