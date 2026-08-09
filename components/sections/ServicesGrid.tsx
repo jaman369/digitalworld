@@ -7,7 +7,7 @@ import * as Icons from "lucide-react";
 import { servicesData } from "@/data/services";
 import { CloudHomepageData } from "@/types";
 
-/* ── Per-card color themes matching the reference blob gradients ── */
+/* ── 6 Distinct Vibrant Per-Card Color Themes ── */
 const cardThemes: Record<string, {
   badgeNumber: string;
   mainGrad: string;
@@ -19,68 +19,68 @@ const cardThemes: Record<string, {
   linkHoverColor: string;
   popularBg: string;
 }> = {
-  seo: { // .01
+  seo: { // .01 - Sapphire Electric Blue
     badgeNumber: ".01",
-    mainGrad: "from-[#3B82F6] via-[#4F46E5] to-[#7C3AED]",
+    mainGrad: "from-[#2563EB] via-[#3B82F6] to-[#4F46E5]",
     blobGrad: "from-[#60A5FA] to-[#818CF8]",
-    shadowColor: "rgba(79, 70, 229, 0.35)",
+    shadowColor: "rgba(37, 99, 235, 0.38)",
     dot1Color: "#2563EB",
-    dot2Color: "#60A5FA",
-    linkColor: "text-indigo-600",
-    linkHoverColor: "hover:text-indigo-800",
-    popularBg: "bg-indigo-50 text-indigo-600 border-indigo-100",
+    dot2Color: "#93C5FD",
+    linkColor: "text-blue-600",
+    linkHoverColor: "hover:text-blue-800",
+    popularBg: "bg-blue-50 text-blue-600 border-blue-100",
   },
-  ppc: { // .02
+  ppc: { // .02 - Vibrant Cyan / Turquoise
     badgeNumber: ".02",
-    mainGrad: "from-[#14B8A6] via-[#06B6D4] to-[#0284C7]",
-    blobGrad: "from-[#2DD4BF] to-[#38BDF8]",
-    shadowColor: "rgba(6, 182, 212, 0.35)",
-    dot1Color: "#06B6D4",
-    dot2Color: "#2DD4BF",
-    linkColor: "text-teal-600",
-    linkHoverColor: "hover:text-teal-800",
-    popularBg: "bg-teal-50 text-teal-600 border-teal-100",
+    mainGrad: "from-[#00C9A7] via-[#00B4D8] to-[#0077B6]",
+    blobGrad: "from-[#38BDF8] to-[#2DD4BF]",
+    shadowColor: "rgba(0, 180, 216, 0.38)",
+    dot1Color: "#00B4D8",
+    dot2Color: "#7DD3FC",
+    linkColor: "text-cyan-600",
+    linkHoverColor: "hover:text-cyan-800",
+    popularBg: "bg-cyan-50 text-cyan-600 border-cyan-100",
   },
-  "web-design-dev": { // .03
+  "web-design-dev": { // .03 - Vivid Sunburst Coral / Orange
     badgeNumber: ".03",
-    mainGrad: "from-[#FF5E62] via-[#FF7A59] to-[#FF9966]",
-    blobGrad: "from-[#FF8C42] to-[#FFB700]",
-    shadowColor: "rgba(255, 94, 98, 0.38)",
+    mainGrad: "from-[#FF5E62] via-[#FF7A59] to-[#FFB700]",
+    blobGrad: "from-[#FF8C42] to-[#FFC72C]",
+    shadowColor: "rgba(255, 94, 98, 0.4)",
     dot1Color: "#FF7A59",
-    dot2Color: "#FFA07A",
+    dot2Color: "#FDE047",
     linkColor: "text-orange-600",
     linkHoverColor: "hover:text-orange-800",
     popularBg: "bg-orange-50 text-orange-600 border-orange-100",
   },
-  "content-marketing": { // .04
+  "content-marketing": { // .04 - Refreshing Emerald / Mint Green
     badgeNumber: ".04",
-    mainGrad: "from-[#10B981] via-[#14B8A6] to-[#06B6D4]",
-    blobGrad: "from-[#34D399] to-[#2DD4BF]",
-    shadowColor: "rgba(16, 185, 129, 0.35)",
+    mainGrad: "from-[#10B981] via-[#059669] to-[#047857]",
+    blobGrad: "from-[#34D399] to-[#10B981]",
+    shadowColor: "rgba(16, 185, 129, 0.38)",
     dot1Color: "#10B981",
-    dot2Color: "#34D399",
+    dot2Color: "#A7F3D0",
     linkColor: "text-emerald-600",
     linkHoverColor: "hover:text-emerald-800",
     popularBg: "bg-emerald-50 text-emerald-600 border-emerald-100",
   },
-  "ai-automation": { // .05
+  "ai-automation": { // .05 - Deep Royal Purple / Violet
     badgeNumber: ".05",
-    mainGrad: "from-[#8B5CF6] via-[#7C3AED] to-[#6366F1]",
-    blobGrad: "from-[#A78BFA] to-[#818CF8]",
-    shadowColor: "rgba(124, 58, 237, 0.35)",
-    dot1Color: "#7C3AED",
-    dot2Color: "#A78BFA",
-    linkColor: "text-violet-600",
-    linkHoverColor: "hover:text-violet-800",
-    popularBg: "bg-violet-50 text-violet-600 border-violet-100",
+    mainGrad: "from-[#7C3AED] via-[#8B5CF6] to-[#A855F7]",
+    blobGrad: "from-[#C084FC] to-[#8B5CF6]",
+    shadowColor: "rgba(124, 58, 237, 0.38)",
+    dot1Color: "#8B5CF6",
+    dot2Color: "#E9D5FF",
+    linkColor: "text-purple-600",
+    linkHoverColor: "hover:text-purple-800",
+    popularBg: "bg-purple-50 text-purple-600 border-purple-100",
   },
-  "china-sourcing": { // .06
+  "china-sourcing": { // .06 - Radiant Golden Amber / Rose
     badgeNumber: ".06",
-    mainGrad: "from-[#F97316] via-[#EA580C] to-[#F59E0B]",
-    blobGrad: "from-[#FB923C] to-[#FBBF24]",
-    shadowColor: "rgba(249, 115, 22, 0.35)",
+    mainGrad: "from-[#F59E0B] via-[#F97316] to-[#E11D48]",
+    blobGrad: "from-[#FBBF24] to-[#FB7185]",
+    shadowColor: "rgba(249, 115, 22, 0.38)",
     dot1Color: "#F97316",
-    dot2Color: "#FBBF24",
+    dot2Color: "#FECDD3",
     linkColor: "text-amber-600",
     linkHoverColor: "hover:text-amber-800",
     popularBg: "bg-amber-50 text-amber-600 border-amber-100",
@@ -92,10 +92,10 @@ function LiquidBlobBadge({ categorySlug }: { categorySlug: string }) {
   const theme = cardThemes[categorySlug] || cardThemes["seo"];
 
   return (
-    <div className="relative w-24 h-24 flex items-center justify-center select-none group-hover:scale-105 transition-transform duration-300">
+    <div className="relative w-22 h-22 sm:w-24 sm:h-24 flex items-center justify-center select-none group-hover:scale-105 transition-transform duration-300">
       {/* Far Back Translucent Soft White/Light Blob */}
       <div 
-        className="absolute inset-0 bg-white/90 shadow-md blur-[1px]"
+        className="absolute inset-0 bg-white/95 shadow-md blur-[1px]"
         style={{
           borderRadius: "45% 55% 65% 35% / 40% 60% 40% 60%",
           transform: "scale(1.18) rotate(-8deg)",
@@ -114,13 +114,13 @@ function LiquidBlobBadge({ categorySlug }: { categorySlug: string }) {
 
       {/* Layer 3: Main Front Liquid Gradient Circle */}
       <div 
-        className={`relative z-10 w-[84px] h-[84px] flex items-center justify-center bg-gradient-to-br ${theme.mainGrad}`}
+        className={`relative z-10 w-[78px] h-[78px] sm:w-[84px] sm:h-[84px] flex items-center justify-center bg-gradient-to-br ${theme.mainGrad}`}
         style={{
           borderRadius: "50% 50% 45% 55% / 55% 45% 55% 45%",
           boxShadow: `0 10px 24px -4px ${theme.shadowColor}`,
         }}
       >
-        <span className="text-white font-sans text-2xl font-black tracking-tighter drop-shadow-sm">
+        <span className="text-white font-sans text-xl sm:text-2xl font-black tracking-tighter drop-shadow-sm">
           {theme.badgeNumber}
         </span>
       </div>
@@ -205,7 +205,7 @@ export default function ServicesGrid() {
 
       <div className="container mx-auto max-w-7xl px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14 lg:mb-20">
+        <div className="text-center max-w-3xl mx-auto mb-20 lg:mb-24">
           <span className="inline-flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-[0.25em] mb-5">
             <span className="h-1.5 w-1.5 rounded-full bg-primary" />
             {data.servicesEyebrow || "What We Do"}
@@ -219,13 +219,13 @@ export default function ServicesGrid() {
           </p>
         </div>
 
-        {/* Services Grid */}
+        {/* Services Grid with generous vertical gap in the middle */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 lg:gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-7 lg:gap-x-8 gap-y-16 lg:gap-y-20 pt-6"
         >
           {servicesData.map((category) => {
             const theme = cardThemes[category.slug] || cardThemes["seo"];
@@ -236,15 +236,15 @@ export default function ServicesGrid() {
                 key={category.id}
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 variants={cardVariants as any}
-                className="group relative flex flex-col bg-white rounded-2xl border border-neutral-200/70 px-7 pt-0 pb-7 shadow-[0_4px_24px_rgba(0,0,0,0.04)] transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] hover:border-neutral-200"
+                className="group relative flex flex-col bg-white rounded-2xl border border-neutral-200/70 px-7 pt-10 pb-7 shadow-[0_4px_24px_rgba(0,0,0,0.04)] transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] hover:border-neutral-200"
               >
-                {/* ── Floating Liquid Blob Number Badge ── */}
-                <div className="relative h-24 flex items-end justify-start -mt-3 mb-2">
+                {/* ── Round Liquid Blob Badge FLOATING ON TOP OF THE CARD BOX ── */}
+                <div className="absolute -top-11 left-7 z-20">
                   <LiquidBlobBadge categorySlug={category.slug} />
                 </div>
 
                 {/* ── Title ── */}
-                <h3 className="font-sans text-lg font-bold text-neutral-900 tracking-tight leading-snug mb-1.5">
+                <h3 className="font-sans text-lg font-bold text-neutral-900 tracking-tight leading-snug mb-1.5 mt-2">
                   {category.title}
                 </h3>
 
