@@ -2,7 +2,6 @@ import Hero from "@/components/sections/Hero";
 import StatsBar from "@/components/sections/StatsBar";
 import ServicesGrid from "@/components/sections/ServicesGrid";
 import AboutUsSection from "@/components/sections/AboutUsSection";
-import WorkTogetherSection from "@/components/sections/WorkTogetherSection";
 import CountriesServed from "@/components/sections/CountriesServed";
 import Industries from "@/components/sections/Industries";
 import HowItWorks from "@/components/sections/HowItWorks";
@@ -18,7 +17,6 @@ export default function Home() {
       <StatsBar />
       <ServicesGrid />
       <AboutUsSection />
-      <WorkTogetherSection />
       <CountriesServed />
       <Industries />
       <HowItWorks />
