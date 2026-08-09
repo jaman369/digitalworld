@@ -174,6 +174,7 @@ export default function FAQSection() {
                   src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=1000"
                   alt="Have a project in mind professional"
                   fill
+                  unoptimized
                   className="object-cover object-right sm:object-center"
                   priority
                 />
