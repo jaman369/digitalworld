@@ -9,75 +9,142 @@ import { CloudHomepageData } from "@/types";
 
 /* ── Per-card color themes matching the reference blob gradients ── */
 const cardThemes: Record<string, {
-  // Main circle gradient
-  mainGradient: string;
-  // Secondary blob gradient (offset behind)
-  blobGradient: string;
-  // Small accent dot color
-  dotColor: string;
-  // READ MORE link color
+  badgeNumber: string;
+  mainGrad: string;
+  blobGrad: string;
+  shadowColor: string;
+  dot1Color: string;
+  dot2Color: string;
   linkColor: string;
   linkHoverColor: string;
-  // Popular pill
   popularBg: string;
-  // Number
-  badgeNumber: string;
 }> = {
-  seo: {
-    mainGradient: "from-blue-500 via-indigo-500 to-purple-600",
-    blobGradient: "from-blue-400/60 to-purple-400/50",
-    dotColor: "bg-blue-400",
+  seo: { // .01
+    badgeNumber: ".01",
+    mainGrad: "from-[#3B82F6] via-[#4F46E5] to-[#7C3AED]",
+    blobGrad: "from-[#60A5FA] to-[#818CF8]",
+    shadowColor: "rgba(79, 70, 229, 0.35)",
+    dot1Color: "#2563EB",
+    dot2Color: "#60A5FA",
     linkColor: "text-indigo-600",
     linkHoverColor: "hover:text-indigo-800",
     popularBg: "bg-indigo-50 text-indigo-600 border-indigo-100",
-    badgeNumber: ".01",
   },
-  ppc: {
-    mainGradient: "from-teal-400 via-cyan-500 to-blue-500",
-    blobGradient: "from-teal-300/60 to-cyan-400/50",
-    dotColor: "bg-teal-400",
+  ppc: { // .02
+    badgeNumber: ".02",
+    mainGrad: "from-[#14B8A6] via-[#06B6D4] to-[#0284C7]",
+    blobGrad: "from-[#2DD4BF] to-[#38BDF8]",
+    shadowColor: "rgba(6, 182, 212, 0.35)",
+    dot1Color: "#06B6D4",
+    dot2Color: "#2DD4BF",
     linkColor: "text-teal-600",
     linkHoverColor: "hover:text-teal-800",
     popularBg: "bg-teal-50 text-teal-600 border-teal-100",
-    badgeNumber: ".02",
   },
-  "web-design-dev": {
-    mainGradient: "from-orange-400 via-rose-500 to-red-500",
-    blobGradient: "from-orange-300/60 to-rose-400/50",
-    dotColor: "bg-orange-400",
+  "web-design-dev": { // .03
+    badgeNumber: ".03",
+    mainGrad: "from-[#FF5E62] via-[#FF7A59] to-[#FF9966]",
+    blobGrad: "from-[#FF8C42] to-[#FFB700]",
+    shadowColor: "rgba(255, 94, 98, 0.38)",
+    dot1Color: "#FF7A59",
+    dot2Color: "#FFA07A",
     linkColor: "text-orange-600",
     linkHoverColor: "hover:text-orange-800",
     popularBg: "bg-orange-50 text-orange-600 border-orange-100",
-    badgeNumber: ".03",
   },
-  "content-marketing": {
-    mainGradient: "from-emerald-400 via-teal-500 to-cyan-500",
-    blobGradient: "from-emerald-300/60 to-teal-400/50",
-    dotColor: "bg-emerald-400",
+  "content-marketing": { // .04
+    badgeNumber: ".04",
+    mainGrad: "from-[#10B981] via-[#14B8A6] to-[#06B6D4]",
+    blobGrad: "from-[#34D399] to-[#2DD4BF]",
+    shadowColor: "rgba(16, 185, 129, 0.35)",
+    dot1Color: "#10B981",
+    dot2Color: "#34D399",
     linkColor: "text-emerald-600",
     linkHoverColor: "hover:text-emerald-800",
     popularBg: "bg-emerald-50 text-emerald-600 border-emerald-100",
-    badgeNumber: ".04",
   },
-  "ai-automation": {
-    mainGradient: "from-violet-500 via-purple-500 to-indigo-600",
-    blobGradient: "from-violet-400/60 to-purple-400/50",
-    dotColor: "bg-violet-400",
+  "ai-automation": { // .05
+    badgeNumber: ".05",
+    mainGrad: "from-[#8B5CF6] via-[#7C3AED] to-[#6366F1]",
+    blobGrad: "from-[#A78BFA] to-[#818CF8]",
+    shadowColor: "rgba(124, 58, 237, 0.35)",
+    dot1Color: "#7C3AED",
+    dot2Color: "#A78BFA",
     linkColor: "text-violet-600",
     linkHoverColor: "hover:text-violet-800",
     popularBg: "bg-violet-50 text-violet-600 border-violet-100",
-    badgeNumber: ".05",
   },
-  "china-sourcing": {
-    mainGradient: "from-amber-400 via-orange-500 to-rose-500",
-    blobGradient: "from-amber-300/60 to-orange-400/50",
-    dotColor: "bg-amber-500",
+  "china-sourcing": { // .06
+    badgeNumber: ".06",
+    mainGrad: "from-[#F97316] via-[#EA580C] to-[#F59E0B]",
+    blobGrad: "from-[#FB923C] to-[#FBBF24]",
+    shadowColor: "rgba(249, 115, 22, 0.35)",
+    dot1Color: "#F97316",
+    dot2Color: "#FBBF24",
     linkColor: "text-amber-600",
     linkHoverColor: "hover:text-amber-800",
     popularBg: "bg-amber-50 text-amber-600 border-amber-100",
-    badgeNumber: ".06",
   },
 };
+
+/* ── Liquid Fluid Blob Number Badge Component ── */
+function LiquidBlobBadge({ categorySlug }: { categorySlug: string }) {
+  const theme = cardThemes[categorySlug] || cardThemes["seo"];
+
+  return (
+    <div className="relative w-24 h-24 flex items-center justify-center select-none group-hover:scale-105 transition-transform duration-300">
+      {/* Far Back Translucent Soft White/Light Blob */}
+      <div 
+        className="absolute inset-0 bg-white/90 shadow-md blur-[1px]"
+        style={{
+          borderRadius: "45% 55% 65% 35% / 40% 60% 40% 60%",
+          transform: "scale(1.18) rotate(-8deg)",
+        }}
+      />
+
+      {/* Layer 2: Secondary Offset Fluid Blob */}
+      <div 
+        className={`absolute inset-0 bg-gradient-to-tr ${theme.blobGrad} opacity-90`}
+        style={{
+          borderRadius: "65% 35% 45% 55% / 55% 45% 55% 45%",
+          transform: "scale(1.08) translate(5px, -3px) rotate(12deg)",
+          filter: `drop-shadow(0 8px 16px ${theme.shadowColor})`,
+        }}
+      />
+
+      {/* Layer 3: Main Front Liquid Gradient Circle */}
+      <div 
+        className={`relative z-10 w-[84px] h-[84px] flex items-center justify-center bg-gradient-to-br ${theme.mainGrad}`}
+        style={{
+          borderRadius: "50% 50% 45% 55% / 55% 45% 55% 45%",
+          boxShadow: `0 10px 24px -4px ${theme.shadowColor}`,
+        }}
+      >
+        <span className="text-white font-sans text-2xl font-black tracking-tighter drop-shadow-sm">
+          {theme.badgeNumber}
+        </span>
+      </div>
+
+      {/* Floating Liquid Bubble Drop 1 */}
+      <div 
+        className="absolute -top-1.5 right-1 w-4 h-4 rounded-full opacity-90 transition-transform duration-300 group-hover:-translate-y-1"
+        style={{
+          backgroundColor: theme.dot1Color,
+          borderRadius: "50% 50% 40% 60% / 60% 40% 60% 40%",
+          boxShadow: `0 2px 6px ${theme.shadowColor}`,
+        }}
+      />
+
+      {/* Floating Liquid Bubble Drop 2 */}
+      <div 
+        className="absolute -top-3 right-5 w-2.5 h-2.5 rounded-full opacity-80 transition-transform duration-300 group-hover:-translate-y-1.5"
+        style={{
+          backgroundColor: theme.dot2Color,
+        }}
+      />
+    </div>
+  );
+}
 
 export default function ServicesGrid() {
   const [data, setData] = useState<CloudHomepageData>({
@@ -171,27 +238,9 @@ export default function ServicesGrid() {
                 variants={cardVariants as any}
                 className="group relative flex flex-col bg-white rounded-2xl border border-neutral-200/70 px-7 pt-0 pb-7 shadow-[0_4px_24px_rgba(0,0,0,0.04)] transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] hover:border-neutral-200"
               >
-                {/* ── Floating Blob Number Badge ── */}
-                <div className="relative h-24 flex items-end justify-start -mt-1 mb-1">
-                  {/* Back blob (larger, offset, lighter) */}
-                  <div
-                    className={`absolute left-6 -top-3 w-[70px] h-[70px] rounded-full bg-gradient-to-br ${theme.blobGradient} blur-sm opacity-70 group-hover:opacity-90 transition-opacity duration-300`}
-                  />
-                  {/* Secondary small blob */}
-                  <div
-                    className={`absolute left-16 top-0 w-[32px] h-[32px] rounded-full bg-gradient-to-br ${theme.blobGradient} blur-[2px] opacity-50 group-hover:opacity-70 transition-opacity duration-300`}
-                  />
-                  {/* Main circle with number */}
-                  <div
-                    className={`relative z-10 flex items-center justify-center w-[80px] h-[80px] rounded-full bg-gradient-to-br ${theme.mainGradient} shadow-lg group-hover:scale-105 transition-transform duration-300`}
-                  >
-                    <span className="text-white font-mono text-2xl font-bold tracking-tight select-none">
-                      {theme.badgeNumber}
-                    </span>
-                  </div>
-                  {/* Small decorative dots */}
-                  <div className={`absolute left-[88px] top-[10px] w-2 h-2 rounded-full ${theme.dotColor} opacity-70`} />
-                  <div className={`absolute left-[78px] top-[2px] w-1.5 h-1.5 rounded-full ${theme.dotColor} opacity-50`} />
+                {/* ── Floating Liquid Blob Number Badge ── */}
+                <div className="relative h-24 flex items-end justify-start -mt-3 mb-2">
+                  <LiquidBlobBadge categorySlug={category.slug} />
                 </div>
 
                 {/* ── Title ── */}
