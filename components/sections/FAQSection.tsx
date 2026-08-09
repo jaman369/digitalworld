@@ -105,10 +105,10 @@ export default function FAQSection() {
                   <div key={item.id} className="border-b border-neutral-100/80">
                     <button
                       onClick={() => toggleAccordion(item.id)}
-                      className="w-full py-4.5 flex items-center justify-between text-left transition-colors group"
+                      className="w-full py-6 sm:py-7 flex items-center justify-between text-left transition-colors group"
                     >
                       <span
-                        className={`font-sans text-sm sm:text-[15px] font-bold transition-colors duration-200 ${
+                        className={`font-sans text-sm sm:text-base font-bold transition-colors duration-200 ${
                           isOpen ? "text-[#FF6B4A]" : "text-[#2A2B48] group-hover:text-[#FF6B4A]"
                         }`}
                       >
@@ -133,7 +133,7 @@ export default function FAQSection() {
                           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                           className="overflow-hidden"
                         >
-                          <p className="font-sans text-xs sm:text-sm text-[#64748B] leading-relaxed pb-5 pr-4 font-normal">
+                          <p className="font-sans text-xs sm:text-sm text-[#64748B] leading-relaxed pb-7 pr-4 font-normal">
                             {item.answer}
                           </p>
                         </motion.div>
