@@ -236,15 +236,15 @@ export default function ServicesGrid() {
                 key={category.id}
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 variants={cardVariants as any}
-                className="group relative flex flex-col bg-white rounded-2xl border border-neutral-200/70 px-7 pt-10 pb-7 shadow-[0_4px_24px_rgba(0,0,0,0.04)] transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] hover:border-neutral-200"
+                className="group relative flex flex-col bg-white rounded-2xl border border-neutral-200/70 px-7 sm:px-8 pt-14 sm:pt-16 pb-8 shadow-[0_4px_24px_rgba(0,0,0,0.04)] transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] hover:border-neutral-200"
               >
                 {/* ── Round Liquid Blob Badge FLOATING ON TOP OF THE CARD BOX ── */}
-                <div className="absolute -top-11 left-7 z-20">
+                <div className="absolute -top-11 left-7 sm:left-8 z-20">
                   <LiquidBlobBadge categorySlug={category.slug} />
                 </div>
 
-                {/* ── Title ── */}
-                <h3 className="font-sans text-lg font-bold text-neutral-900 tracking-tight leading-snug mb-1.5 mt-2">
+                {/* ── Title (Lowered to avoid any overlap) ── */}
+                <h3 className="font-sans text-lg sm:text-[1.25rem] font-bold text-neutral-900 tracking-tight leading-snug mb-2">
                   {category.title}
                 </h3>
 
