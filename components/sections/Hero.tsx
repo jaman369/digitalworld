@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
+import EmberParticles from "@/components/ui/EmberParticles";
 import { CloudHomepageData } from "@/types";
 
 export default function Hero() {
@@ -97,6 +98,8 @@ export default function Hero() {
 
   return (
     <section className="relative overflow-hidden bg-transparent pt-4 pb-0 lg:pt-6 lg:pb-0 flex flex-col justify-between h-[660px] lg:h-[720px]">
+      {/* Floating Ember Glow Particles */}
+      <EmberParticles count={20} />
       {/* Background gradients */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(0,118,255,0.05)_0%,transparent_60%)]" />
 
