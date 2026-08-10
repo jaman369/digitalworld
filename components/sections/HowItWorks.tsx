@@ -7,10 +7,10 @@ import { processStepsData } from "@/data/process";
 import { CloudHomepageData } from "@/types";
 
 const stepIcons = [
-  Icons.Search,       // Step 1: Discovery & Audit
-  Icons.Compass,      // Step 2: Custom Blueprint
-  Icons.Layers,       // Step 3: Execution & Optimization
-  Icons.TrendingUp    // Step 4: Scale & Growth
+  Icons.Flag,        // Step 1: Discovery & Audit (Flag icon like 18.jpg)
+  Icons.BarChart2,   // Step 2: Custom Blueprint (Bar chart icon like 18.jpg)
+  Icons.Box,         // Step 3: Execution & Optimization (Box icon like 18.jpg)
+  Icons.Rocket       // Step 4: Scale & Growth (Rocket/Growth icon)
 ];
 
 export default function HowItWorks() {
@@ -37,114 +37,139 @@ export default function HowItWorks() {
   const steps = data.processSteps && data.processSteps.length > 0 ? data.processSteps : processStepsData;
 
   return (
-    <section className="py-24 lg:py-36 bg-[#f8fafc]/80 relative overflow-hidden border-b border-neutral-100">
-      {/* Background Decorative Ambient Radial Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-blue-500/5 blur-[120px] pointer-events-none -z-10 rounded-full" />
-
+    <section className="py-24 sm:py-32 lg:py-40 bg-[#f8f9fa] relative overflow-hidden border-b border-neutral-100">
+      
       <div className="container mx-auto max-w-7xl px-6 relative z-10">
         
-        {/* Section Header (Matching Image 18 Style) */}
+        {/* Header - Matching Image 18 cleanly */}
         <div className="text-center max-w-3xl mx-auto mb-20 lg:mb-28">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <span className="h-0.5 w-6 bg-primary/40 rounded-full" />
-            <span className="font-sans text-xs font-bold text-primary uppercase tracking-[0.25em]">
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <span className="h-0.5 w-5 bg-neutral-400/60" />
+            <span className="font-sans text-xs font-semibold text-neutral-500 uppercase tracking-widest">
               {data.processEyebrow || "Process"}
             </span>
-            <span className="h-0.5 w-6 bg-primary/40 rounded-full" />
+            <span className="h-0.5 w-5 bg-neutral-400/60" />
           </div>
 
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight mb-6">
+          <h2 className="font-sans text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight">
             {data.processTitle || "Our simple 4-step onboarding process"}
-            <span className="text-primary">.</span>
+            <span className="text-blue-600">.</span>
           </h2>
 
-          <p className="font-sans text-base sm:text-lg text-neutral-500 leading-relaxed max-w-2xl mx-auto">
-            {data.processSubtitle || "We structure your customer acquisition funnel from initial audit to scaled delivery with absolute clarity."}
-          </p>
+          {data.processSubtitle && (
+            <p className="font-sans text-sm sm:text-base text-neutral-400 leading-relaxed max-w-xl mx-auto mt-4">
+              {data.processSubtitle}
+            </p>
+          )}
         </div>
 
-        {/* Desktop Wavy Pathway Process (LG+ Screens - Image 18 Replica) */}
-        <div className="hidden lg:block relative min-h-[460px] max-w-6xl mx-auto mb-10">
+        {/* Desktop Wavy Pathway (LG+ Screens - Exact Replica of Image 18) */}
+        <div className="hidden lg:block relative min-h-[520px] max-w-6xl mx-auto">
           
-          {/* Continuous SVG Blue Wave Path */}
+          {/* Continuous SVG Wave Path (Passing through all 4 hexagon nodes) */}
           <svg
-            className="absolute top-0 left-0 w-full h-[220px] pointer-events-none overflow-visible z-0"
-            viewBox="0 0 1000 220"
+            className="absolute top-0 left-0 w-full h-[260px] pointer-events-none overflow-visible z-0"
+            viewBox="0 0 1000 260"
             fill="none"
             preserveAspectRatio="none"
           >
-            {/* Soft Ambient Shadow Line */}
+            {/* Ambient Shadow Path */}
             <path
-              d="M 0 120 C 120 180, 180 30, 300 30 C 420 30, 480 170, 600 170 C 720 170, 780 30, 900 30 C 950 30, 980 80, 1000 100"
-              stroke="#3b82f6"
-              strokeWidth="6"
-              strokeOpacity="0.12"
+              d="M -20 160 C 80 190, 110 190, 180 180 C 290 160, 340 40, 430 40 C 530 40, 590 160, 680 100 C 760 40, 840 90, 920 90 C 960 90, 1000 110, 1040 120"
+              stroke="#000"
+              strokeWidth="10"
+              strokeOpacity="0.03"
               fill="none"
             />
-            {/* Primary Crisp Wavy Line */}
+            {/* Primary Blue Wave Line from Image 18 */}
             <path
-              d="M 0 120 C 120 180, 180 30, 300 30 C 420 30, 480 170, 600 170 C 720 170, 780 30, 900 30 C 950 30, 980 80, 1000 100"
-              stroke="url(#blue-gradient)"
-              strokeWidth="3.5"
+              d="M -20 160 C 80 190, 110 190, 180 180 C 290 160, 340 40, 430 40 C 530 40, 590 160, 680 100 C 760 40, 840 90, 920 90 C 960 90, 1000 110, 1040 120"
+              stroke="#0284c7"
+              strokeWidth="4"
               strokeLinecap="round"
               fill="none"
             />
-            <defs>
-              <linearGradient id="blue-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#2563eb" />
-                <stop offset="50%" stopColor="#0284c7" />
-                <stop offset="100%" stopColor="#2563eb" />
-              </linearGradient>
-            </defs>
           </svg>
 
-          {/* 4 Steps Positioned Along the Wave */}
-          <div className="grid grid-cols-4 gap-6 relative z-10 pt-4">
+          {/* 4 Steps Grid along the wave */}
+          <div className="grid grid-cols-4 gap-6 relative z-10">
             {steps.map((step, idx) => {
               const StepIcon = stepIcons[idx % stepIcons.length];
-              
-              const nodePositions = [
-                "mt-[96px]",  // Step 1
-                "mt-[6px]",   // Step 2
-                "mt-[146px]", // Step 3
-                "mt-[6px]",   // Step 4
+
+              if (idx === 0) {
+                return (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
+                    className="flex flex-col items-start relative pt-2"
+                  >
+                    {/* Text ABOVE Node for Step 1 */}
+                    <div className="relative mb-12 max-w-[220px]">
+                      <span className="absolute -top-6 left-28 font-serif text-7xl font-bold text-neutral-200/50 select-none pointer-events-none leading-none">
+                        1
+                      </span>
+                      <h3 className="font-sans font-bold text-lg text-neutral-900 mb-2 relative z-10">
+                        {step.title}
+                      </h3>
+                      <p className="font-sans text-xs text-neutral-400 leading-relaxed relative z-10">
+                        {step.description}
+                      </p>
+                    </div>
+
+                    {/* Hexagon Node sitting on wave line */}
+                    <div className="relative ml-8 group">
+                      <div className="absolute inset-0 bg-sky-500/25 blur-md rounded-full transform translate-y-3 scale-90" />
+                      <div
+                        className="relative w-14 h-16 bg-white flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-110"
+                        style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}
+                      >
+                        <StepIcon className="w-6 h-6 text-sky-600 fill-sky-600/10 stroke-[2.2]" />
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              }
+
+              // Steps 2, 3, 4: Hexagon Node on wave, Text BELOW Node
+              const topMargins = [
+                "",          // Step 1 handled above
+                "mt-[6px]",   // Step 2 peak
+                "mt-[68px]",  // Step 3 mid curve
+                "mt-[58px]",  // Step 4 right peak
               ];
 
               return (
                 <motion.div
                   key={idx}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: idx * 0.15 }}
-                  className={`flex flex-col items-center text-center ${nodePositions[idx]} relative group`}
+                  transition={{ duration: 0.5, delay: idx * 0.15 }}
+                  className={`flex flex-col items-start ${topMargins[idx]} relative`}
                 >
-                  {/* Hexagonal / Rotated Soft White Icon Node */}
-                  <div className="relative mb-6">
-                    {/* Glowing outer shadow ring */}
-                    <div className="absolute -inset-1.5 bg-gradient-to-r from-blue-500/20 to-sky-400/20 rounded-2xl blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    
-                    {/* White Hexagon/Rounded Icon Container */}
-                    <div className="relative h-16 w-16 bg-white rounded-2xl border border-neutral-100 shadow-[0_10px_25px_rgba(37,99,235,0.12)] flex items-center justify-center transform transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
-                      <div className="h-10 w-10 rounded-xl bg-blue-50/80 text-primary flex items-center justify-center">
-                        <StepIcon className="h-5 w-5 stroke-[2.2]" />
-                      </div>
+                  {/* Hexagon Node sitting on wave line */}
+                  <div className="relative ml-8 mb-10 group">
+                    <div className="absolute inset-0 bg-sky-500/25 blur-md rounded-full transform translate-y-3 scale-90" />
+                    <div
+                      className="relative w-14 h-16 bg-white flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-110"
+                      style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}
+                    >
+                      <StepIcon className="w-6 h-6 text-sky-600 fill-sky-600/10 stroke-[2.2]" />
                     </div>
                   </div>
 
-                  {/* Step Content Box with Watermark Number */}
-                  <div className="relative bg-white/70 backdrop-blur-sm border border-neutral-100 rounded-2xl p-6 shadow-[0_4px_20px_rgba(0,0,0,0.02)] group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-all duration-300 w-full overflow-hidden">
-                    
-                    {/* Giant Watermark Step Number (1, 2, 3, 4) from Image 18 */}
-                    <span className="absolute -top-4 -right-1 font-serif text-7xl font-bold text-neutral-200/40 select-none pointer-events-none leading-none group-hover:text-primary/10 transition-colors duration-300">
-                      {step.stepNumber || idx + 1}
+                  {/* Text BELOW Node */}
+                  <div className="relative max-w-[220px]">
+                    <span className="absolute -top-6 left-28 font-serif text-7xl font-bold text-neutral-200/50 select-none pointer-events-none leading-none">
+                      {idx + 1}
                     </span>
-
-                    <h3 className="font-sans font-bold text-base text-neutral-900 mb-2 relative z-10">
+                    <h3 className="font-sans font-bold text-lg text-neutral-900 mb-2 relative z-10">
                       {step.title}
                     </h3>
-
-                    <p className="font-sans text-xs text-neutral-500 leading-relaxed relative z-10">
+                    <p className="font-sans text-xs text-neutral-400 leading-relaxed relative z-10">
                       {step.description}
                     </p>
                   </div>
@@ -154,12 +179,11 @@ export default function HowItWorks() {
           </div>
         </div>
 
-        {/* Mobile / Tablet Vertical Flow (SM-MD Screens) */}
+        {/* Mobile / Tablet Flow (SM-MD) */}
         <div className="block lg:hidden relative max-w-md mx-auto">
-          {/* Vertical Connecting Line */}
-          <div className="absolute left-7 top-8 bottom-8 w-0.5 bg-gradient-to-b from-blue-500 via-sky-400 to-blue-500" />
+          <div className="absolute left-7 top-8 bottom-8 w-0.5 bg-sky-500/40" />
 
-          <div className="flex flex-col gap-10">
+          <div className="flex flex-col gap-12">
             {steps.map((step, idx) => {
               const StepIcon = stepIcons[idx % stepIcons.length];
 
@@ -169,29 +193,29 @@ export default function HowItWorks() {
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  transition={{ duration: 0.4, delay: idx * 0.1 }}
                   className="flex gap-6 items-start relative group"
                 >
-                  {/* Icon Node */}
+                  {/* Hexagon Node */}
                   <div className="relative shrink-0 z-10">
-                    <div className="h-14 w-14 bg-white rounded-2xl border border-neutral-100 shadow-md flex items-center justify-center">
-                      <div className="h-9 w-9 rounded-xl bg-blue-50 text-primary flex items-center justify-center">
-                        <StepIcon className="h-4 w-4 stroke-[2.2]" />
-                      </div>
+                    <div className="absolute inset-0 bg-sky-500/20 blur-sm rounded-full transform translate-y-1" />
+                    <div
+                      className="relative w-14 h-16 bg-white flex items-center justify-center shadow-md"
+                      style={{ clipPath: "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)" }}
+                    >
+                      <StepIcon className="w-5 h-5 text-sky-600 fill-sky-600/10 stroke-[2.2]" />
                     </div>
                   </div>
 
-                  {/* Content Card */}
-                  <div className="flex-1 bg-white border border-neutral-100 rounded-2xl p-6 shadow-sm relative overflow-hidden">
-                    {/* Watermark Number */}
-                    <span className="absolute -top-3 -right-1 font-serif text-6xl font-bold text-neutral-200/40 select-none pointer-events-none leading-none">
-                      {step.stepNumber || idx + 1}
+                  {/* Text (No card box - direct on background like Image 18) */}
+                  <div className="flex-1 pt-1 relative">
+                    <span className="absolute -top-4 right-0 font-serif text-6xl font-bold text-neutral-200/50 select-none pointer-events-none leading-none">
+                      {idx + 1}
                     </span>
-
                     <h3 className="font-sans font-bold text-base text-neutral-900 mb-2 relative z-10">
                       {step.title}
                     </h3>
-                    <p className="font-sans text-xs text-neutral-500 leading-relaxed relative z-10">
+                    <p className="font-sans text-xs text-neutral-400 leading-relaxed relative z-10">
                       {step.description}
                     </p>
                   </div>
