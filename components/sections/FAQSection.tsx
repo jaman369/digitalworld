@@ -46,7 +46,7 @@ export default function FAQSection() {
   };
 
   return (
-    <section className="py-20 lg:py-32 bg-white relative z-10 overflow-hidden">
+    <section className="py-20 lg:py-32 bg-gradient-to-b from-white via-white to-[#0f172a] relative z-10 overflow-hidden">
       
       {/* Background Decorative Matrix & Shapes */}
       <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">

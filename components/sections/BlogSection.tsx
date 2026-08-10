@@ -48,7 +48,7 @@ export default function BlogSection() {
   };
 
   return (
-    <section className="py-20 lg:py-32 bg-gradient-to-b from-[#f8f9fc] via-white to-[#f8f9fc] relative z-10 overflow-hidden">
+    <section className="py-20 lg:py-32 bg-gradient-to-b from-[#f8f9fc] via-white to-white relative z-10 overflow-hidden">
       {/* Subtle Dot Matrix Background Texture */}
       <div className="absolute inset-0 pointer-events-none -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(#e2e5ec_0.8px,transparent_0.8px)] [background-size:20px_20px] opacity-40" />

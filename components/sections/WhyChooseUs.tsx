@@ -62,7 +62,7 @@ export default function WhyChooseUs() {
       ];
 
   return (
-    <section className="py-20 lg:py-32 bg-transparent relative z-10 border-b border-neutral-100">
+    <section className="py-20 lg:py-32 bg-gradient-to-b from-[#f8f9fc] via-white to-[#f8f9fc] relative z-10">
       <div className="container mx-auto max-w-7xl px-6">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-24">
