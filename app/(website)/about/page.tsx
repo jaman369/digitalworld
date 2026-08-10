@@ -85,7 +85,8 @@ export default function AboutPage() {
   }, []);
 
   const timelineData = [
-    { years: "2024 - Present", role: "Digital Marketing Expert", company: "KJ Digital World" },
+    { years: "2026 - Present", role: "AI Automation Specialist", company: "Building custom AI workflows, intelligent agents & automated growth systems", badgeColor: "bg-emerald-50 border-emerald-200 text-emerald-700" },
+    { years: "2024 - 2026", role: "Digital Marketing Expert", company: "KJ Digital World" },
     { years: "2022 - 2024", role: "SEO & Paid Ads Specialist", company: "Freelance / Agency Partner" },
     { years: "2021 - 2022", role: "Web Developer", company: "Building fast, optimized websites" },
     { years: "2020 - 2021", role: "The Beginning", company: "Mastering the fundamentals of digital marketing" }
@@ -257,13 +258,20 @@ export default function AboutPage() {
                   {idx < timelineData.length - 1 && (
                     <div className="absolute left-2.5 top-6 bottom-[-2.5rem] w-0.5 bg-neutral-200" />
                   )}
-                  <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 border-primary bg-white relative z-10 mt-1">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                  <div className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 ${idx === 0 ? "border-emerald-500 bg-emerald-50 shadow-sm" : "border-primary bg-white"} relative z-10 mt-1`}>
+                    <div className={`w-1.5 h-1.5 rounded-full ${idx === 0 ? "bg-emerald-500 animate-pulse" : "bg-primary"}`} />
                   </div>
                   <div>
-                    <span className="inline-block bg-blue-50 border border-blue-100 text-primary text-[10px] font-bold px-3 py-1 rounded-md uppercase tracking-wider mb-2">
-                      {item.years}
-                    </span>
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className={`inline-block ${item.badgeColor || "bg-blue-50 border border-blue-100 text-primary"} text-[10px] font-bold px-3 py-1 rounded-md uppercase tracking-wider`}>
+                        {item.years}
+                      </span>
+                      {idx === 0 && (
+                        <span className="inline-flex items-center gap-1 text-[9px] font-extrabold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 uppercase tracking-widest">
+                          <Icons.Sparkles className="h-3 w-3" /> New Skill
+                        </span>
+                      )}
+                    </div>
                     <h4 className="font-sans font-bold text-sm sm:text-base text-neutral-900 mb-0.5">
                       {item.role}
                     </h4>
