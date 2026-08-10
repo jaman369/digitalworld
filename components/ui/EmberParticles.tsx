@@ -20,7 +20,12 @@ const WARM_TONES = [
   { main: "#ff6d00", glow: "#d50000" },
 ];
 
-export default function EmberParticles({ count = 18 }: { count?: number }) {
+interface EmberParticlesProps {
+  count?: number;
+  fixed?: boolean;
+}
+
+export default function EmberParticles({ count = 30, fixed = true }: EmberParticlesProps) {
   const [particles, setParticles] = useState<Particle[]>([]);
 
   useEffect(() => {
@@ -30,8 +35,8 @@ export default function EmberParticles({ count = 18 }: { count?: number }) {
         id: i,
         size: Math.floor(Math.random() * 4) + 3, // 3px to 6px
         left: Math.random() * 100, // 0% to 100%
-        duration: Math.random() * 4 + 6, // 6s to 10s
-        delay: Math.random() * 5, // 0s to 5s
+        duration: Math.random() * 5 + 7, // 7s to 12s
+        delay: Math.random() * 7, // 0s to 7s
         color: tone.main,
         glowColor: tone.glow,
       };
@@ -40,7 +45,11 @@ export default function EmberParticles({ count = 18 }: { count?: number }) {
   }, [count]);
 
   return (
-    <div className="ember-particle-container absolute inset-0 pointer-events-none overflow-hidden z-[1]">
+    <div
+      className={`ember-particle-container ${
+        fixed ? "fixed inset-0 z-20" : "absolute inset-0 z-[1]"
+      } pointer-events-none overflow-hidden select-none`}
+    >
       {particles.map((p) => (
         <div
           key={p.id}
