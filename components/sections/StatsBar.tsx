@@ -31,7 +31,7 @@ export default function StatsBar() {
   return (
     <section 
       ref={containerRef} 
-      className="py-10 sm:py-12 bg-gradient-to-b from-[#0f172a] via-[#f8f9fc] to-[#f8f9fc] relative z-10"
+      className="py-8 sm:py-10 bg-transparent border-b border-neutral-100 relative z-10"
     >
       <div className="container mx-auto max-w-7xl px-6">
         {/* Section Eyebrow Title */}

@@ -196,7 +196,7 @@ export default function ServicesGrid() {
   return (
     <section
       id="services"
-      className="py-20 lg:py-32 bg-gradient-to-b from-[#f8f9fc] via-white to-white relative z-10 overflow-hidden"
+      className="py-20 lg:py-32 bg-gradient-to-b from-[#f8f9fc] via-white to-[#f8f9fc] relative z-10 overflow-hidden"
     >
       {/* Subtle background texture */}
       <div className="absolute inset-0 pointer-events-none -z-10">

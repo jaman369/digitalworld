@@ -21,7 +21,7 @@ export default async function Footer() {
   ];
 
   return (
-    <footer className="bg-[#0b0f19] text-neutral-300 font-sans border-t border-white/10">
+    <footer className="bg-bg-dark text-neutral-300 font-sans border-t border-neutral-800">
       <div className="container mx-auto max-w-7xl px-6 py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand Info */}

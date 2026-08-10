@@ -9,6 +9,7 @@ export default function AboutUsSection() {
     <section className="py-20 lg:py-32 bg-white relative z-10 overflow-hidden">
       {/* Background soft wavy shape background */}
       <div className="absolute inset-0 pointer-events-none -z-10">
+        <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-neutral-50 to-transparent" />
         <div className="absolute -bottom-10 right-0 w-[500px] h-[500px] bg-indigo-50/50 rounded-full blur-3xl" />
         <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-blue-50/40 rounded-full blur-3xl" />
       </div>
