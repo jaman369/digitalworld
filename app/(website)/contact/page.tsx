@@ -402,31 +402,31 @@ export default function ContactPage() {
               )}
             </div>
 
-            {/* Image 17 Showcase Feature Card */}
+            {/* Image 12 Team Showcase Feature Card */}
             <div className="bg-gradient-to-br from-slate-50 via-white to-blue-50/40 border border-neutral-100 rounded-[2rem] shadow-[0_12px_40px_rgba(0,0,0,0.03)] p-8 lg:p-10 flex flex-col sm:flex-row items-center gap-8 relative overflow-hidden group">
               <div className="flex-1 z-10">
                 <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-light px-3.5 py-1 text-xs font-semibold text-primary uppercase tracking-wider mb-3">
-                  Dedicated Partnership
+                  Our Expert Team
                 </span>
                 <h3 className="font-serif text-2xl font-bold text-neutral-900 mb-3 leading-snug">
-                  Ready to scale your business with experts?
+                  Driven by passion & real results.
                 </h3>
                 <p className="font-sans text-xs sm:text-sm text-neutral-500 leading-relaxed mb-4">
-                  We partner directly with you to build tailored SEO, PPC, and web strategies designed for compound growth and real ROI.
+                  A dedicated team of SEO specialists, PPC strategists, and web developers working together to scale your business globally.
                 </p>
                 <div className="flex flex-wrap items-center gap-4 text-xs font-bold text-neutral-700">
-                  <span className="flex items-center gap-1.5"><Icons.CheckCircle2 className="h-4 w-4 text-emerald-500" /> Direct Communication</span>
-                  <span className="flex items-center gap-1.5"><Icons.CheckCircle2 className="h-4 w-4 text-emerald-500" /> Transparent Reporting</span>
+                  <span className="flex items-center gap-1.5"><Icons.CheckCircle2 className="h-4 w-4 text-emerald-500" /> Dedicated Growth Team</span>
+                  <span className="flex items-center gap-1.5"><Icons.CheckCircle2 className="h-4 w-4 text-emerald-500" /> 100% Client Focused</span>
                 </div>
               </div>
 
-              {/* Image 17 Frame */}
-              <div className="relative w-full sm:w-64 md:w-72 h-48 sm:h-56 shrink-0 rounded-2xl overflow-hidden shadow-sm border border-neutral-100 bg-white p-2">
+              {/* Image 12 Frame */}
+              <div className="relative w-full sm:w-64 md:w-72 h-52 sm:h-60 shrink-0 rounded-2xl overflow-hidden shadow-sm border border-neutral-100 bg-white p-2">
                 <Image
-                  src="/images/17.jpg"
-                  alt="Digital World Team Collaboration"
+                  src="/images/12.jpg"
+                  alt="Digital World Expert Team"
                   fill
-                  className="object-contain p-2 rounded-xl transition-transform duration-500 group-hover:scale-105"
+                  className="object-contain p-1 rounded-xl transition-transform duration-500 group-hover:scale-105"
                 />
               </div>
             </div>
