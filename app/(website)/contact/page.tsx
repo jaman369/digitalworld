@@ -545,7 +545,7 @@ export default function ContactPage() {
               <div className="flex flex-col gap-6">
                 {[
                   { step: 1, title: "You send the form", desc: "Takes 2 minutes. The more detail, the better I can help." },
-                  { step: 2, title: "I review & respond", desc: "I&apos;ll reply within 24 hours with initial thoughts and any questions." },
+                  { step: 2, title: "I review & respond", desc: "I'll reply within 24 hours with initial thoughts and any questions." },
                   { step: 3, title: "Free strategy call", desc: "30 minutes to align on goals, strategy, and what success looks like." },
                   { step: 4, title: "We get to work", desc: "Clear proposal, timeline, and kickoff — then we build something great." }
                 ].map((item) => (
