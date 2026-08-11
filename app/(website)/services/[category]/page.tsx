@@ -902,6 +902,78 @@ export default async function CategoryPage({ params }: PageProps) {
         </section>
       )}
 
+      {/* 2. Content & Marketing Section */}
+      {category.slug === "content-marketing" && (
+        <section className="py-20 lg:py-28 bg-white border-t border-neutral-100 relative overflow-hidden z-10">
+          {/* Ambient Background Radial Glow */}
+          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[550px] h-[550px] bg-blue-500/5 blur-[120px] pointer-events-none -z-10 rounded-full" />
+          
+          <div className="container mx-auto max-w-7xl px-6 relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+              
+              {/* Left Column: Copy & Clean Checklist */}
+              <div className="lg:col-span-6 flex flex-col items-start">
+                
+                {/* Eyebrow Badge */}
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-100 px-3.5 py-1 text-[10px] sm:text-xs font-bold text-primary uppercase tracking-widest mb-6">
+                  <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                  STRATEGIC CONTENT MARKETING
+                </span>
+
+                {/* Main Headline */}
+                <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.6rem] font-bold text-neutral-900 leading-[1.18] tracking-tight mb-6">
+                  Position Your Brand as an Industry Leader
+                </h2>
+
+                {/* Lead Paragraph */}
+                <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed mb-6">
+                  Low-quality content doesn&apos;t just underperform — it holds your entire business back. If you&apos;re struggling to build awareness, generate leads, or convert visitors into customers, the problem often starts with your content. KJ Digital World Agency delivers data-driven, conversion-focused, and AI-optimized content marketing solutions built to fix that — from the ground up or with a complete overhaul.
+                </p>
+
+                {/* Normal Text Checklist with Emoji */}
+                <ul className="flex flex-col gap-3 sm:gap-3.5 mb-8 w-full">
+                  {[
+                    "Low brand awareness and weak market presence",
+                    "Little to no qualified leads coming in",
+                    "Declining traffic and visitor engagement",
+                    "Stagnant or decreasing sales",
+                    "Low AI search visibility holding back discoverability",
+                    "Poor conversion rates despite steady traffic",
+                  ].map((item, idx) => (
+                    <li key={idx} className="flex items-start gap-3 font-sans text-sm sm:text-base font-medium text-neutral-800 leading-snug">
+                      <span className="text-emerald-500 font-bold text-base sm:text-lg shrink-0 select-none">✔</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Bottom Paragraph Note */}
+                <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed pt-4 border-t border-neutral-100">
+                  <strong className="text-primary font-bold">Whether your content needs a strategic refresh or a total transformation</strong>, KJ Digital World Agency has you covered. Let&apos;s turn your content into your strongest growth asset.
+                </p>
+
+              </div>
+
+              {/* Right Column: Image 13 (Content & Growth Specialist Illustration) */}
+              <div className="lg:col-span-6 relative flex justify-center lg:justify-end items-center">
+                {/* Backdrop Glow */}
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-blue-500/10 via-sky-400/10 to-indigo-500/10 blur-3xl -z-10" />
+
+                {/* 3D Image 13 Container */}
+                <div className="relative w-full max-w-lg lg:max-w-xl flex items-center justify-center">
+                  <img
+                    src="/images/13.png"
+                    alt="Content Marketing Specialist - Digital World"
+                    className="w-full h-auto max-w-[420px] sm:max-w-[480px] lg:max-w-[520px] object-contain drop-shadow-[0_25px_50px_rgba(0,0,0,0.1)] hover:scale-[1.02] transition-transform duration-500 select-none"
+                  />
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Dynamic Step Process Section */}
       {categoryProcesses[category.slug] && (
         <section className="py-20 lg:py-28 bg-transparent border-t border-neutral-100 text-center relative z-10">
