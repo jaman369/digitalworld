@@ -3,6 +3,7 @@ import Link from "next/link";
 import * as Icons from "lucide-react";
 import { servicesData } from "@/data/services";
 import ServiceExtraSections from "@/components/sections/ServiceExtraSections";
+import { db } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -317,6 +318,24 @@ export default async function CategoryPage({ params }: PageProps) {
     notFound();
   }
 
+  // Fetch dynamic CMS updates from database for this service category
+  const dbServices = await db.servicePage.findMany({
+    where: { categoryName: category.title },
+  }).catch(() => []);
+
+  const mergedSubItems = category.subItems.map((sub) => {
+    const dbSvc = dbServices.find((s) => s.slug === sub.slug);
+    if (!dbSvc) return sub;
+    return {
+      ...sub,
+      name: dbSvc.name || sub.name,
+      description: dbSvc.description || sub.description,
+      tagline: dbSvc.tagline || sub.tagline,
+      primaryCtaText: dbSvc.primaryCtaText || sub.primaryCtaText,
+      primaryCtaLink: dbSvc.primaryCtaLink || sub.primaryCtaLink,
+    };
+  });
+
   // Get override or generate fallback
   const override = heroOverrides[category.slug] || {
     eyebrow: category.title,
@@ -400,7 +419,7 @@ export default async function CategoryPage({ params }: PageProps) {
         <div className="absolute bottom-0 left-0 right-0 overflow-hidden border-t border-neutral-800/50 bg-[#09090B]/90 backdrop-blur-sm">
           <div className="flex animate-marquee whitespace-nowrap py-3.5">
             {/* Duplicate the items twice for seamless infinite scroll */}
-            {[...category.subItems, ...category.subItems].map((sub, idx) => {
+            {[...mergedSubItems, ...mergedSubItems].map((sub, idx) => {
               // Colorful emoji icons for each sub-service
               const subEmojis: Record<string, string> = {
                 "local-seo": "📍",
@@ -486,7 +505,7 @@ export default async function CategoryPage({ params }: PageProps) {
 
           {/* Grid Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 gap-x-8 lg:gap-x-10 pt-6">
-            {category.subItems.map((sub) => {
+            {mergedSubItems.map((sub) => {
               const subEmojis: Record<string, string> = {
                 // SEO
                 "local-seo": "📍",

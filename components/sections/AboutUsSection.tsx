@@ -1,10 +1,33 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, TrendingUp, ShieldCheck } from "lucide-react";
+import { CloudAboutData } from "@/types";
 
 export default function AboutUsSection() {
+  const [aboutData, setAboutData] = useState<CloudAboutData>({
+    name: "Kamrujjaman Mufti",
+    title: "Digital Marketing Expert & Web Developer",
+    bioParagraph1: "We specialize in strategic data-driven campaigns designed to deliver high-converting organic and paid traffic directly to your business.",
+    bioParagraph2: "Our end-to-end framework guarantees transparent ROI and sustainable growth across all digital channels.",
+    imagePath: "/images/about-graphic.png",
+  });
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const res = await fetch("/api/about");
+        if (res.ok) {
+          const data = await res.json();
+          setAboutData((prev) => ({ ...prev, ...data }));
+        }
+      } catch {}
+    }
+    load();
+  }, []);
+
   return (
     <section className="py-20 lg:py-32 bg-white relative z-10 overflow-hidden">
       {/* Background soft wavy shape background */}
@@ -31,9 +54,9 @@ export default function AboutUsSection() {
 
               {/* User Uploaded About Image */}
               <img
-                src="/images/about-graphic.png"
-                alt="About Us - Boosts Your Website Traffic"
-                className="w-full h-auto max-w-[500px] object-contain drop-shadow-xl select-none"
+                src={aboutData.imagePath || "/images/about-graphic.png"}
+                alt={`About Us - ${aboutData.name || "Digital World"}`}
+                className="w-full h-auto max-w-[500px] max-h-[420px] object-contain drop-shadow-xl select-none rounded-2xl"
               />
             </div>
           </motion.div>
@@ -53,17 +76,17 @@ export default function AboutUsSection() {
 
             {/* Main Section Title */}
             <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.6rem] font-bold text-neutral-900 tracking-tight leading-[1.2] mb-6">
-              Boosts Your Website Traffic!
+              {aboutData.name ? `${aboutData.name} - ${aboutData.title || "Digital Growth Expert"}` : "Boosts Your Website Traffic!"}
             </h2>
 
             {/* Paragraph 1 */}
             <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed mb-4">
-              Ad nec unum copiosae. Sea ex everti labores, ad option iuvaret qui muva. We specialize in strategic data-driven campaigns designed to deliver high-converting organic and paid traffic directly to your business.
+              {aboutData.bioParagraph1 || "We specialize in strategic data-driven campaigns designed to deliver high-converting organic and paid traffic directly to your business."}
             </p>
 
             {/* Paragraph 2 */}
             <p className="font-sans text-xs sm:text-sm text-neutral-500 leading-relaxed mb-8">
-              Ea pro tibique comprehensam, sed ea verear numquam molestie. Nam te omittam comprehensam. Ne nam nonumy putent fuisset, reque fabulas usu ne. Ex vel populo meam. Eos ne delenit admodum. Our end-to-end framework guarantees transparent ROI and sustainable growth.
+              {aboutData.bioParagraph2 || "Our end-to-end framework guarantees transparent ROI and sustainable growth across all digital channels."}
             </p>
 
             {/* Highlights Grid */}
@@ -105,3 +128,4 @@ export default function AboutUsSection() {
     </section>
   );
 }
+

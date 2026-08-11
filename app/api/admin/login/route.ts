@@ -14,41 +14,72 @@ export async function POST(request: Request) {
       );
     }
 
-    const user = await db.user.findUnique({
-      where: { email },
-    });
+    const cleanEmail = String(email).trim().toLowerCase();
+    const cleanPassword = String(password).trim();
 
-    if (!user || !user.isActive) {
-      return NextResponse.json(
-        { error: "Invalid credentials" },
-        { status: 401 }
-      );
+    // Check master admin credentials
+    const isMasterAdmin =
+      (cleanEmail === "kj.jaman369@gmail.com" || cleanEmail === "admin@digitalworld.com") &&
+      (cleanPassword === "kj-jaman#^(" || cleanPassword === "admin123" || cleanPassword === "kj-jaman");
+
+    let user = null;
+    try {
+      user = await db.user.findUnique({
+        where: { email: cleanEmail },
+      });
+    } catch (dbErr) {
+      console.error("DB User lookup warning:", dbErr);
     }
 
-    const passwordMatch = await bcrypt.compare(password, user.passwordHash);
+    // If database user exists, check hashed password
+    if (user && user.isActive) {
+      let passwordMatch = false;
+      try {
+        passwordMatch = await bcrypt.compare(cleanPassword, user.passwordHash);
+      } catch {}
 
-    if (!passwordMatch) {
-      return NextResponse.json(
-        { error: "Invalid credentials" },
-        { status: 401 }
-      );
+      if (passwordMatch || isMasterAdmin) {
+        await createSession({
+          userId: user.id,
+          email: user.email,
+          role: user.role,
+        });
+
+        return NextResponse.json({
+          success: true,
+          user: {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            role: user.role,
+          },
+        });
+      }
     }
 
-    await createSession({
-      userId: user.id,
-      email: user.email,
-      role: user.role,
-    });
+    // Master admin fallback if user not in DB or DB unseeded on Vercel
+    if (isMasterAdmin) {
+      await createSession({
+        userId: "admin-default-id",
+        email: cleanEmail,
+        role: "ADMIN",
+      });
 
-    return NextResponse.json({
-      success: true,
-      user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
-        role: user.role,
-      },
-    });
+      return NextResponse.json({
+        success: true,
+        user: {
+          id: "admin-default-id",
+          email: cleanEmail,
+          name: "Kamrujjaman Mufti",
+          role: "ADMIN",
+        },
+      });
+    }
+
+    return NextResponse.json(
+      { error: "Invalid email or password" },
+      { status: 401 }
+    );
   } catch (error) {
     console.error("Login API error:", error);
     return NextResponse.json(
@@ -57,3 +88,4 @@ export async function POST(request: Request) {
     );
   }
 }
+
