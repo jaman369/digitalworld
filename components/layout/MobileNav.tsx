@@ -12,7 +12,8 @@ interface MobileNavProps {
 }
 
 export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
-  const [activeAccordion, setActiveAccordion] = useState<string | null>(null);
+  // Default open "services" so service categories are immediately visible
+  const [activeAccordion, setActiveAccordion] = useState<string | null>("services");
 
   const toggleAccordion = (id: string) => {
     setActiveAccordion(activeAccordion === id ? null : id);
@@ -44,10 +45,10 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
           >
             {/* Drawer Header */}
             <div className="flex items-center justify-between border-b border-neutral-100 pb-4">
-              <span className="flex items-center gap-2 font-sans font-bold text-neutral-900">
+              <Link href="/" className="flex items-center gap-2 font-sans font-bold text-neutral-900" onClick={onClose}>
                 <span className="h-3.5 w-3.5 rounded-full bg-gradient-to-r from-primary to-primary-hover" />
                 Digital World
-              </span>
+              </Link>
               <button
                 onClick={onClose}
                 className="rounded-lg p-2 text-neutral-500 hover:bg-neutral-100 transition-colors"
@@ -70,21 +71,23 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
                   </Link>
                 </li>
                 
-                {/* Services Accordion Trigger */}
+                {/* Services Accordion */}
                 <li>
                   <div className="flex flex-col">
-                    <button
-                      onClick={() => toggleAccordion("services")}
-                      className="flex w-full items-center justify-between text-base font-semibold text-neutral-800 hover:text-primary transition-colors"
-                      aria-expanded={activeAccordion === "services"}
-                    >
-                      Services
-                      <Icons.ChevronDown
-                        className={`h-4.5 w-4.5 text-neutral-400 transition-transform ${
-                          activeAccordion === "services" ? "rotate-180" : ""
-                        }`}
-                      />
-                    </button>
+                    <div className="flex w-full items-center justify-between">
+                      <button
+                        onClick={() => toggleAccordion("services")}
+                        className="flex w-full items-center justify-between py-1 text-base font-semibold text-neutral-800 hover:text-primary transition-colors"
+                        aria-expanded={activeAccordion === "services"}
+                      >
+                        <span className="text-primary">Services</span>
+                        <Icons.ChevronDown
+                          className={`h-4.5 w-4.5 text-neutral-400 transition-transform duration-200 ${
+                            activeAccordion === "services" ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
+                    </div>
 
                     <AnimatePresence>
                       {activeAccordion === "services" && (
@@ -99,26 +102,41 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
                             {servicesData.map((category) => (
                               <li key={category.id}>
                                 <div className="flex flex-col">
-                                  <button
-                                    onClick={() => toggleAccordion(category.id)}
-                                    className="flex w-full items-center justify-between py-1 text-sm font-medium text-neutral-600 hover:text-primary"
-                                    aria-expanded={activeAccordion === category.id}
-                                  >
-                                    {category.title}
-                                    <Icons.ChevronDown
-                                      className={`h-3.5 w-3.5 text-neutral-400 transition-transform ${
-                                        activeAccordion === category.id ? "rotate-180" : ""
-                                      }`}
-                                    />
-                                  </button>
+                                  {/* Direct clickable category link + Chevron toggle button */}
+                                  <div className="flex w-full items-center justify-between py-1.5 group">
+                                    <Link
+                                      href={`/services/${category.slug}`}
+                                      className="flex-1 text-sm font-semibold text-neutral-700 hover:text-primary transition-colors"
+                                      onClick={onClose}
+                                    >
+                                      {category.title}
+                                    </Link>
+                                    
+                                    <button
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        toggleAccordion(category.id);
+                                      }}
+                                      className="p-1 text-neutral-400 hover:text-primary transition-colors"
+                                      aria-label={`Toggle sub-services for ${category.title}`}
+                                      aria-expanded={activeAccordion === category.id}
+                                    >
+                                      <Icons.ChevronDown
+                                        className={`h-4 w-4 transition-transform duration-200 ${
+                                          activeAccordion === category.id ? "rotate-180" : ""
+                                        }`}
+                                      />
+                                    </button>
+                                  </div>
 
+                                  {/* Sub-items list */}
                                   {activeAccordion === category.id && (
-                                    <ul className="mt-1 flex flex-col gap-1.5 pl-4 pb-2">
+                                    <ul className="mt-1 flex flex-col gap-1.5 pl-4 pb-2 border-l border-neutral-100">
                                       {category.subItems.map((sub) => (
                                         <li key={sub.slug}>
                                           <Link
                                             href={`/services/${category.slug}#${sub.slug}`}
-                                            className="block py-1 text-xs text-neutral-500 hover:text-primary"
+                                            className="block py-1 text-xs font-medium text-neutral-500 hover:text-primary transition-colors"
                                             onClick={onClose}
                                           >
                                             {sub.name}
