@@ -586,6 +586,33 @@ export default async function CategoryPage({ params }: PageProps) {
                 </div>
               );
             })}
+
+            {/* Extra Plus / More Services Card */}
+            <div className="bg-white/80 rounded-3xl p-8 pt-12 shadow-[0_4px_25px_rgba(0,0,0,0.02)] border border-dashed border-neutral-300 flex flex-col items-center text-center relative group hover:border-primary/50 hover:bg-white transition-all duration-300 hover:-translate-y-1">
+              {/* Top Floating Badge Protruding from Top Center */}
+              <div className="absolute -top-7 left-1/2 -translate-x-1/2 bg-white rounded-2xl px-6 py-3.5 shadow-[0_4px_20px_rgba(0,0,0,0.06)] border border-neutral-200 flex items-center justify-center text-2xl sm:text-3xl text-primary group-hover:scale-110 transition-all duration-300">
+                <Icons.Plus className="h-7 w-7 text-primary" />
+              </div>
+
+              {/* Card Title */}
+              <h3 className="font-serif text-xl sm:text-2xl font-bold text-neutral-900 mb-3 mt-2 group-hover:text-primary transition-colors">
+                More Services
+              </h3>
+
+              {/* Card Description */}
+              <p className="font-sans text-xs sm:text-sm text-neutral-400 leading-relaxed max-w-xs mx-auto mb-8">
+                Need a custom strategy? We continuously expand our capabilities and build bespoke solutions tailored to your growth goals.
+              </p>
+
+              {/* Bottom Plus Action Button */}
+              <Link
+                href={`/contact?service=custom-${category.slug}`}
+                aria-label="Request custom service"
+                className="mt-auto flex items-center justify-center h-11 w-11 rounded-full bg-neutral-100 border border-neutral-200 text-neutral-500 group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all duration-300 shadow-sm"
+              >
+                <Icons.Plus className="h-5 w-5" />
+              </Link>
+            </div>
           </div>
 
         </div>
