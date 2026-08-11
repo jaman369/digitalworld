@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import * as Icons from "lucide-react";
 import { servicesData } from "@/data/services";
+import ServiceExtraSections from "@/components/sections/ServiceExtraSections";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -636,6 +637,9 @@ export default async function CategoryPage({ params }: PageProps) {
           </div>
         </section>
       )}
+
+      {/* Why Us, Pricing & Client Stories Sections (Matching Design Reference) */}
+      <ServiceExtraSections categorySlug={category.slug} />
     </article>
   );
 }
