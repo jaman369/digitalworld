@@ -63,34 +63,35 @@ export default function HowItWorks() {
           </p>
         </div>
 
-        {/* Desktop Wavy Pathway Process (LG+ Screens - Image 18 Replica) */}
-        <div className="hidden lg:block relative min-h-[460px] max-w-6xl mx-auto mb-10">
+        {/* Desktop Wavy Pathway Process (LG+ Screens) */}
+        <div className="hidden lg:block relative max-w-6xl mx-auto mb-10" style={{ minHeight: '520px' }}>
           
-          {/* Continuous SVG Blue Wave Path */}
+          {/* S-Curve SVG Wave Path - Alternating valleys (1,3) and peaks (2,4) */}
           <svg
-            className="absolute top-0 left-0 w-full h-[220px] pointer-events-none overflow-visible z-0"
-            viewBox="0 0 1000 220"
+            className="absolute top-0 left-0 w-full pointer-events-none overflow-visible z-0"
+            viewBox="0 0 1100 340"
             fill="none"
-            preserveAspectRatio="none"
+            preserveAspectRatio="xMidYMid meet"
+            style={{ height: '340px' }}
           >
             {/* Soft Ambient Shadow Line */}
             <path
-              d="M 0 120 C 120 180, 180 30, 300 30 C 420 30, 480 170, 600 170 C 720 170, 780 30, 900 30 C 950 30, 980 80, 1000 100"
+              d="M -20 220 C 60 220, 100 220, 155 220 C 220 220, 260 60, 370 60 C 480 60, 520 280, 630 280 C 740 280, 780 60, 890 60 C 950 60, 1020 60, 1120 100"
               stroke="#3b82f6"
               strokeWidth="6"
-              strokeOpacity="0.12"
+              strokeOpacity="0.08"
               fill="none"
             />
-            {/* Primary Crisp Wavy Line */}
+            {/* Primary Blue Wave Line */}
             <path
-              d="M 0 120 C 120 180, 180 30, 300 30 C 420 30, 480 170, 600 170 C 720 170, 780 30, 900 30 C 950 30, 980 80, 1000 100"
-              stroke="url(#blue-gradient)"
-              strokeWidth="3.5"
+              d="M -20 220 C 60 220, 100 220, 155 220 C 220 220, 260 60, 370 60 C 480 60, 520 280, 630 280 C 740 280, 780 60, 890 60 C 950 60, 1020 60, 1120 100"
+              stroke="url(#wave-gradient)"
+              strokeWidth="3"
               strokeLinecap="round"
               fill="none"
             />
             <defs>
-              <linearGradient id="blue-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <linearGradient id="wave-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
                 <stop offset="0%" stopColor="#2563eb" />
                 <stop offset="50%" stopColor="#0284c7" />
                 <stop offset="100%" stopColor="#2563eb" />
@@ -98,60 +99,74 @@ export default function HowItWorks() {
             </defs>
           </svg>
 
-          {/* 4 Steps Positioned Along the Wave */}
-          <div className="grid grid-cols-4 gap-6 relative z-10 pt-4">
-            {steps.map((step, idx) => {
-              const StepIcon = stepIcons[idx % stepIcons.length];
-              
-              const nodePositions = [
-                "mt-[96px]",  // Step 1
-                "mt-[6px]",   // Step 2
-                "mt-[146px]", // Step 3
-                "mt-[6px]",   // Step 4
-              ];
+          {/* 4 Step Nodes Positioned on the Wave */}
+          {steps.map((step, idx) => {
+            const StepIcon = stepIcons[idx % stepIcons.length];
+            
+            // Node positions on the S-curve: steps 0,2 at valleys (low), steps 1,3 at peaks (high)
+            // Icon center X positions (percentage) matching the SVG curve node points
+            const nodeConfig = [
+              { left: '14%', iconTop: '188px', textTop: '256px', isValley: true },   // Step 1: valley
+              { left: '33.6%', iconTop: '28px', textTop: '96px', isValley: false },   // Step 2: peak
+              { left: '57.3%', iconTop: '248px', textTop: '316px', isValley: true },  // Step 3: valley
+              { left: '80.9%', iconTop: '28px', textTop: '96px', isValley: false },   // Step 4: peak
+            ];
 
-              return (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: idx * 0.15 }}
-                  className={`flex flex-col items-center text-center ${nodePositions[idx]} relative group`}
+            const config = nodeConfig[idx];
+
+            return (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: idx * 0.15 }}
+                className="absolute z-10 group"
+                style={{
+                  left: config.left,
+                  transform: 'translateX(-50%)',
+                  top: '0px',
+                  width: '200px',
+                }}
+              >
+                {/* Icon Node on the Wave Line */}
+                <div
+                  className="flex justify-center"
+                  style={{ position: 'absolute', top: config.iconTop, left: '50%', transform: 'translateX(-50%)' }}
                 >
-                  {/* Hexagonal / Rotated Soft White Icon Node */}
-                  <div className="relative mb-6">
-                    {/* Glowing outer shadow ring */}
-                    <div className="absolute -inset-1.5 bg-gradient-to-r from-blue-500/20 to-sky-400/20 rounded-2xl blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    
-                    {/* White Hexagon/Rounded Icon Container */}
-                    <div className="relative h-16 w-16 bg-white rounded-2xl border border-neutral-100 shadow-[0_10px_25px_rgba(37,99,235,0.12)] flex items-center justify-center transform transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
-                      <div className="h-10 w-10 rounded-xl bg-blue-50/80 text-primary flex items-center justify-center">
-                        <StepIcon className="h-5 w-5 stroke-[2.2]" />
+                  <div className="relative">
+                    {/* Hover glow ring */}
+                    <div className="absolute -inset-2 bg-gradient-to-r from-blue-500/20 to-sky-400/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    {/* White Rounded Icon Container */}
+                    <div className="relative h-14 w-14 bg-white rounded-2xl border border-neutral-100/80 shadow-[0_8px_24px_rgba(37,99,235,0.15)] flex items-center justify-center transform transition-transform duration-300 group-hover:scale-110">
+                      <div className="h-9 w-9 rounded-xl bg-blue-50/80 text-primary flex items-center justify-center">
+                        <StepIcon className="h-[18px] w-[18px] stroke-[2.2]" />
                       </div>
                     </div>
                   </div>
+                </div>
 
-                  {/* Step Content Box with Watermark Number */}
-                  <div className="relative bg-white/70 backdrop-blur-sm border border-neutral-100 rounded-2xl p-6 shadow-[0_4px_20px_rgba(0,0,0,0.02)] group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-all duration-300 w-full overflow-hidden">
-                    
-                    {/* Giant Watermark Step Number (1, 2, 3, 4) from Image 18 */}
-                    <span className="absolute -top-4 -right-1 font-serif text-7xl font-bold text-neutral-200/40 select-none pointer-events-none leading-none group-hover:text-primary/10 transition-colors duration-300">
-                      {step.stepNumber || idx + 1}
-                    </span>
+                {/* Text Content Below the Icon */}
+                <div
+                  className="text-center px-2 relative"
+                  style={{ position: 'absolute', top: config.textTop, left: '0', right: '0' }}
+                >
+                  {/* Giant Watermark Step Number */}
+                  <span className="absolute -top-2 right-0 font-serif text-7xl font-bold text-neutral-200/30 select-none pointer-events-none leading-none group-hover:text-primary/10 transition-colors duration-300">
+                    {step.stepNumber || idx + 1}
+                  </span>
 
-                    <h3 className="font-sans font-bold text-base text-neutral-900 mb-2 relative z-10">
-                      {step.title}
-                    </h3>
+                  <h3 className="font-sans font-bold text-sm text-neutral-900 mb-1.5 relative z-10">
+                    {step.title}
+                  </h3>
 
-                    <p className="font-sans text-xs text-neutral-500 leading-relaxed relative z-10">
-                      {step.description}
-                    </p>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
+                  <p className="font-sans text-xs text-neutral-500 leading-relaxed relative z-10">
+                    {step.description}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* Mobile / Tablet Vertical Flow (SM-MD Screens) */}
