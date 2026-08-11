@@ -382,7 +382,7 @@ export default async function CategoryPage({ params }: PageProps) {
   return (
     <article className="min-h-screen bg-transparent">
       {/* Category Hero Banner */}
-      <section className="relative overflow-hidden bg-[#09090B] py-24 sm:py-32 text-white border-b border-neutral-900">
+      <section className="relative overflow-hidden bg-[#09090B] pt-24 sm:pt-32 pb-20 sm:pb-36 text-white border-b border-neutral-900">
         {/* Background glow overlay */}
         <div className={`absolute inset-0 -z-10 ${override.glowClass}`} />
 
@@ -438,6 +438,79 @@ export default async function CategoryPage({ params }: PageProps) {
                 </a>
               )}
             </div>
+          </div>
+        </div>
+
+        {/* Scrolling Service Ticker Bar at Bottom of Hero */}
+        <div className="absolute bottom-0 left-0 right-0 overflow-hidden border-t border-neutral-800/50 bg-[#09090B]/90 backdrop-blur-sm">
+          <div className="flex animate-marquee whitespace-nowrap py-3.5">
+            {/* Duplicate the items twice for seamless infinite scroll */}
+            {[...category.subItems, ...category.subItems].map((sub, idx) => {
+              // Colorful emoji icons for each sub-service
+              const subEmojis: Record<string, string> = {
+                "local-seo": "📍",
+                "ecommerce-seo": "🛒",
+                "international-seo": "🌍",
+                "youtube-video-seo": "🎬",
+                "saas-seo": "💎",
+                "semantic-seo": "🧠",
+                "ai-seo": "✨",
+                "google-search-ads": "🔍",
+                "google-shopping-ads": "🛍️",
+                "performance-max": "⚡",
+                "youtube-ads": "▶️",
+                "remarketing-ads": "🔄",
+                "facebook-ads": "📘",
+                "instagram-ads": "📸",
+                "tiktok-linkedin-ads": "🎯",
+                "website-design-ui-ux": "🎨",
+                "wordpress-development": "🔧",
+                "shopify-development": "🏪",
+                "landing-page-design": "📄",
+                "website-speed-optimization": "⚡",
+                "website-maintenance": "🛡️",
+                "website-migration": "🚀",
+                "cms-setup": "⚙️",
+                "blog-writing": "✍️",
+                "email-marketing": "📧",
+                "content-marketing": "📝",
+                "cro-audit-testing": "📊",
+                "backlink-building": "🔗",
+                "digital-pr": "📰",
+                "haro-services": "🎤",
+                "social-media-content": "📱",
+                "press-releases": "📢",
+                "ai-chatbot-development": "🤖",
+                "ai-agent-development": "🧬",
+                "lead-generation-automation": "📥",
+                "crm-automation": "🔄",
+                "workflow-automation": "⚙️",
+                "ai-customer-support": "💬",
+                "ai-content-automation": "📄",
+                "ai-seo-automation": "🔍",
+                "custom-ai-solutions": "🧪",
+                "ai-analytics-reporting": "📈",
+                "product-sourcing": "🏭",
+                "supplier-verification": "✅",
+                "quality-inspection": "🔬",
+                "production-management": "📋",
+                "order-management": "📦",
+                "freight-forwarding": "🚢",
+                "customs-clearance": "📜",
+                "warehousing": "🏗️",
+                "door-to-door-delivery": "🚛",
+              };
+
+              return (
+                <span
+                  key={`${sub.slug}-${idx}`}
+                  className="inline-flex items-center gap-2.5 mx-8 text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] text-neutral-300"
+                >
+                  <span className="text-base sm:text-lg">{subEmojis[sub.slug] || "●"}</span>
+                  {sub.name}
+                </span>
+              );
+            })}
           </div>
         </div>
       </section>
