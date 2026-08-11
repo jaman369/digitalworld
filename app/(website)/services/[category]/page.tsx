@@ -644,13 +644,13 @@ export default async function CategoryPage({ params }: PageProps) {
               
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 items-start">
                 {categoryProcesses[category.slug].steps.map((step) => (
-                  <div key={step.num} className="flex flex-col items-center group">
-                    {/* Circle badge */}
-                    <div className={`flex h-12 w-12 items-center justify-center rounded-full bg-white border border-neutral-200 font-bold text-sm shadow-sm mb-6 z-10 transition-colors ${categoryProcesses[category.slug].numberColorClass}`}>
+                  <div key={step.num} className="flex flex-col items-center group cursor-pointer">
+                    {/* Circle badge with interactive hover transition to blue */}
+                    <div className="flex h-13 w-13 items-center justify-center rounded-full bg-white border-2 border-neutral-200 text-neutral-700 font-bold text-base shadow-sm mb-6 z-10 transition-all duration-300 group-hover:bg-[#0076FF] group-hover:text-white group-hover:border-[#0076FF] group-hover:scale-115 group-hover:shadow-[0_0_20px_rgba(0,118,255,0.4)]">
                       {step.num}
                     </div>
                     {/* Step details */}
-                    <h4 className="font-sans font-bold text-sm sm:text-base text-neutral-800 mb-3">
+                    <h4 className="font-sans font-bold text-sm sm:text-base text-neutral-800 mb-3 group-hover:text-[#0076FF] transition-colors">
                       {step.title}
                     </h4>
                     <p className="font-sans text-xs text-neutral-500 leading-relaxed max-w-[220px] mx-auto">
