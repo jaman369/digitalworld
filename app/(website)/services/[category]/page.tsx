@@ -760,6 +760,78 @@ export default async function CategoryPage({ params }: PageProps) {
         </section>
       )}
 
+      {/* 2. China Sourcing Services Section */}
+      {category.slug === "china-sourcing" && (
+        <section className="py-20 lg:py-28 bg-white border-t border-neutral-100 relative overflow-hidden z-10">
+          {/* Ambient Background Radial Glow */}
+          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[550px] h-[550px] bg-blue-500/5 blur-[120px] pointer-events-none -z-10 rounded-full" />
+          
+          <div className="container mx-auto max-w-7xl px-6 relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+              
+              {/* Left Column: Copy & Clean Checklist */}
+              <div className="lg:col-span-6 flex flex-col items-start">
+                
+                {/* Eyebrow Badge */}
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-100 px-3.5 py-1 text-[10px] sm:text-xs font-bold text-primary uppercase tracking-widest mb-6">
+                  <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                  GLOBAL CHINA SOURCING
+                </span>
+
+                {/* Main Headline */}
+                <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.6rem] font-bold text-neutral-900 leading-[1.18] tracking-tight mb-6">
+                  Simplify Global Growth With China Sourcing Services
+                </h2>
+
+                {/* Lead Paragraph */}
+                <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed mb-6">
+                  Sourcing from China shouldn&apos;t mean navigating language barriers, unreliable suppliers, or hidden costs alone. KJ Digital World Agency&apos;s China sourcing services connect you directly with vetted manufacturers, ensuring quality products at competitive prices — without the guesswork. From product sourcing to shipping, we handle the complexities so you can focus on growing your business.
+                </p>
+
+                {/* Normal Text Checklist with Emoji */}
+                <ul className="flex flex-col gap-3 sm:gap-3.5 mb-8 w-full">
+                  {[
+                    "Verified supplier network — work only with trusted, quality-checked manufacturers",
+                    "Competitive pricing through direct negotiation and established supplier relationships",
+                    "Quality control & inspection at every stage of production, before goods ever leave the factory",
+                    "Seamless logistics management — from factory floor to your warehouse door",
+                    "Transparent communication that eliminates language and cultural barriers",
+                    "Risk mitigation through due diligence and supplier vetting, protecting your investment",
+                  ].map((item, idx) => (
+                    <li key={idx} className="flex items-start gap-3 font-sans text-sm sm:text-base font-medium text-neutral-800 leading-snug">
+                      <span className="text-emerald-500 font-bold text-base sm:text-lg shrink-0 select-none">✔</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Bottom Paragraph Note */}
+                <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed pt-4 border-t border-neutral-100">
+                  <strong className="text-primary font-bold">Sourcing from China doesn&apos;t have to be complicated or risky.</strong> Partner with KJ Digital World Agency and turn global sourcing into your competitive advantage.
+                </p>
+
+              </div>
+
+              {/* Right Column: Image 16 (China Sourcing Specialist Illustration) */}
+              <div className="lg:col-span-6 relative flex justify-center lg:justify-end items-center">
+                {/* Backdrop Glow */}
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-blue-500/10 via-sky-400/10 to-indigo-500/10 blur-3xl -z-10" />
+
+                {/* 3D Image 16 Container */}
+                <div className="relative w-full max-w-lg lg:max-w-xl flex items-center justify-center">
+                  <img
+                    src="/images/16.png"
+                    alt="China Sourcing Services Specialist - Digital World"
+                    className="w-full h-auto max-w-[420px] sm:max-w-[480px] lg:max-w-[520px] object-contain drop-shadow-[0_25px_50px_rgba(0,0,0,0.1)] hover:scale-[1.02] transition-transform duration-500 select-none"
+                  />
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Dynamic Step Process Section */}
       {categoryProcesses[category.slug] && (
         <section className="py-20 lg:py-28 bg-transparent border-t border-neutral-100 text-center relative z-10">
