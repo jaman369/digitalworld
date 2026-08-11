@@ -618,6 +618,86 @@ export default async function CategoryPage({ params }: PageProps) {
         </div>
       </section>
 
+      {/* 2. SEO Marketing That Actually Understands Your Business Section */}
+      {category.slug === "seo" && (
+        <section className="py-20 lg:py-28 bg-white border-t border-neutral-100 relative overflow-hidden z-10">
+          {/* Ambient Background Radial Glow */}
+          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/5 blur-[120px] pointer-events-none -z-10 rounded-full" />
+          
+          <div className="container mx-auto max-w-7xl px-6 relative z-10">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+              
+              {/* Left Column: Copy & Checklist */}
+              <div className="lg:col-span-7 flex flex-col items-start">
+                
+                {/* Eyebrow Badge */}
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-100 px-3.5 py-1 text-[10px] sm:text-xs font-bold text-primary uppercase tracking-widest mb-6">
+                  <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                  REAL SEO STRATEGY
+                </span>
+
+                {/* Main Headline */}
+                <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-neutral-900 leading-tight tracking-tight mb-6">
+                  SEO Marketing That Actually Understands Your Business
+                </h2>
+
+                {/* Lead Paragraph */}
+                <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed mb-8">
+                  You know what you need — you just don&apos;t know how to get it. That&apos;s the frustration we hear every day from clients before they find KJ Digital World Agency. We&apos;re currently trusted by hundreds of businesses to build SEO strategies that keep pace with Google&apos;s ever-changing algorithm.
+                </p>
+
+                {/* Checklist Cards / Items */}
+                <div className="flex flex-col gap-3.5 w-full mb-8">
+                  {[
+                    "Your website isn't being found online",
+                    "Your traffic has dropped and you don't know why",
+                    "Your calls and leads have quietly declined",
+                    "You're launching a new site and need fast momentum",
+                    "You want AI-ready SEO without cutting corners",
+                  ].map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center gap-3.5 p-3.5 sm:p-4 rounded-2xl bg-neutral-50/80 border border-neutral-100/90 hover:border-blue-200/80 hover:bg-blue-50/30 transition-all duration-300 shadow-2xs group"
+                    >
+                      <div className="h-7 w-7 rounded-full bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-600 shrink-0 group-hover:bg-primary group-hover:border-primary group-hover:text-white transition-all">
+                        <Icons.Check className="h-4 w-4 stroke-[2.5]" />
+                      </div>
+                      <span className="font-sans text-xs sm:text-sm font-semibold text-neutral-800 leading-snug">
+                        {item}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Bottom Paragraph Note */}
+                <div className="p-5 rounded-2xl bg-blue-50/50 border border-blue-100/80 w-full">
+                  <p className="font-sans text-xs sm:text-sm text-neutral-700 leading-relaxed font-medium">
+                    <strong className="text-primary font-bold">AI optimization matters</strong>, but we never skip the fundamentals. Our specialists build a strong SEO foundation aligned with Google&apos;s best practices — the base that makes every AI-driven enhancement actually work.
+                  </p>
+                </div>
+
+              </div>
+
+              {/* Right Column: Image 17 */}
+              <div className="lg:col-span-5 relative flex justify-center items-center">
+                {/* Backdrop Glow */}
+                <div className="absolute inset-4 rounded-3xl bg-gradient-to-tr from-blue-500/10 via-sky-400/10 to-indigo-500/10 blur-3xl -z-10" />
+
+                {/* 3D Image 17 Container */}
+                <div className="relative w-full max-w-lg flex items-center justify-center p-4">
+                  <img
+                    src="/images/17.png"
+                    alt="SEO Marketing Specialists - Digital World"
+                    className="w-full h-auto max-w-[460px] object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.08)] hover:scale-[1.02] transition-transform duration-500 select-none"
+                  />
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Dynamic Step Process Section */}
       {categoryProcesses[category.slug] && (
         <section className="py-20 lg:py-28 bg-transparent border-t border-neutral-100 text-center relative z-10">
