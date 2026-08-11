@@ -210,7 +210,7 @@ export default function AboutPage() {
 
               {/* Languages List */}
               <div className="flex flex-wrap items-center gap-2 border-t border-neutral-100 pt-6 w-full">
-                {["English", "Hindi", "Urdu", "Bengali", "Arabic"].map((lang) => (
+                {["English", "Hindi", "Urdu", "Bengali"].map((lang) => (
                   <span
                     key={lang}
                     className="bg-neutral-100/70 border border-neutral-200/60 text-neutral-500 text-[10px] sm:text-xs font-semibold px-4 py-1.5 rounded-full"
