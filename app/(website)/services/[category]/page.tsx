@@ -785,18 +785,17 @@ export default async function CategoryPage({ params }: PageProps) {
 
                 {/* Lead Paragraph */}
                 <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed mb-6">
-                  Sourcing from China shouldn&apos;t mean navigating language barriers, unreliable suppliers, or hidden costs alone. KJ Digital World Agency&apos;s China sourcing services connect you directly with vetted manufacturers, ensuring quality products at competitive prices — without the guesswork. From product sourcing to shipping, we handle the complexities so you can focus on growing your business.
+                  Sourcing from China shouldn&apos;t mean dealing with language barriers, unreliable suppliers, or hidden costs alone. KJ Digital World Agency connects you with vetted manufacturers, ensuring quality products at the right price — without the guesswork.
                 </p>
 
                 {/* Normal Text Checklist with Emoji */}
                 <ul className="flex flex-col gap-3 sm:gap-3.5 mb-8 w-full">
                   {[
-                    "Verified supplier network — work only with trusted, quality-checked manufacturers",
-                    "Competitive pricing through direct negotiation and established supplier relationships",
-                    "Quality control & inspection at every stage of production, before goods ever leave the factory",
-                    "Seamless logistics management — from factory floor to your warehouse door",
-                    "Transparent communication that eliminates language and cultural barriers",
-                    "Risk mitigation through due diligence and supplier vetting, protecting your investment",
+                    "Verified, quality-checked supplier network",
+                    "Competitive pricing through direct negotiation",
+                    "Quality control at every production stage",
+                    "Seamless logistics from factory to warehouse",
+                    "Clear communication, zero language barriers",
                   ].map((item, idx) => (
                     <li key={idx} className="flex items-start gap-3 font-sans text-sm sm:text-base font-medium text-neutral-800 leading-snug">
                       <span className="text-emerald-500 font-bold text-base sm:text-lg shrink-0 select-none">✔</span>
@@ -807,7 +806,7 @@ export default async function CategoryPage({ params }: PageProps) {
 
                 {/* Bottom Paragraph Note */}
                 <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed pt-4 border-t border-neutral-100">
-                  <strong className="text-primary font-bold">Sourcing from China doesn&apos;t have to be complicated or risky.</strong> Partner with KJ Digital World Agency and turn global sourcing into your competitive advantage.
+                  <strong className="text-primary font-bold">Global sourcing doesn&apos;t have to be complicated.</strong> Partner with KJ Digital World Agency and turn sourcing into your competitive advantage.
                 </p>
 
               </div>
