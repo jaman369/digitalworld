@@ -469,6 +469,127 @@ export default async function CategoryPage({ params }: PageProps) {
         </div>
       </section>
 
+      {/* Featured Services Grid Section (Matching Design Reference) */}
+      <section className="py-24 lg:py-32 bg-[#F8FAF9] border-b border-neutral-100/80 relative">
+        <div className="container mx-auto max-w-7xl px-6">
+          
+          {/* Section Header */}
+          <div className="text-center max-w-3xl mx-auto mb-20">
+            <span className="text-[11px] sm:text-xs font-bold text-emerald-600 uppercase tracking-[0.25em] mb-4 block">
+              Features Services
+            </span>
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight leading-tight">
+              A wide range of {category.title} services
+            </h2>
+          </div>
+
+          {/* Grid Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 gap-x-8 lg:gap-x-10 pt-6">
+            {category.subItems.map((sub) => {
+              const subEmojis: Record<string, string> = {
+                // SEO
+                "local-seo": "📍",
+                "ecommerce-seo": "🛒",
+                "international-seo": "🌍",
+                "youtube-video-seo": "🎬",
+                "saas-seo": "💎",
+                "semantic-seo": "🧠",
+                "ai-seo": "✨",
+
+                // PPC
+                "google-search-ads": "🔍",
+                "google-shopping-ads": "🛍️",
+                "performance-max": "⚡",
+                "youtube-ads": "▶️",
+                "remarketing-ads": "🔄",
+                "facebook-ads": "📘",
+                "instagram-ads": "📸",
+                "tiktok-linkedin-ads": "🎯",
+
+                // Web Design & Dev
+                "website-design-ui-ux": "🎨",
+                "wordpress-development": "🔧",
+                "shopify-development": "🏪",
+                "landing-page-design": "📄",
+                "website-speed-optimization": "⚡",
+                "website-maintenance": "🛡️",
+                "website-migration": "🚀",
+                "cms-setup": "⚙️",
+
+                // Content Marketing
+                "blog-writing": "✍️",
+                "email-marketing": "📧",
+                "content-marketing": "📝",
+                "cro-audit-testing": "📊",
+                "backlink-building": "🔗",
+                "digital-pr": "📰",
+                "haro-services": "🎤",
+                "social-media-content": "📱",
+                "press-releases": "📢",
+
+                // AI Automation
+                "ai-chatbot-development": "🤖",
+                "ai-agent-development": "🧬",
+                "lead-generation-automation": "📥",
+                "crm-automation": "🔄",
+                "workflow-automation": "⚙️",
+                "ai-customer-support": "💬",
+                "ai-content-automation": "📄",
+                "ai-seo-automation": "🔍",
+                "custom-ai-solutions": "🧪",
+                "ai-analytics-reporting": "📈",
+
+                // China Sourcing
+                "product-sourcing": "🏭",
+                "supplier-verification": "✅",
+                "quality-inspection": "🔬",
+                "production-management": "📋",
+                "order-management": "📦",
+                "freight-forwarding": "🚢",
+                "customs-clearance": "📜",
+                "warehousing": "🏗️",
+                "door-to-door-delivery": "🚛",
+              };
+
+              const emoji = subEmojis[sub.slug] || "✦";
+
+              return (
+                <div
+                  key={sub.slug}
+                  id={sub.slug}
+                  className="bg-white rounded-3xl p-8 pt-12 shadow-[0_4px_25px_rgba(0,0,0,0.03)] border border-neutral-100/90 flex flex-col items-center text-center relative group hover:shadow-[0_15px_40px_rgba(0,0,0,0.07)] transition-all duration-300 hover:-translate-y-1 scroll-mt-28"
+                >
+                  {/* Top Floating Badge Protruding from Top Center */}
+                  <div className="absolute -top-7 left-1/2 -translate-x-1/2 bg-white rounded-2xl px-6 py-3.5 shadow-[0_4px_20px_rgba(0,0,0,0.06)] border border-neutral-100 flex items-center justify-center text-2xl sm:text-3xl group-hover:scale-110 group-hover:border-primary/20 transition-all duration-300">
+                    <span>{emoji}</span>
+                  </div>
+
+                  {/* Card Title */}
+                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-neutral-900 mb-3 mt-2 group-hover:text-primary transition-colors">
+                    {sub.name}
+                  </h3>
+
+                  {/* Card Description */}
+                  <p className="font-sans text-xs sm:text-sm text-neutral-500 leading-relaxed max-w-xs mx-auto mb-8">
+                    {sub.description}
+                  </p>
+
+                  {/* Bottom Arrow Action Button */}
+                  <Link
+                    href={`/contact?service=${sub.slug}`}
+                    aria-label={`Inquire about ${sub.name}`}
+                    className="mt-auto flex items-center justify-center h-11 w-11 rounded-full bg-neutral-50 border border-neutral-100 text-neutral-400 group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all duration-300 shadow-sm"
+                  >
+                    <Icons.ArrowRight className="h-4 w-4" />
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
+
+        </div>
+      </section>
+
       {/* Dynamic Step Process Section */}
       {categoryProcesses[category.slug] && (
         <section className="py-20 lg:py-28 bg-transparent border-t border-neutral-100 text-center relative z-10">
