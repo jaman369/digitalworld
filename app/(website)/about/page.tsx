@@ -164,61 +164,77 @@ export default function AboutPage() {
   return (
     <article className="min-h-screen bg-transparent">
       
-      {/* 1. About Hero Section */}
-      <section className="relative overflow-hidden bg-transparent py-20 lg:py-28">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(0,118,255,0.03)_0%,transparent_60%)] pointer-events-none" />
+      {/* 1. About Hero Section (Matching Reference Design with Large Portrait Image) */}
+      <section className="relative overflow-hidden bg-transparent py-16 sm:py-20 lg:py-28">
+        {/* Soft background ambient radial glow */}
+        <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/5 blur-[120px] pointer-events-none -z-10 rounded-full" />
         
         <div className="container mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
-            {/* Left Biography Text */}
-            <div className="lg:col-span-7 flex flex-col items-start">
-              <span className="text-[10px] sm:text-xs font-bold text-primary uppercase tracking-[0.25em] mb-4">
-                INTRODUCING
+            {/* Left Biography & CTAs */}
+            <div className="lg:col-span-6 flex flex-col items-start">
+              {/* Top Eyebrow Badge */}
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50/80 border border-blue-100 px-3.5 py-1 text-[10px] sm:text-xs font-bold text-primary uppercase tracking-[0.2em] mb-6">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                ABOUT ME
               </span>
-              <h1 className="font-serif text-4xl sm:text-5xl lg:text-[3.5rem] font-bold text-neutral-900 tracking-tight leading-[1.1] mb-6">
-                Hi, I&apos;m <br className="sm:hidden" />
-                {aboutData.name || "Kamrujjaman"} <br />
+
+              {/* Main Headline */}
+              <h1 className="font-serif text-4xl sm:text-5xl lg:text-[3.75rem] font-bold text-neutral-900 tracking-tight leading-[1.08] mb-6">
+                Hi, I&apos;m <br />
+                Kamrujjaman <br />
                 <span className="text-primary italic font-serif">Mufti.</span>
               </h1>
-              <p className="font-sans text-sm sm:text-base text-neutral-500 leading-relaxed max-w-2xl mb-8">
-                {aboutData.bioParagraph1 || "Full-service digital marketing expert with 5 years of hands-on experience helping businesses of all sizes grow through SEO, web development, paid ads, and content marketing."}
+
+              {/* Bio Paragraph */}
+              <p className="font-sans text-xs sm:text-sm text-neutral-500 leading-relaxed max-w-xl mb-8">
+                I am a digital marketing expert with a focus on SEO, Paid Ads, Web Design, and Content Marketing. I help businesses achieve measurable growth through data-driven strategies and creative execution.
               </p>
               
-              <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mb-8">
+              {/* CTAs */}
+              <div className="flex flex-wrap items-center gap-4 w-full sm:w-auto mb-8">
                 <Link
-                  href="/contact"
-                  className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary hover:bg-primary-hover px-8 py-4 font-sans text-xs font-bold text-white shadow-md transition-all hover:scale-[1.02] active:scale-[0.99]"
+                  href="/portfolio"
+                  className="inline-flex items-center justify-center rounded-full bg-primary hover:bg-primary-hover px-7 py-3.5 font-sans text-xs font-bold text-white shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
                 >
-                  Book Call <Icons.ArrowRight className="h-4 w-4" />
+                  View Work
                 </Link>
                 <Link
                   href="/contact"
-                  className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-neutral-200 bg-white hover:bg-neutral-50 px-8 py-4 font-sans text-xs font-bold text-neutral-700 shadow-sm transition-all"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-neutral-200 bg-white hover:bg-neutral-50 px-7 py-3.5 font-sans text-xs font-bold text-neutral-800 shadow-sm transition-all hover:border-neutral-300"
                 >
-                  Contact Me
+                  Contact Me <Icons.ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
 
-              {/* Badges list */}
-              <div className="flex flex-wrap gap-2 border-t border-neutral-100 pt-6 w-full">
-                {["Digital", "SEO", "PPC", "Web", "Sourcing", "AI"].map((tag) => (
-                  <span key={tag} className="bg-neutral-50 border border-neutral-200/60 text-neutral-500 text-[10px] font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider">
-                    {tag}
+              {/* Languages List */}
+              <div className="flex flex-wrap items-center gap-2 border-t border-neutral-100 pt-6 w-full">
+                {["English", "Hindi", "Urdu", "Bengali", "Arabic"].map((lang) => (
+                  <span
+                    key={lang}
+                    className="bg-neutral-100/70 border border-neutral-200/60 text-neutral-500 text-[10px] sm:text-xs font-semibold px-4 py-1.5 rounded-full"
+                  >
+                    {lang}
                   </span>
                 ))}
               </div>
             </div>
 
-            {/* Right Image Frame */}
-            <div className="lg:col-span-5 relative flex justify-center">
-              <div className="relative w-full max-w-[380px] aspect-[4/5] rounded-[2rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.08)] border border-neutral-100">
+            {/* Right Large Image Frame */}
+            <div className="lg:col-span-6 relative flex justify-center lg:justify-end">
+              {/* Ambient Glow behind image */}
+              <div className="absolute inset-2 rounded-[2.5rem] bg-gradient-to-tr from-blue-500/15 via-sky-400/10 to-indigo-500/15 blur-2xl -z-10" />
+
+              {/* Large Portrait Image Container */}
+              <div className="relative w-full max-w-lg lg:max-w-xl aspect-[4/4.6] rounded-[2.25rem] lg:rounded-[32px] overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.1)] border border-neutral-200/80 bg-neutral-900">
                 <Image
                   src={aboutData.imagePath || "/Kamrujjaman Mufti Image/kamrujjaman-mufti.jpg"}
                   alt={aboutData.name || "Kamrujjaman Mufti"}
                   fill
-                  className="object-cover"
+                  className="object-cover object-top hover:scale-[1.02] transition-transform duration-500"
                   priority
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                 />
               </div>
             </div>
