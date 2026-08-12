@@ -15,6 +15,8 @@ export interface Service {
   secondaryCtaText?: string;
   secondaryCtaLink?: string;
   image?: string;
+  imagePath?: string;
+  imageAlt?: string;
 }
 
 export interface ServiceCategory {
