@@ -153,6 +153,7 @@ export default function ServicesGrid() {
     servicesSubtitle:
       "A comprehensive suite of growth services designed to expand your visibility, drive qualified leads, and maximize return on investment.",
   });
+  const [categories, setCategories] = useState(servicesData);
 
   useEffect(() => {
     async function load() {
@@ -161,6 +162,16 @@ export default function ServicesGrid() {
         if (res.ok) {
           const hp = await res.json();
           setData((prev) => ({ ...prev, ...hp }));
+        }
+      } catch {}
+
+      try {
+        const resSvc = await fetch("/api/services");
+        if (resSvc.ok) {
+          const svcs = await resSvc.json();
+          if (Array.isArray(svcs) && svcs.length > 0) {
+            setCategories(svcs);
+          }
         }
       } catch {}
     }
@@ -227,7 +238,7 @@ export default function ServicesGrid() {
           viewport={{ once: true, margin: "-80px" }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-7 lg:gap-x-8 gap-y-16 lg:gap-y-20 pt-6"
         >
-          {servicesData.map((category) => {
+          {categories.map((category) => {
             const theme = cardThemes[category.slug] || cardThemes["seo"];
             const displayedSubItems = category.subItems.slice(0, 4);
 
