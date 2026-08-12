@@ -30,9 +30,9 @@ export default function AboutUsSection() {
               {/* Soft background ambient glow */}
               <div className="absolute inset-4 rounded-3xl bg-gradient-to-tr from-indigo-500/10 via-purple-500/10 to-blue-500/10 blur-3xl -z-10" />
 
-              {/* Transparent 3D Graphic Image */}
+              {/* Transparent 3D Graphic Image 17 */}
               <img
-                src="/images/about-graphic.png"
+                src="/images/17.png"
                 alt="Analyze your business to reach your goals"
                 className="w-full h-auto max-w-[560px] sm:max-w-[620px] lg:max-w-[660px] object-contain drop-shadow-2xl select-none hover:scale-[1.02] transition-transform duration-500"
               />
