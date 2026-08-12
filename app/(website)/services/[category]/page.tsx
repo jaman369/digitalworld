@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import * as Icons from "lucide-react";
 import { servicesData } from "@/data/services";
+import ServiceCategoryNav from "@/components/sections/ServiceCategoryNav";
 import ServiceExtraSections from "@/components/sections/ServiceExtraSections";
 import { db } from "@/lib/db";
 
@@ -11,10 +12,6 @@ export const revalidate = 0;
 interface PageProps {
   params: Promise<{ category: string }>;
 }
-
-/* generateStaticParams removed to enable fully dynamic rendering.
-   This ensures admin CMS edits from the cloud sync are always
-   reflected immediately on the live website. */
 
 export async function generateMetadata({ params }: PageProps) {
   const { category: categorySlug } = await params;
@@ -62,7 +59,7 @@ const heroOverrides: Record<string, HeroOverride> = {
     eyebrow: "PPC & Paid Advertising",
     headlineFirst: "Every pound spent.",
     headlineHighlight: "Maximum return.",
-    description: "Stop burning budget on ads that don't convert. We build <strong class='text-neutral-200 font-semibold'>data-driven paid campaigns</strong> across Google, Meta, TikTok & LinkedIn — engineered for profit, not just clicks.",
+    description: "Stop burning budget on ads that don't convert. We build data-driven paid campaigns across Google, Meta, TikTok & LinkedIn — engineered for profit, not just clicks.",
     ctaText: "Get Free PPC Audit →",
     ctaLink: "/contact?service=ppc-audit",
     highlightColorClass: "bg-gradient-to-r from-[#F97316] to-[#EF4444] bg-clip-text text-transparent",
@@ -98,1021 +95,238 @@ const heroOverrides: Record<string, HeroOverride> = {
     btnClass: "bg-[#0076FF] hover:bg-[#0066DD]"
   },
   "ai-automation": {
-    eyebrow: "AI Automation",
-    headlineFirst: "Autonomous agents that",
-    headlineHighlight: "streamline workflows.",
-    description: "Integrate custom intelligent tools and bots to handle support, lead parsing, and manual tasks 24/7.",
-    ctaText: "Book AI Consultation",
-    ctaLink: "/contact?service=ai-consultation",
-    highlightColorClass: "text-cyan-400",
-    glowClass: "bg-[radial-gradient(circle_at_center,rgba(6,182,212,0.15)_0%,transparent_60%)]",
-    dotColorClass: "bg-cyan-400",
-    eyebrowColorClass: "text-cyan-400",
+    eyebrow: "AI & Workflow Automation",
+    headlineFirst: "Scale operations with",
+    headlineHighlight: "intelligent AI systems.",
+    description: "Deploy custom AI chatbots, automated lead routing, and workflow pipelines that eliminate manual friction.",
+    ctaText: "Build AI Workflow",
+    ctaLink: "/contact?service=ai-workflow",
+    highlightColorClass: "text-purple-400",
+    glowClass: "bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.15)_0%,transparent_60%)]",
+    dotColorClass: "bg-purple-400",
+    eyebrowColorClass: "text-purple-400",
     btnClass: "bg-[#0076FF] hover:bg-[#0066DD]"
   },
   "china-sourcing": {
-    eyebrow: "China Sourcing Services",
-    headlineFirst: "Direct factory sourcing &",
-    headlineHighlight: "global logistics management.",
-    description: "Verification, negotiations, quality inspections, and ocean freight handled directly from China to your warehouse.",
-    ctaText: "Inquire Sourcing",
-    ctaLink: "/contact?service=sourcing-inquiry",
-    highlightColorClass: "text-rose-500",
-    glowClass: "bg-[radial-gradient(circle_at_center,rgba(244,63,94,0.15)_0%,transparent_60%)]",
-    dotColorClass: "bg-rose-500",
-    eyebrowColorClass: "text-rose-500",
+    eyebrow: "Global Supply Chain",
+    headlineFirst: "Direct factory sourcing",
+    headlineHighlight: "with complete QC peace of mind.",
+    description: "On-site factory vetting, Mandarin price negotiations, and pre-shipment inspections across major manufacturing hubs.",
+    ctaText: "Request Sourcing Audit",
+    ctaLink: "/contact?service=sourcing-audit",
+    highlightColorClass: "text-amber-400",
+    glowClass: "bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.15)_0%,transparent_60%)]",
+    dotColorClass: "bg-amber-400",
+    eyebrowColorClass: "text-amber-400",
     btnClass: "bg-[#0076FF] hover:bg-[#0066DD]"
-  }
-};
-
-interface ProcessStep {
-  num: number;
-  title: string;
-  desc: string;
-}
-
-interface ProcessOverride {
-  eyebrow: string;
-  title: string;
-  desc: string;
-  numberColorClass: string;
-  steps: ProcessStep[];
-}
-
-const categoryProcesses: Record<string, ProcessOverride> = {
-  seo: {
-    eyebrow: "HOW IT WORKS",
-    title: "Our proven 4-step SEO process.",
-    desc: "No black-box tactics. You'll know exactly what we're doing and why — every step of the way.",
-    numberColorClass: "text-primary group-hover:border-primary",
-    steps: [
-      {
-        num: 1,
-        title: "Deep Audit",
-        desc: "We audit your site, competitors, and market to find every opportunity and every bottleneck."
-      },
-      {
-        num: 2,
-        title: "Strategy & Roadmap",
-        desc: "We build a prioritised, 90-day action plan with clear timelines and expected outcomes."
-      },
-      {
-        num: 3,
-        title: "Execute & Optimise",
-        desc: "We implement everything — on-page, technical, content, links — with full transparency."
-      },
-      {
-        num: 4,
-        title: "Report & Scale",
-        desc: "Monthly reporting with plain-English insights and a clear plan for the next phase of growth."
-      }
-    ]
-  },
-  ppc: {
-    eyebrow: "HOW IT WORKS",
-    title: "Our proven 4-step Paid Ads process.",
-    desc: "No budget leakages. We map out full-funnel paid strategies with absolute scaling transparency.",
-    numberColorClass: "text-[#F97316] group-hover:border-[#F97316]",
-    steps: [
-      {
-        num: 1,
-        title: "Account Audit",
-        desc: "We analyze historical performance, search query reports, pixel event integrity, and budget efficiency."
-      },
-      {
-        num: 2,
-        title: "Funnel Mapping",
-        desc: "We build tailored cold-to-warm customer acquisition pathways, assets plans, and bidding strategies."
-      },
-      {
-        num: 3,
-        title: "Targeted Launch",
-        desc: "We deploy fresh campaigns with strict budget caps, dynamic exclusions, and robust tracking systems."
-      },
-      {
-        num: 4,
-        title: "Scale & Optimize",
-        desc: "We systematically allocate budget to winning creatives, hook variables, and high-ROAS lookalikes."
-      }
-    ]
-  },
-  "web-design-dev": {
-    eyebrow: "DEVELOPMENT FLOW",
-    title: "Our 4-step web engineering process.",
-    desc: "From wireframes to a lightning-fast custom launch, we build for conversions and speed.",
-    numberColorClass: "text-indigo-400 group-hover:border-indigo-400",
-    steps: [
-      {
-        num: 1,
-        title: "UI/UX & Wireframing",
-        desc: "We map user journeys and create Figma designs focused on speed and conversions."
-      },
-      {
-        num: 2,
-        title: "Custom Development",
-        desc: "Clean, component-driven, semantic code utilizing modern frameworks like Next.js or React."
-      },
-      {
-        num: 3,
-        title: "Speed Optimization",
-        desc: "Optimization checkups for 100/100 scores: image compression, code splitting, caching."
-      },
-      {
-        num: 4,
-        title: "Launch & QA",
-        desc: "Rigorous browser compatibility checks, form testings, and seamless custom domains deployments."
-      }
-    ]
-  },
-  "content-marketing": {
-    eyebrow: "CONTENT LIFECYCLE",
-    title: "Our 4-step content marketing process.",
-    desc: "Authoritative content that doesn't just rank, but actively nurtures and converts lists to leads.",
-    numberColorClass: "text-amber-500 group-hover:border-amber-500",
-    steps: [
-      {
-        num: 1,
-        title: "Competitor Research",
-        desc: "Finding high-value keyword clusters and customer search intents in your market."
-      },
-      {
-        num: 2,
-        title: "Optimization & Copy",
-        desc: "Writing comprehensive guides, landing pages, and newsletters optimized to convert."
-      },
-      {
-        num: 3,
-        title: "Digital PR & Links",
-        desc: "Building link partnerships and media outreach to drive deep search authority."
-      },
-      {
-        num: 4,
-        title: "Funnel CRO Checks",
-        desc: "A/B testing ad overlays, form configurations, and cart flow systems to lift revenue."
-      }
-    ]
-  },
-  "ai-automation": {
-    eyebrow: "AI PIPELINE FLOW",
-    title: "Our 4-step automation process.",
-    desc: "Deploying custom intelligence frameworks that save time, minimize errors, and scale actions.",
-    numberColorClass: "text-cyan-400 group-hover:border-cyan-400",
-    steps: [
-      {
-        num: 1,
-        title: "Workflow Audit",
-        desc: "Mapping your manual operations to spot low-hanging fruit and high-ROI automation areas."
-      },
-      {
-        num: 2,
-        title: "Pipeline Architecting",
-        desc: "Connecting APIs, creating custom triggers, and integrating CRM databases securely."
-      },
-      {
-        num: 3,
-        title: "Prompting & RAG",
-        desc: "Training models on custom site docs for highly intelligent conversational chat responses."
-      },
-      {
-        num: 4,
-        title: "Analytics & Scale",
-        desc: "Monitoring automated ticket handoffs, task iterations, and scaling CRM integrations."
-      }
-    ]
-  },
-  "china-sourcing": {
-    eyebrow: "SUPPLY CHAIN PIPELINE",
-    title: "Our 4-step supply sourcing process.",
-    desc: "Direct factory verification, strict inspections, and seamless logistics from China to your warehouse.",
-    numberColorClass: "text-rose-500 group-hover:border-rose-500",
-    steps: [
-      {
-        num: 1,
-        title: "Supplier Audits",
-        desc: "Direct vetting of manufacturing licenses, capacity setups, and raw materials pools."
-      },
-      {
-        num: 2,
-        title: "Bulk Negotiation",
-        desc: "Securing low-cost pricing, contract terms agreements, and payments escrow plans."
-      },
-      {
-        num: 3,
-        title: "Pre-Shipment Inspection",
-        desc: "Strict during-production product checks to filter out package specifications defects."
-      },
-      {
-        num: 4,
-        title: "Logistics & Delivery",
-        desc: "Ocean/air container space allocation, customs clearance paperwork, and warehouse delivery."
-      }
-    ]
   }
 };
 
 export default async function CategoryPage({ params }: PageProps) {
   const { category: categorySlug } = await params;
-  const category = servicesData.find((c) => c.slug === categorySlug);
 
-  if (!category) {
+  // 1. Fetch static fallback
+  const staticCategory = servicesData.find((c) => c.slug === categorySlug);
+
+  // 2. Fetch CMS override from DB
+  let cmsCategory = null;
+  try {
+    const found = await db.servicePage.findFirst({
+      where: { slug: categorySlug },
+    });
+    if (found) {
+      cmsCategory = {
+        title: found.name,
+        description: found.description,
+        iconName: "Search",
+        subItems: typeof found.benefits === "string" ? JSON.parse(found.benefits) : [],
+      };
+    }
+  } catch (err) {
+    console.error("DB fetch error in category page:", err);
+  }
+
+  if (!staticCategory && !cmsCategory) {
     notFound();
   }
 
-  // Fetch dynamic CMS updates from database for this service category
-  const dbServices = await db.servicePage.findMany({
-    where: { categoryName: category.title },
-  }).catch(() => []);
+interface SubItem {
+  name: string;
+  slug: string;
+  description: string;
+}
 
-  const mergedSubItems = category.subItems.map((sub) => {
-    const dbSvc = dbServices.find((s) => s.slug === sub.slug);
-    if (!dbSvc) return sub;
-    return {
-      ...sub,
-      name: dbSvc.name || sub.name,
-      description: dbSvc.description || sub.description,
-      tagline: dbSvc.tagline || sub.tagline,
-      primaryCtaText: dbSvc.primaryCtaText || sub.primaryCtaText,
-      primaryCtaLink: dbSvc.primaryCtaLink || sub.primaryCtaLink,
-    };
-  });
+  const title = cmsCategory?.title || staticCategory?.title || "";
+  const description = cmsCategory?.description || staticCategory?.description || "";
+  const subItems: SubItem[] = (cmsCategory?.subItems && cmsCategory.subItems.length > 0)
+    ? (cmsCategory.subItems as SubItem[])
+    : (staticCategory?.subItems || []);
 
-  // Get override or generate fallback
-  const override = heroOverrides[category.slug] || {
-    eyebrow: category.title,
-    headlineFirst: category.title,
-    headlineHighlight: "Services",
-    description: category.description,
+  const override = heroOverrides[categorySlug] || {
+    eyebrow: title,
+    headlineFirst: title,
+    headlineHighlight: "done right.",
+    description: description,
     ctaText: "Get Started",
-    ctaLink: `/contact?service=${category.slug}`,
-    highlightColorClass: "text-primary",
+    ctaLink: "/contact",
+    highlightColorClass: "text-blue-500",
     glowClass: "bg-[radial-gradient(circle_at_center,rgba(0,118,255,0.15)_0%,transparent_60%)]",
-    dotColorClass: "bg-primary",
-    eyebrowColorClass: "text-primary",
+    dotColorClass: "bg-blue-500",
+    eyebrowColorClass: "text-blue-500",
     btnClass: "bg-[#0076FF] hover:bg-[#0066DD]"
   };
 
-  const SecCtaIcon = override.secCtaIconName ? (Icons[override.secCtaIconName as keyof typeof Icons] as React.ComponentType<{ className?: string }>) : null;
-
   return (
-    <article className="min-h-screen bg-transparent">
-      {/* Category Hero Banner */}
-      <section className="relative overflow-hidden bg-[#09090B] pt-24 sm:pt-32 pb-20 sm:pb-36 text-white border-b border-neutral-900">
-        {/* Background glow overlay */}
-        <div className={`absolute inset-0 -z-10 ${override.glowClass}`} />
+    <div className="min-h-screen bg-[#060709] text-white">
+
+      {/* ── 02 — SERVICES HERO ── */}
+      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden bg-[#060709] border-b border-neutral-900">
+        <div className={`absolute inset-0 ${override.glowClass} pointer-events-none -z-10`} />
 
         <div className="container mx-auto max-w-7xl px-6 relative z-10">
-          <div className="flex flex-col items-center text-center max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
-            {/* Eyebrow tag */}
-            <span className={`text-[10px] sm:text-xs font-bold ${override.eyebrowColorClass || "text-primary"} uppercase tracking-[0.25em] mb-6`}>
-              {override.eyebrow}
-            </span>
-            
-            {/* Headline */}
-            <h1 className="font-serif text-5xl sm:text-6xl md:text-[5rem] font-bold tracking-tight leading-[1.1] mb-6 text-white max-w-4xl">
-              {override.headlineFirst} <br className="hidden sm:inline" />
-              <span className={`${override.highlightColorClass} italic font-serif`}>
-                {override.headlineHighlight}
+            {/* Left Column: Hero Content */}
+            <div className="lg:col-span-7 flex flex-col items-start">
+              <span className={`inline-flex items-center gap-2 rounded-full bg-neutral-900/90 border border-neutral-800 px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-6 ${override.eyebrowColorClass || "text-blue-400"}`}>
+                <span className={`h-2 w-2 rounded-full ${override.dotColorClass || "bg-blue-400"}`} />
+                {override.eyebrow}
               </span>
-            </h1>
-            
-            {/* Description */}
-            <p 
-              className="font-sans text-sm sm:text-base text-neutral-400 leading-relaxed max-w-2xl mb-10"
-              dangerouslySetInnerHTML={{ __html: override.description }}
-            />
-            
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full sm:w-auto">
-              <Link
-                href={override.ctaLink}
-                className={`inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full px-8 py-3.5 font-sans text-xs font-bold text-white shadow-md transition-all hover:scale-[1.01] active:scale-[0.99] ${
-                  override.btnClass || "bg-[#0076FF] hover:bg-[#0066DD]"
-                }`}
-              >
-                {override.ctaText} {!override.ctaText.includes("→") && <Icons.ArrowRight className="h-3.5 w-3.5" />}
-              </Link>
-              
-              {override.secCtaText ? (
-                <a
-                  href={override.secCtaLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-neutral-800 hover:border-neutral-700 bg-neutral-900/50 hover:bg-neutral-900 px-8 py-3.5 font-sans text-xs font-bold text-white shadow-sm transition-all"
+
+              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.15] mb-6">
+                {override.headlineFirst} <span className={override.highlightColorClass}>{override.headlineHighlight}</span>
+              </h1>
+
+              <div
+                className="font-sans text-sm sm:text-base text-neutral-300 leading-relaxed max-w-2xl mb-8"
+                dangerouslySetInnerHTML={{ __html: override.description }}
+              />
+
+              <div className="flex flex-wrap items-center gap-4">
+                <Link
+                  href={override.ctaLink}
+                  className={`inline-flex items-center gap-2 rounded-full px-8 py-4 text-xs font-bold uppercase tracking-widest text-white transition-all shadow-lg hover:scale-105 ${override.btnClass || "bg-blue-600 hover:bg-blue-500"}`}
                 >
-                  {SecCtaIcon && <SecCtaIcon className="h-4 w-4 text-emerald-400" />}
-                  {override.secCtaText}
-                </a>
-              ) : (
-                <a
-                  href="#services-list"
-                  className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-full border border-neutral-800 hover:border-neutral-700 bg-neutral-900/50 hover:bg-neutral-900 px-8 py-3.5 font-sans text-xs font-bold text-white shadow-sm transition-all"
+                  <span>{override.ctaText}</span>
+                  <Icons.ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 rounded-full bg-neutral-900 border border-neutral-800 hover:border-neutral-700 px-7 py-4 text-xs font-bold uppercase tracking-widest text-neutral-300 hover:text-white transition-all"
                 >
-                  Explore Services
-                </a>
-              )}
+                  <span>Explore Case Studies</span>
+                </Link>
+              </div>
             </div>
-          </div>
-        </div>
 
-        {/* Scrolling Service Ticker Bar at Bottom of Hero */}
-        <div className="absolute bottom-0 left-0 right-0 overflow-hidden border-t border-neutral-800/50 bg-[#09090B]/90 backdrop-blur-sm">
-          <div className="flex animate-marquee whitespace-nowrap py-3.5">
-            {/* Duplicate the items twice for seamless infinite scroll */}
-            {[...mergedSubItems, ...mergedSubItems].map((sub, idx) => {
-              // Colorful emoji icons for each sub-service
-              const subEmojis: Record<string, string> = {
-                "local-seo": "📍",
-                "ecommerce-seo": "🛒",
-                "international-seo": "🌍",
-                "youtube-video-seo": "🎬",
-                "saas-seo": "💎",
-                "semantic-seo": "🧠",
-                "ai-seo": "✨",
-                "google-search-ads": "🔍",
-                "google-shopping-ads": "🛍️",
-                "performance-max": "⚡",
-                "youtube-ads": "▶️",
-                "remarketing-ads": "🔄",
-                "facebook-ads": "📘",
-                "instagram-ads": "📸",
-                "tiktok-linkedin-ads": "🎯",
-                "website-design-ui-ux": "🎨",
-                "wordpress-development": "🔧",
-                "shopify-development": "🏪",
-                "landing-page-design": "📄",
-                "website-speed-optimization": "⚡",
-                "website-maintenance": "🛡️",
-                "website-migration": "🚀",
-                "cms-setup": "⚙️",
-                "blog-writing": "✍️",
-                "email-marketing": "📧",
-                "content-marketing": "📝",
-                "cro-audit-testing": "📊",
-                "backlink-building": "🔗",
-                "digital-pr": "📰",
-                "haro-services": "🎤",
-                "social-media-content": "📱",
-                "press-releases": "📢",
-                "ai-chatbot-development": "🤖",
-                "ai-agent-development": "🧬",
-                "lead-generation-automation": "📥",
-                "crm-automation": "🔄",
-                "workflow-automation": "⚙️",
-                "ai-customer-support": "💬",
-                "ai-content-automation": "📄",
-                "ai-seo-automation": "🔍",
-                "custom-ai-solutions": "🧪",
-                "ai-analytics-reporting": "📈",
-                "product-sourcing": "🏭",
-                "supplier-verification": "✅",
-                "quality-inspection": "🔬",
-                "production-management": "📋",
-                "order-management": "📦",
-                "freight-forwarding": "🚢",
-                "customs-clearance": "📜",
-                "warehousing": "🏗️",
-                "door-to-door-delivery": "🚛",
-              };
+            {/* Right Column: Hero Graphic Visual */}
+            <div className="lg:col-span-5 relative flex items-center justify-center">
+              <div className="relative w-full max-w-md aspect-square rounded-3xl bg-gradient-to-tr from-neutral-900 to-neutral-800/80 border border-neutral-800/80 p-8 flex items-center justify-center shadow-2xl">
+                <div className="absolute inset-4 rounded-2xl bg-blue-500/5 blur-2xl pointer-events-none" />
+                <img
+                  src="/images/17.png"
+                  alt={title}
+                  className="w-full h-auto object-contain select-none hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+            </div>
 
-              return (
-                <span
-                  key={`${sub.slug}-${idx}`}
-                  className="inline-flex items-center gap-2.5 mx-8 text-[11px] sm:text-xs font-bold uppercase tracking-[0.2em] text-neutral-300"
-                >
-                  <span className="text-base sm:text-lg">{subEmojis[sub.slug] || "●"}</span>
-                  {sub.name}
-                </span>
-              );
-            })}
           </div>
         </div>
       </section>
 
-      {/* Featured Services Grid Section (Matching Design Reference) */}
-      <section className="py-24 lg:py-32 bg-[#F8FAF9] border-b border-neutral-100/80 relative">
+      {/* ── 03 — SERVICE CATEGORY NAVIGATION ── */}
+      <ServiceCategoryNav currentCategorySlug={categorySlug} />
+
+      {/* ── 04 — SERVICE OVERVIEW ── */}
+      <section className="py-20 lg:py-28 bg-[#090B0F] border-b border-neutral-900">
         <div className="container mx-auto max-w-7xl px-6">
-          
-          {/* Section Header */}
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <span className="text-[11px] sm:text-xs font-bold text-emerald-600 uppercase tracking-[0.25em] mb-4 block">
-              Features Services
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-950/60 border border-blue-800/40 px-4 py-1.5 text-xs font-bold text-blue-400 uppercase tracking-widest mb-4">
+              04 — Service Overview
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight leading-tight">
-              A wide range of {category.title} services
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white tracking-tight">
+              Comprehensive {title} Capabilities
             </h2>
           </div>
 
-          {/* Grid Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-16 gap-x-8 lg:gap-x-10 pt-6">
-            {mergedSubItems.map((sub) => {
-              const subEmojis: Record<string, string> = {
-                // SEO
-                "local-seo": "📍",
-                "ecommerce-seo": "🛒",
-                "international-seo": "🌍",
-                "youtube-video-seo": "🎬",
-                "saas-seo": "💎",
-                "semantic-seo": "🧠",
-                "ai-seo": "✨",
-
-                // PPC
-                "google-search-ads": "🔍",
-                "google-shopping-ads": "🛍️",
-                "performance-max": "⚡",
-                "youtube-ads": "▶️",
-                "remarketing-ads": "🔄",
-                "facebook-ads": "📘",
-                "instagram-ads": "📸",
-                "tiktok-linkedin-ads": "🎯",
-
-                // Web Design & Dev
-                "website-design-ui-ux": "🎨",
-                "wordpress-development": "🔧",
-                "shopify-development": "🏪",
-                "landing-page-design": "📄",
-                "website-speed-optimization": "⚡",
-                "website-maintenance": "🛡️",
-                "website-migration": "🚀",
-                "cms-setup": "⚙️",
-
-                // Content Marketing
-                "blog-writing": "✍️",
-                "email-marketing": "📧",
-                "content-marketing": "📝",
-                "cro-audit-testing": "📊",
-                "backlink-building": "🔗",
-                "digital-pr": "📰",
-                "haro-services": "🎤",
-                "social-media-content": "📱",
-                "press-releases": "📢",
-
-                // AI Automation
-                "ai-chatbot-development": "🤖",
-                "ai-agent-development": "🧬",
-                "lead-generation-automation": "📥",
-                "crm-automation": "🔄",
-                "workflow-automation": "⚙️",
-                "ai-customer-support": "💬",
-                "ai-content-automation": "📄",
-                "ai-seo-automation": "🔍",
-                "custom-ai-solutions": "🧪",
-                "ai-analytics-reporting": "📈",
-
-                // China Sourcing
-                "product-sourcing": "🏭",
-                "supplier-verification": "✅",
-                "quality-inspection": "🔬",
-                "production-management": "📋",
-                "order-management": "📦",
-                "freight-forwarding": "🚢",
-                "customs-clearance": "📜",
-                "warehousing": "🏗️",
-                "door-to-door-delivery": "🚛",
-              };
-
-              const emoji = subEmojis[sub.slug] || "✦";
-
-              return (
-                <div
-                  key={sub.slug}
-                  id={sub.slug}
-                  className="bg-white rounded-3xl p-8 pt-12 shadow-[0_4px_25px_rgba(0,0,0,0.03)] border border-neutral-100/90 flex flex-col items-center text-center relative group hover:shadow-[0_15px_40px_rgba(0,0,0,0.07)] transition-all duration-300 hover:-translate-y-1 scroll-mt-28"
-                >
-                  {/* Top Floating Badge Protruding from Top Center */}
-                  <div className="absolute -top-7 left-1/2 -translate-x-1/2 bg-white rounded-2xl px-6 py-3.5 shadow-[0_4px_20px_rgba(0,0,0,0.06)] border border-neutral-100 flex items-center justify-center text-2xl sm:text-3xl group-hover:scale-110 group-hover:border-primary/20 transition-all duration-300">
-                    <span>{emoji}</span>
-                  </div>
-
-                  {/* Card Title */}
-                  <h3 className="font-serif text-xl sm:text-2xl font-bold text-neutral-900 mb-3 mt-2 group-hover:text-primary transition-colors">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {subItems.map((sub, idx) => (
+              <div
+                key={sub.slug || idx}
+                id={sub.slug}
+                className="bg-[#11141D] border border-neutral-800/80 rounded-2xl p-8 hover:border-blue-500/50 transition-all duration-300 flex flex-col justify-between"
+              >
+                <div>
+                  <span className="font-mono text-xs font-bold text-blue-400 block mb-3">
+                    0{idx + 1} — CAPABILITY
+                  </span>
+                  <h3 className="font-sans text-xl font-bold text-white mb-3">
                     {sub.name}
                   </h3>
-
-                  {/* Card Description */}
-                  <p className="font-sans text-xs sm:text-sm text-neutral-500 leading-relaxed max-w-xs mx-auto mb-8">
+                  <p className="font-sans text-xs sm:text-sm text-neutral-400 leading-relaxed mb-6">
                     {sub.description}
                   </p>
-
-                  {/* Bottom Arrow Action Button */}
-                  <Link
-                    href={`/contact?service=${sub.slug}`}
-                    aria-label={`Inquire about ${sub.name}`}
-                    className="mt-auto flex items-center justify-center h-11 w-11 rounded-full bg-neutral-50 border border-neutral-100 text-neutral-400 group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all duration-300 shadow-sm"
-                  >
-                    <Icons.ArrowRight className="h-4 w-4" />
-                  </Link>
                 </div>
-              );
-            })}
 
-            {/* Extra Plus / More Services Card */}
-            <div className="bg-white/80 rounded-3xl p-8 pt-12 shadow-[0_4px_25px_rgba(0,0,0,0.02)] border border-dashed border-neutral-300 flex flex-col items-center text-center relative group hover:border-primary/50 hover:bg-white transition-all duration-300 hover:-translate-y-1">
-              {/* Top Floating Badge Protruding from Top Center */}
-              <div className="absolute -top-7 left-1/2 -translate-x-1/2 bg-white rounded-2xl px-6 py-3.5 shadow-[0_4px_20px_rgba(0,0,0,0.06)] border border-neutral-200 flex items-center justify-center text-2xl sm:text-3xl text-primary group-hover:scale-110 transition-all duration-300">
-                <Icons.Plus className="h-7 w-7 text-primary" />
+                <Link
+                  href={`/contact?service=${categorySlug}&sub=${sub.slug}`}
+                  className="inline-flex items-center gap-1.5 font-sans text-xs font-bold text-blue-400 hover:text-blue-300 transition-colors uppercase tracking-wider"
+                >
+                  <span>Request Solution</span>
+                  <Icons.ChevronRight className="w-3.5 h-3.5" />
+                </Link>
               </div>
-
-              {/* Card Title */}
-              <h3 className="font-serif text-xl sm:text-2xl font-bold text-neutral-900 mb-3 mt-2 group-hover:text-primary transition-colors">
-                More Services
-              </h3>
-
-              {/* Card Description */}
-              <p className="font-sans text-xs sm:text-sm text-neutral-400 leading-relaxed max-w-xs mx-auto mb-8">
-                Need a custom strategy? We continuously expand our capabilities and build bespoke solutions tailored to your growth goals.
-              </p>
-
-              {/* Bottom Plus Action Button */}
-              <Link
-                href={`/contact?service=custom-${category.slug}`}
-                aria-label="Request custom service"
-                className="mt-auto flex items-center justify-center h-11 w-11 rounded-full bg-neutral-100 border border-neutral-200 text-neutral-500 group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all duration-300 shadow-sm"
-              >
-                <Icons.Plus className="h-5 w-5" />
-              </Link>
-            </div>
+            ))}
           </div>
-
         </div>
       </section>
 
-      {/* 2. SEO Marketing That Actually Understands Your Business Section */}
-      {category.slug === "seo" && (
-        <section className="py-20 lg:py-28 bg-white border-t border-neutral-100 relative overflow-hidden z-10">
-          {/* Ambient Background Radial Glow */}
-          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[550px] h-[550px] bg-blue-500/5 blur-[120px] pointer-events-none -z-10 rounded-full" />
-          
-          <div className="container mx-auto max-w-7xl px-6 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-              
-              {/* Left Column: Copy & Clean Checklist */}
-              <div className="lg:col-span-6 flex flex-col items-start">
-                
-                {/* Eyebrow Badge */}
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-100 px-3.5 py-1 text-[10px] sm:text-xs font-bold text-primary uppercase tracking-widest mb-6">
-                  <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                  REAL SEO STRATEGY
-                </span>
-
-                {/* Main Headline */}
-                <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.6rem] font-bold text-neutral-900 leading-[1.18] tracking-tight mb-6">
-                  SEO Marketing That Actually Understands Your Business
-                </h2>
-
-                {/* Lead Paragraph */}
-                <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed mb-6">
-                  You know what you need — you just don&apos;t know how to get it. That&apos;s the frustration we hear every day from clients before they find KJ Digital World Agency. We&apos;re currently trusted by hundreds of businesses to build SEO strategies that keep pace with Google&apos;s ever-changing algorithm.
-                </p>
-
-                {/* Normal Text Checklist with Emoji */}
-                <ul className="flex flex-col gap-3 sm:gap-3.5 mb-8 w-full">
-                  {[
-                    "Your website isn't being found online",
-                    "Your traffic has dropped and you don't know why",
-                    "Your calls and leads have quietly declined",
-                    "You're launching a new site and need fast momentum",
-                    "You want AI-ready SEO without cutting corners",
-                  ].map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-3 font-sans text-sm sm:text-base font-medium text-neutral-800 leading-snug">
-                      <span className="text-emerald-500 font-bold text-base sm:text-lg shrink-0 select-none">✔</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Bottom Paragraph Note */}
-                <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed pt-4 border-t border-neutral-100">
-                  <strong className="text-primary font-bold">AI optimization matters</strong>, but we never skip the fundamentals. Our specialists build a strong SEO foundation aligned with Google&apos;s best practices — the base that makes every AI-driven enhancement actually work.
-                </p>
-
-              </div>
-
-              {/* Right Column: Image 11 (3D Team Illustration) */}
-              <div className="lg:col-span-6 relative flex justify-center lg:justify-end items-center">
-                {/* Backdrop Glow */}
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-blue-500/10 via-sky-400/10 to-indigo-500/10 blur-3xl -z-10" />
-
-                {/* Large 3D Image 11 Container */}
-                <div className="relative w-full max-w-lg lg:max-w-xl flex items-center justify-center">
-                  <img
-                    src="/images/11.png"
-                    alt="SEO Marketing Team Specialists - Digital World"
-                    className="w-full h-auto max-w-[420px] sm:max-w-[480px] lg:max-w-[520px] object-contain drop-shadow-[0_25px_50px_rgba(0,0,0,0.1)] hover:scale-[1.02] transition-transform duration-500 select-none"
-                  />
-                </div>
-              </div>
-
-            </div>
+      {/* ── 05 — SERVICE DETAIL GROUP ── */}
+      <section className="py-20 lg:py-28 bg-[#0B0D13] border-b border-neutral-900">
+        <div className="container mx-auto max-w-7xl px-6">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-950/60 border border-purple-800/40 px-4 py-1.5 text-xs font-bold text-purple-400 uppercase tracking-widest mb-4">
+              05 — Service Detail Group
+            </span>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white tracking-tight">
+              In-Depth Service Breakdown
+            </h2>
           </div>
-        </section>
-      )}
 
-      {/* 2. PPC Paid Advertising Section */}
-      {category.slug === "ppc" && (
-        <section className="py-20 lg:py-28 bg-white border-t border-neutral-100 relative overflow-hidden z-10">
-          {/* Ambient Background Radial Glow */}
-          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[550px] h-[550px] bg-blue-500/5 blur-[120px] pointer-events-none -z-10 rounded-full" />
-          
-          <div className="container mx-auto max-w-7xl px-6 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-              
-              {/* Left Column: Copy & Clean Checklist */}
-              <div className="lg:col-span-6 flex flex-col items-start">
-                
-                {/* Eyebrow Badge */}
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-100 px-3.5 py-1 text-[10px] sm:text-xs font-bold text-primary uppercase tracking-widest mb-6">
-                  <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                  HIGH-IMPACT PAID ADS
-                </span>
-
-                {/* Main Headline */}
-                <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.6rem] font-bold text-neutral-900 leading-[1.18] tracking-tight mb-6">
-                  Drive Instant Results With High-Impact Paid Advertising
-                </h2>
-
-                {/* Lead Paragraph */}
-                <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed mb-6">
-                  Organic growth takes time — but your business needs results now. KJ Digital World Agency&apos;s paid advertising services put your brand in front of the right audience at the right moment, turning clicks into customers. We combine data-driven strategy with AI-powered precision to maximize every advertising dollar you spend.
-                </p>
-
-                {/* Normal Text Checklist with Emoji */}
-                <ul className="flex flex-col gap-3 sm:gap-3.5 mb-8 w-full">
-                  {[
-                    "Multi-platform ad campaigns across Google, Meta, and beyond",
-                    "Precision audience targeting powered by AI and real-time data",
-                    "Compelling ad creatives designed to capture attention and drive clicks",
-                    "Continuous A/B testing and optimization for maximum ROI",
-                    "Transparent reporting so you always know what's working",
-                  ].map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-3 font-sans text-sm sm:text-base font-medium text-neutral-800 leading-snug">
-                      <span className="text-emerald-500 font-bold text-base sm:text-lg shrink-0 select-none">✔</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Bottom Paragraph Note */}
-                <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed pt-4 border-t border-neutral-100">
-                  <strong className="text-primary font-bold">Paid advertising isn&apos;t about spending more</strong> — it&apos;s about spending smarter. Let KJ Digital World Agency turn your ad budget into measurable, sustainable growth.
-                </p>
-
-              </div>
-
-              {/* Right Column: Image 21 (PPC & Analytics Team Illustration) */}
-              <div className="lg:col-span-6 relative flex justify-center lg:justify-end items-center">
-                {/* Backdrop Glow */}
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-blue-500/10 via-sky-400/10 to-indigo-500/10 blur-3xl -z-10" />
-
-                {/* 3D Image 21 Container */}
-                <div className="relative w-full max-w-lg lg:max-w-xl flex items-center justify-center">
-                  <img
-                    src="/images/21.png"
-                    alt="PPC Paid Advertising Specialists - Digital World"
-                    className="w-full h-auto max-w-[460px] sm:max-w-[500px] lg:max-w-[540px] object-contain drop-shadow-[0_25px_50px_rgba(0,0,0,0.1)] hover:scale-[1.02] transition-transform duration-500 select-none"
-                  />
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* 2. China Sourcing Services Section */}
-      {category.slug === "china-sourcing" && (
-        <section className="py-20 lg:py-28 bg-white border-t border-neutral-100 relative overflow-hidden z-10">
-          {/* Ambient Background Radial Glow */}
-          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[550px] h-[550px] bg-blue-500/5 blur-[120px] pointer-events-none -z-10 rounded-full" />
-          
-          <div className="container mx-auto max-w-7xl px-6 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-              
-              {/* Left Column: Copy & Clean Checklist */}
-              <div className="lg:col-span-6 flex flex-col items-start">
-                
-                {/* Eyebrow Badge */}
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-100 px-3.5 py-1 text-[10px] sm:text-xs font-bold text-primary uppercase tracking-widest mb-6">
-                  <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                  GLOBAL CHINA SOURCING
-                </span>
-
-                {/* Main Headline */}
-                <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.6rem] font-bold text-neutral-900 leading-[1.18] tracking-tight mb-6">
-                  Simplify Global Growth With China Sourcing Services
-                </h2>
-
-                {/* Lead Paragraph */}
-                <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed mb-6">
-                  Sourcing from China shouldn&apos;t mean dealing with language barriers, unreliable suppliers, or hidden costs alone. KJ Digital World Agency connects you with vetted manufacturers, ensuring quality products at the right price — without the guesswork.
-                </p>
-
-                {/* Normal Text Checklist with Emoji */}
-                <ul className="flex flex-col gap-3 sm:gap-3.5 mb-8 w-full">
-                  {[
-                    "Verified, quality-checked supplier network",
-                    "Competitive pricing through direct negotiation",
-                    "Quality control at every production stage",
-                    "Seamless logistics from factory to warehouse",
-                    "Clear communication, zero language barriers",
-                  ].map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-3 font-sans text-sm sm:text-base font-medium text-neutral-800 leading-snug">
-                      <span className="text-emerald-500 font-bold text-base sm:text-lg shrink-0 select-none">✔</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Bottom Paragraph Note */}
-                <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed pt-4 border-t border-neutral-100">
-                  <strong className="text-primary font-bold">Global sourcing doesn&apos;t have to be complicated.</strong> Partner with KJ Digital World Agency and turn sourcing into your competitive advantage.
-                </p>
-
-              </div>
-
-              {/* Right Column: Image 16 (China Sourcing Specialist Illustration) */}
-              <div className="lg:col-span-6 relative flex justify-center lg:justify-end items-center">
-                {/* Backdrop Glow */}
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-blue-500/10 via-sky-400/10 to-indigo-500/10 blur-3xl -z-10" />
-
-                {/* 3D Image 16 Container */}
-                <div className="relative w-full max-w-lg lg:max-w-xl flex items-center justify-center">
-                  <img
-                    src="/images/16.png"
-                    alt="China Sourcing Services Specialist - Digital World"
-                    className="w-full h-auto max-w-[420px] sm:max-w-[480px] lg:max-w-[520px] object-contain drop-shadow-[0_25px_50px_rgba(0,0,0,0.1)] hover:scale-[1.02] transition-transform duration-500 select-none"
-                  />
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* 2. Web Design & Development Section */}
-      {category.slug === "web-design-dev" && (
-        <section className="py-20 lg:py-28 bg-white border-t border-neutral-100 relative overflow-hidden z-10">
-          {/* Ambient Background Radial Glow */}
-          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[550px] h-[550px] bg-blue-500/5 blur-[120px] pointer-events-none -z-10 rounded-full" />
-          
-          <div className="container mx-auto max-w-7xl px-6 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-              
-              {/* Left Column: Copy & Clean Checklist */}
-              <div className="lg:col-span-6 flex flex-col items-start">
-                
-                {/* Eyebrow Badge */}
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-100 px-3.5 py-1 text-[10px] sm:text-xs font-bold text-primary uppercase tracking-widest mb-6">
-                  <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                  HIGH-CONVERTING WEB DESIGN
-                </span>
-
-                {/* Main Headline */}
-                <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.6rem] font-bold text-neutral-900 leading-[1.18] tracking-tight mb-6">
-                  Turn Website Visitors Into Loyal Customers
-                </h2>
-
-                {/* Lead Paragraph */}
-                <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed mb-6">
-                  A subpar website isn&apos;t just disappointing — it&apos;s costing you leads every single day. If your site doesn&apos;t meet user intent, visitors leave and never come back. KJ Digital World Agency&apos;s conversion-focused web design services are built to change that. Nearly 92% of consumers visit a brand&apos;s website ready to buy, compare, or research — the opportunity is already there, waiting to be captured.
-                </p>
-
-                {/* Normal Text Checklist with Emoji */}
-                <ul className="flex flex-col gap-3 sm:gap-3.5 mb-8 w-full">
-                  {[
-                    "Website design that's built to convert, not just look good",
-                    "Development that keeps visitors engaged and moving toward action",
-                    "SEO integration that drives the right traffic to your site",
-                    "Ongoing site maintenance so performance never slips",
-                    "A strategy aligned with real growth goals, not guesswork",
-                  ].map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-3 font-sans text-sm sm:text-base font-medium text-neutral-800 leading-snug">
-                      <span className="text-emerald-500 font-bold text-base sm:text-lg shrink-0 select-none">✔</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Bottom Paragraph Note */}
-                <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed pt-4 border-t border-neutral-100">
-                  <strong className="text-primary font-bold">Your website is often the first — and most important — impression you make.</strong> Let KJ Digital World Agency turn that impression into real business results.
-                </p>
-
-              </div>
-
-              {/* Right Column: Image 15 (Web Designer/Developer Illustration) */}
-              <div className="lg:col-span-6 relative flex justify-center lg:justify-end items-center">
-                {/* Backdrop Glow */}
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-blue-500/10 via-sky-400/10 to-indigo-500/10 blur-3xl -z-10" />
-
-                {/* 3D Image 15 Container */}
-                <div className="relative w-full max-w-lg lg:max-w-xl flex items-center justify-center">
-                  <img
-                    src="/images/15.png"
-                    alt="Web Design and Development Specialist - Digital World"
-                    className="w-full h-auto max-w-[420px] sm:max-w-[480px] lg:max-w-[520px] object-contain drop-shadow-[0_25px_50px_rgba(0,0,0,0.1)] hover:scale-[1.02] transition-transform duration-500 select-none"
-                  />
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* 2. Content & Marketing Section */}
-      {category.slug === "content-marketing" && (
-        <section className="py-20 lg:py-28 bg-white border-t border-neutral-100 relative overflow-hidden z-10">
-          {/* Ambient Background Radial Glow */}
-          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[550px] h-[550px] bg-blue-500/5 blur-[120px] pointer-events-none -z-10 rounded-full" />
-          
-          <div className="container mx-auto max-w-7xl px-6 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-              
-              {/* Left Column: Copy & Clean Checklist */}
-              <div className="lg:col-span-6 flex flex-col items-start">
-                
-                {/* Eyebrow Badge */}
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-100 px-3.5 py-1 text-[10px] sm:text-xs font-bold text-primary uppercase tracking-widest mb-6">
-                  <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                  STRATEGIC CONTENT MARKETING
-                </span>
-
-                {/* Main Headline */}
-                <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.6rem] font-bold text-neutral-900 leading-[1.18] tracking-tight mb-6">
-                  Position Your Brand as an Industry Leader
-                </h2>
-
-                {/* Lead Paragraph */}
-                <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed mb-6">
-                  Low-quality content doesn&apos;t just underperform — it holds your entire business back. If you&apos;re struggling to build awareness, generate leads, or convert visitors into customers, the problem often starts with your content. KJ Digital World Agency delivers data-driven, conversion-focused, and AI-optimized content marketing solutions built to fix that — from the ground up or with a complete overhaul.
-                </p>
-
-                {/* Normal Text Checklist with Emoji */}
-                <ul className="flex flex-col gap-3 sm:gap-3.5 mb-8 w-full">
-                  {[
-                    "Low brand awareness and weak market presence",
-                    "Little to no qualified leads coming in",
-                    "Declining traffic and visitor engagement",
-                    "Stagnant or decreasing sales",
-                    "Low AI search visibility holding back discoverability",
-                    "Poor conversion rates despite steady traffic",
-                  ].map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-3 font-sans text-sm sm:text-base font-medium text-neutral-800 leading-snug">
-                      <span className="text-emerald-500 font-bold text-base sm:text-lg shrink-0 select-none">✔</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Bottom Paragraph Note */}
-                <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed pt-4 border-t border-neutral-100">
-                  <strong className="text-primary font-bold">Whether your content needs a strategic refresh or a total transformation</strong>, KJ Digital World Agency has you covered. Let&apos;s turn your content into your strongest growth asset.
-                </p>
-
-              </div>
-
-              {/* Right Column: Image 13 (Content & Growth Specialist Illustration) */}
-              <div className="lg:col-span-6 relative flex justify-center lg:justify-end items-center">
-                {/* Backdrop Glow */}
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-blue-500/10 via-sky-400/10 to-indigo-500/10 blur-3xl -z-10" />
-
-                {/* 3D Image 13 Container */}
-                <div className="relative w-full max-w-lg lg:max-w-xl flex items-center justify-center">
-                  <img
-                    src="/images/13.png"
-                    alt="Content Marketing Specialist - Digital World"
-                    className="w-full h-auto max-w-[420px] sm:max-w-[480px] lg:max-w-[520px] object-contain drop-shadow-[0_25px_50px_rgba(0,0,0,0.1)] hover:scale-[1.02] transition-transform duration-500 select-none"
-                  />
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* 2. AI Automation Section */}
-      {category.slug === "ai-automation" && (
-        <section className="py-20 lg:py-28 bg-white border-t border-neutral-100 relative overflow-hidden z-10">
-          {/* Ambient Background Radial Glow */}
-          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[550px] h-[550px] bg-blue-500/5 blur-[120px] pointer-events-none -z-10 rounded-full" />
-          
-          <div className="container mx-auto max-w-7xl px-6 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-              
-              {/* Left Column: Copy & Clean Checklist */}
-              <div className="lg:col-span-6 flex flex-col items-start">
-                
-                {/* Eyebrow Badge */}
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-100 px-3.5 py-1 text-[10px] sm:text-xs font-bold text-primary uppercase tracking-widest mb-6">
-                  <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                  AI-POWERED AUTOMATION
-                </span>
-
-                {/* Main Headline */}
-                <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.6rem] font-bold text-neutral-900 leading-[1.18] tracking-tight mb-6">
-                  Drive Operational Excellence With AI Automation Services
-                </h2>
-
-                {/* Lead Paragraph */}
-                <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed mb-6">
-                  Manual processes are slowing your business down — and costing you time, money, and accuracy. KJ Digital World Agency&apos;s AI automation services deliver data-driven automation, predictive analytics, and actionable insights that power smarter decisions. It&apos;s time to let technology handle the repetitive work so your team can focus on what really moves the needle.
-                </p>
-
-                {/* Normal Text Checklist with Emoji */}
-                <ul className="flex flex-col gap-3 sm:gap-3.5 mb-8 w-full">
-                  {[
-                    "Streamline operations with intelligent workflows that automate repetitive processes, saving hours and reducing errors",
-                    "Custom automation solutions only — built exclusively for your business, never off-the-shelf software",
-                    "Evolve with predictive analytics that forecast market trends and optimize resources as your business grows",
-                    "Slash costs with smart automation that minimizes waste and boosts profitability through precision-built solutions",
-                    "Free your team to focus on high-value work instead of routine tasks",
-                  ].map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-3 font-sans text-sm sm:text-base font-medium text-neutral-800 leading-snug">
-                      <span className="text-emerald-500 font-bold text-base sm:text-lg shrink-0 select-none">✔</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Bottom Paragraph Note */}
-                <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed pt-4 border-t border-neutral-100">
-                  <strong className="text-primary font-bold">The future belongs to businesses that work smarter, not harder.</strong> Partner with KJ Digital World Agency and let AI automation drive your operational excellence forward.
-                </p>
-
-              </div>
-
-              {/* Right Column: Image 22 (AI Humanoid Robot Illustration) */}
-              <div className="lg:col-span-6 relative flex justify-center lg:justify-end items-center">
-                {/* Backdrop Glow */}
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-blue-500/10 via-sky-400/10 to-indigo-500/10 blur-3xl -z-10" />
-
-                {/* 3D Image 22 Container */}
-                <div className="relative w-full max-w-lg lg:max-w-xl flex items-center justify-center">
-                  <img
-                    src="/images/22.png"
-                    alt="AI Automation Robot Specialist - Digital World"
-                    className="w-full h-auto max-w-[420px] sm:max-w-[480px] lg:max-w-[520px] object-contain drop-shadow-[0_25px_50px_rgba(0,0,0,0.1)] hover:scale-[1.02] transition-transform duration-500 select-none"
-                  />
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Dynamic Step Process Section */}
-      {categoryProcesses[category.slug] && (
-        <section className="py-20 lg:py-28 bg-transparent border-t border-neutral-100 text-center relative z-10">
-          <div className="container mx-auto max-w-7xl px-6">
-            
-            {/* Header */}
-            <div className="max-w-3xl mx-auto mb-16">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-100 px-3.5 py-1 text-[10px] sm:text-xs font-bold text-primary uppercase tracking-widest mb-6">
-                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                {categoryProcesses[category.slug].eyebrow}
-              </span>
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-neutral-900 leading-tight mb-6">
-                {categoryProcesses[category.slug].title}
-              </h2>
-              <p className="font-sans text-xs sm:text-sm text-neutral-400 max-w-2xl mx-auto leading-relaxed">
-                {categoryProcesses[category.slug].desc}
-              </p>
-            </div>
-
-            {/* Steps Container */}
-            <div className="relative max-w-5xl mx-auto">
-              {/* Horizontal line on desktop */}
-              <div className="absolute top-6 left-[8%] right-[8%] h-0.5 bg-neutral-100 -z-10 hidden lg:block" />
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 items-start">
-                {categoryProcesses[category.slug].steps.map((step) => (
-                  <div key={step.num} className="flex flex-col items-center group cursor-pointer">
-                    {/* Perfect round ball circle badge with interactive hover transition to blue */}
-                    <div className="flex h-14 w-14 aspect-square items-center justify-center rounded-full bg-white border-2 border-neutral-200 text-neutral-700 font-bold text-base shadow-sm mb-6 z-10 transition-all duration-300 group-hover:bg-[#0076FF] group-hover:text-white group-hover:border-[#0076FF] group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(0,118,255,0.4)]">
-                      {step.num}
-                    </div>
-                    {/* Step details */}
-                    <h4 className="font-sans font-bold text-sm sm:text-base text-neutral-800 mb-3 group-hover:text-[#0076FF] transition-colors">
-                      {step.title}
-                    </h4>
-                    <p className="font-sans text-xs text-neutral-500 leading-relaxed max-w-[220px] mx-auto">
-                      {step.desc}
-                    </p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {subItems.map((sub, idx) => (
+              <div key={idx} className="bg-[#121622] border border-neutral-800/80 rounded-3xl p-8 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-xs font-bold text-purple-400 uppercase tracking-wider">
+                      Detail 0{idx + 1}
+                    </span>
+                    <span className="text-xs text-neutral-400 font-mono">
+                      {categorySlug.toUpperCase()} — PROTOCOL
+                    </span>
                   </div>
-                ))}
+                  <h3 className="font-sans text-2xl font-bold text-white mb-4">
+                    {sub.name}
+                  </h3>
+                  <p className="font-sans text-xs sm:text-sm text-neutral-300 leading-relaxed mb-6">
+                    {sub.description}
+                  </p>
+                </div>
+                <div className="border-t border-neutral-800/80 pt-4 flex items-center justify-between text-xs text-neutral-400">
+                  <span>Guaranteed SLA Delivery</span>
+                  <span className="text-purple-400 font-bold">100% Transparent</span>
+                </div>
               </div>
-            </div>
-
+            ))}
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
-      {/* Why Us, Pricing & Client Stories Sections (Matching Design Reference) */}
-      <ServiceExtraSections categorySlug={category.slug} />
-    </article>
+      {/* ── 06 THROUGH 13 — WIREFRAME BLUEPRINT SECTIONS ── */}
+      <ServiceExtraSections categorySlug={categorySlug} />
+
+    </div>
   );
 }
