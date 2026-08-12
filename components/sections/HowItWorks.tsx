@@ -37,7 +37,7 @@ export default function HowItWorks() {
   const steps = data.processSteps && data.processSteps.length > 0 ? data.processSteps : processStepsData;
 
   return (
-    <section className="py-24 lg:py-36 bg-[#f8fafc]/80 relative overflow-hidden border-b border-neutral-100">
+    <section className="pt-20 lg:pt-28 pb-[85px] bg-[#f8fafc]/80 relative overflow-hidden border-b border-neutral-100">
       {/* Background Decorative Ambient Radial Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-blue-500/5 blur-[120px] pointer-events-none -z-10 rounded-full" />
 
