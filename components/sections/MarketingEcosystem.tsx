@@ -65,7 +65,7 @@ export default function MarketingEcosystem() {
             Our Connected Growth Ecosystem
           </h2>
           <p className="font-sans text-base sm:text-lg text-neutral-500 leading-relaxed">
-            We don't build isolated channels. We build an interconnected revenue flywheel where every stage feeds the next.
+            We don&apos;t build isolated channels. We build an interconnected revenue flywheel where every stage feeds the next.
           </p>
         </div>
 
