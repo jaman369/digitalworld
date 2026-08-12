@@ -40,7 +40,7 @@ export default function AboutUsSection() {
       <div className="container mx-auto max-w-7xl px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
-          {/* Left Column: User Uploaded About Image */}
+          {/* Left Column: User Uploaded Image 17 */}
           <motion.div 
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -48,15 +48,15 @@ export default function AboutUsSection() {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-6 relative flex justify-center items-center"
           >
-            <div className="relative w-full max-w-lg flex items-center justify-center p-2">
+            <div className="relative w-full max-w-xl lg:max-w-2xl flex items-center justify-center">
               {/* Soft background glow */}
-              <div className="absolute inset-4 rounded-3xl bg-gradient-to-tr from-indigo-500/10 via-purple-500/10 to-blue-500/10 blur-2xl -z-10" />
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-tr from-indigo-500/10 via-purple-500/10 to-blue-500/10 blur-3xl -z-10" />
 
-              {/* User Uploaded About Image */}
+              {/* Image 17 */}
               <img
                 src="/images/17.png"
                 alt={`About Us - ${aboutData.name || "Digital World"}`}
-                className="w-full h-auto max-w-[500px] max-h-[420px] object-contain drop-shadow-xl select-none rounded-2xl"
+                className="w-full h-auto max-w-[580px] sm:max-w-[640px] lg:max-w-[680px] object-contain drop-shadow-2xl select-none hover:scale-[1.02] transition-transform duration-500"
               />
             </div>
           </motion.div>
