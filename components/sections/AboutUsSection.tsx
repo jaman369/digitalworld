@@ -7,7 +7,7 @@ import { ArrowRight, TrendingUp, ShieldCheck } from "lucide-react";
 export default function AboutUsSection() {
 
   return (
-    <section className="py-3 lg:py-4 bg-white relative z-10 overflow-hidden">
+    <section className="py-[47.5px] bg-white relative z-10 overflow-hidden">
       {/* Background soft wavy shape background */}
       <div className="absolute inset-0 pointer-events-none -z-10">
         <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-neutral-50 to-transparent" />
