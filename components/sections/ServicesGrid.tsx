@@ -207,7 +207,7 @@ export default function ServicesGrid() {
   return (
     <section
       id="services"
-      className="pt-20 lg:pt-32 pb-12 lg:pb-16 bg-gradient-to-b from-[#f8f9fc] via-white to-[#f8f9fc] relative z-10 overflow-hidden"
+      className="pt-20 lg:pt-32 pb-4 lg:pb-6 bg-gradient-to-b from-[#f8f9fc] via-white to-[#f8f9fc] relative z-10 overflow-hidden"
     >
       {/* Subtle background texture */}
       <div className="absolute inset-0 pointer-events-none -z-10">
