@@ -18,6 +18,7 @@ const cardThemes: Record<string, {
   linkColor: string;
   linkHoverColor: string;
   popularBg: string;
+  hoverBg: string;
 }> = {
   seo: { // .01 - Sapphire Electric Blue
     badgeNumber: ".01",
@@ -29,6 +30,7 @@ const cardThemes: Record<string, {
     linkColor: "text-blue-600",
     linkHoverColor: "hover:text-blue-800",
     popularBg: "bg-blue-50 text-blue-600 border-blue-100",
+    hoverBg: "hover:bg-blue-50/40 hover:border-blue-300/80 hover:shadow-blue-500/10",
   },
   ppc: { // .02 - Vibrant Cyan / Turquoise
     badgeNumber: ".02",
@@ -40,6 +42,7 @@ const cardThemes: Record<string, {
     linkColor: "text-cyan-600",
     linkHoverColor: "hover:text-cyan-800",
     popularBg: "bg-cyan-50 text-cyan-600 border-cyan-100",
+    hoverBg: "hover:bg-cyan-50/40 hover:border-cyan-300/80 hover:shadow-cyan-500/10",
   },
   "web-design-dev": { // .03 - Vivid Sunburst Coral / Orange
     badgeNumber: ".03",
@@ -51,6 +54,7 @@ const cardThemes: Record<string, {
     linkColor: "text-orange-600",
     linkHoverColor: "hover:text-orange-800",
     popularBg: "bg-orange-50 text-orange-600 border-orange-100",
+    hoverBg: "hover:bg-orange-50/40 hover:border-orange-300/80 hover:shadow-orange-500/10",
   },
   "content-marketing": { // .04 - Refreshing Emerald / Mint Green
     badgeNumber: ".04",
@@ -62,6 +66,7 @@ const cardThemes: Record<string, {
     linkColor: "text-emerald-600",
     linkHoverColor: "hover:text-emerald-800",
     popularBg: "bg-emerald-50 text-emerald-600 border-emerald-100",
+    hoverBg: "hover:bg-emerald-50/40 hover:border-emerald-300/80 hover:shadow-emerald-500/10",
   },
   "ai-automation": { // .05 - Deep Royal Purple / Violet
     badgeNumber: ".05",
@@ -73,6 +78,7 @@ const cardThemes: Record<string, {
     linkColor: "text-purple-600",
     linkHoverColor: "hover:text-purple-800",
     popularBg: "bg-purple-50 text-purple-600 border-purple-100",
+    hoverBg: "hover:bg-purple-50/40 hover:border-purple-300/80 hover:shadow-purple-500/10",
   },
   "china-sourcing": { // .06 - Radiant Golden Amber / Rose
     badgeNumber: ".06",
@@ -84,6 +90,7 @@ const cardThemes: Record<string, {
     linkColor: "text-amber-600",
     linkHoverColor: "hover:text-amber-800",
     popularBg: "bg-amber-50 text-amber-600 border-amber-100",
+    hoverBg: "hover:bg-amber-50/40 hover:border-amber-300/80 hover:shadow-amber-500/10",
   },
 };
 
@@ -247,7 +254,7 @@ export default function ServicesGrid() {
                 key={category.id}
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 variants={cardVariants as any}
-                className="group relative flex flex-col bg-white rounded-2xl border border-neutral-200/70 px-7 sm:px-8 pt-14 sm:pt-16 pb-8 shadow-[0_4px_24px_rgba(0,0,0,0.04)] transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] hover:border-neutral-200"
+                className={`group relative flex flex-col bg-white rounded-2xl border border-neutral-200/70 px-7 sm:px-8 pt-14 sm:pt-16 pb-8 shadow-[0_4px_24px_rgba(0,0,0,0.04)] transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] ${theme.hoverBg}`}
               >
                 {/* ── Round Liquid Blob Badge FLOATING ON TOP OF THE CARD BOX ── */}
                 <div className="absolute -top-11 left-7 sm:left-8 z-20">
