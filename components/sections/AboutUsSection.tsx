@@ -54,7 +54,7 @@ export default function AboutUsSection() {
 
               {/* User Uploaded About Image */}
               <img
-                src={aboutData.imagePath || "/images/about-graphic.png"}
+                src="/images/17.png"
                 alt={`About Us - ${aboutData.name || "Digital World"}`}
                 className="w-full h-auto max-w-[500px] max-h-[420px] object-contain drop-shadow-xl select-none rounded-2xl"
               />
