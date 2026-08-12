@@ -296,16 +296,16 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   return (
-    <div className="bg-[#090A0C] text-white">
+    <div className="bg-white text-neutral-900">
       
       {/* ── 06 — WHY CHOOSE US SECTION ── */}
-      <section className="py-20 lg:py-28 border-t border-neutral-900 relative overflow-hidden bg-[#0A0C10]">
-        <div className="container mx-auto max-w-7xl px-6 relative z-10">
+      <section className="py-20 lg:py-28 border-t border-neutral-200/80 bg-white">
+        <div className="container mx-auto max-w-7xl px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-950/60 border border-blue-800/40 px-4 py-1.5 text-xs font-bold text-blue-400 uppercase tracking-widest mb-4">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-200 px-4 py-1.5 text-xs font-bold text-[#0076FF] uppercase tracking-widest mb-4">
               06 — Why Choose Us
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight">
               Why clients trust our strategy.
             </h2>
           </div>
@@ -314,15 +314,15 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
             {whyUsCards.map((item, idx) => (
               <div
                 key={idx}
-                className="bg-[#12141A]/90 border border-neutral-800/80 rounded-2xl p-8 hover:border-neutral-700 transition-all duration-300 hover:-translate-y-1 shadow-md flex flex-col group"
+                className="bg-[#F8FAFC] border border-neutral-200/80 rounded-2xl p-8 hover:border-[#0076FF]/60 hover:bg-white transition-all duration-300 hover:-translate-y-1 shadow-xs flex flex-col group"
               >
-                <div className="h-12 w-12 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center text-2xl mb-6 group-hover:scale-105 transition-transform">
+                <div className="h-12 w-12 rounded-xl bg-white border border-neutral-200/90 flex items-center justify-center text-2xl mb-6 shadow-xs group-hover:scale-105 transition-transform">
                   <span>{item.icon}</span>
                 </div>
-                <h3 className="font-sans text-lg font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">
+                <h3 className="font-sans text-lg font-bold text-neutral-900 mb-2 group-hover:text-[#0076FF] transition-colors">
                   {item.title}
                 </h3>
-                <p className="font-sans text-xs sm:text-sm text-neutral-400 leading-relaxed">
+                <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed">
                   {item.desc}
                 </p>
               </div>
@@ -332,28 +332,28 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
       </section>
 
       {/* ── 07 — SERVICE PROCESS SECTION ── */}
-      <section className="py-20 lg:py-28 border-t border-neutral-900 relative overflow-hidden bg-[#08090D]">
-        <div className="container mx-auto max-w-7xl px-6 relative z-10">
+      <section className="py-20 lg:py-28 border-t border-neutral-200/80 bg-[#F8FAFC]">
+        <div className="container mx-auto max-w-7xl px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-indigo-950/60 border border-indigo-800/40 px-4 py-1.5 text-xs font-bold text-indigo-400 uppercase tracking-widest mb-4">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 border border-indigo-200 px-4 py-1.5 text-xs font-bold text-indigo-700 uppercase tracking-widest mb-4">
               07 — Service Process
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight">
               Our 5-step execution workflow.
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4 lg:gap-6">
             {steps.map((st) => (
-              <div key={st.step} className="bg-[#101218] border border-neutral-800/80 rounded-2xl p-6 flex flex-col justify-between hover:border-indigo-500/50 transition-all">
+              <div key={st.step} className="bg-white border border-neutral-200/80 rounded-2xl p-6 flex flex-col justify-between shadow-xs hover:border-indigo-400 transition-all">
                 <div>
-                  <span className="font-mono text-xs font-bold text-indigo-400 block mb-3">
+                  <span className="font-mono text-xs font-bold text-indigo-700 block mb-3">
                     STEP {st.step}
                   </span>
-                  <h4 className="font-sans text-base font-bold text-white mb-2">
+                  <h4 className="font-sans text-base font-bold text-neutral-900 mb-2">
                     {st.title}
                   </h4>
-                  <p className="font-sans text-xs text-neutral-400 leading-relaxed">
+                  <p className="font-sans text-xs text-neutral-600 leading-relaxed">
                     {st.desc}
                   </p>
                 </div>
@@ -364,24 +364,24 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
       </section>
 
       {/* ── 08 — TOOLS / TECHNOLOGY SECTION ── */}
-      <section className="py-16 lg:py-24 border-t border-neutral-900 bg-[#0A0C10]">
+      <section className="py-16 lg:py-24 border-t border-neutral-200/80 bg-white">
         <div className="container mx-auto max-w-7xl px-6">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-cyan-950/60 border border-cyan-800/40 px-4 py-1.5 text-xs font-bold text-cyan-400 uppercase tracking-widest mb-3">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-cyan-50 border border-cyan-200 px-4 py-1.5 text-xs font-bold text-cyan-700 uppercase tracking-widest mb-3">
               08 — Tools & Technology
             </span>
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white">
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-neutral-900">
               Enterprise Technology Stack
             </h2>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
             {tools.map((t, idx) => (
-              <div key={idx} className="bg-[#12141A] border border-neutral-800/80 rounded-xl p-4 text-center flex flex-col items-center justify-center hover:border-cyan-500/40 transition-colors">
-                <span className="text-xs font-bold text-white mb-1 block">
+              <div key={idx} className="bg-[#F8FAFC] border border-neutral-200/80 rounded-xl p-4 text-center flex flex-col items-center justify-center hover:border-cyan-500/50 hover:bg-white transition-colors shadow-xs">
+                <span className="text-xs font-bold text-neutral-900 mb-1 block">
                   {t.name}
                 </span>
-                <span className="text-[10px] text-neutral-400">
+                <span className="text-[10px] text-neutral-500">
                   {t.category}
                 </span>
               </div>
@@ -391,28 +391,28 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
       </section>
 
       {/* ── 09 — FEATURED CASE STUDIES SECTION ── */}
-      <section className="py-20 lg:py-28 border-t border-neutral-900 bg-[#08090C]">
+      <section className="py-20 lg:py-28 border-t border-neutral-200/80 bg-[#F8FAFC]">
         <div className="container mx-auto max-w-7xl px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-950/60 border border-blue-800/40 px-4 py-1.5 text-xs font-bold text-blue-400 uppercase tracking-widest mb-4">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-200 px-4 py-1.5 text-xs font-bold text-[#0076FF] uppercase tracking-widest mb-4">
               09 — Featured Case Studies
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white">
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-neutral-900">
               Proven Case Study Results
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             {caseStudies.map((cs, idx) => (
-              <div key={idx} className="bg-[#12141A] border border-neutral-800/80 rounded-2xl p-8 flex flex-col justify-between hover:border-blue-500/40 transition-all">
+              <div key={idx} className="bg-white border border-neutral-200/80 rounded-2xl p-8 flex flex-col justify-between shadow-xs hover:border-[#0076FF]/60 transition-all">
                 <div>
-                  <span className="text-xs font-bold text-blue-400 uppercase tracking-widest block mb-2">
+                  <span className="text-xs font-bold text-[#0076FF] uppercase tracking-widest block mb-2">
                     {cs.metric}
                   </span>
-                  <h3 className="font-serif text-xl font-bold text-white mb-3">
+                  <h3 className="font-serif text-xl font-bold text-neutral-900 mb-3">
                     {cs.title}
                   </h3>
-                  <p className="font-sans text-xs text-neutral-400 leading-relaxed">
+                  <p className="font-sans text-xs text-neutral-600 leading-relaxed">
                     {cs.desc}
                   </p>
                 </div>
@@ -423,27 +423,27 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
       </section>
 
       {/* ── 10 — RESULTS / METRICS SECTION ── */}
-      <section className="py-16 lg:py-24 border-t border-neutral-900 bg-[#0A0C10]">
+      <section className="py-16 lg:py-24 border-t border-neutral-200/80 bg-white">
         <div className="container mx-auto max-w-7xl px-6">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-950/60 border border-emerald-800/40 px-4 py-1.5 text-xs font-bold text-emerald-400 uppercase tracking-widest mb-3">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-200 px-4 py-1.5 text-xs font-bold text-emerald-700 uppercase tracking-widest mb-3">
               10 — Results & Metrics
             </span>
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white">
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-neutral-900">
               Quantified Performance
             </h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {metrics.map((m, idx) => (
-              <div key={idx} className="bg-[#12141A] border border-neutral-800/80 rounded-2xl p-6 text-center flex flex-col items-center">
-                <span className="font-serif text-4xl font-bold text-emerald-400 mb-2">
+              <div key={idx} className="bg-[#F8FAFC] border border-neutral-200/80 rounded-2xl p-6 text-center flex flex-col items-center shadow-xs">
+                <span className="font-serif text-4xl font-bold text-emerald-600 mb-2">
                   {m.value}
                 </span>
-                <h4 className="font-sans text-sm font-bold text-white mb-1">
+                <h4 className="font-sans text-sm font-bold text-neutral-900 mb-1">
                   {m.label}
                 </h4>
-                <p className="font-sans text-xs text-neutral-400">
+                <p className="font-sans text-xs text-neutral-600">
                   {m.sub}
                 </p>
               </div>
@@ -453,28 +453,28 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
       </section>
 
       {/* ── 11 — INDUSTRIES / USE CASES SECTION ── */}
-      <section className="py-20 lg:py-28 border-t border-neutral-900 bg-[#08090C]">
+      <section className="py-20 lg:py-28 border-t border-neutral-200/80 bg-[#F8FAFC]">
         <div className="container mx-auto max-w-7xl px-6">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-950/60 border border-purple-800/40 px-4 py-1.5 text-xs font-bold text-purple-400 uppercase tracking-widest mb-4">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-50 border border-purple-200 px-4 py-1.5 text-xs font-bold text-purple-700 uppercase tracking-widest mb-4">
               11 — Industries / Use Cases
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white">
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-neutral-900">
               Industries We Accelerate
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {industriesList.map((ind, idx) => (
-              <div key={idx} className="bg-[#12141A] border border-neutral-800/80 rounded-2xl p-6 flex items-start gap-4 hover:border-purple-500/40 transition-colors">
-                <span className="text-3xl shrink-0 p-2 bg-neutral-900 rounded-xl border border-neutral-800">
+              <div key={idx} className="bg-white border border-neutral-200/80 rounded-2xl p-6 flex items-start gap-4 hover:border-purple-400 transition-colors shadow-xs">
+                <span className="text-3xl shrink-0 p-2 bg-[#F8FAFC] rounded-xl border border-neutral-200">
                   {ind.icon}
                 </span>
                 <div>
-                  <h3 className="font-sans text-base font-bold text-white mb-1">
+                  <h3 className="font-sans text-base font-bold text-neutral-900 mb-1">
                     {ind.name}
                   </h3>
-                  <p className="font-sans text-xs text-neutral-400 leading-relaxed">
+                  <p className="font-sans text-xs text-neutral-600 leading-relaxed">
                     {ind.desc}
                   </p>
                 </div>
@@ -485,13 +485,13 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
       </section>
 
       {/* ── 12 — FAQ ACCORDION SECTION ── */}
-      <section className="py-20 lg:py-28 border-t border-neutral-900 bg-[#0A0C10]">
+      <section className="py-20 lg:py-28 border-t border-neutral-200/80 bg-white">
         <div className="container mx-auto max-w-4xl px-6">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-950/60 border border-blue-800/40 px-4 py-1.5 text-xs font-bold text-blue-400 uppercase tracking-widest mb-4">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-200 px-4 py-1.5 text-xs font-bold text-[#0076FF] uppercase tracking-widest mb-4">
               12 — FAQ
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-white">
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-neutral-900">
               Frequently Asked Questions
             </h2>
           </div>
@@ -500,16 +500,16 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
             {faqs.map((faq, idx) => {
               const isOpen = openFaq === idx;
               return (
-                <div key={idx} className="bg-[#12141A] border border-neutral-800/80 rounded-2xl overflow-hidden">
+                <div key={idx} className="bg-[#F8FAFC] border border-neutral-200/80 rounded-2xl overflow-hidden shadow-xs">
                   <button
                     onClick={() => setOpenFaq(isOpen ? null : idx)}
-                    className="w-full p-6 text-left font-sans text-base font-bold text-white flex items-center justify-between gap-4 focus:outline-none"
+                    className="w-full p-6 text-left font-sans text-base font-bold text-neutral-900 flex items-center justify-between gap-4 focus:outline-none"
                   >
                     <span>{faq.q}</span>
-                    <Icons.ChevronDown className={`w-5 h-5 text-blue-400 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+                    <Icons.ChevronDown className={`w-5 h-5 text-[#0076FF] transition-transform ${isOpen ? "rotate-180" : ""}`} />
                   </button>
                   {isOpen && (
-                    <div className="px-6 pb-6 pt-0 font-sans text-xs sm:text-sm text-neutral-400 leading-relaxed border-t border-neutral-800/50 mt-2">
+                    <div className="px-6 pb-6 pt-0 font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed border-t border-neutral-200/60 mt-2">
                       {faq.a}
                     </div>
                   )}
@@ -521,20 +521,20 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
       </section>
 
       {/* ── 13 — FINAL CTA SECTION ── */}
-      <section className="py-20 lg:py-28 border-t border-neutral-900 bg-gradient-to-b from-[#08090C] to-[#0D111A] text-center relative overflow-hidden">
+      <section className="py-20 lg:py-28 border-t border-neutral-200/80 bg-gradient-to-b from-[#0F172A] to-[#1E293B] text-white text-center relative overflow-hidden">
         <div className="container mx-auto max-w-4xl px-6 relative z-10">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-600/20 border border-blue-500/40 px-4 py-1.5 text-xs font-bold text-blue-400 uppercase tracking-widest mb-6">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-500/20 border border-blue-400/40 px-4 py-1.5 text-xs font-bold text-blue-300 uppercase tracking-widest mb-6">
             13 — Final Call to Action
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-6">
             Ready to scale your business?
           </h2>
-          <p className="font-sans text-sm sm:text-base text-neutral-400 max-w-xl mx-auto mb-8 leading-relaxed">
+          <p className="font-sans text-sm sm:text-base text-neutral-300 max-w-xl mx-auto mb-8 leading-relaxed">
             Get a tailored growth blueprint designed specifically for your goals. No long-term lock-ins, 100% transparent execution.
           </p>
           <Link
             href={`/contact?service=${categorySlug}`}
-            className="inline-flex items-center justify-center rounded-full bg-blue-600 hover:bg-blue-500 px-8 py-4 text-xs font-bold uppercase tracking-widest text-white transition-all shadow-lg shadow-blue-600/30 hover:scale-105"
+            className="inline-flex items-center justify-center rounded-full bg-[#0076FF] hover:bg-blue-600 px-8 py-4 text-xs font-bold uppercase tracking-widest text-white transition-all shadow-lg shadow-blue-600/30 hover:scale-105"
           >
             Get Free Proposal & Audit →
           </Link>

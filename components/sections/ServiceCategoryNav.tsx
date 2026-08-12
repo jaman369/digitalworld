@@ -18,11 +18,11 @@ const serviceCategories = [
 
 export default function ServiceCategoryNav({ currentCategorySlug }: ServiceCategoryNavProps) {
   return (
-    <section className="py-6 bg-[#0B0F19] border-y border-neutral-800 relative z-20 sticky top-16 backdrop-blur-md bg-opacity-95">
+    <section className="py-6 bg-white/95 border-y border-neutral-200/80 relative z-20 sticky top-16 backdrop-blur-md shadow-xs">
       <div className="container mx-auto max-w-7xl px-6">
         <div className="flex items-center justify-start md:justify-center gap-3 overflow-x-auto no-scrollbar py-1">
-          <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-widest mr-2 shrink-0 hidden lg:inline-block">
-            03 — Categories:
+          <span className="text-[11px] font-bold text-neutral-500 uppercase tracking-widest mr-2 shrink-0 hidden lg:inline-block">
+            03 — Service Categories:
           </span>
           {serviceCategories.map((cat) => {
             const Icon = cat.icon;
@@ -32,13 +32,13 @@ export default function ServiceCategoryNav({ currentCategorySlug }: ServiceCateg
               <Link
                 key={cat.slug}
                 href={`/services/${cat.slug}`}
-                className={`inline-flex items-center gap-2 px-4 py-2 rounded-full font-sans text-xs font-bold transition-all duration-300 shrink-0 border ${
+                className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full font-sans text-xs font-bold transition-all duration-300 shrink-0 border ${
                   isActive
-                    ? "bg-blue-600 text-white border-blue-500 shadow-md shadow-blue-500/20 scale-105"
-                    : "bg-neutral-900/90 text-neutral-300 border-neutral-800 hover:bg-neutral-800 hover:text-white hover:border-neutral-700"
+                    ? "bg-[#0076FF] text-white border-[#0076FF] shadow-md shadow-blue-500/20 scale-105"
+                    : "bg-neutral-100/90 text-neutral-700 border-neutral-200/90 hover:bg-neutral-200/80 hover:text-neutral-900"
                 }`}
               >
-                <Icon className={`w-3.5 h-3.5 ${isActive ? "text-white" : "text-neutral-400"}`} />
+                <Icon className={`w-3.5 h-3.5 ${isActive ? "text-white" : "text-neutral-500"}`} />
                 <span>{cat.label}</span>
               </Link>
             );
