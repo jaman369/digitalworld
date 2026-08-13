@@ -182,7 +182,7 @@ export default async function CategoryPage({ params }: PageProps) {
       {/* ── 02 — SERVICES HERO (Custom Banner Background, 3D Image Removed, Centered Text) ── */}
       <section
         className="relative pt-36 pb-24 lg:pt-44 lg:pb-32 overflow-hidden bg-cover bg-center bg-no-repeat border-b border-neutral-200/80"
-        style={{ backgroundImage: "url('/images/service-banner-bg.png')" }}
+        style={{ backgroundImage: "url('/images/Banner design.jpg')" }}
       >
         {/* Soft Ambient Radial Overlay */}
         <div className={`absolute inset-0 ${override.glowClass} pointer-events-none -z-10`} />
