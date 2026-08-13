@@ -292,16 +292,6 @@ export default function ServicesGrid() {
                       </li>
                     );
                   })}
-
-                  {/* ── "+" More Skills Coming Soon Indicator ── */}
-                  <li className="flex items-center gap-2 pt-2 border-t border-dashed border-neutral-200/80 mt-1">
-                    <span className="w-4 h-4 rounded-full bg-blue-50 border border-blue-200 text-[#0076FF] font-extrabold text-[11px] flex items-center justify-center shrink-0 shadow-2xs">
-                      +
-                    </span>
-                    <span className="font-sans text-[12px] font-semibold text-neutral-500 italic">
-                      More Skills Coming Soon...
-                    </span>
-                  </li>
                 </ul>
 
                 {/* ── READ MORE link ── */}
@@ -317,42 +307,6 @@ export default function ServicesGrid() {
               </motion.div>
             );
           })}
-
-          {/* ── 7th "+" MORE SERVICES COMING SOON CARD BOX ── */}
-          <motion.div
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            variants={cardVariants as any}
-            className="group relative flex flex-col bg-gradient-to-br from-blue-50/50 via-slate-50/70 to-indigo-50/40 rounded-2xl border-2 border-dashed border-blue-300/80 px-7 sm:px-8 pt-10 sm:pt-12 pb-8 shadow-xs hover:shadow-md transition-all duration-300 ease-out hover:-translate-y-1.5 hover:border-[#0076FF]"
-          >
-            <div className="flex items-center justify-between mb-4">
-              <span className="font-mono text-xs font-bold text-[#0076FF] tracking-wider uppercase flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-[#0076FF] animate-pulse" />
-                FUTURE EXPANSION
-              </span>
-              <div className="w-9 h-9 rounded-xl bg-white border border-blue-200 text-[#0076FF] flex items-center justify-center font-extrabold text-lg shadow-xs group-hover:bg-[#0076FF] group-hover:text-white group-hover:scale-110 transition-all duration-300">
-                +
-              </div>
-            </div>
-
-            <h3 className="font-sans text-lg sm:text-[1.25rem] font-bold text-neutral-900 tracking-tight leading-snug mb-2 flex items-center gap-2">
-              More Services Coming Soon
-              <span className="text-[#0076FF] font-extrabold text-xl">+</span>
-            </h3>
-
-            <p className="font-sans text-xs text-neutral-500 leading-relaxed mb-5">
-              We are constantly adding new service pillars, specialized AI automations, and digital strategies to support your scale.
-            </p>
-
-            <div className="mt-auto pt-4 border-t border-dashed border-blue-200/80 flex items-center justify-between">
-              <Link
-                href="/contact?subject=Custom+Service+Request"
-                className="group/link inline-flex items-center gap-2 font-sans text-xs font-bold text-[#0076FF] hover:text-blue-800 transition-colors uppercase tracking-widest"
-              >
-                <span>Request Custom Service</span>
-                <span className="w-4 h-4 rounded-full bg-blue-100 text-[#0076FF] flex items-center justify-center font-bold text-[11px] group-hover/link:bg-[#0076FF] group-hover/link:text-white transition-all">+</span>
-              </Link>
-            </div>
-          </motion.div>
         </motion.div>
       </div>
     </section>
