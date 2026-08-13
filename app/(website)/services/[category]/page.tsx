@@ -272,6 +272,36 @@ export default async function CategoryPage({ params }: PageProps) {
                 </Link>
               </div>
             ))}
+
+            {/* ── "+" MORE SKILLS & CAPABILITIES COMING SOON CARD ── */}
+            <div className="group bg-gradient-to-br from-blue-50/60 via-slate-50/70 to-indigo-50/40 border-2 border-dashed border-blue-300/90 hover:border-[#0076FF] rounded-2xl p-8 transition-all duration-300 flex flex-col justify-between shadow-xs hover:shadow-md hover:-translate-y-1">
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="font-mono text-xs font-bold text-[#0076FF] tracking-wider uppercase flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-[#0076FF] animate-pulse" />
+                    FUTURE EXPANSION
+                  </span>
+                  <div className="w-10 h-10 rounded-xl bg-white border border-blue-200 text-[#0076FF] flex items-center justify-center font-extrabold text-xl shadow-xs group-hover:bg-[#0076FF] group-hover:text-white group-hover:scale-110 transition-all duration-300">
+                    +
+                  </div>
+                </div>
+                <h3 className="font-sans text-xl font-bold text-neutral-900 mb-3 flex items-center gap-2">
+                  More Skills Coming Soon
+                  <span className="text-[#0076FF] font-extrabold text-xl">+</span>
+                </h3>
+                <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed mb-6">
+                  We are continuously expanding our technical stack with new specialized skills, AI tools, and digital growth capabilities.
+                </p>
+              </div>
+
+              <Link
+                href="/contact?subject=Custom+Skill+Request"
+                className="inline-flex items-center gap-2 font-sans text-xs font-bold text-[#0076FF] hover:text-blue-700 transition-colors uppercase tracking-wider"
+              >
+                <span>Request Custom Skill</span>
+                <span className="w-5 h-5 rounded-full bg-blue-100 text-[#0076FF] flex items-center justify-center font-bold text-xs group-hover:bg-[#0076FF] group-hover:text-white transition-all">+</span>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
