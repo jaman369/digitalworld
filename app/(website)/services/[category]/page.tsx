@@ -50,10 +50,10 @@ const heroOverrides: Record<string, HeroOverride> = {
     ctaText: "Get Free SEO Audit",
     ctaLink: "/contact?service=seo-audit",
     highlightColorClass: "text-[#0076FF]",
-    glowClass: "bg-[radial-gradient(circle_at_center,rgba(0,118,255,0.08)_0%,transparent_60%)]",
+    glowClass: "bg-[radial-gradient(ellipse_at_top_left,rgba(0,118,255,0.22),transparent_55%),radial-gradient(ellipse_at_bottom_right,rgba(16,185,129,0.18),transparent_55%)]",
     dotColorClass: "bg-[#0076FF]",
     eyebrowColorClass: "text-[#0076FF] bg-blue-50/90 border-blue-200",
-    btnClass: "bg-[#0076FF] hover:bg-[#0066DD]"
+    btnClass: "bg-[#0076FF] hover:bg-[#0066DD] shadow-blue-500/20"
   },
   ppc: {
     eyebrow: "PPC & Paid Advertising",
@@ -62,11 +62,11 @@ const heroOverrides: Record<string, HeroOverride> = {
     description: "Stop burning budget on ads that don't convert. We build data-driven paid campaigns across Google, Meta, TikTok & LinkedIn — engineered for profit, not just clicks.",
     ctaText: "Get Free PPC Audit →",
     ctaLink: "/contact?service=ppc-audit",
-    highlightColorClass: "text-orange-600",
-    glowClass: "bg-[radial-gradient(circle_at_center,rgba(249,115,22,0.08)_0%,transparent_60%)]",
-    dotColorClass: "bg-orange-500",
+    highlightColorClass: "bg-gradient-to-r from-[#F97316] to-[#EF4444] bg-clip-text text-transparent",
+    glowClass: "bg-[radial-gradient(ellipse_at_top_left,rgba(249,115,22,0.24),transparent_55%),radial-gradient(ellipse_at_bottom_right,rgba(239,68,68,0.18),transparent_55%)]",
+    dotColorClass: "bg-[#F97316]",
     eyebrowColorClass: "text-orange-600 bg-orange-50/90 border-orange-200",
-    btnClass: "bg-[#0076FF] hover:bg-[#0066DD]"
+    btnClass: "bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 shadow-orange-500/20"
   },
   "web-design-dev": {
     eyebrow: "Development & Design",
@@ -75,11 +75,11 @@ const heroOverrides: Record<string, HeroOverride> = {
     description: "Stunning, custom-coded web experiences optimized to pass PageSpeed audits and keep users engaged throughout their journey.",
     ctaText: "Request a Proposal",
     ctaLink: "/contact?service=web-proposal",
-    highlightColorClass: "text-indigo-600",
-    glowClass: "bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.08)_0%,transparent_60%)]",
-    dotColorClass: "bg-indigo-500",
+    highlightColorClass: "text-[#6366F1]",
+    glowClass: "bg-[radial-gradient(ellipse_at_top_left,rgba(99,102,241,0.24),transparent_55%),radial-gradient(ellipse_at_bottom_right,rgba(168,85,247,0.18),transparent_55%)]",
+    dotColorClass: "bg-[#6366F1]",
     eyebrowColorClass: "text-indigo-600 bg-indigo-50/90 border-indigo-200",
-    btnClass: "bg-[#0076FF] hover:bg-[#0066DD]"
+    btnClass: "bg-[#6366F1] hover:bg-indigo-600 shadow-indigo-500/20"
   },
   "content-marketing": {
     eyebrow: "Content Strategy",
@@ -88,11 +88,11 @@ const heroOverrides: Record<string, HeroOverride> = {
     description: "Turn search intent into brand loyalty with high-quality content plans and automated email nurturing sequences.",
     ctaText: "Get Content Plan",
     ctaLink: "/contact?service=content-plan",
-    highlightColorClass: "text-amber-600",
-    glowClass: "bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.08)_0%,transparent_60%)]",
-    dotColorClass: "bg-amber-500",
-    eyebrowColorClass: "text-amber-600 bg-amber-50/90 border-amber-200",
-    btnClass: "bg-[#0076FF] hover:bg-[#0066DD]"
+    highlightColorClass: "text-[#D97706]",
+    glowClass: "bg-[radial-gradient(ellipse_at_top_left,rgba(245,158,11,0.24),transparent_55%),radial-gradient(ellipse_at_bottom_right,rgba(217,119,6,0.18),transparent_55%)]",
+    dotColorClass: "bg-[#D97706]",
+    eyebrowColorClass: "text-amber-700 bg-amber-50/90 border-amber-200",
+    btnClass: "bg-[#D97706] hover:bg-amber-700 shadow-amber-500/20"
   },
   "ai-automation": {
     eyebrow: "AI & Workflow Automation",
@@ -101,11 +101,11 @@ const heroOverrides: Record<string, HeroOverride> = {
     description: "Deploy custom AI chatbots, automated lead routing, and workflow pipelines that eliminate manual friction.",
     ctaText: "Build AI Workflow",
     ctaLink: "/contact?service=ai-workflow",
-    highlightColorClass: "text-purple-600",
-    glowClass: "bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.08)_0%,transparent_60%)]",
-    dotColorClass: "bg-purple-500",
-    eyebrowColorClass: "text-purple-600 bg-purple-50/90 border-purple-200",
-    btnClass: "bg-[#0076FF] hover:bg-[#0066DD]"
+    highlightColorClass: "text-[#9333EA]",
+    glowClass: "bg-[radial-gradient(ellipse_at_top_left,rgba(168,85,247,0.26),transparent_55%),radial-gradient(ellipse_at_bottom_right,rgba(236,72,153,0.18),transparent_55%)]",
+    dotColorClass: "bg-[#9333EA]",
+    eyebrowColorClass: "text-purple-700 bg-purple-50/90 border-purple-200",
+    btnClass: "bg-[#9333EA] hover:bg-purple-700 shadow-purple-500/20"
   },
   "china-sourcing": {
     eyebrow: "Global Supply Chain",
@@ -114,11 +114,11 @@ const heroOverrides: Record<string, HeroOverride> = {
     description: "On-site factory vetting, Mandarin price negotiations, and pre-shipment inspections across major manufacturing hubs.",
     ctaText: "Request Sourcing Audit",
     ctaLink: "/contact?service=sourcing-audit",
-    highlightColorClass: "text-amber-600",
-    glowClass: "bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.08)_0%,transparent_60%)]",
-    dotColorClass: "bg-amber-500",
-    eyebrowColorClass: "text-amber-600 bg-amber-50/90 border-amber-200",
-    btnClass: "bg-[#0076FF] hover:bg-[#0066DD]"
+    highlightColorClass: "text-[#E11D48]",
+    glowClass: "bg-[radial-gradient(ellipse_at_top_left,rgba(225,29,72,0.24),transparent_55%),radial-gradient(ellipse_at_bottom_right,rgba(245,158,11,0.18),transparent_55%)]",
+    dotColorClass: "bg-[#E11D48]",
+    eyebrowColorClass: "text-rose-700 bg-rose-50/90 border-rose-200",
+    btnClass: "bg-[#E11D48] hover:bg-rose-700 shadow-rose-500/20"
   }
 };
 
@@ -170,7 +170,7 @@ export default async function CategoryPage({ params }: PageProps) {
     ctaText: "Get Started",
     ctaLink: "/contact",
     highlightColorClass: "text-[#0076FF]",
-    glowClass: "bg-[radial-gradient(circle_at_center,rgba(0,118,255,0.08)_0%,transparent_60%)]",
+    glowClass: "bg-[radial-gradient(ellipse_at_top_left,rgba(0,118,255,0.22),transparent_55%),radial-gradient(ellipse_at_bottom_right,rgba(16,185,129,0.18),transparent_55%)]",
     dotColorClass: "bg-[#0076FF]",
     eyebrowColorClass: "text-[#0076FF] bg-blue-50/90 border-blue-200",
     btnClass: "bg-[#0076FF] hover:bg-[#0066DD]"
@@ -179,13 +179,13 @@ export default async function CategoryPage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-white text-neutral-900">
 
-      {/* ── 02 — SERVICES HERO (Custom Banner Background, 3D Image Removed, Centered Text) ── */}
+      {/* ── 02 — SERVICES HERO (Custom Banner Background + Unique Per-Service Ambient Color Glow) ── */}
       <section
         className="relative pt-36 pb-24 lg:pt-44 lg:pb-32 overflow-hidden bg-cover bg-center bg-no-repeat border-b border-neutral-200/80"
         style={{ backgroundImage: "url('/images/Banner design.jpg')" }}
       >
-        {/* Soft Ambient Radial Overlay */}
-        <div className={`absolute inset-0 ${override.glowClass} pointer-events-none -z-10`} />
+        {/* Unique Dynamic Ambient Color Glow matching Service Title */}
+        <div className={`absolute inset-0 ${override.glowClass} pointer-events-none z-0`} />
 
         <div className="container mx-auto max-w-7xl px-6 relative z-10">
           <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
@@ -211,7 +211,7 @@ export default async function CategoryPage({ params }: PageProps) {
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
                 href={override.ctaLink}
-                className={`inline-flex items-center gap-2 rounded-full px-8 py-4 text-xs font-bold uppercase tracking-widest text-white transition-all shadow-md shadow-blue-500/20 hover:scale-105 ${override.btnClass || "bg-[#0076FF] hover:bg-[#0066DD]"}`}
+                className={`inline-flex items-center gap-2 rounded-full px-8 py-4 text-xs font-bold uppercase tracking-widest text-white transition-all shadow-md hover:scale-105 ${override.btnClass || "bg-[#0076FF] hover:bg-[#0066DD]"}`}
               >
                 <span>{override.ctaText}</span>
                 <Icons.ArrowRight className="w-4 h-4" />
