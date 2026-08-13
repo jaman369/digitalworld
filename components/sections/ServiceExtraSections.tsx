@@ -284,6 +284,59 @@ const faqMap: Record<string, { q: string; a: string }[]> = {
   ],
 };
 
+interface CategoryHoverTheme {
+  badgeHover: string;
+  titleHover: string;
+  pillBadge: string;
+  pillDot: string;
+  headerAccent: string;
+}
+
+const processThemeMap: Record<string, CategoryHoverTheme> = {
+  seo: {
+    badgeHover: "group-hover:bg-[#0076FF] group-hover:text-white group-hover:border-[#0076FF] group-hover:shadow-lg group-hover:shadow-blue-500/30",
+    titleHover: "group-hover:text-[#0076FF]",
+    pillBadge: "bg-blue-50 border-blue-200 text-[#0076FF]",
+    pillDot: "bg-[#0076FF]",
+    headerAccent: "text-[#0076FF]",
+  },
+  ppc: {
+    badgeHover: "group-hover:bg-gradient-to-r group-hover:from-orange-500 group-hover:to-red-500 group-hover:text-white group-hover:border-orange-500 group-hover:shadow-lg group-hover:shadow-orange-500/30",
+    titleHover: "group-hover:text-orange-600",
+    pillBadge: "bg-orange-50 border-orange-200 text-orange-600",
+    pillDot: "bg-orange-500",
+    headerAccent: "text-orange-600",
+  },
+  "web-design-dev": {
+    badgeHover: "group-hover:bg-[#6366F1] group-hover:text-white group-hover:border-[#6366F1] group-hover:shadow-lg group-hover:shadow-indigo-500/30",
+    titleHover: "group-hover:text-[#6366F1]",
+    pillBadge: "bg-indigo-50 border-indigo-200 text-indigo-600",
+    pillDot: "bg-[#6366F1]",
+    headerAccent: "text-indigo-600",
+  },
+  "content-marketing": {
+    badgeHover: "group-hover:bg-[#D97706] group-hover:text-white group-hover:border-[#D97706] group-hover:shadow-lg group-hover:shadow-amber-500/30",
+    titleHover: "group-hover:text-[#D97706]",
+    pillBadge: "bg-amber-50 border-amber-200 text-amber-700",
+    pillDot: "bg-[#D97706]",
+    headerAccent: "text-[#D97706]",
+  },
+  "ai-automation": {
+    badgeHover: "group-hover:bg-[#9333EA] group-hover:text-white group-hover:border-[#9333EA] group-hover:shadow-lg group-hover:shadow-purple-500/30",
+    titleHover: "group-hover:text-[#9333EA]",
+    pillBadge: "bg-purple-50 border-purple-200 text-purple-700",
+    pillDot: "bg-[#9333EA]",
+    headerAccent: "text-[#9333EA]",
+  },
+  "china-sourcing": {
+    badgeHover: "group-hover:bg-[#E11D48] group-hover:text-white group-hover:border-[#E11D48] group-hover:shadow-lg group-hover:shadow-rose-500/30",
+    titleHover: "group-hover:text-[#E11D48]",
+    pillBadge: "bg-rose-50 border-rose-200 text-rose-700",
+    pillDot: "bg-[#E11D48]",
+    headerAccent: "text-[#E11D48]",
+  },
+};
+
 /* ──────── MAIN COMPONENT RENDER ──────── */
 export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceExtraSectionsProps) {
   const whyUsCards = whyUsCardsMap[categorySlug] || whyUsCardsMap["seo"];
@@ -292,6 +345,7 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
   const caseStudies = caseStudiesMap[categorySlug] || caseStudiesMap["seo"];
   const metrics = metricsMap[categorySlug] || metricsMap["seo"];
   const faqs = faqMap[categorySlug] || faqMap["seo"];
+  const processTheme = processThemeMap[categorySlug] || processThemeMap["seo"];
 
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
@@ -331,14 +385,14 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
         </div>
       </section>
 
-      {/* ── 07 — SERVICE PROCESS SECTION (Redesigned Connected Horizontal Timeline UI) ── */}
+      {/* ── 07 — SERVICE PROCESS SECTION (Connected Horizontal Timeline + Mouse Hover Theme Per Category) ── */}
       <section className="py-24 lg:py-32 border-t border-neutral-200/80 bg-[#F9FAFB] relative overflow-hidden">
         <div className="container mx-auto max-w-7xl px-6 relative z-10">
           
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-            <span className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-200 px-4 py-1.5 text-xs font-bold text-[#0076FF] uppercase tracking-widest mb-6">
-              <span className="h-2 w-2 rounded-full bg-[#0076FF]" />
+            <span className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-6 ${processTheme.pillBadge}`}>
+              <span className={`h-2 w-2 rounded-full ${processTheme.pillDot}`} />
               HOW IT WORKS
             </span>
             <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight leading-tight mb-4">
@@ -356,14 +410,14 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
 
             <div className="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-4 relative z-10">
               {steps.map((st, sidx) => (
-                <div key={st.step || sidx} className="flex flex-col items-center text-center group">
-                  {/* Step Number Circle Badge */}
-                  <div className="w-14 h-14 rounded-full bg-white border border-neutral-200/90 shadow-sm flex items-center justify-center font-bold text-amber-500 text-lg sm:text-xl mb-6 transition-all duration-300 group-hover:scale-110 group-hover:border-amber-400 group-hover:shadow-md">
+                <div key={st.step || sidx} className="flex flex-col items-center text-center group cursor-pointer">
+                  {/* Step Number Circle Badge with Dynamic Category Hover Color */}
+                  <div className={`w-14 h-14 rounded-full bg-white border border-neutral-200/90 shadow-sm flex items-center justify-center font-bold text-amber-500 text-lg sm:text-xl mb-6 transition-all duration-300 group-hover:scale-110 ${processTheme.badgeHover}`}>
                     {parseInt(st.step, 10) || sidx + 1}
                   </div>
 
-                  {/* Step Content */}
-                  <h3 className="font-sans font-bold text-base sm:text-lg text-neutral-900 mb-2 leading-snug group-hover:text-[#0076FF] transition-colors">
+                  {/* Step Title with Dynamic Category Hover Color */}
+                  <h3 className={`font-sans font-bold text-base sm:text-lg text-neutral-900 mb-2 leading-snug transition-colors ${processTheme.titleHover}`}>
                     {st.title}
                   </h3>
                   <p className="font-sans text-xs sm:text-sm text-neutral-500 leading-relaxed max-w-xs mx-auto">
