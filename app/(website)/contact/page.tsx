@@ -408,7 +408,7 @@ export default function ContactPage() {
               {/* Large Prominent Image 12 Frame */}
               <div className="relative w-full h-[320px] sm:h-[400px] md:h-[440px] rounded-2xl overflow-hidden shadow-sm border border-neutral-100/80 bg-white p-3">
                 <Image
-                  src="/images/12.jpg"
+                  src="/images/12.png"
                   alt="Digital World Expert Team"
                   fill
                   className="object-contain p-2 rounded-xl transition-transform duration-500 group-hover:scale-[1.02]"
