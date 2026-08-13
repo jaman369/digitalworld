@@ -52,7 +52,7 @@ const heroOverrides: Record<string, HeroOverride> = {
     highlightColorClass: "text-[#0076FF]",
     glowClass: "bg-[radial-gradient(circle_at_center,rgba(0,118,255,0.08)_0%,transparent_60%)]",
     dotColorClass: "bg-[#0076FF]",
-    eyebrowColorClass: "text-[#0076FF] bg-blue-50 border-blue-200",
+    eyebrowColorClass: "text-[#0076FF] bg-blue-50/90 border-blue-200",
     btnClass: "bg-[#0076FF] hover:bg-[#0066DD]"
   },
   ppc: {
@@ -65,7 +65,7 @@ const heroOverrides: Record<string, HeroOverride> = {
     highlightColorClass: "text-orange-600",
     glowClass: "bg-[radial-gradient(circle_at_center,rgba(249,115,22,0.08)_0%,transparent_60%)]",
     dotColorClass: "bg-orange-500",
-    eyebrowColorClass: "text-orange-600 bg-orange-50 border-orange-200",
+    eyebrowColorClass: "text-orange-600 bg-orange-50/90 border-orange-200",
     btnClass: "bg-[#0076FF] hover:bg-[#0066DD]"
   },
   "web-design-dev": {
@@ -78,7 +78,7 @@ const heroOverrides: Record<string, HeroOverride> = {
     highlightColorClass: "text-indigo-600",
     glowClass: "bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.08)_0%,transparent_60%)]",
     dotColorClass: "bg-indigo-500",
-    eyebrowColorClass: "text-indigo-600 bg-indigo-50 border-indigo-200",
+    eyebrowColorClass: "text-indigo-600 bg-indigo-50/90 border-indigo-200",
     btnClass: "bg-[#0076FF] hover:bg-[#0066DD]"
   },
   "content-marketing": {
@@ -91,7 +91,7 @@ const heroOverrides: Record<string, HeroOverride> = {
     highlightColorClass: "text-amber-600",
     glowClass: "bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.08)_0%,transparent_60%)]",
     dotColorClass: "bg-amber-500",
-    eyebrowColorClass: "text-amber-600 bg-amber-50 border-amber-200",
+    eyebrowColorClass: "text-amber-600 bg-amber-50/90 border-amber-200",
     btnClass: "bg-[#0076FF] hover:bg-[#0066DD]"
   },
   "ai-automation": {
@@ -104,7 +104,7 @@ const heroOverrides: Record<string, HeroOverride> = {
     highlightColorClass: "text-purple-600",
     glowClass: "bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.08)_0%,transparent_60%)]",
     dotColorClass: "bg-purple-500",
-    eyebrowColorClass: "text-purple-600 bg-purple-50 border-purple-200",
+    eyebrowColorClass: "text-purple-600 bg-purple-50/90 border-purple-200",
     btnClass: "bg-[#0076FF] hover:bg-[#0066DD]"
   },
   "china-sourcing": {
@@ -117,7 +117,7 @@ const heroOverrides: Record<string, HeroOverride> = {
     highlightColorClass: "text-amber-600",
     glowClass: "bg-[radial-gradient(circle_at_center,rgba(245,158,11,0.08)_0%,transparent_60%)]",
     dotColorClass: "bg-amber-500",
-    eyebrowColorClass: "text-amber-600 bg-amber-50 border-amber-200",
+    eyebrowColorClass: "text-amber-600 bg-amber-50/90 border-amber-200",
     btnClass: "bg-[#0076FF] hover:bg-[#0066DD]"
   }
 };
@@ -172,64 +172,57 @@ export default async function CategoryPage({ params }: PageProps) {
     highlightColorClass: "text-[#0076FF]",
     glowClass: "bg-[radial-gradient(circle_at_center,rgba(0,118,255,0.08)_0%,transparent_60%)]",
     dotColorClass: "bg-[#0076FF]",
-    eyebrowColorClass: "text-[#0076FF] bg-blue-50 border-blue-200",
+    eyebrowColorClass: "text-[#0076FF] bg-blue-50/90 border-blue-200",
     btnClass: "bg-[#0076FF] hover:bg-[#0066DD]"
   };
 
   return (
     <div className="min-h-screen bg-white text-neutral-900">
 
-      {/* ── 02 — SERVICES HERO ── */}
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden bg-gradient-to-b from-slate-50 via-white to-slate-50/60 border-b border-neutral-200/80">
+      {/* ── 02 — SERVICES HERO (Custom Banner Background, 3D Image Removed, Centered Text) ── */}
+      <section
+        className="relative pt-36 pb-24 lg:pt-44 lg:pb-32 overflow-hidden bg-cover bg-center bg-no-repeat border-b border-neutral-200/80"
+        style={{ backgroundImage: "url('/images/service-banner-bg.png')" }}
+      >
+        {/* Soft Ambient Radial Overlay */}
         <div className={`absolute inset-0 ${override.glowClass} pointer-events-none -z-10`} />
 
         <div className="container mx-auto max-w-7xl px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
             
-            {/* Left Column: Hero Content */}
-            <div className="lg:col-span-7 flex flex-col items-start">
-              <span className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-6 ${override.eyebrowColorClass || "text-blue-600 bg-blue-50 border-blue-200"}`}>
-                <span className={`h-2 w-2 rounded-full ${override.dotColorClass || "bg-blue-600"}`} />
-                {override.eyebrow}
-              </span>
+            {/* Eyebrow Badge */}
+            <span className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-6 ${override.eyebrowColorClass || "text-blue-600 bg-blue-50/90 border-blue-200"}`}>
+              <span className={`h-2 w-2 rounded-full ${override.dotColorClass || "bg-blue-600"}`} />
+              {override.eyebrow}
+            </span>
 
-              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-900 leading-[1.15] mb-6">
-                {override.headlineFirst} <span className={override.highlightColorClass}>{override.headlineHighlight}</span>
-              </h1>
+            {/* Main Headline */}
+            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-900 leading-[1.15] mb-6">
+              {override.headlineFirst} <span className={override.highlightColorClass}>{override.headlineHighlight}</span>
+            </h1>
 
-              <div
-                className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed max-w-2xl mb-8"
-                dangerouslySetInnerHTML={{ __html: override.description }}
-              />
+            {/* Subheadline Description */}
+            <div
+              className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed max-w-2xl mx-auto mb-10"
+              dangerouslySetInnerHTML={{ __html: override.description }}
+            />
 
-              <div className="flex flex-wrap items-center gap-4">
-                <Link
-                  href={override.ctaLink}
-                  className={`inline-flex items-center gap-2 rounded-full px-8 py-4 text-xs font-bold uppercase tracking-widest text-white transition-all shadow-md hover:scale-105 ${override.btnClass || "bg-[#0076FF] hover:bg-[#0066DD]"}`}
-                >
-                  <span>{override.ctaText}</span>
-                  <Icons.ArrowRight className="w-4 h-4" />
-                </Link>
+            {/* CTA Action Buttons */}
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <Link
+                href={override.ctaLink}
+                className={`inline-flex items-center gap-2 rounded-full px-8 py-4 text-xs font-bold uppercase tracking-widest text-white transition-all shadow-md shadow-blue-500/20 hover:scale-105 ${override.btnClass || "bg-[#0076FF] hover:bg-[#0066DD]"}`}
+              >
+                <span>{override.ctaText}</span>
+                <Icons.ArrowRight className="w-4 h-4" />
+              </Link>
 
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 rounded-full bg-white border border-neutral-200 hover:border-neutral-300 px-7 py-4 text-xs font-bold uppercase tracking-widest text-neutral-700 hover:text-neutral-900 transition-all shadow-xs"
-                >
-                  <span>Explore Case Studies</span>
-                </Link>
-              </div>
-            </div>
-
-            {/* Right Column: Hero Graphic Visual */}
-            <div className="lg:col-span-5 relative flex items-center justify-center">
-              <div className="relative w-full max-w-md aspect-square rounded-3xl bg-white border border-neutral-200/80 p-8 flex items-center justify-center shadow-xl">
-                <div className="absolute inset-4 rounded-2xl bg-blue-500/5 blur-2xl pointer-events-none" />
-                <img
-                  src="/images/17.png"
-                  alt={title}
-                  className="w-full h-auto object-contain select-none hover:scale-105 transition-transform duration-500"
-                />
-              </div>
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 rounded-full bg-white/90 border border-neutral-200/90 hover:border-neutral-300 hover:bg-white px-7 py-4 text-xs font-bold uppercase tracking-widest text-neutral-700 hover:text-neutral-900 transition-all shadow-xs backdrop-blur-sm"
+              >
+                <span>Explore Case Studies</span>
+              </Link>
             </div>
 
           </div>
