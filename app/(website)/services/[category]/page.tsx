@@ -276,47 +276,6 @@ export default async function CategoryPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* ── 05 — SERVICE DETAIL GROUP ── */}
-      <section className="py-20 lg:py-28 bg-slate-50/60 border-b border-neutral-200/80">
-        <div className="container mx-auto max-w-7xl px-6">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-50 border border-purple-200 px-4 py-1.5 text-xs font-bold text-purple-700 uppercase tracking-widest mb-4">
-              05 — Service Detail Group
-            </span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-neutral-900 tracking-tight">
-              In-Depth Service Breakdown
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {subItems.map((sub, idx) => (
-              <div key={idx} className="bg-white border border-neutral-200/90 rounded-3xl p-8 flex flex-col justify-between shadow-xs">
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-xs font-bold text-purple-700 uppercase tracking-wider">
-                      Detail 0{idx + 1}
-                    </span>
-                    <span className="text-xs text-neutral-500 font-mono">
-                      {categorySlug.toUpperCase()} — PROTOCOL
-                    </span>
-                  </div>
-                  <h3 className="font-sans text-2xl font-bold text-neutral-900 mb-4">
-                    {sub.name}
-                  </h3>
-                  <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed mb-6">
-                    {sub.description}
-                  </p>
-                </div>
-                <div className="border-t border-neutral-100 pt-4 flex items-center justify-between text-xs text-neutral-500">
-                  <span>Guaranteed SLA Delivery</span>
-                  <span className="text-purple-700 font-bold">100% Transparent</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── 06 THROUGH 13 — WIREFRAME BLUEPRINT SECTIONS ── */}
       <ServiceExtraSections categorySlug={categorySlug} />
 
