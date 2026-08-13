@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import * as Icons from "lucide-react";
 
 interface ServiceExtraSectionsProps {
@@ -352,6 +353,71 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
   return (
     <div className="bg-white text-neutral-900">
       
+      {/* ── ORGANIC SEARCH GROWTH HIGHLIGHT SECTION (Image Left, Text Right) ── */}
+      <section className="py-20 lg:py-28 bg-[#F8FAFC]/70 border-t border-neutral-200/80 overflow-hidden">
+        <div className="container mx-auto max-w-7xl px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            
+            {/* Left Column: Image 11 */}
+            <div className="lg:col-span-6 flex justify-center">
+              <div className="relative w-full max-w-lg aspect-[4/3] rounded-3xl overflow-hidden shadow-xs border border-neutral-200/80 bg-white p-4 group">
+                <Image
+                  src="/images/11.png"
+                  alt="Grow Your Business Through Organic Search"
+                  fill
+                  className="object-contain p-2 transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+            </div>
+
+            {/* Right Column: Text Content & Badges */}
+            <div className="lg:col-span-6 flex flex-col items-start">
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight leading-[1.18] mb-6">
+                Grow Your Business Through Organic Search
+              </h2>
+              
+              <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed mb-8">
+                Increase your visibility on Google and attract customers actively searching for your products or services. Our SEO strategies improve rankings, drive qualified traffic, and create long-term growth. From local SEO to ecommerce and AI SEO, we help businesses generate consistent leads without relying only on paid advertising.
+              </p>
+
+              {/* Feature Badges matching reference layout */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mb-8">
+                <div className="bg-white border border-neutral-200/80 rounded-2xl p-4 flex items-center gap-3.5 shadow-2xs">
+                  <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 text-[#0076FF] flex items-center justify-center font-bold shrink-0">
+                    <Icons.TrendingUp className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-sans text-xs font-bold text-neutral-900 uppercase tracking-wider">High Growth ROI</h4>
+                    <p className="font-sans text-[11px] text-neutral-500">Compounding traffic</p>
+                  </div>
+                </div>
+
+                <div className="bg-white border border-neutral-200/80 rounded-2xl p-4 flex items-center gap-3.5 shadow-2xs">
+                  <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 text-[#0076FF] flex items-center justify-center font-bold shrink-0">
+                    <Icons.ShieldCheck className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="font-sans text-xs font-bold text-neutral-900 uppercase tracking-wider">Proven Expertise</h4>
+                    <p className="font-sans text-[11px] text-neutral-500">Dedicated specialists</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* CTA Button */}
+              <Link
+                href="/contact?service=seo"
+                className="inline-flex items-center gap-2 rounded-full border border-[#0076FF]/40 bg-white hover:bg-blue-50 text-[#0076FF] hover:text-blue-700 px-8 py-4 text-xs font-extrabold uppercase tracking-widest transition-all shadow-xs hover:shadow-md hover:scale-[1.02] active:scale-[0.98]"
+              >
+                <span>Explore SEO</span>
+                <Icons.ArrowRight className="w-4 h-4" />
+              </Link>
+
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* ── 06 — WHY CHOOSE US SECTION ── */}
       <section className="py-20 lg:py-28 border-t border-neutral-200/80 bg-white">
         <div className="container mx-auto max-w-7xl px-6">
