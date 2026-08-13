@@ -331,35 +331,49 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
         </div>
       </section>
 
-      {/* ── 07 — SERVICE PROCESS SECTION ── */}
-      <section className="py-20 lg:py-28 border-t border-neutral-200/80 bg-[#F8FAFC]">
-        <div className="container mx-auto max-w-7xl px-6">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 border border-indigo-200 px-4 py-1.5 text-xs font-bold text-indigo-700 uppercase tracking-widest mb-4">
-              07 — Service Process
+      {/* ── 07 — SERVICE PROCESS SECTION (Redesigned Connected Horizontal Timeline UI) ── */}
+      <section className="py-24 lg:py-32 border-t border-neutral-200/80 bg-[#F9FAFB] relative overflow-hidden">
+        <div className="container mx-auto max-w-7xl px-6 relative z-10">
+          
+          {/* Header */}
+          <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
+            <span className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-200 px-4 py-1.5 text-xs font-bold text-[#0076FF] uppercase tracking-widest mb-6">
+              <span className="h-2 w-2 rounded-full bg-[#0076FF]" />
+              HOW IT WORKS
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight">
-              Our 5-step execution workflow.
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight leading-tight mb-4">
+              Our proven step-by-step process.
             </h2>
+            <p className="font-sans text-sm sm:text-base text-neutral-500 max-w-2xl mx-auto leading-relaxed">
+              Transparent, execution-driven strategies mapped out for scaling success with absolute clarity.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 lg:gap-6">
-            {steps.map((st) => (
-              <div key={st.step} className="bg-white border border-neutral-200/80 rounded-2xl p-6 flex flex-col justify-between shadow-xs hover:border-indigo-400 transition-all">
-                <div>
-                  <span className="font-mono text-xs font-bold text-indigo-700 block mb-3">
-                    STEP {st.step}
-                  </span>
-                  <h4 className="font-sans text-base font-bold text-neutral-900 mb-2">
+          {/* Connected Step Timeline */}
+          <div className="relative max-w-6xl mx-auto">
+            {/* Horizontal Connecting Line (visible on desktop) */}
+            <div className="hidden md:block absolute top-7 left-[10%] right-[10%] h-[2px] bg-neutral-200/90 -z-0" />
+
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-4 relative z-10">
+              {steps.map((st, sidx) => (
+                <div key={st.step || sidx} className="flex flex-col items-center text-center group">
+                  {/* Step Number Circle Badge */}
+                  <div className="w-14 h-14 rounded-full bg-white border border-neutral-200/90 shadow-sm flex items-center justify-center font-bold text-amber-500 text-lg sm:text-xl mb-6 transition-all duration-300 group-hover:scale-110 group-hover:border-amber-400 group-hover:shadow-md">
+                    {parseInt(st.step, 10) || sidx + 1}
+                  </div>
+
+                  {/* Step Content */}
+                  <h3 className="font-sans font-bold text-base sm:text-lg text-neutral-900 mb-2 leading-snug group-hover:text-[#0076FF] transition-colors">
                     {st.title}
-                  </h4>
-                  <p className="font-sans text-xs text-neutral-600 leading-relaxed">
+                  </h3>
+                  <p className="font-sans text-xs sm:text-sm text-neutral-500 leading-relaxed max-w-xs mx-auto">
                     {st.desc}
                   </p>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
+
         </div>
       </section>
 
