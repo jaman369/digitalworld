@@ -2,207 +2,184 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowDown, Globe, DollarSign, Magnet, BarChart3 } from "lucide-react";
+import { ArrowDown, Search, DollarSign, Magnet, BarChart3 } from "lucide-react";
 
-const ecosystemStages = [
+const stages = [
   {
     num: "01",
-    stageLabel: "STAGE 01 —",
-    subLabel: "INTENT VISITORS",
+    label: "STAGE 01 —",
+    sub: "INTENT VISITORS",
     title: "Traffic Acquisition",
-    description: "Capturing targeted organic search traffic, paid PPC buyers, and social discovery.",
-    pillText: "High-intent organic & paid visitors",
-    icon: Globe,
+    desc: "Capturing targeted organic search traffic, paid PPC buyers, and social discovery.",
+    pill: "High-intent organic & paid visitors",
+    icon: Search,
     side: "left", // Card on Left, Pill on Right
-    // Green Theme
-    bannerBg: "from-[#10B981] via-[#059669] to-[#047857]",
-    foldColor: "border-r-[#064E3B] border-t-[#064E3B]",
+    gradient: "from-[#10B981] via-[#059669] to-[#047857]",
     shadow: "shadow-emerald-600/30",
-    iconBg: "bg-emerald-50 border-emerald-200 text-emerald-600",
-    cardBorder: "border-neutral-200/90 hover:border-emerald-400 hover:shadow-emerald-500/10",
+    iconColor: "text-emerald-600 bg-emerald-50 border-emerald-200",
   },
   {
     num: "02",
-    stageLabel: "STAGE 02 —",
-    subLabel: "NURTURING INTEREST",
+    label: "STAGE 02 —",
+    sub: "NURTURING INTEREST",
     title: "Engagement & Trust",
-    description: "Delivering high-converting UX, interactive calculators, and authority content.",
-    pillText: "Engaged site interactions & dwell time",
+    desc: "Delivering high-converting UX, interactive calculators, and authority content.",
+    pill: "Engaged site interactions & dwell time",
     icon: DollarSign,
     side: "right", // Pill on Left, Card on Right
-    // Golden-Orange Theme
-    bannerBg: "from-[#F59E0B] via-[#D97706] to-[#B45309]",
-    foldColor: "border-l-[#78350F] border-t-[#78350F]",
+    gradient: "from-[#F59E0B] via-[#D97706] to-[#B45309]",
     shadow: "shadow-amber-600/30",
-    iconBg: "bg-amber-50 border-amber-200 text-amber-600",
-    cardBorder: "border-neutral-200/90 hover:border-amber-400 hover:shadow-amber-500/10",
+    iconColor: "text-amber-600 bg-amber-50 border-amber-200",
   },
   {
     num: "03",
-    stageLabel: "STAGE 03 —",
-    subLabel: "STEP",
+    label: "STAGE 03 —",
+    sub: "STEP",
     title: "Conversion Engine",
-    description: "Optimized landing pages, instant CRM lead routing, and dynamic CRO testing.",
-    pillText: "High lead-to-opportunity rates",
+    desc: "Optimized landing pages, instant CRM lead routing, and dynamic CRO testing.",
+    pill: "High lead-to-opportunity rates",
     icon: Magnet,
     side: "left", // Card on Left, Pill on Right
-    // Electric Blue Theme
-    bannerBg: "from-[#0076FF] via-[#0060DF] to-[#004BB5]",
-    foldColor: "border-r-[#1E3A8A] border-t-[#1E3A8A]",
+    gradient: "from-[#0076FF] via-[#0060DF] to-[#004BB5]",
     shadow: "shadow-blue-600/30",
-    iconBg: "bg-blue-50 border-blue-200 text-[#0076FF]",
-    cardBorder: "border-neutral-200/90 hover:border-blue-400 hover:shadow-blue-500/10",
+    iconColor: "text-blue-600 bg-blue-50 border-blue-200",
   },
   {
     num: "04",
-    stageLabel: "STAGE 04 —",
-    subLabel: "STEP",
+    label: "STAGE 04 —",
+    sub: "STEP",
     title: "Revenue & LTV Growth",
-    description: "Automated email sequences, retention marketing, and scalable customer acquisition.",
-    pillText: "Maximized customer lifetime value",
+    desc: "Automated email sequences, retention marketing, and scalable customer acquisition.",
+    pill: "Maximized customer lifetime value",
     icon: BarChart3,
     side: "right", // Pill on Left, Card on Right
-    // Red / Crimson Theme
-    bannerBg: "from-[#EF4444] via-[#DC2626] to-[#B91C1C]",
-    foldColor: "border-l-[#7F1D1D] border-t-[#7F1D1D]",
+    gradient: "from-[#EF4444] via-[#DC2626] to-[#B91C1C]",
     shadow: "shadow-red-600/30",
-    iconBg: "bg-red-50 border-red-200 text-red-600",
-    cardBorder: "border-neutral-200/90 hover:border-red-400 hover:shadow-red-500/10",
+    iconColor: "text-red-600 bg-red-50 border-red-200",
   },
 ];
 
 export default function MarketingEcosystem() {
   return (
-    <section className="py-24 lg:py-32 bg-[#F9FAFB] relative z-10 border-b border-neutral-200/80 overflow-hidden">
-      {/* Ambient background glows */}
-      <div className="absolute inset-0 pointer-events-none -z-10">
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-gradient-to-br from-blue-50/50 via-emerald-50/40 to-amber-50/30 rounded-full blur-3xl" />
-      </div>
-
-      <div className="container mx-auto max-w-6xl px-6">
+    <section className="py-14 sm:py-20 bg-white relative z-10 border-b border-neutral-200/80 overflow-hidden">
+      
+      <div className="container mx-auto max-w-5xl px-4 sm:px-6">
         
-        {/* ── SECTION HEADER ── */}
-        <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-24">
-          <span className="inline-flex items-center gap-2 rounded-full bg-blue-50 border border-blue-200/90 px-4 py-1.5 text-xs font-bold text-[#0076FF] uppercase tracking-widest mb-6">
-            <span className="h-2 w-2 rounded-full bg-[#0076FF]" />
+        {/* ── COMPACT SECTION HEADER ── */}
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-200/90 px-3.5 py-1 text-[11px] font-bold text-[#0076FF] uppercase tracking-widest mb-4">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#0076FF]" />
             07 — MARKETING ECOSYSTEM
           </span>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight leading-tight mb-6">
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-neutral-900 tracking-tight leading-tight mb-3">
             Our Connected Growth Ecosystem
           </h2>
-          <p className="font-sans text-base sm:text-lg text-neutral-600 leading-relaxed max-w-2xl mx-auto">
+          <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed max-w-xl mx-auto">
             We don&apos;t build isolated channels. We build an interconnected revenue flywheel where every stage feeds the next.
           </p>
         </div>
 
-        {/* ── 3D FOLDED RIBBON FLOWCHART (100% Custom React/Tailwind Code matching image 23.png) ── */}
-        <div className="max-w-5xl mx-auto flex flex-col items-center">
-          {ecosystemStages.map((st, idx) => {
+        {/* ── TIGHT 3D RIBBON FLYWHEEL DIAGRAM ── */}
+        <div className="max-w-3xl mx-auto flex flex-col items-center">
+          {stages.map((st, idx) => {
             const Icon = st.icon;
-            const isLast = idx === ecosystemStages.length - 1;
+            const isLast = idx === stages.length - 1;
 
             return (
-              <div key={st.num} className="w-full flex flex-col items-center relative">
+              <div key={st.num} className="w-full flex flex-col items-center">
                 
-                {/* 3-Column Grid Row */}
-                <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                {/* Compact Row Container */}
+                <div className="w-full flex flex-col md:flex-row items-center justify-center gap-3 sm:gap-4 relative">
                   
-                  {/* Left Column (Card if side==='left', Pill if side==='right') */}
-                  <div className="md:col-span-5 order-2 md:order-1 flex justify-center md:justify-end">
+                  {/* Left Element (Card if side==='left', Pill if side==='right') */}
+                  <div className="w-full md:w-1/2 flex justify-center md:justify-end order-2 md:order-1">
                     {st.side === "left" ? (
                       /* Left Content Card */
                       <motion.div
-                        initial={{ opacity: 0, x: -35 }}
+                        initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: idx * 0.1 }}
-                        className={`w-full bg-white rounded-2xl p-6 sm:p-8 border shadow-sm hover:shadow-lg transition-all duration-300 ${st.cardBorder}`}
+                        transition={{ duration: 0.4 }}
+                        className="w-full max-w-sm bg-white rounded-2xl p-5 border border-neutral-200/90 shadow-md text-center flex flex-col items-center md:items-start md:text-left relative z-0 md:-mr-4 hover:shadow-lg transition-all"
                       >
-                        <div className={`w-12 h-12 rounded-full flex items-center justify-center border mb-5 ${st.iconBg}`}>
-                          <Icon className="w-6 h-6" />
+                        <div className={`w-10 h-10 rounded-full flex items-center justify-center border mb-3 ${st.iconColor}`}>
+                          <Icon className="w-5 h-5" />
                         </div>
-                        <h3 className="font-sans text-xl font-bold text-neutral-900 mb-2">
+                        <h3 className="font-sans text-base sm:text-lg font-bold text-neutral-900 mb-1">
                           {st.title}
                         </h3>
-                        <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed">
-                          {st.description}
+                        <p className="font-sans text-xs text-neutral-600 leading-relaxed">
+                          {st.desc}
                         </p>
                       </motion.div>
                     ) : (
-                      /* Left Side Metric Pill Badge */
+                      /* Left Metric Pill Badge */
                       <motion.div
-                        initial={{ opacity: 0, x: -25 }}
+                        initial={{ opacity: 0, x: -15 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: idx * 0.1 }}
-                        className="bg-white border border-neutral-300/80 rounded-full px-6 py-3.5 shadow-2xs text-center font-sans text-xs sm:text-sm font-bold text-neutral-800 max-w-xs"
+                        transition={{ duration: 0.4 }}
+                        className="bg-white border border-neutral-300 rounded-full px-5 py-2.5 shadow-2xs text-center font-sans text-xs font-bold text-neutral-800"
                       >
-                        {st.pillText}
+                        {st.pill}
                       </motion.div>
                     )}
                   </div>
 
-                  {/* Center Column — 3D Folded Ribbon Pillar */}
-                  <div className="md:col-span-2 order-1 md:order-2 flex flex-col items-center justify-center">
+                  {/* Center — Compact 3D Folded Ribbon Banner */}
+                  <div className="order-1 md:order-2 shrink-0 z-10 my-1">
                     <motion.div
-                      initial={{ opacity: 0, scale: 0.85 }}
+                      initial={{ opacity: 0, scale: 0.9 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: idx * 0.1 }}
-                      className="relative my-2 group cursor-pointer"
+                      transition={{ duration: 0.4 }}
+                      className="relative"
                     >
-                      {/* 3D Folded Triangle Ear (Left or Right fold) */}
-                      {st.side === "left" ? (
-                        <div className="absolute -top-3 -left-3 w-0 h-0 border-t-[14px] border-r-[14px] border-t-transparent border-r-emerald-800 drop-shadow-sm -z-10" />
-                      ) : (
-                        <div className="absolute -top-3 -right-3 w-0 h-0 border-t-[14px] border-l-[14px] border-t-transparent border-l-amber-900 drop-shadow-sm -z-10" />
-                      )}
-
-                      {/* Main Ribbon Banner Block */}
-                      <div className={`w-36 sm:w-40 py-6 px-4 rounded-2xl bg-gradient-to-b ${st.bannerBg} ${st.shadow} shadow-xl text-white text-center flex flex-col items-center justify-center relative z-10 border border-white/20 transition-transform duration-300 group-hover:scale-105`}>
-                        <span className="text-[10px] font-bold tracking-widest uppercase text-white/90 mb-1">
-                          {st.stageLabel}
+                      {/* Ribbon Banner Body */}
+                      <div className={`w-28 sm:w-32 py-4 px-2 rounded-xl bg-gradient-to-b ${st.gradient} ${st.shadow} shadow-lg text-white text-center flex flex-col items-center justify-center border border-white/20 relative z-10`}>
+                        <span className="text-[9px] font-bold tracking-widest uppercase text-white/90 mb-0.5">
+                          {st.label}
                         </span>
-                        <span className="font-serif text-4xl sm:text-5xl font-extrabold text-white tracking-tight leading-none mb-1 drop-shadow-xs">
+                        <span className="font-serif text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-none mb-0.5">
                           {st.num}
                         </span>
-                        <span className="text-[9px] font-bold tracking-wider uppercase text-white/90">
-                          {st.subLabel}
+                        <span className="text-[8px] font-bold tracking-wider uppercase text-white/90">
+                          {st.sub}
                         </span>
                       </div>
                     </motion.div>
                   </div>
 
-                  {/* Right Column (Pill if side==='left', Card if side==='right') */}
-                  <div className="md:col-span-5 order-3 md:order-3 flex justify-center md:justify-start">
+                  {/* Right Element (Pill if side==='left', Card if side==='right') */}
+                  <div className="w-full md:w-1/2 flex justify-center md:justify-start order-3 md:order-3">
                     {st.side === "left" ? (
-                      /* Right Side Metric Pill Badge */
+                      /* Right Metric Pill Badge */
                       <motion.div
-                        initial={{ opacity: 0, x: 25 }}
+                        initial={{ opacity: 0, x: 15 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: idx * 0.1 }}
-                        className="bg-white border border-neutral-300/80 rounded-full px-6 py-3.5 shadow-2xs text-center font-sans text-xs sm:text-sm font-bold text-neutral-800 max-w-xs"
+                        transition={{ duration: 0.4 }}
+                        className="bg-white border border-neutral-300 rounded-full px-5 py-2.5 shadow-2xs text-center font-sans text-xs font-bold text-neutral-800"
                       >
-                        {st.pillText}
+                        {st.pill}
                       </motion.div>
                     ) : (
                       /* Right Content Card */
                       <motion.div
-                        initial={{ opacity: 0, x: 35 }}
+                        initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.5, delay: idx * 0.1 }}
-                        className={`w-full bg-white rounded-2xl p-6 sm:p-8 border shadow-sm hover:shadow-lg transition-all duration-300 ${st.cardBorder}`}
+                        transition={{ duration: 0.4 }}
+                        className="w-full max-w-sm bg-white rounded-2xl p-5 border border-neutral-200/90 shadow-md text-center flex flex-col items-center md:items-start md:text-left relative z-0 md:-ml-4 hover:shadow-lg transition-all"
                       >
-                        <div className={`w-12 h-12 rounded-full flex items-center justify-center border mb-5 ${st.iconBg}`}>
-                          <Icon className="w-6 h-6" />
+                        <div className={`w-10 h-10 rounded-full flex items-center justify-center border mb-3 ${st.iconColor}`}>
+                          <Icon className="w-5 h-5" />
                         </div>
-                        <h3 className="font-sans text-xl font-bold text-neutral-900 mb-2">
+                        <h3 className="font-sans text-base sm:text-lg font-bold text-neutral-900 mb-1">
                           {st.title}
                         </h3>
-                        <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed">
-                          {st.description}
+                        <p className="font-sans text-xs text-neutral-600 leading-relaxed">
+                          {st.desc}
                         </p>
                       </motion.div>
                     )}
@@ -210,14 +187,14 @@ export default function MarketingEcosystem() {
 
                 </div>
 
-                {/* Downward Arrow Connector Line */}
+                {/* Downward Arrow Connector */}
                 {!isLast && (
-                  <div className="my-6 flex flex-col items-center z-0">
-                    <div className="h-6 w-[2px] bg-neutral-300" />
-                    <div className="w-8 h-8 rounded-full bg-white border border-neutral-300 shadow-xs flex items-center justify-center text-neutral-600 my-1">
-                      <ArrowDown className="w-4 h-4 animate-bounce" />
+                  <div className="my-2 flex flex-col items-center text-neutral-400 z-0">
+                    <div className="h-4 w-[2px] bg-neutral-300" />
+                    <div className="w-6 h-6 rounded-full bg-white border border-neutral-300 shadow-2xs flex items-center justify-center text-neutral-600 my-0.5">
+                      <ArrowDown className="w-3 h-3" />
                     </div>
-                    <div className="h-6 w-[2px] bg-neutral-300" />
+                    <div className="h-4 w-[2px] bg-neutral-300" />
                   </div>
                 )}
 
