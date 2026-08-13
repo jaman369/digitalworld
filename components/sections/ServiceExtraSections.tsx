@@ -411,8 +411,8 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
             <div className="grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-4 relative z-10">
               {steps.map((st, sidx) => (
                 <div key={st.step || sidx} className="flex flex-col items-center text-center group cursor-pointer">
-                  {/* Step Number Circle Badge with Dynamic Category Hover Color */}
-                  <div className={`w-14 h-14 rounded-full bg-white border border-neutral-200/90 shadow-sm flex items-center justify-center font-bold text-amber-500 text-lg sm:text-xl mb-6 transition-all duration-300 group-hover:scale-110 ${processTheme.badgeHover}`}>
+                  {/* Step Number Circle Badge (Normally black text, white text on mouse hover) */}
+                  <div className={`w-14 h-14 rounded-full bg-white border border-neutral-200/90 shadow-sm flex items-center justify-center font-bold text-neutral-900 text-lg sm:text-xl mb-6 transition-all duration-300 group-hover:scale-110 group-hover:text-white ${processTheme.badgeHover}`}>
                     {parseInt(st.step, 10) || sidx + 1}
                   </div>
 
