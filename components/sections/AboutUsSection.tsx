@@ -1,10 +1,47 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, TrendingUp, ShieldCheck } from "lucide-react";
 
+interface AboutData {
+  name: string;
+  title: string;
+  bioParagraph1: string;
+  bioParagraph2: string;
+  imagePath: string;
+}
+
 export default function AboutUsSection() {
+  const [data, setData] = useState<AboutData>({
+    name: "Analyze your business to reach your goals",
+    title: "Build trust to your customers and increase your sales like a pro.",
+    bioParagraph1: "Take your brand to the new height. Get ahead with your target quickly.",
+    bioParagraph2: "And Take your brand to the new height.",
+    imagePath: "/images/17.png",
+  });
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const res = await fetch("/api/about");
+        if (res.ok) {
+          const ab = await res.json();
+          if (ab) {
+            setData({
+              name: ab.name || "Analyze your business to reach your goals",
+              title: ab.title || "Build trust to your customers and increase your sales like a pro.",
+              bioParagraph1: ab.bioParagraph1 || "Take your brand to the new height. Get ahead with your target quickly.",
+              bioParagraph2: ab.bioParagraph2 || "And Take your brand to the new height.",
+              imagePath: ab.imagePath || "/images/17.png",
+            });
+          }
+        }
+      } catch {}
+    }
+    load();
+  }, []);
 
   return (
     <section className="py-[151.2px] bg-white relative z-10 overflow-hidden">
@@ -30,10 +67,10 @@ export default function AboutUsSection() {
               {/* Soft background ambient glow */}
               <div className="absolute inset-4 rounded-3xl bg-gradient-to-tr from-indigo-500/10 via-purple-500/10 to-blue-500/10 blur-3xl -z-10" />
 
-              {/* Transparent 3D Graphic Image 17 */}
+              {/* Transparent 3D Graphic Image */}
               <img
-                src="/images/17.png"
-                alt="Analyze your business to reach your goals"
+                src={data.imagePath || "/images/17.png"}
+                alt={data.name || "Analyze your business"}
                 className="w-full h-auto max-w-[560px] sm:max-w-[620px] lg:max-w-[660px] object-contain drop-shadow-2xl select-none hover:scale-[1.02] transition-transform duration-500"
               />
             </div>
@@ -49,22 +86,22 @@ export default function AboutUsSection() {
           >
             {/* Main Section Title */}
             <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.6rem] font-bold text-neutral-900 tracking-tight leading-[1.2] mb-6">
-              Analyze your business to reach your goals
+              {data.name || "Analyze your business to reach your goals"}
             </h2>
 
             {/* Paragraph 1 */}
             <p className="font-sans text-sm sm:text-base text-neutral-700 font-semibold leading-relaxed mb-3">
-              Build trust to your customers and increase your sales like a pro.
+              {data.title || "Build trust to your customers and increase your sales like a pro."}
             </p>
 
             {/* Paragraph 2 */}
             <p className="font-sans text-xs sm:text-sm text-neutral-500 leading-relaxed mb-3">
-              Take your brand to the new height. Get ahead with your target quickly.
+              {data.bioParagraph1 || "Take your brand to the new height. Get ahead with your target quickly."}
             </p>
 
             {/* Paragraph 3 */}
             <p className="font-sans text-xs sm:text-sm text-neutral-500 leading-relaxed mb-8">
-              And Take your brand to the new height.
+              {data.bioParagraph2 || "And Take your brand to the new height."}
             </p>
 
             {/* Highlights Grid */}
@@ -106,4 +143,5 @@ export default function AboutUsSection() {
     </section>
   );
 }
+
 
