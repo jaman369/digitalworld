@@ -249,14 +249,69 @@ export async function POST(request: Request) {
       ogImage: body.ogImage || null,
     };
 
-    const record = await db.homepageContent.upsert({
-      where: { id: "default" },
-      update: dataToSave,
-      create: {
-        id: "default",
-        ...dataToSave,
-      },
-    });
+    const baseDataToSave = {
+      heroTagline: body.heroTagline || null,
+      heroTitle: body.heroTitle || null,
+      heroSubtitle: body.heroSubtitle || null,
+      heroPrimaryCtaText: body.heroPrimaryCtaText || null,
+      heroPrimaryCtaLink: body.heroPrimaryCtaLink || null,
+      heroSecondaryCtaText: body.heroSecondaryCtaText || null,
+      heroSecondaryCtaLink: body.heroSecondaryCtaLink || null,
+
+      statsEyebrow: body.statsEyebrow || null,
+      stats: typeof body.stats === "string" ? body.stats : JSON.stringify(body.stats || []),
+
+      servicesEyebrow: body.servicesEyebrow || null,
+      servicesTitle: body.servicesTitle || null,
+      servicesSubtitle: body.servicesSubtitle || null,
+
+      whyUsEyebrow: body.whyUsEyebrow || null,
+      whyUsTitle: body.whyUsTitle || null,
+      whyUsSubtitle: body.whyUsSubtitle || null,
+      whyUsCards: typeof body.whyUsCards === "string" ? body.whyUsCards : JSON.stringify(body.whyUsCards || []),
+
+      processEyebrow: body.processEyebrow || null,
+      processTitle: body.processTitle || null,
+      processSubtitle: body.processSubtitle || null,
+      processSteps: typeof body.processSteps === "string" ? body.processSteps : JSON.stringify(body.processSteps || []),
+
+      testimonialsEyebrow: body.testimonialsEyebrow || null,
+      testimonialsTitle: body.testimonialsTitle || null,
+      testimonialsSubtitle: body.testimonialsSubtitle || null,
+
+      ctaEyebrow: body.ctaEyebrow || null,
+      ctaTitle: body.ctaTitle || null,
+      ctaSubtitle: body.ctaSubtitle || null,
+      ctaButtonText: body.ctaButtonText || null,
+      ctaButtonLink: body.ctaButtonLink || null,
+
+      seoTitle: body.seoTitle || null,
+      seoDescription: body.seoDescription || null,
+      canonicalUrl: body.canonicalUrl || null,
+      ogImage: body.ogImage || null,
+    };
+
+    let record;
+    try {
+      record = await db.homepageContent.upsert({
+        where: { id: "default" },
+        update: dataToSave,
+        create: {
+          id: "default",
+          ...dataToSave,
+        },
+      });
+    } catch (upsertError) {
+      console.warn("Full schema upsert failed, falling back to base schema fields:", upsertError);
+      record = await db.homepageContent.upsert({
+        where: { id: "default" },
+        update: baseDataToSave,
+        create: {
+          id: "default",
+          ...baseDataToSave,
+        },
+      });
+    }
 
     try {
       revalidatePath("/");
