@@ -352,12 +352,12 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
   return (
     <div className="bg-white text-neutral-900">
       
-      {/* ── ORGANIC SEARCH GROWTH HIGHLIGHT SECTION (Image Left, Text Right) ── */}
-      <section className="py-20 lg:py-28 bg-[#F8FAFC]/70 border-t border-neutral-200/80 overflow-hidden">
+      {/* ── ORGANIC SEARCH GROWTH HIGHLIGHT SECTION (Clean Frameless Image Left, Text Right) ── */}
+      <section className="py-20 lg:py-28 bg-white border-t border-neutral-200/80 overflow-hidden">
         <div className="container mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
-            {/* Left Column: Transparent Cutout Image 11 (Without Frame) */}
+            {/* Left Column: Transparent Cutout Image 11 (Without Frame or Box) */}
             <div className="lg:col-span-6 flex justify-center items-center">
               <div className="relative w-full max-w-xl flex items-center justify-center p-2">
                 <img
@@ -378,9 +378,9 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
                 Increase your visibility on Google and attract customers actively searching for your products or services. Our SEO strategies improve rankings, drive qualified traffic, and create long-term growth. From local SEO to ecommerce and AI SEO, we help businesses generate consistent leads without relying only on paid advertising.
               </p>
 
-              {/* Feature Badges matching reference layout */}
+              {/* Feature Badges */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mb-8">
-                <div className="bg-white border border-neutral-200/80 rounded-2xl p-4 flex items-center gap-3.5 shadow-2xs">
+                <div className="bg-[#F8FAFC] border border-neutral-200/80 rounded-2xl p-4 flex items-center gap-3.5 shadow-2xs">
                   <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 text-[#0076FF] flex items-center justify-center font-bold shrink-0">
                     <Icons.TrendingUp className="w-5 h-5" />
                   </div>
@@ -390,7 +390,7 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
                   </div>
                 </div>
 
-                <div className="bg-white border border-neutral-200/80 rounded-2xl p-4 flex items-center gap-3.5 shadow-2xs">
+                <div className="bg-[#F8FAFC] border border-neutral-200/80 rounded-2xl p-4 flex items-center gap-3.5 shadow-2xs">
                   <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 text-[#0076FF] flex items-center justify-center font-bold shrink-0">
                     <Icons.ShieldCheck className="w-5 h-5" />
                   </div>
