@@ -359,11 +359,11 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
             
             {/* Left Column: Transparent Cutout Image 11 (Without Frame or Box) */}
             <div className="lg:col-span-6 flex justify-center items-center">
-              <div className="relative w-full max-w-xl flex items-center justify-center p-2">
+              <div className="relative w-full max-w-md flex items-center justify-center p-2">
                 <img
                   src="/images/11.png"
                   alt="Grow Your Business Through Organic Search"
-                  className="w-full h-auto max-w-[520px] sm:max-w-[580px] lg:max-w-[620px] object-contain drop-shadow-2xl select-none hover:scale-[1.02] transition-transform duration-500"
+                  className="w-full h-auto max-w-[340px] sm:max-w-[380px] lg:max-w-[420px] object-contain drop-shadow-xl select-none hover:scale-[1.02] transition-transform duration-500"
                 />
               </div>
             </div>
