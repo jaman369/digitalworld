@@ -326,7 +326,8 @@ export async function POST(request: Request) {
       revalidatePath("/");
     } catch {}
 
-    return NextResponse.json({ success: true, data: record });
+    const safeResponse = JSON.parse(JSON.stringify({ success: true, data: record || {} }));
+    return NextResponse.json(safeResponse);
   } catch (error) {
     console.error("Save homepage CMS error:", error);
     return NextResponse.json({ success: true, message: "Saved successfully" });
