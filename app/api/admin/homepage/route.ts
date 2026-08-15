@@ -96,7 +96,11 @@ export async function GET() {
         where: { id: "default" },
       });
     } catch (dbError) {
-      console.error("DB query error in admin homepage GET:", dbError);
+      console.error("DB query error in admin homepage GET, falling back to raw query:", dbError);
+      try {
+        const rows = (await db.$queryRaw`SELECT * FROM "HomepageContent" WHERE "id" = 'default' LIMIT 1`) as Array<Record<string, unknown>>;
+        if (rows && rows.length > 0) record = rows[0];
+      } catch {}
     }
 
     if (!record) {

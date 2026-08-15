@@ -72,24 +72,32 @@ const defaultHomepageData = {
 
 export async function GET() {
   try {
-    const record = await db.homepageContent.findUnique({
-      where: { id: "default" },
-    });
+    let record: Record<string, unknown> | null = null;
+    try {
+      record = (await db.homepageContent.findUnique({
+        where: { id: "default" },
+      })) as Record<string, unknown> | null;
+    } catch {
+      try {
+        const rows = (await db.$queryRaw`SELECT * FROM "HomepageContent" WHERE "id" = 'default' LIMIT 1`) as Array<Record<string, unknown>>;
+        if (rows && rows.length > 0) record = rows[0];
+      } catch {}
+    }
 
     if (!record) {
       return NextResponse.json(defaultHomepageData);
     }
 
-    const rec = record as unknown as Record<string, string | null | undefined>;
+    const rec = record as Record<string, string | null | undefined>;
 
     // Parse JSON string fields safely
     let parsedStats = defaultHomepageData.stats;
     let parsedWhyUsCards = defaultHomepageData.whyUsCards;
     let parsedProcessSteps = defaultHomepageData.processSteps;
 
-    try { if (record.stats) parsedStats = JSON.parse(record.stats); } catch {}
-    try { if (record.whyUsCards) parsedWhyUsCards = JSON.parse(record.whyUsCards); } catch {}
-    try { if (record.processSteps) parsedProcessSteps = JSON.parse(record.processSteps); } catch {}
+    try { if (rec.stats && typeof rec.stats === "string") parsedStats = JSON.parse(rec.stats); } catch {}
+    try { if (rec.whyUsCards && typeof rec.whyUsCards === "string") parsedWhyUsCards = JSON.parse(rec.whyUsCards); } catch {}
+    try { if (rec.processSteps && typeof rec.processSteps === "string") parsedProcessSteps = JSON.parse(rec.processSteps); } catch {}
 
     return NextResponse.json({
       heroTagline: record.heroTagline || defaultHomepageData.heroTagline,
