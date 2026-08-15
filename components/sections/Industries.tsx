@@ -1,10 +1,31 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
 import { industriesData } from "@/data/industries";
+import { CloudHomepageData } from "@/types";
 
 export default function Industries() {
+  const [data, setData] = useState<CloudHomepageData>({
+    industriesEyebrow: "Industries",
+    industriesTitle: "Sectors we serve",
+    industriesSubtitle: "We deliver tailored keyword targeting strategies and customized backend logic across multiple industry verticals.",
+  });
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const res = await fetch("/api/homepage");
+        if (res.ok) {
+          const hp = await res.json();
+          setData((prev) => ({ ...prev, ...hp }));
+        }
+      } catch {}
+    }
+    load();
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -28,13 +49,13 @@ export default function Industries() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-24">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-light px-4 py-1.5 text-xs font-semibold text-primary uppercase tracking-wider mb-6">
-            Industries
+            {data.industriesEyebrow || "Industries"}
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight mb-6">
-            Sectors we serve
+            {data.industriesTitle || "Sectors we serve"}
           </h2>
           <p className="font-sans text-base sm:text-lg text-neutral-500 leading-relaxed">
-            We deliver tailored keyword targeting strategies and customized backend logic across multiple industry verticals.
+            {data.industriesSubtitle || "We deliver tailored keyword targeting strategies and customized backend logic across multiple industry verticals."}
           </p>
         </div>
 

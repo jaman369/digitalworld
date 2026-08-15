@@ -85,6 +85,25 @@ export async function POST(request: Request) {
       ctaButtonText: body.ctaButtonText || null,
       ctaButtonLink: body.ctaButtonLink || null,
 
+      painPointsEyebrow: body.painPointsEyebrow || null,
+      painPointsTitle: body.painPointsTitle || null,
+      painPointsSubtitle: body.painPointsSubtitle || null,
+
+      ecosystemEyebrow: body.ecosystemEyebrow || null,
+      ecosystemTitle: body.ecosystemTitle || null,
+      ecosystemSubtitle: body.ecosystemSubtitle || null,
+
+      metricsEyebrow: body.metricsEyebrow || null,
+      metricsTitle: body.metricsTitle || null,
+
+      industriesEyebrow: body.industriesEyebrow || null,
+      industriesTitle: body.industriesTitle || null,
+      industriesSubtitle: body.industriesSubtitle || null,
+
+      toolsEyebrow: body.toolsEyebrow || null,
+      toolsTitle: body.toolsTitle || null,
+      toolsSubtitle: body.toolsSubtitle || null,
+
       seoTitle: body.seoTitle || null,
       seoDescription: body.seoDescription || null,
       canonicalUrl: body.canonicalUrl || null,

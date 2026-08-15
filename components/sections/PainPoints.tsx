@@ -1,7 +1,9 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { AlertCircle, TrendingDown, DollarSign, UserX, Cpu, BarChart2 } from "lucide-react";
+import { CloudHomepageData } from "@/types";
 
 const painPoints = [
   {
@@ -49,6 +51,25 @@ const painPoints = [
 ];
 
 export default function PainPoints() {
+  const [data, setData] = useState<CloudHomepageData>({
+    painPointsEyebrow: "04 — Problem / Pain Points",
+    painPointsTitle: "Are these bottlenecks holding your growth back?",
+    painPointsSubtitle: "Most digital agencies focus on vanity clicks. We diagnose and eliminate the core friction points in your revenue engine.",
+  });
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const res = await fetch("/api/homepage");
+        if (res.ok) {
+          const hp = await res.json();
+          setData((prev) => ({ ...prev, ...hp }));
+        }
+      } catch {}
+    }
+    load();
+  }, []);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -75,13 +96,13 @@ export default function PainPoints() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-20">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-rose-50 border border-rose-100 px-4 py-1.5 text-xs font-semibold text-rose-600 uppercase tracking-wider mb-6">
-            04 — Problem / Pain Points
+            {data.painPointsEyebrow || "04 — Problem / Pain Points"}
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight mb-6">
-            Are these bottlenecks holding your growth back?
+            {data.painPointsTitle || "Are these bottlenecks holding your growth back?"}
           </h2>
           <p className="font-sans text-base sm:text-lg text-neutral-500 leading-relaxed">
-            Most digital agencies focus on vanity clicks. We diagnose and eliminate the core friction points in your revenue engine.
+            {data.painPointsSubtitle || "Most digital agencies focus on vanity clicks. We diagnose and eliminate the core friction points in your revenue engine."}
           </p>
         </div>
 
@@ -133,3 +154,4 @@ export default function PainPoints() {
     </section>
   );
 }
+

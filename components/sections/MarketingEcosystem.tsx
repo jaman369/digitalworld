@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, Search, DollarSign, Magnet, BarChart3 } from "lucide-react";
+import { CloudHomepageData } from "@/types";
 
 const stages = [
   {
@@ -60,6 +61,25 @@ const stages = [
 ];
 
 export default function MarketingEcosystem() {
+  const [data, setData] = useState<CloudHomepageData>({
+    ecosystemEyebrow: "07 — MARKETING ECOSYSTEM",
+    ecosystemTitle: "Our Connected Growth Ecosystem",
+    ecosystemSubtitle: "We don't build isolated channels. We build an interconnected revenue flywheel where every stage feeds the next.",
+  });
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const res = await fetch("/api/homepage");
+        if (res.ok) {
+          const hp = await res.json();
+          setData((prev) => ({ ...prev, ...hp }));
+        }
+      } catch {}
+    }
+    load();
+  }, []);
+
   return (
     <section className="py-14 sm:py-20 bg-white relative z-10 border-b border-neutral-200/80 overflow-hidden">
       
@@ -69,13 +89,13 @@ export default function MarketingEcosystem() {
         <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-200/90 px-3.5 py-1 text-[11px] font-bold text-[#0076FF] uppercase tracking-widest mb-4">
             <span className="h-1.5 w-1.5 rounded-full bg-[#0076FF]" />
-            07 — MARKETING ECOSYSTEM
+            {data.ecosystemEyebrow || "07 — MARKETING ECOSYSTEM"}
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl font-bold text-neutral-900 tracking-tight leading-tight mb-3">
-            Our Connected Growth Ecosystem
+            {data.ecosystemTitle || "Our Connected Growth Ecosystem"}
           </h2>
           <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed max-w-xl mx-auto">
-            We don&apos;t build isolated channels. We build an interconnected revenue flywheel where every stage feeds the next.
+            {data.ecosystemSubtitle || "We don't build isolated channels. We build an interconnected revenue flywheel where every stage feeds the next."}
           </p>
         </div>
 

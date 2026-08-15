@@ -80,6 +80,8 @@ export async function GET() {
       return NextResponse.json(defaultHomepageData);
     }
 
+    const rec = record as unknown as Record<string, string | null | undefined>;
+
     // Parse JSON string fields safely
     let parsedStats = defaultHomepageData.stats;
     let parsedWhyUsCards = defaultHomepageData.whyUsCards;
@@ -124,6 +126,30 @@ export async function GET() {
       ctaSubtitle: record.ctaSubtitle || defaultHomepageData.ctaSubtitle,
       ctaButtonText: record.ctaButtonText || defaultHomepageData.ctaButtonText,
       ctaButtonLink: record.ctaButtonLink || defaultHomepageData.ctaButtonLink,
+
+      // Pain Points Section
+      painPointsEyebrow: rec.painPointsEyebrow || "04 — Problem / Pain Points",
+      painPointsTitle: rec.painPointsTitle || "Are these bottlenecks holding your growth back?",
+      painPointsSubtitle: rec.painPointsSubtitle || "Most digital agencies focus on vanity clicks. We diagnose and eliminate the core friction points in your revenue engine.",
+
+      // Ecosystem Section
+      ecosystemEyebrow: rec.ecosystemEyebrow || "07 — MARKETING ECOSYSTEM",
+      ecosystemTitle: rec.ecosystemTitle || "Our Connected Growth Ecosystem",
+      ecosystemSubtitle: rec.ecosystemSubtitle || "We don't build isolated channels. We build an interconnected revenue flywheel where every stage feeds the next.",
+
+      // Metrics Section
+      metricsEyebrow: rec.metricsEyebrow || "10 — Results / Metrics",
+      metricsTitle: rec.metricsTitle || "Measurable Impact by the Numbers",
+
+      // Industries Section
+      industriesEyebrow: rec.industriesEyebrow || "Industries",
+      industriesTitle: rec.industriesTitle || "Sectors we serve",
+      industriesSubtitle: rec.industriesSubtitle || "We deliver tailored keyword targeting strategies and customized backend logic across multiple industry verticals.",
+
+      // Tools Section
+      toolsEyebrow: rec.toolsEyebrow || "14 — Technology / Tools",
+      toolsTitle: rec.toolsTitle || "Powered by Enterprise Marketing Tech",
+      toolsSubtitle: rec.toolsSubtitle || "We leverage industry-leading software and custom AI automation to execute high-precision growth campaigns.",
 
       seoTitle: record.seoTitle || defaultHomepageData.seoTitle,
       seoDescription: record.seoDescription || defaultHomepageData.seoDescription,

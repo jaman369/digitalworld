@@ -5,7 +5,7 @@ import * as Icons from "lucide-react";
 import { CloudHomepageData } from "@/types";
 
 export default function AdminHomepageCMS() {
-  const [activeTab, setActiveTab] = useState<"hero" | "stats" | "services" | "why" | "process" | "testimonials" | "cta" | "seo">("hero");
+  const [activeTab, setActiveTab] = useState<"hero" | "stats" | "painPoints" | "services" | "ecosystem" | "why" | "process" | "metrics" | "industries" | "testimonials" | "tools" | "cta" | "seo">("hero");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [feedback, setFeedback] = useState("");
@@ -30,10 +30,20 @@ export default function AdminHomepageCMS() {
       { id: "countries", value: "11", label: "Countries Served" },
     ],
 
+    // Pain Points
+    painPointsEyebrow: "04 — Problem / Pain Points",
+    painPointsTitle: "Are these bottlenecks holding your growth back?",
+    painPointsSubtitle: "Most digital agencies focus on vanity clicks. We diagnose and eliminate the core friction points in your revenue engine.",
+
     // Services Header
     servicesEyebrow: "What We Do",
     servicesTitle: "Services built to scale.",
     servicesSubtitle: "A comprehensive suite of growth services designed to expand your visibility, drive qualified leads, and maximize return on investment.",
+
+    // Marketing Ecosystem
+    ecosystemEyebrow: "07 — MARKETING ECOSYSTEM",
+    ecosystemTitle: "Our Connected Growth Ecosystem",
+    ecosystemSubtitle: "We don't build isolated channels. We build an interconnected revenue flywheel where every stage feeds the next.",
 
     // Why Choose Us
     whyUsEyebrow: "Why Us",
@@ -59,10 +69,24 @@ export default function AdminHomepageCMS() {
       { stepNumber: 4, title: "Scale & Growth", description: "Iterative split testing, backlink acceleration, and recurring performance reports." },
     ],
 
+    // Metrics
+    metricsEyebrow: "10 — Results / Metrics",
+    metricsTitle: "Measurable Impact by the Numbers",
+
+    // Industries
+    industriesEyebrow: "Industries",
+    industriesTitle: "Sectors we serve",
+    industriesSubtitle: "We deliver tailored keyword targeting strategies and customized backend logic across multiple industry verticals.",
+
     // Testimonials Header
     testimonialsEyebrow: "Reviews",
     testimonialsTitle: "Client Success Stories",
     testimonialsSubtitle: "See how we help businesses globally increase organic traffic footprint, lower acquisition cost metrics, and scale stores.",
+
+    // Tools
+    toolsEyebrow: "14 — Technology / Tools",
+    toolsTitle: "Powered by Enterprise Marketing Tech",
+    toolsSubtitle: "We leverage industry-leading software and custom AI automation to execute high-precision growth campaigns.",
 
     // Final CTA
     ctaEyebrow: "Get Started",
@@ -169,10 +193,15 @@ export default function AdminHomepageCMS() {
   const navTabs = [
     { id: "hero", label: "Hero Banner", icon: Icons.Sparkles },
     { id: "stats", label: "Stats Bar", icon: Icons.BarChart3 },
+    { id: "painPoints", label: "Pain Points", icon: Icons.AlertCircle },
     { id: "services", label: "Services Header", icon: Icons.Layers },
-    { id: "why", label: "Why Choose Us", icon: Icons.CheckCircle2 },
+    { id: "ecosystem", label: "Marketing Ecosystem", icon: Icons.Activity },
     { id: "process", label: "Process / Steps", icon: Icons.ListOrdered },
+    { id: "metrics", label: "Results / Metrics", icon: Icons.TrendingUp },
+    { id: "industries", label: "Industries", icon: Icons.Building2 },
+    { id: "why", label: "Why Choose Us", icon: Icons.CheckCircle2 },
     { id: "testimonials", label: "Testimonials Header", icon: Icons.MessageSquare },
+    { id: "tools", label: "Tech & Tools", icon: Icons.Cpu },
     { id: "cta", label: "Final CTA", icon: Icons.Megaphone },
     { id: "seo", label: "Homepage SEO", icon: Icons.Globe },
   ] as const;
@@ -352,6 +381,48 @@ export default function AdminHomepageCMS() {
           </div>
         )}
 
+        {/* PAIN POINTS TAB */}
+        {activeTab === "painPoints" && (
+          <div className="flex flex-col gap-6">
+            <h2 className="font-sans font-bold text-base text-neutral-900 border-b border-neutral-100 pb-3">
+              Pain Points / Bottlenecks Section Settings
+            </h2>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Eyebrow Badge</label>
+              <input
+                type="text"
+                value={formData.painPointsEyebrow || ""}
+                onChange={(e) => setFormData({ ...formData, painPointsEyebrow: e.target.value })}
+                placeholder="04 — Problem / Pain Points"
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Section Title</label>
+              <input
+                type="text"
+                value={formData.painPointsTitle || ""}
+                onChange={(e) => setFormData({ ...formData, painPointsTitle: e.target.value })}
+                placeholder="Are these bottlenecks holding your growth back?"
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary font-bold"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Subtitle Paragraph</label>
+              <textarea
+                rows={3}
+                value={formData.painPointsSubtitle || ""}
+                onChange={(e) => setFormData({ ...formData, painPointsSubtitle: e.target.value })}
+                placeholder="Most digital agencies focus on vanity clicks..."
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary resize-none"
+              />
+            </div>
+          </div>
+        )}
+
         {/* 3. SERVICES HEADER TAB */}
         {activeTab === "services" && (
           <div className="flex flex-col gap-6">
@@ -385,6 +456,48 @@ export default function AdminHomepageCMS() {
                 rows={3}
                 value={formData.servicesSubtitle || ""}
                 onChange={(e) => setFormData({ ...formData, servicesSubtitle: e.target.value })}
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary resize-none"
+              />
+            </div>
+          </div>
+        )}
+
+        {/* ECOSYSTEM TAB */}
+        {activeTab === "ecosystem" && (
+          <div className="flex flex-col gap-6">
+            <h2 className="font-sans font-bold text-base text-neutral-900 border-b border-neutral-100 pb-3">
+              Marketing Ecosystem Section Settings
+            </h2>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Eyebrow Badge</label>
+              <input
+                type="text"
+                value={formData.ecosystemEyebrow || ""}
+                onChange={(e) => setFormData({ ...formData, ecosystemEyebrow: e.target.value })}
+                placeholder="07 — MARKETING ECOSYSTEM"
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Section Title</label>
+              <input
+                type="text"
+                value={formData.ecosystemTitle || ""}
+                onChange={(e) => setFormData({ ...formData, ecosystemTitle: e.target.value })}
+                placeholder="Our Connected Growth Ecosystem"
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary font-bold"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Subtitle Paragraph</label>
+              <textarea
+                rows={3}
+                value={formData.ecosystemSubtitle || ""}
+                onChange={(e) => setFormData({ ...formData, ecosystemSubtitle: e.target.value })}
+                placeholder="We don't build isolated channels..."
                 className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary resize-none"
               />
             </div>
@@ -540,6 +653,121 @@ export default function AdminHomepageCMS() {
                   />
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+
+        {/* METRICS TAB */}
+        {activeTab === "metrics" && (
+          <div className="flex flex-col gap-6">
+            <h2 className="font-sans font-bold text-base text-neutral-900 border-b border-neutral-100 pb-3">
+              Results & Metrics Section Settings
+            </h2>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Eyebrow Badge</label>
+              <input
+                type="text"
+                value={formData.metricsEyebrow || ""}
+                onChange={(e) => setFormData({ ...formData, metricsEyebrow: e.target.value })}
+                placeholder="10 — Results / Metrics"
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Section Title</label>
+              <input
+                type="text"
+                value={formData.metricsTitle || ""}
+                onChange={(e) => setFormData({ ...formData, metricsTitle: e.target.value })}
+                placeholder="Measurable Impact by the Numbers"
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary font-bold"
+              />
+            </div>
+          </div>
+        )}
+
+        {/* INDUSTRIES TAB */}
+        {activeTab === "industries" && (
+          <div className="flex flex-col gap-6">
+            <h2 className="font-sans font-bold text-base text-neutral-900 border-b border-neutral-100 pb-3">
+              Industries / Sectors Section Settings
+            </h2>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Eyebrow Badge</label>
+              <input
+                type="text"
+                value={formData.industriesEyebrow || ""}
+                onChange={(e) => setFormData({ ...formData, industriesEyebrow: e.target.value })}
+                placeholder="Industries"
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Section Title</label>
+              <input
+                type="text"
+                value={formData.industriesTitle || ""}
+                onChange={(e) => setFormData({ ...formData, industriesTitle: e.target.value })}
+                placeholder="Sectors we serve"
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary font-bold"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Subtitle Paragraph</label>
+              <textarea
+                rows={3}
+                value={formData.industriesSubtitle || ""}
+                onChange={(e) => setFormData({ ...formData, industriesSubtitle: e.target.value })}
+                placeholder="We deliver tailored keyword targeting strategies..."
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary resize-none"
+              />
+            </div>
+          </div>
+        )}
+
+        {/* TOOLS TAB */}
+        {activeTab === "tools" && (
+          <div className="flex flex-col gap-6">
+            <h2 className="font-sans font-bold text-base text-neutral-900 border-b border-neutral-100 pb-3">
+              Technology & Tools Section Settings
+            </h2>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Eyebrow Badge</label>
+              <input
+                type="text"
+                value={formData.toolsEyebrow || ""}
+                onChange={(e) => setFormData({ ...formData, toolsEyebrow: e.target.value })}
+                placeholder="14 — Technology / Tools"
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Section Title</label>
+              <input
+                type="text"
+                value={formData.toolsTitle || ""}
+                onChange={(e) => setFormData({ ...formData, toolsTitle: e.target.value })}
+                placeholder="Powered by Enterprise Marketing Tech"
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary font-bold"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-xs font-bold text-neutral-500 uppercase tracking-wider">Subtitle Paragraph</label>
+              <textarea
+                rows={3}
+                value={formData.toolsSubtitle || ""}
+                onChange={(e) => setFormData({ ...formData, toolsSubtitle: e.target.value })}
+                placeholder="We leverage industry-leading software..."
+                className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-primary resize-none"
+              />
             </div>
           </div>
         )}

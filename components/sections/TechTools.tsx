@@ -1,7 +1,9 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Search, Database, Cpu, BarChart3, Globe, Shield } from "lucide-react";
+import { CloudHomepageData } from "@/types";
 
 const tools = [
   {
@@ -49,19 +51,38 @@ const tools = [
 ];
 
 export default function TechTools() {
+  const [data, setData] = useState<CloudHomepageData>({
+    toolsEyebrow: "14 — Technology / Tools",
+    toolsTitle: "Powered by Enterprise Marketing Tech",
+    toolsSubtitle: "We leverage industry-leading software and custom AI automation to execute high-precision growth campaigns.",
+  });
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const res = await fetch("/api/homepage");
+        if (res.ok) {
+          const hp = await res.json();
+          setData((prev) => ({ ...prev, ...hp }));
+        }
+      } catch {}
+    }
+    load();
+  }, []);
+
   return (
     <section className="py-20 lg:py-28 bg-[#fafbfe] relative z-10 border-b border-neutral-100 overflow-hidden">
       <div className="container mx-auto max-w-7xl px-6">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-20">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-cyan-50 border border-cyan-100 px-4 py-1.5 text-xs font-semibold text-cyan-600 uppercase tracking-wider mb-6">
-            14 — Technology / Tools
+            {data.toolsEyebrow || "14 — Technology / Tools"}
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight mb-6">
-            Powered by Enterprise Marketing Tech
+            {data.toolsTitle || "Powered by Enterprise Marketing Tech"}
           </h2>
           <p className="font-sans text-base sm:text-lg text-neutral-500 leading-relaxed">
-            We leverage industry-leading software and custom AI automation to execute high-precision growth campaigns.
+            {data.toolsSubtitle || "We leverage industry-leading software and custom AI automation to execute high-precision growth campaigns."}
           </p>
         </div>
 

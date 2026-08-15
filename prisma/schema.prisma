@@ -166,6 +166,20 @@ model HomepageContent {
   ctaSubtitle          String?
   ctaButtonText        String?
   ctaButtonLink        String?
+  painPointsEyebrow   String?
+  painPointsTitle     String?
+  painPointsSubtitle  String?
+  ecosystemEyebrow    String?
+  ecosystemTitle      String?
+  ecosystemSubtitle   String?
+  metricsEyebrow      String?
+  metricsTitle        String?
+  industriesEyebrow   String?
+  industriesTitle     String?
+  industriesSubtitle  String?
+  toolsEyebrow        String?
+  toolsTitle          String?
+  toolsSubtitle       String?
   seoTitle             String?
   seoDescription       String?
   canonicalUrl         String?

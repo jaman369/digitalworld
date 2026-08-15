@@ -136,6 +136,25 @@ export interface CloudHomepageData {
   ctaButtonText?: string;
   ctaButtonLink?: string;
 
+  painPointsEyebrow?: string;
+  painPointsTitle?: string;
+  painPointsSubtitle?: string;
+
+  ecosystemEyebrow?: string;
+  ecosystemTitle?: string;
+  ecosystemSubtitle?: string;
+
+  metricsEyebrow?: string;
+  metricsTitle?: string;
+
+  industriesEyebrow?: string;
+  industriesTitle?: string;
+  industriesSubtitle?: string;
+
+  toolsEyebrow?: string;
+  toolsTitle?: string;
+  toolsSubtitle?: string;
+
   seoTitle?: string;
   seoDescription?: string;
   canonicalUrl?: string;
