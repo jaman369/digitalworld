@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import * as Icons from "lucide-react";
+import { servicesData } from "@/data/services";
 
 interface DbService {
   id: string;
@@ -59,13 +60,42 @@ export default function AdminServicesPage() {
       const res = await fetch("/api/admin/services");
       if (res.ok) {
         const data = await res.json();
-        setServices(data);
+        if (Array.isArray(data) && data.length > 0) {
+          setServices(data);
+          return;
+        }
       }
     } catch (err) {
       console.error("Fetch services failed:", err);
     } finally {
       setIsLoading(false);
     }
+
+    // Fallback: Populate initial 51 tracks from static servicesData if DB empty
+    let orderIdx = 1;
+    const initialList: DbService[] = [];
+    for (const cat of servicesData) {
+      for (const sub of cat.subItems) {
+        initialList.push({
+          id: `svc-${sub.slug}`,
+          name: sub.name,
+          slug: sub.slug,
+          categoryName: cat.title,
+          sortOrder: orderIdx++,
+          tagline: sub.tagline || "",
+          description: sub.description || "",
+          benefits: JSON.stringify(sub.benefits || []),
+          primaryCtaText: sub.primaryCtaText || "Get Started",
+          primaryCtaLink: sub.primaryCtaLink || `/contact?service=${sub.slug}`,
+          secondaryCtaText: sub.secondaryCtaText || null,
+          secondaryCtaLink: sub.secondaryCtaLink || null,
+          imagePath: null,
+          imageAlt: null,
+        });
+      }
+    }
+    setServices(initialList);
+    setIsLoading(false);
   };
 
   useEffect(() => {

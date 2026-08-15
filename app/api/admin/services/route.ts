@@ -13,13 +13,14 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    let dbServices = await db.servicePage.findMany({
-      orderBy: { sortOrder: "asc" },
-    });
+    let dbServices: any[] = [];
+    try {
+      dbServices = await db.servicePage.findMany({
+        orderBy: { sortOrder: "asc" },
+      });
 
-    // Auto-seed PostgreSQL database if empty
-    if (dbServices.length === 0) {
-      try {
+      // Auto-seed PostgreSQL database if empty
+      if (dbServices.length === 0) {
         let orderIndex = 1;
         for (const cat of servicesData) {
           for (const sub of cat.subItems) {
@@ -39,16 +40,42 @@ export async function GET() {
                 secondaryCtaText: sub.secondaryCtaText || null,
                 secondaryCtaLink: sub.secondaryCtaLink || null,
               },
-            });
+            }).catch(() => {});
             orderIndex++;
           }
         }
         dbServices = await db.servicePage.findMany({
           orderBy: { sortOrder: "asc" },
-        });
-      } catch (seedErr) {
-        console.error("Auto-seed error:", seedErr);
+        }).catch(() => []);
       }
+    } catch (dbErr) {
+      console.error("DB services GET error:", dbErr);
+    }
+
+    if (dbServices.length === 0) {
+      let orderIdx = 1;
+      const fallbackList = [];
+      for (const cat of servicesData) {
+        for (const sub of cat.subItems) {
+          fallbackList.push({
+            id: `svc-${sub.slug}`,
+            name: sub.name,
+            slug: sub.slug,
+            categoryName: cat.title,
+            sortOrder: orderIdx++,
+            tagline: sub.tagline || "",
+            description: sub.description || "",
+            benefits: JSON.stringify(sub.benefits || []),
+            primaryCtaText: sub.primaryCtaText || "Get Started",
+            primaryCtaLink: sub.primaryCtaLink || `/contact?service=${sub.slug}`,
+            secondaryCtaText: sub.secondaryCtaText || null,
+            secondaryCtaLink: sub.secondaryCtaLink || null,
+            imagePath: null,
+            imageAlt: null,
+          });
+        }
+      }
+      return NextResponse.json(fallbackList);
     }
 
     return NextResponse.json(dbServices);
