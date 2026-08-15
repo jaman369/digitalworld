@@ -348,6 +348,38 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
   const processTheme = processThemeMap[categorySlug] || processThemeMap["seo"];
 
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [dynamicHeader, setDynamicHeader] = useState({
+    title: "Grow Your Business Through Organic Search",
+    description: "Increase your visibility on Google and attract customers actively searching for your products or services. Our SEO strategies improve rankings, drive qualified traffic, and create long-term growth. From local SEO to ecommerce and AI SEO, we help businesses generate consistent leads without relying only on paid advertising.",
+    imagePath: "/images/11.png",
+    imageAlt: "Grow Your Business Through Organic Search",
+    ctaText: "Explore SEO",
+    ctaLink: `/contact?service=${categorySlug}`,
+  });
+
+  React.useEffect(() => {
+    async function loadDynamicService() {
+      try {
+        const res = await fetch("/api/services");
+        if (res.ok) {
+          const categories = await res.json();
+          const foundCat = categories.find((c: { slug?: string; id?: string; subItems?: Array<{ name?: string; description?: string; imagePath?: string; imageAlt?: string; primaryCtaText?: string; primaryCtaLink?: string }> }) => c.slug === categorySlug || c.id === categorySlug);
+          if (foundCat && foundCat.subItems && foundCat.subItems.length > 0) {
+            const firstTrack = foundCat.subItems[0];
+            setDynamicHeader({
+              title: firstTrack.name || "Grow Your Business Through Organic Search",
+              description: firstTrack.description || "Increase your visibility on Google...",
+              imagePath: firstTrack.imagePath || "/images/11.png",
+              imageAlt: firstTrack.imageAlt || firstTrack.name || "Grow Your Business",
+              ctaText: firstTrack.primaryCtaText || "Explore SEO",
+              ctaLink: firstTrack.primaryCtaLink || `/contact?service=${categorySlug}`,
+            });
+          }
+        }
+      } catch {}
+    }
+    loadDynamicService();
+  }, [categorySlug]);
 
   return (
     <div className="bg-white text-neutral-900">
@@ -357,12 +389,12 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
         <div className="container mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
-            {/* Left Column: Transparent Cutout Image 11 (Without Frame or Box) */}
+            {/* Left Column: Transparent Cutout Image (Without Frame or Box) */}
             <div className="lg:col-span-6 flex justify-center items-center">
               <div className="relative w-full max-w-md flex items-center justify-center p-2">
                 <img
-                  src="/images/11.png"
-                  alt="Grow Your Business Through Organic Search"
+                  src={dynamicHeader.imagePath || "/images/11.png"}
+                  alt={dynamicHeader.imageAlt || dynamicHeader.title}
                   className="w-full h-auto max-w-[340px] sm:max-w-[380px] lg:max-w-[420px] object-contain drop-shadow-xl select-none hover:scale-[1.02] transition-transform duration-500"
                 />
               </div>
@@ -371,11 +403,11 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
             {/* Right Column: Text Content & Badges */}
             <div className="lg:col-span-6 flex flex-col items-start">
               <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight leading-[1.18] mb-6">
-                Grow Your Business Through Organic Search
+                {dynamicHeader.title}
               </h2>
               
               <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed mb-8">
-                Increase your visibility on Google and attract customers actively searching for your products or services. Our SEO strategies improve rankings, drive qualified traffic, and create long-term growth. From local SEO to ecommerce and AI SEO, we help businesses generate consistent leads without relying only on paid advertising.
+                {dynamicHeader.description}
               </p>
 
               {/* Feature Badges */}
@@ -403,10 +435,10 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
 
               {/* CTA Button */}
               <Link
-                href="/contact?service=seo"
+                href={dynamicHeader.ctaLink || `/contact?service=${categorySlug}`}
                 className="inline-flex items-center gap-2 rounded-full border border-[#0076FF]/40 bg-white hover:bg-blue-50 text-[#0076FF] hover:text-blue-700 px-8 py-4 text-xs font-extrabold uppercase tracking-widest transition-all shadow-xs hover:shadow-md hover:scale-[1.02] active:scale-[0.98]"
               >
-                <span>Explore SEO</span>
+                <span>{dynamicHeader.ctaText || "Explore SEO"}</span>
                 <Icons.ArrowRight className="w-4 h-4" />
               </Link>
 
