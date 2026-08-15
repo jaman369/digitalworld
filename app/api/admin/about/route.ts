@@ -31,26 +31,33 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const record = await db.aboutContent.findUnique({
-      where: { id: "default" },
-    });
+    let record: unknown = null;
+    try {
+      record = await db.aboutContent.findUnique({
+        where: { id: "default" },
+      });
+    } catch (dbErr) {
+      console.error("DB query error in admin about GET:", dbErr);
+    }
 
     if (!record) {
       return NextResponse.json(defaultAboutData);
     }
 
+    const rec = record as Record<string, string | null | undefined>;
+
     let parsedTimeline = defaultAboutData.timeline;
     let parsedMetrics = defaultAboutData.metrics;
 
-    try { if (record.timeline) parsedTimeline = JSON.parse(record.timeline); } catch {}
-    try { if (record.metrics) parsedMetrics = JSON.parse(record.metrics); } catch {}
+    try { if (rec.timeline) parsedTimeline = JSON.parse(rec.timeline); } catch {}
+    try { if (rec.metrics) parsedMetrics = JSON.parse(rec.metrics); } catch {}
 
     return NextResponse.json({
-      name: record.name || defaultAboutData.name,
-      title: record.title || defaultAboutData.title,
-      bioParagraph1: record.bioParagraph1 || defaultAboutData.bioParagraph1,
-      bioParagraph2: record.bioParagraph2 || defaultAboutData.bioParagraph2,
-      imagePath: record.imagePath || defaultAboutData.imagePath,
+      name: rec.name || defaultAboutData.name,
+      title: rec.title || defaultAboutData.title,
+      bioParagraph1: rec.bioParagraph1 || defaultAboutData.bioParagraph1,
+      bioParagraph2: rec.bioParagraph2 || defaultAboutData.bioParagraph2,
+      imagePath: rec.imagePath || defaultAboutData.imagePath,
       timeline: parsedTimeline,
       metrics: parsedMetrics,
     });

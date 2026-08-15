@@ -90,23 +90,28 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const record = await db.homepageContent.findUnique({
-      where: { id: "default" },
-    });
+    let record: unknown = null;
+    try {
+      record = await db.homepageContent.findUnique({
+        where: { id: "default" },
+      });
+    } catch (dbError) {
+      console.error("DB query error in admin homepage GET:", dbError);
+    }
 
     if (!record) {
       return NextResponse.json(defaultHomepageData);
     }
 
-    const rec = record as unknown as Record<string, string | null | undefined>;
+    const rec = record as Record<string, string | null | undefined>;
 
     let parsedStats = defaultHomepageData.stats;
     let parsedWhyUsCards = defaultHomepageData.whyUsCards;
     let parsedProcessSteps = defaultHomepageData.processSteps;
 
-    try { if (record.stats) parsedStats = JSON.parse(record.stats); } catch {}
-    try { if (record.whyUsCards) parsedWhyUsCards = JSON.parse(record.whyUsCards); } catch {}
-    try { if (record.processSteps) parsedProcessSteps = JSON.parse(record.processSteps); } catch {}
+    try { if (rec.stats) parsedStats = JSON.parse(rec.stats); } catch {}
+    try { if (rec.whyUsCards) parsedWhyUsCards = JSON.parse(rec.whyUsCards); } catch {}
+    try { if (rec.processSteps) parsedProcessSteps = JSON.parse(rec.processSteps); } catch {}
 
     return NextResponse.json({
       heroTagline: rec.heroTagline || defaultHomepageData.heroTagline,
