@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import * as Icons from "lucide-react";
 
 interface ServiceExtraSectionsProps {
@@ -358,14 +357,13 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
         <div className="container mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
-            {/* Left Column: Image 11 */}
-            <div className="lg:col-span-6 flex justify-center">
-              <div className="relative w-full max-w-lg aspect-[4/3] rounded-3xl overflow-hidden shadow-xs border border-neutral-200/80 bg-white p-4 group">
-                <Image
+            {/* Left Column: Transparent Cutout Image 11 (Without Frame) */}
+            <div className="lg:col-span-6 flex justify-center items-center">
+              <div className="relative w-full max-w-xl flex items-center justify-center p-2">
+                <img
                   src="/images/11.png"
                   alt="Grow Your Business Through Organic Search"
-                  fill
-                  className="object-contain p-2 transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-auto max-w-[520px] sm:max-w-[580px] lg:max-w-[620px] object-contain drop-shadow-2xl select-none hover:scale-[1.02] transition-transform duration-500"
                 />
               </div>
             </div>
