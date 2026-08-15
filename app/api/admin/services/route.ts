@@ -13,7 +13,7 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    let dbServices: any[] = [];
+    let dbServices: unknown[] = [];
     try {
       dbServices = await db.servicePage.findMany({
         orderBy: { sortOrder: "asc" },
