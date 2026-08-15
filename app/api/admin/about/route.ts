@@ -5,6 +5,25 @@ import { db } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
+const defaultAboutData = {
+  name: "Kamrujjaman Mufti",
+  title: "Digital Marketing Expert & Web Developer",
+  bioParagraph1: "Full-service digital marketing expert with 5 years of hands-on experience helping businesses of all sizes grow through SEO, web development, paid ads, and content marketing.",
+  bioParagraph2: "Every project I take on is treated as a partnership, where your success is my success.",
+  imagePath: "/Kamrujjaman Mufti Image/kamrujjaman-mufti.jpg",
+  timeline: [
+    { years: "2019 - Present", role: "Digital Marketing Expert & Founder", company: "Digital World Agency" },
+    { years: "2021 - Present", role: "Senior SEO & PPC Strategist", company: "Global Client Portfolio" },
+    { years: "2020 - 2022", role: "Full-Stack Web Developer", company: "Enterprise Clients" },
+  ],
+  metrics: [
+    { numericValue: 150, suffix: "+", label: "Projects Completed" },
+    { numericValue: 120, suffix: "+", label: "Happy Clients" },
+    { numericValue: 5, suffix: "+", label: "Years Experience" },
+    { numericValue: 11, suffix: "+", label: "Countries Served" },
+  ],
+};
+
 export async function GET() {
   try {
     const session = await getSession();
@@ -17,23 +36,27 @@ export async function GET() {
     });
 
     if (!record) {
-      return NextResponse.json({});
+      return NextResponse.json(defaultAboutData);
     }
 
-    let parsedTimeline = [];
-    let parsedMetrics = [];
+    let parsedTimeline = defaultAboutData.timeline;
+    let parsedMetrics = defaultAboutData.metrics;
 
     try { if (record.timeline) parsedTimeline = JSON.parse(record.timeline); } catch {}
     try { if (record.metrics) parsedMetrics = JSON.parse(record.metrics); } catch {}
 
     return NextResponse.json({
-      ...record,
+      name: record.name || defaultAboutData.name,
+      title: record.title || defaultAboutData.title,
+      bioParagraph1: record.bioParagraph1 || defaultAboutData.bioParagraph1,
+      bioParagraph2: record.bioParagraph2 || defaultAboutData.bioParagraph2,
+      imagePath: record.imagePath || defaultAboutData.imagePath,
       timeline: parsedTimeline,
       metrics: parsedMetrics,
     });
   } catch (error) {
     console.error("GET admin about content error:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(defaultAboutData);
   }
 }
 
