@@ -347,112 +347,152 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
   const faqs = faqMap[categorySlug] || faqMap["seo"];
   const processTheme = processThemeMap[categorySlug] || processThemeMap["seo"];
 
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
-  const [dynamicHeader, setDynamicHeader] = useState({
-    title: "Get Found by the Right Customers—On Search & AI",
-    description: "Grow your visibility with strategic SEO built around how customers search today. From local SEO and ecommerce SEO to semantic SEO, SaaS SEO, and AI SEO, we build sustainable organic growth that brings qualified traffic and conversions.",
-    imagePath: "/images/11.png",
-    imageAlt: "Get Found by the Right Customers—On Search & AI",
-    ctaText: "Grow My Organic Traffic",
-    ctaLink: `/contact?service=${categorySlug}`,
-  });
+  /* ── Per-service highlight content (user-provided exact copy) ── */
+  const highlightContentMap: Record<string, {
+    title: string;
+    description: string;
+    subtitle: string;
+    points: { emoji: string; text: string }[];
+    ctaText: string;
+    imagePath: string;
+  }> = {
+    seo: {
+      title: "Get Found by the Right Customers—On Search & AI",
+      description: "Grow your visibility with strategic SEO built around how customers search today. From local SEO and ecommerce SEO to semantic SEO, SaaS SEO, and AI SEO, we build sustainable organic growth that brings qualified traffic and conversions.",
+      subtitle: "We optimize and manage your:",
+      points: [
+        { emoji: "🔍", text: "Local SEO & Google Business Profile optimization" },
+        { emoji: "🛒", text: "Ecommerce SEO & product page optimization" },
+        { emoji: "🌎", text: "International, SaaS & semantic SEO" },
+        { emoji: "🤖", text: "AI SEO, AEO & Generative Engine Optimization" },
+      ],
+      ctaText: "Grow My Organic Traffic",
+      imagePath: "/images/11.png",
+    },
+    ppc: {
+      title: "Turn Your Ad Spend Into Predictable Growth",
+      description: "Reach high-intent customers with performance-focused paid advertising. We create, manage, and optimize campaigns across Google Search Ads, Google Shopping Ads, Performance Max, YouTube Ads, and remarketing to improve conversions and ROAS.",
+      subtitle: "We optimize and manage your:",
+      points: [
+        { emoji: "🎯", text: "Google Search & Shopping Ads" },
+        { emoji: "📈", text: "Performance Max & conversion optimization" },
+        { emoji: "▶️", text: "YouTube Ads & audience targeting" },
+        { emoji: "🔄", text: "Remarketing, retargeting & campaign scaling" },
+      ],
+      ctaText: "Scale My Ads",
+      imagePath: "/images/11.png",
+    },
+    "web-design": {
+      title: "Build a Website That Looks Great—and Converts",
+      description: "Your website should do more than look professional—it should generate results. We build responsive, mobile-first websites, landing pages, WordPress and Shopify solutions designed for speed, usability, SEO, and conversions.",
+      subtitle: "We build and optimize your:",
+      points: [
+        { emoji: "🎨", text: "UI/UX & responsive web design" },
+        { emoji: "⚡", text: "Website speed & Core Web Vitals" },
+        { emoji: "🛍️", text: "WordPress, Shopify & ecommerce websites" },
+        { emoji: "🚀", text: "High-converting landing pages for paid ads" },
+      ],
+      ctaText: "Build My Website",
+      imagePath: "/images/11.png",
+    },
+    "content-marketing": {
+      title: "Create Content That Ranks, Engages & Sells",
+      description: "Turn ideas into content that attracts search traffic and moves customers toward action. Our SEO blog writing, email marketing, and content marketing approach combines search intent, valuable information, and conversion-focused messaging.",
+      subtitle: "We create and optimize your:",
+      points: [
+        { emoji: "✍️", text: "SEO-optimized blog posts & content strategies" },
+        { emoji: "📧", text: "Email marketing & automated campaigns" },
+        { emoji: "🧩", text: "Content pillars, clusters & repurposing" },
+        { emoji: "📊", text: "CRO content & conversion-focused copy" },
+      ],
+      ctaText: "Create Better Content",
+      imagePath: "/images/11.png",
+    },
+    "ai-automation": {
+      title: "Automate Repetitive Work & Accelerate Your Growth",
+      description: "Replace repetitive manual tasks with intelligent systems that work around the clock. From AI chatbots and AI agents to CRM, workflow, lead generation, and AI SEO automation, we connect your tools and processes into one smarter workflow.",
+      subtitle: "We automate your:",
+      points: [
+        { emoji: "🤖", text: "AI chatbot & AI agent development" },
+        { emoji: "🎯", text: "Lead generation & lead qualification" },
+        { emoji: "🔄", text: "CRM & workflow automation" },
+        { emoji: "📊", text: "AI customer support, content & SEO automation" },
+      ],
+      ctaText: "Automate My Business",
+      imagePath: "/images/11.png",
+    },
+    "china-sourcing": {
+      title: "Source Better Products. Reduce Risk. Grow Profitably.",
+      description: "Find reliable products and suppliers in China without the usual sourcing headaches. We support product sourcing, supplier verification, quality inspection, production management, freight forwarding, and door-to-door delivery.",
+      subtitle: "We manage your:",
+      points: [
+        { emoji: "🔎", text: "Product & supplier sourcing from China" },
+        { emoji: "✅", text: "Supplier verification & factory audits" },
+        { emoji: "📦", text: "Quality inspection & production monitoring" },
+        { emoji: "🚢", text: "Freight forwarding, customs & DDP delivery" },
+      ],
+      ctaText: "Start Sourcing",
+      imagePath: "/images/11.png",
+    },
+  };
 
-  React.useEffect(() => {
-    async function loadDynamicService() {
-      try {
-        const res = await fetch("/api/services");
-        if (res.ok) {
-          const categories = await res.json();
-          const foundCat = categories.find((c: { slug?: string; id?: string; subItems?: Array<{ name?: string; description?: string; imagePath?: string; imageAlt?: string; primaryCtaText?: string; primaryCtaLink?: string }> }) => c.slug === categorySlug || c.id === categorySlug);
-          if (foundCat && foundCat.subItems && foundCat.subItems.length > 0) {
-            const firstTrack = foundCat.subItems[0];
-            setDynamicHeader({
-              title: firstTrack.name || "Get Found by the Right Customers—On Search & AI",
-              description: firstTrack.description || "Grow your visibility with strategic SEO built around how customers search today...",
-              imagePath: firstTrack.imagePath || "/images/11.png",
-              imageAlt: firstTrack.imageAlt || firstTrack.name || "Get Found by the Right Customers",
-              ctaText: firstTrack.primaryCtaText || "Grow My Organic Traffic",
-              ctaLink: firstTrack.primaryCtaLink || `/contact?service=${categorySlug}`,
-            });
-          }
-        }
-      } catch {}
-    }
-    loadDynamicService();
-  }, [categorySlug]);
+  const highlight = highlightContentMap[categorySlug] || highlightContentMap["seo"];
+
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   return (
     <div className="bg-white text-neutral-900">
       
-      {/* ── ORGANIC SEARCH GROWTH HIGHLIGHT SECTION (Clean Frameless Image Left, Text Right) ── */}
+      {/* ── SERVICE HIGHLIGHT SECTION (Image Left, Text + Checklist Right) ── */}
       <section className="py-20 lg:py-28 bg-white border-t border-neutral-200/80 overflow-hidden">
         <div className="container mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
-            {/* Left Column: Transparent Cutout Image 11 (Without Frame or Box) */}
+            {/* Left Column: Transparent Cutout Image (Without Frame or Box) */}
             <div className="lg:col-span-6 flex justify-center items-center">
               <div className="relative w-full max-w-md flex items-center justify-center p-2">
                 <img
-                  src={dynamicHeader.imagePath || "/images/11.png"}
-                  alt={dynamicHeader.imageAlt || dynamicHeader.title}
+                  src={highlight.imagePath}
+                  alt={highlight.title}
                   className="w-full h-auto max-w-[340px] sm:max-w-[380px] lg:max-w-[420px] object-contain drop-shadow-xl select-none hover:scale-[1.02] transition-transform duration-500"
                 />
               </div>
             </div>
 
-            {/* Right Column: Text Content, Checklist & Badges */}
+            {/* Right Column: Text Content, Checklist & CTA */}
             <div className="lg:col-span-6 flex flex-col items-start">
               <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight leading-[1.18] mb-6">
-                {dynamicHeader.title}
+                {highlight.title}
               </h2>
               
               <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed mb-6">
-                {dynamicHeader.description}
+                {highlight.description}
               </p>
 
               {/* Optimization Points List */}
               <div className="w-full mb-8 space-y-3">
                 <p className="font-sans text-xs font-bold uppercase tracking-wider text-neutral-900 mb-3">
-                  We optimize and manage your:
+                  {highlight.subtitle}
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div className="bg-[#F8FAFC] border border-neutral-200/80 rounded-xl p-3.5 flex items-center gap-3 shadow-2xs hover:border-blue-200 transition-colors">
-                    <span className="text-lg shrink-0 select-none">🔍</span>
-                    <span className="font-sans text-xs font-semibold text-neutral-800 leading-snug">
-                      Local SEO & Google Business Profile optimization
-                    </span>
-                  </div>
-
-                  <div className="bg-[#F8FAFC] border border-neutral-200/80 rounded-xl p-3.5 flex items-center gap-3 shadow-2xs hover:border-blue-200 transition-colors">
-                    <span className="text-lg shrink-0 select-none">🛒</span>
-                    <span className="font-sans text-xs font-semibold text-neutral-800 leading-snug">
-                      Ecommerce SEO & product page optimization
-                    </span>
-                  </div>
-
-                  <div className="bg-[#F8FAFC] border border-neutral-200/80 rounded-xl p-3.5 flex items-center gap-3 shadow-2xs hover:border-blue-200 transition-colors">
-                    <span className="text-lg shrink-0 select-none">🌎</span>
-                    <span className="font-sans text-xs font-semibold text-neutral-800 leading-snug">
-                      International, SaaS & semantic SEO
-                    </span>
-                  </div>
-
-                  <div className="bg-[#F8FAFC] border border-neutral-200/80 rounded-xl p-3.5 flex items-center gap-3 shadow-2xs hover:border-blue-200 transition-colors">
-                    <span className="text-lg shrink-0 select-none">🤖</span>
-                    <span className="font-sans text-xs font-semibold text-neutral-800 leading-snug">
-                      AI SEO, AEO & Generative Engine Optimization
-                    </span>
-                  </div>
+                  {highlight.points.map((point, idx) => (
+                    <div key={idx} className="bg-[#F8FAFC] border border-neutral-200/80 rounded-xl p-3.5 flex items-center gap-3 shadow-2xs hover:border-blue-200 transition-colors">
+                      <span className="text-lg shrink-0 select-none">{point.emoji}</span>
+                      <span className="font-sans text-xs font-semibold text-neutral-800 leading-snug">
+                        {point.text}
+                      </span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
               {/* CTA Button */}
               <Link
-                href={dynamicHeader.ctaLink || `/contact?service=${categorySlug}`}
+                href={`/contact?service=${categorySlug}`}
                 className="inline-flex items-center gap-2 rounded-full border border-[#0076FF]/40 bg-[#0076FF] hover:bg-blue-600 text-white px-8 py-4 text-xs font-extrabold uppercase tracking-widest transition-all shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
               >
-                <span>{dynamicHeader.ctaText || "Grow My Organic Traffic"}</span>
+                <span>{highlight.ctaText} →</span>
                 <Icons.ArrowRight className="w-4 h-4" />
               </Link>
 
