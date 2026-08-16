@@ -419,7 +419,7 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
         { emoji: "📊", text: "CRO content & conversion-focused copy" },
       ],
       ctaText: "Create Better Content",
-      imagePath: "/images/11.png",
+      imagePath: "/images/16.png",
     },
     "ai-automation": {
       title: "Automate Repetitive Work & Accelerate Your Growth",
@@ -432,7 +432,7 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
         { emoji: "📊", text: "AI customer support, content & SEO automation" },
       ],
       ctaText: "Automate My Business",
-      imagePath: "/images/11.png",
+      imagePath: "/images/22.png",
     },
     "china-sourcing": {
       title: "Source Better Products. Reduce Risk. Grow Profitably.",
@@ -445,7 +445,7 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
         { emoji: "🚢", text: "Freight forwarding, customs & DDP delivery" },
       ],
       ctaText: "Start Sourcing",
-      imagePath: "/images/11.png",
+      imagePath: "/images/23.png",
     },
   };
 
