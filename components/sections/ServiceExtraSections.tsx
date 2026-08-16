@@ -349,11 +349,11 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
 
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [dynamicHeader, setDynamicHeader] = useState({
-    title: "Grow Your Business Through Organic Search",
-    description: "Increase your visibility on Google and attract customers actively searching for your products or services. Our SEO strategies improve rankings, drive qualified traffic, and create long-term growth. From local SEO to ecommerce and AI SEO, we help businesses generate consistent leads without relying only on paid advertising.",
+    title: "Get Found by the Right Customers—On Search & AI",
+    description: "Grow your visibility with strategic SEO built around how customers search today. From local SEO and ecommerce SEO to semantic SEO, SaaS SEO, and AI SEO, we build sustainable organic growth that brings qualified traffic and conversions.",
     imagePath: "/images/11.png",
-    imageAlt: "Grow Your Business Through Organic Search",
-    ctaText: "Explore SEO",
+    imageAlt: "Get Found by the Right Customers—On Search & AI",
+    ctaText: "Grow My Organic Traffic",
     ctaLink: `/contact?service=${categorySlug}`,
   });
 
@@ -367,11 +367,11 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
           if (foundCat && foundCat.subItems && foundCat.subItems.length > 0) {
             const firstTrack = foundCat.subItems[0];
             setDynamicHeader({
-              title: firstTrack.name || "Grow Your Business Through Organic Search",
-              description: firstTrack.description || "Increase your visibility on Google...",
+              title: firstTrack.name || "Get Found by the Right Customers—On Search & AI",
+              description: firstTrack.description || "Grow your visibility with strategic SEO built around how customers search today...",
               imagePath: firstTrack.imagePath || "/images/11.png",
-              imageAlt: firstTrack.imageAlt || firstTrack.name || "Grow Your Business",
-              ctaText: firstTrack.primaryCtaText || "Explore SEO",
+              imageAlt: firstTrack.imageAlt || firstTrack.name || "Get Found by the Right Customers",
+              ctaText: firstTrack.primaryCtaText || "Grow My Organic Traffic",
               ctaLink: firstTrack.primaryCtaLink || `/contact?service=${categorySlug}`,
             });
           }
@@ -389,7 +389,7 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
         <div className="container mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
-            {/* Left Column: Transparent Cutout Image (Without Frame or Box) */}
+            {/* Left Column: Transparent Cutout Image 11 (Without Frame or Box) */}
             <div className="lg:col-span-6 flex justify-center items-center">
               <div className="relative w-full max-w-md flex items-center justify-center p-2">
                 <img
@@ -400,35 +400,49 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
               </div>
             </div>
 
-            {/* Right Column: Text Content & Badges */}
+            {/* Right Column: Text Content, Checklist & Badges */}
             <div className="lg:col-span-6 flex flex-col items-start">
               <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight leading-[1.18] mb-6">
                 {dynamicHeader.title}
               </h2>
               
-              <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed mb-8">
+              <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed mb-6">
                 {dynamicHeader.description}
               </p>
 
-              {/* Feature Badges */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mb-8">
-                <div className="bg-[#F8FAFC] border border-neutral-200/80 rounded-2xl p-4 flex items-center gap-3.5 shadow-2xs">
-                  <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 text-[#0076FF] flex items-center justify-center font-bold shrink-0">
-                    <Icons.TrendingUp className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h4 className="font-sans text-xs font-bold text-neutral-900 uppercase tracking-wider">High Growth ROI</h4>
-                    <p className="font-sans text-[11px] text-neutral-500">Compounding traffic</p>
-                  </div>
-                </div>
+              {/* Optimization Points List */}
+              <div className="w-full mb-8 space-y-3">
+                <p className="font-sans text-xs font-bold uppercase tracking-wider text-neutral-900 mb-3">
+                  We optimize and manage your:
+                </p>
 
-                <div className="bg-[#F8FAFC] border border-neutral-200/80 rounded-2xl p-4 flex items-center gap-3.5 shadow-2xs">
-                  <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 text-[#0076FF] flex items-center justify-center font-bold shrink-0">
-                    <Icons.ShieldCheck className="w-5 h-5" />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="bg-[#F8FAFC] border border-neutral-200/80 rounded-xl p-3.5 flex items-center gap-3 shadow-2xs hover:border-blue-200 transition-colors">
+                    <span className="text-lg shrink-0 select-none">🔍</span>
+                    <span className="font-sans text-xs font-semibold text-neutral-800 leading-snug">
+                      Local SEO & Google Business Profile optimization
+                    </span>
                   </div>
-                  <div>
-                    <h4 className="font-sans text-xs font-bold text-neutral-900 uppercase tracking-wider">Proven Expertise</h4>
-                    <p className="font-sans text-[11px] text-neutral-500">Dedicated specialists</p>
+
+                  <div className="bg-[#F8FAFC] border border-neutral-200/80 rounded-xl p-3.5 flex items-center gap-3 shadow-2xs hover:border-blue-200 transition-colors">
+                    <span className="text-lg shrink-0 select-none">🛒</span>
+                    <span className="font-sans text-xs font-semibold text-neutral-800 leading-snug">
+                      Ecommerce SEO & product page optimization
+                    </span>
+                  </div>
+
+                  <div className="bg-[#F8FAFC] border border-neutral-200/80 rounded-xl p-3.5 flex items-center gap-3 shadow-2xs hover:border-blue-200 transition-colors">
+                    <span className="text-lg shrink-0 select-none">🌎</span>
+                    <span className="font-sans text-xs font-semibold text-neutral-800 leading-snug">
+                      International, SaaS & semantic SEO
+                    </span>
+                  </div>
+
+                  <div className="bg-[#F8FAFC] border border-neutral-200/80 rounded-xl p-3.5 flex items-center gap-3 shadow-2xs hover:border-blue-200 transition-colors">
+                    <span className="text-lg shrink-0 select-none">🤖</span>
+                    <span className="font-sans text-xs font-semibold text-neutral-800 leading-snug">
+                      AI SEO, AEO & Generative Engine Optimization
+                    </span>
                   </div>
                 </div>
               </div>
@@ -436,9 +450,9 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
               {/* CTA Button */}
               <Link
                 href={dynamicHeader.ctaLink || `/contact?service=${categorySlug}`}
-                className="inline-flex items-center gap-2 rounded-full border border-[#0076FF]/40 bg-white hover:bg-blue-50 text-[#0076FF] hover:text-blue-700 px-8 py-4 text-xs font-extrabold uppercase tracking-widest transition-all shadow-xs hover:shadow-md hover:scale-[1.02] active:scale-[0.98]"
+                className="inline-flex items-center gap-2 rounded-full border border-[#0076FF]/40 bg-[#0076FF] hover:bg-blue-600 text-white px-8 py-4 text-xs font-extrabold uppercase tracking-widest transition-all shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]"
               >
-                <span>{dynamicHeader.ctaText || "Explore SEO"}</span>
+                <span>{dynamicHeader.ctaText || "Grow My Organic Traffic"}</span>
                 <Icons.ArrowRight className="w-4 h-4" />
               </Link>
 
