@@ -450,11 +450,11 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
             
             {/* Left Column: Transparent Cutout Image (Without Frame or Box) */}
             <div className="lg:col-span-6 flex justify-center items-center">
-              <div className="relative w-full flex items-center justify-center p-2">
+              <div className="relative w-full max-w-md flex items-center justify-center p-2">
                 <img
                   src={highlight.imagePath}
                   alt={highlight.title}
-                  className="w-full h-auto max-w-[420px] sm:max-w-[480px] lg:max-w-[540px] object-contain drop-shadow-xl select-none hover:scale-[1.02] transition-transform duration-500"
+                  className="w-full h-auto max-w-[340px] sm:max-w-[380px] lg:max-w-[420px] object-contain drop-shadow-xl select-none hover:scale-[1.02] transition-transform duration-500"
                 />
               </div>
             </div>
