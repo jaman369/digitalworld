@@ -380,7 +380,7 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
         { emoji: "🔄", text: "Remarketing, retargeting & campaign scaling" },
       ],
       ctaText: "Scale My Ads",
-      imagePath: "/images/11.png",
+      imagePath: "/images/21.png",
     },
     "web-design": {
       title: "Build a Website That Looks Great—and Converts",
