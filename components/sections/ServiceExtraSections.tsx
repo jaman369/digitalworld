@@ -382,6 +382,19 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
       ctaText: "Scale My Ads",
       imagePath: "/images/21.png",
     },
+    "web-design-dev": {
+      title: "Build a Website That Looks Great—and Converts",
+      description: "Your website should do more than look professional—it should generate results. We build responsive, mobile-first websites, landing pages, WordPress and Shopify solutions designed for speed, usability, SEO, and conversions.",
+      subtitle: "We build and optimize your:",
+      points: [
+        { emoji: "🎨", text: "UI/UX & responsive web design" },
+        { emoji: "⚡", text: "Website speed & Core Web Vitals" },
+        { emoji: "🛍️", text: "WordPress, Shopify & ecommerce websites" },
+        { emoji: "🚀", text: "High-converting landing pages for paid ads" },
+      ],
+      ctaText: "Build My Website",
+      imagePath: "/images/15.png",
+    },
     "web-design": {
       title: "Build a Website That Looks Great—and Converts",
       description: "Your website should do more than look professional—it should generate results. We build responsive, mobile-first websites, landing pages, WordPress and Shopify solutions designed for speed, usability, SEO, and conversions.",
@@ -393,7 +406,7 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
         { emoji: "🚀", text: "High-converting landing pages for paid ads" },
       ],
       ctaText: "Build My Website",
-      imagePath: "/images/11.png",
+      imagePath: "/images/15.png",
     },
     "content-marketing": {
       title: "Create Content That Ranks, Engages & Sells",
