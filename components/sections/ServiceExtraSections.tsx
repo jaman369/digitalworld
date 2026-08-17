@@ -445,7 +445,7 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
         { emoji: "🚢", text: "Freight forwarding, customs & DDP delivery" },
       ],
       ctaText: "Start Sourcing",
-      imagePath: "/images/23.png",
+      imagePath: "/images/16.png",
     },
   };
 
