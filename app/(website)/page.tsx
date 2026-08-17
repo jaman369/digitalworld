@@ -3,9 +3,7 @@ import StatsBar from "@/components/sections/StatsBar";
 import PainPoints from "@/components/sections/PainPoints";
 import AboutUsSection from "@/components/sections/AboutUsSection";
 import ServicesGrid from "@/components/sections/ServicesGrid";
-import MarketingEcosystem from "@/components/sections/MarketingEcosystem";
 import HowItWorks from "@/components/sections/HowItWorks";
-import FeaturedPortfolio from "@/components/sections/FeaturedPortfolio";
 import ResultsMetrics from "@/components/sections/ResultsMetrics";
 import Industries from "@/components/sections/Industries";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
@@ -32,14 +30,8 @@ export default function Home() {
       {/* 06 — SERVICES OVERVIEW */}
       <ServicesGrid />
 
-      {/* 07 — MARKETING ECOSYSTEM */}
-      <MarketingEcosystem />
-
       {/* 08 — PROCESS */}
       <HowItWorks />
-
-      {/* 09 — FEATURED PORTFOLIO / CASE STUDIES */}
-      <FeaturedPortfolio />
 
       {/* 10 — RESULTS / METRICS */}
       <ResultsMetrics />
