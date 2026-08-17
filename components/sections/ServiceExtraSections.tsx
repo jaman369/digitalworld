@@ -419,7 +419,7 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
         { emoji: "📊", text: "CRO content & conversion-focused copy" },
       ],
       ctaText: "Create Better Content",
-      imagePath: "/images/16.png",
+      imagePath: "/images/13.png",
     },
     "ai-automation": {
       title: "Automate Repetitive Work & Accelerate Your Growth",
