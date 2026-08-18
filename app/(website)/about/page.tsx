@@ -68,7 +68,7 @@ export default function AboutPage() {
     title: "Digital Marketing Expert & Web Developer",
     bioParagraph1: "Full-service digital marketing expert with 5 years of hands-on experience helping businesses of all sizes grow through SEO, web development, paid ads, and content marketing.",
     bioParagraph2: "Every project I take on is treated as a partnership, where your success is my success.",
-    imagePath: "/Kamrujjaman Mufti Image/kamrujjaman-mufti.jpg",
+    imagePath: "/images/23.png",
   });
 
   useEffect(() => {
@@ -226,15 +226,12 @@ export default function AboutPage() {
               {/* Ambient Glow behind image */}
               <div className="absolute inset-2 rounded-[2.5rem] bg-gradient-to-tr from-blue-500/15 via-sky-400/10 to-indigo-500/15 blur-2xl -z-10" />
 
-              {/* Large Portrait Image Container */}
-              <div className="relative w-full max-w-lg lg:max-w-xl aspect-[4/4.6] rounded-[2.25rem] lg:rounded-[32px] overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.1)] border border-neutral-200/80 bg-neutral-900">
-                <Image
-                  src={aboutData.imagePath || "/Kamrujjaman Mufti Image/kamrujjaman-mufti.jpg"}
-                  alt={aboutData.name || "Kamrujjaman Mufti"}
-                  fill
-                  className="object-cover object-top hover:scale-[1.02] transition-transform duration-500"
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 50vw"
+              {/* Large Image Container */}
+              <div className="relative w-full max-w-lg lg:max-w-xl rounded-[2.25rem] lg:rounded-[32px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-neutral-200/80 bg-white p-3 sm:p-5 flex items-center justify-center">
+                <img
+                  src={aboutData.imagePath || "/images/23.png"}
+                  alt={aboutData.name || "Digital World Marketing Ecosystem"}
+                  className="w-full h-auto object-contain drop-shadow-md select-none hover:scale-[1.01] transition-transform duration-500 rounded-2xl"
                 />
               </div>
             </div>

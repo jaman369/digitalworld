@@ -8,7 +8,7 @@ const defaultAboutData = {
   title: "Digital Marketing Expert & Web Developer",
   bioParagraph1: "Full-service digital marketing expert with 5 years of hands-on experience helping businesses of all sizes grow through SEO, web development, paid ads, and content marketing.",
   bioParagraph2: "Every project I take on is treated as a partnership, where your success is my success.",
-  imagePath: "/Kamrujjaman Mufti Image/kamrujjaman-mufti.jpg",
+  imagePath: "/images/23.png",
   timeline: [
     { years: "2024 - Present", role: "Digital Marketing Expert", company: "KJ Digital World" },
     { years: "2022 - 2024", role: "SEO & Paid Ads Specialist", company: "Freelance / Agency Partner" },
