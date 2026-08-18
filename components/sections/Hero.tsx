@@ -96,7 +96,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-transparent pt-4 pb-0 lg:pt-6 lg:pb-0 flex flex-col justify-between h-[660px] lg:h-[720px]">
+    <section className="relative overflow-hidden bg-transparent pt-4 pb-0 lg:pt-6 lg:pb-0 flex flex-col justify-between min-h-[580px] sm:min-h-[640px] lg:h-[720px]">
       {/* Background design image */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <Image
@@ -109,7 +109,7 @@ export default function Hero() {
         />
       </div>
 
-      <div className="container mx-auto max-w-7xl px-6 relative z-10 flex-1 flex flex-col justify-start pt-12 lg:pt-16">
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6 relative z-10 flex-1 flex flex-col justify-start pt-10 sm:pt-12 lg:pt-16">
         {/* Main Content Layout */}
         <motion.div
           variants={containerVariants}
@@ -120,16 +120,16 @@ export default function Hero() {
           {/* Eyebrow Badge */}
           <motion.div
             variants={itemVariants}
-            className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50 px-4 py-1.5 text-xs font-semibold text-neutral-600 shadow-sm mb-4 pointer-events-auto"
+            className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-neutral-50/90 px-3.5 sm:px-4 py-1.5 text-[11px] sm:text-xs font-semibold text-neutral-600 shadow-xs mb-4 pointer-events-auto max-w-[92vw]"
           >
-            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-            {data.heroTagline || "Available for new projects · Based in Dhaka, Bangladesh"}
+            <span className="h-2 w-2 shrink-0 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="truncate">{data.heroTagline || "Available for new projects · Based in Dhaka, Bangladesh"}</span>
           </motion.div>
 
           {/* Headline */}
           <motion.h1
             variants={itemVariants}
-            className="font-serif text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-neutral-900 leading-[1.1] mb-4 pointer-events-auto"
+            className="font-serif text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-neutral-900 leading-[1.15] sm:leading-[1.1] mb-4 pointer-events-auto"
           >
             {data.heroTitle ? (
               data.heroTitle.includes("beyond borders") ? (
@@ -151,7 +151,7 @@ export default function Hero() {
           {/* Subtext */}
           <motion.p
             variants={itemVariants}
-            className="font-sans text-base sm:text-lg text-neutral-500 leading-relaxed max-w-2xl mb-5 pointer-events-auto"
+            className="font-sans text-xs sm:text-base md:text-lg text-neutral-500 leading-relaxed max-w-2xl mb-5 pointer-events-auto px-2"
           >
             {data.heroSubtitle || "Digital World is a full-service digital marketing agency helping businesses in the USA, UK, Canada, UAE, Australia & beyond dominate search, ads, and the web — led by Kamrujjaman Mufti."}
           </motion.p>
@@ -159,17 +159,17 @@ export default function Hero() {
           {/* CTAs */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-6 w-full sm:w-auto pointer-events-auto"
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6 w-full sm:w-auto pointer-events-auto px-4 sm:px-0"
           >
             <Link
               href={data.heroPrimaryCtaLink || "/contact"}
-              className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary hover:bg-primary-hover px-8 py-4 font-sans text-sm font-semibold text-white shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
+              className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-primary hover:bg-primary-hover px-7 sm:px-8 py-3.5 sm:py-4 font-sans text-sm font-semibold text-white shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
               {data.heroPrimaryCtaText || "Start a Project"} <Icons.ArrowRight className="h-4 w-4" />
             </Link>
             <a
               href={data.heroSecondaryCtaLink || "#services"}
-              className="flex w-full sm:w-auto items-center justify-center rounded-full border border-neutral-200 bg-white hover:bg-neutral-50 px-8 py-4 font-sans text-sm font-semibold text-neutral-700 shadow-sm transition-all"
+              className="flex w-full sm:w-auto items-center justify-center rounded-full border border-neutral-200 bg-white hover:bg-neutral-50 px-7 sm:px-8 py-3.5 sm:py-4 font-sans text-sm font-semibold text-neutral-700 shadow-sm transition-all"
             >
               {data.heroSecondaryCtaText || "Explore Services"}
             </a>

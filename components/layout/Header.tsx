@@ -57,7 +57,7 @@ export default function Header() {
             </Link>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden md:flex items-center gap-8" aria-label="Desktop Navigation">
+            <nav className="hidden lg:flex items-center gap-8" aria-label="Desktop Navigation">
               <Link
                 href="/"
                 className={`font-sans text-sm font-medium transition-colors ${
@@ -130,7 +130,7 @@ export default function Header() {
               {/* Hamburger Button */}
               <button
                 onClick={() => setIsMobileNavOpen(true)}
-                className="rounded-lg p-2 text-neutral-600 hover:bg-neutral-100 md:hidden transition-colors"
+                className="rounded-lg p-2 text-neutral-600 hover:bg-neutral-100 lg:hidden transition-colors"
                 aria-label="Open navigation menu"
               >
                 <Icons.Menu className="h-6 w-6" />

@@ -6,7 +6,7 @@ import { ArrowRight, TrendingUp, ShieldCheck } from "lucide-react";
 
 export default function AboutUsSection() {
   return (
-    <section className="py-[151.2px] bg-white relative z-10 overflow-hidden">
+    <section className="py-16 sm:py-24 lg:py-32 bg-white relative z-10 overflow-hidden">
       {/* Background soft wavy shape background */}
       <div className="absolute inset-0 pointer-events-none -z-10">
         <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-neutral-50 to-transparent" />
@@ -14,8 +14,8 @@ export default function AboutUsSection() {
         <div className="absolute top-1/2 left-0 w-[400px] h-[400px] bg-blue-50/40 rounded-full blur-3xl" />
       </div>
 
-      <div className="container mx-auto max-w-7xl px-6 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
           
           {/* Left Column: Transparent Cutout Image 17 */}
           <motion.div 
@@ -67,7 +67,7 @@ export default function AboutUsSection() {
             </p>
 
             {/* Highlights Grid */}
-            <div className="grid grid-cols-2 gap-4 mb-8">
+            <div className="grid grid-cols-1 xs:grid-cols-2 gap-3.5 sm:gap-4 mb-8">
               <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-neutral-50/80 border border-neutral-100/80 shadow-xs">
                 <div className="p-2.5 rounded-xl bg-indigo-50 text-indigo-600">
                   <TrendingUp className="w-5 h-5" />
