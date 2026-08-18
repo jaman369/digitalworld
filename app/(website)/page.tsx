@@ -8,7 +8,7 @@ import ResultsMetrics from "@/components/sections/ResultsMetrics";
 import Industries from "@/components/sections/Industries";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
 import Testimonials from "@/components/sections/Testimonials";
-import TechTools from "@/components/sections/TechTools";
+import BlogSection from "@/components/sections/BlogSection";
 import FAQSection from "@/components/sections/FAQSection";
 import FinalCTA from "@/components/sections/FinalCTA";
 
@@ -45,8 +45,8 @@ export default function Home() {
       {/* 13 — TESTIMONIALS */}
       <Testimonials />
 
-      {/* 14 — TECHNOLOGY / TOOLS */}
-      <TechTools />
+      {/* 14 — LATEST BLOGS */}
+      <BlogSection />
 
       {/* 15 — FAQ */}
       <FAQSection />
