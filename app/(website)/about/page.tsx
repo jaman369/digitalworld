@@ -221,20 +221,16 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Right Large Image Frame */}
+            {/* Right Image (Clean Frameless Sketch with Multiply Blend & Balanced Size) */}
             <div className="lg:col-span-6 relative flex justify-center lg:justify-end">
-              {/* Ambient Glow behind image */}
-              <div className="absolute inset-2 rounded-[2.5rem] bg-gradient-to-tr from-blue-500/15 via-sky-400/10 to-indigo-500/15 blur-2xl -z-10" />
+              {/* Soft Ambient Glow */}
+              <div className="absolute inset-0 bg-blue-500/10 blur-[80px] pointer-events-none -z-10 rounded-full" />
 
-              {/* Large Portrait Image Container */}
-              <div className="relative w-full max-w-lg lg:max-w-xl aspect-[4/4.8] rounded-[2.25rem] lg:rounded-[32px] overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.12)] border border-neutral-200/80 bg-neutral-100">
-                <Image
+              <div className="relative w-full max-w-[360px] sm:max-w-[400px] lg:max-w-[440px] flex items-center justify-center p-2">
+                <img
                   src={aboutData.imagePath || "/images/23.png"}
                   alt={aboutData.name || "Kamrujjaman Mufti"}
-                  fill
-                  className="object-cover object-top hover:scale-[1.02] transition-transform duration-500"
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="w-full h-auto object-contain mix-blend-multiply select-none hover:scale-[1.02] transition-transform duration-500 rounded-3xl"
                 />
               </div>
             </div>
