@@ -133,6 +133,42 @@ export const servicesData: ServiceCategory[] = [
         primaryCtaLink: "/contact?service=ai-seo",
         secondaryCtaText: "Case Study",
         secondaryCtaLink: "/portfolio?service=ai-seo"
+      },
+      {
+        name: "AEO",
+        slug: "aeo",
+        tagline: "Be the direct answer on ChatGPT, Perplexity & Siri.",
+        description: "Answer Engine Optimization positions your brand as the single authoritative source for conversational AI engines like ChatGPT, Perplexity, Claude, and Voice Search. We format and structure your content so AI assistants cite your business first when users ask direct questions.",
+        benefits: [
+          "ChatGPT, Perplexity & Claude citation optimization",
+          "Direct answer snippet & Q&A content structuring",
+          "Conversational search intent & prompt targeting",
+          "Knowledge Graph & brand entity validation",
+          "Voice search & assistant response optimization",
+          "AI citation tracking & response monitoring"
+        ],
+        primaryCtaText: "Optimize for AEO",
+        primaryCtaLink: "/contact?service=aeo",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=aeo"
+      },
+      {
+        name: "GEO",
+        slug: "geo",
+        tagline: "Dominate AI Overviews & Generative Search Results.",
+        description: "Generative Engine Optimization ensures your content is selected, summarized, and recommended inside Google AI Overviews and generative search engines. We combine authoritative data points, expert quotes, and structured facts to secure top placement in generative responses.",
+        benefits: [
+          "Google AI Overviews (SGE) recommendation strategy",
+          "Generative engine citation & source placement",
+          "Authoritative statistical data & expert quote integration",
+          "Multi-modal content & vector search optimization",
+          "Fluency & semantic clarity engineering for AI parsers",
+          "Generative visibility & impression analytics"
+        ],
+        primaryCtaText: "Optimize for GEO",
+        primaryCtaLink: "/contact?service=geo",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=geo"
       }
     ]
   },

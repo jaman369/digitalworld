@@ -253,7 +253,7 @@ export default async function CategoryPage({ params }: PageProps) {
               >
                 <div>
                   <span className="font-mono text-xs font-bold text-[#0076FF] block mb-3">
-                    0{idx + 1} — CAPABILITY
+                    {String(idx + 1).padStart(2, "0")} — CAPABILITY
                   </span>
                   <h3 className="font-sans text-xl font-bold text-neutral-900 mb-3">
                     {sub.name}
