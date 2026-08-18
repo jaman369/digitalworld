@@ -21,9 +21,6 @@ export default function ServiceCategoryNav({ currentCategorySlug }: ServiceCateg
     <section className="py-6 bg-white/95 border-y border-neutral-200/80 relative z-20 sticky top-16 backdrop-blur-md shadow-xs">
       <div className="container mx-auto max-w-7xl px-6">
         <div className="flex items-center justify-start md:justify-center gap-3 overflow-x-auto no-scrollbar py-1">
-          <span className="text-[11px] font-bold text-neutral-500 uppercase tracking-widest mr-2 shrink-0 hidden lg:inline-block">
-            03 — Service Categories:
-          </span>
           {serviceCategories.map((cat) => {
             const Icon = cat.icon;
             const isActive = cat.slug === currentCategorySlug;
