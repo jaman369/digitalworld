@@ -31,18 +31,18 @@ export default function StatsBar() {
   return (
     <section 
       ref={containerRef} 
-      className="py-8 sm:py-10 bg-transparent border-b border-neutral-100 relative z-10"
+      className="py-10 sm:py-14 bg-gradient-to-b from-[#e3f2fd] via-[#e8f5fe] to-[#e3f2fd] border-b border-blue-100/60 relative z-10"
     >
-      <div className="container mx-auto max-w-7xl px-6">
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6">
         {/* Section Eyebrow Title */}
         <div className="text-center mb-6">
-          <span className="text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-[0.25em] font-sans">
+          <span className="text-[10px] sm:text-xs font-bold text-neutral-500 uppercase tracking-[0.25em] font-sans">
             {data.statsEyebrow || "PROVEN TRACK RECORD"}
           </span>
         </div>
 
         {/* Floating Stats Card */}
-        <div className="bg-white border border-neutral-100 rounded-[2rem] shadow-[0_12px_40px_rgba(0,0,0,0.03)] py-6 sm:py-8 px-6 sm:px-12">
+        <div className="bg-white border border-blue-100/70 rounded-[2.25rem] shadow-[0_16px_45px_rgba(0,118,255,0.06)] py-6 sm:py-9 px-4 sm:px-12">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-10 lg:gap-y-0">
             {items.map((stat, idx) => (
               <StatItem 
@@ -75,14 +75,14 @@ function StatItem({ stat, showDivider, index }: StatItemProps) {
   return (
     <div 
       ref={elementRef}
-      className={`flex flex-col items-center justify-center py-2 px-4 rounded-xl transition-all
+      className={`flex flex-col items-center justify-center py-2 px-3 sm:px-4 rounded-xl transition-all
         ${showDivider ? 'lg:border-r lg:border-neutral-100' : ''}
         ${index % 2 === 0 ? 'border-r border-neutral-100 lg:border-r-0' : ''}
       `}
     >
       <span className="font-serif text-4xl sm:text-5xl md:text-[3.25rem] font-bold text-neutral-900 tracking-tight mb-2 h-[60px] flex items-center justify-center">
         {count}
-        {showPlus && <span className="font-serif font-bold text-3xl sm:text-4xl ml-0.5 text-neutral-900">+</span>}
+        {showPlus && <span className="font-serif font-bold text-3xl sm:text-4xl ml-0.5 text-[#0076FF]">+</span>}
       </span>
       <span className="font-sans text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-widest text-center">
         {stat.label}
