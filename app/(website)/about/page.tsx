@@ -254,16 +254,22 @@ export default function AboutPage() {
                 MY JOURNEY
               </span>
               <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-neutral-900 leading-tight tracking-tight mb-6">
-                From curiosity to <br />5 years of results.
+                From curiosity to <br />nearly a decade of results.
               </h2>
-              <p className="font-sans text-sm sm:text-base text-neutral-500 leading-relaxed mb-6">
-                It all started with a simple question: How do websites rank on Google? That curiosity turned into a passion for digital marketing.
+              <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed mb-5">
+                It started with one simple question: how do websites actually rank on Google? That question turned into a career — and eventually into Digital World.
               </p>
-              <p className="font-sans text-sm sm:text-base text-neutral-500 leading-relaxed mb-6">
-                Over the past 5 years, I&apos;ve had the privilege of working with amazing teams and clients, helping them build their online presence, increase visibility, and achieve sustainable growth.
+              <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed mb-5">
+                I&apos;m Kamrujjaman, founder of Digital World, a digital marketing agency based in Dhaka, Bangladesh. For nearly a decade, I&apos;ve worked as an SEO, AEO, AIO, and GEO specialist, helping small businesses, growing brands, and enterprises across 11 countries — including the USA, UK, Canada, UAE, and Australia — build visibility that actually converts.
               </p>
-              <p className="font-sans text-sm sm:text-base text-neutral-500 leading-relaxed">
-                {aboutData.bioParagraph2 || "Every project I take on is treated as a partnership, where your success is my success."}
+              <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed mb-5">
+                <strong className="font-bold text-neutral-900">What we do:</strong> SEO (Local, Ecommerce, International, Video, SaaS, Semantic, and AI SEO), Google Ads and Meta Ads management, web design and development, content marketing, AI automation, and China sourcing — all under one roof.
+              </p>
+              <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed mb-5">
+                <strong className="font-bold text-neutral-900">Why it matters:</strong> Most businesses don&apos;t need more traffic. They need the right traffic — customers actively searching for what you sell, on Google, and increasingly on AI platforms like ChatGPT, Gemini, and Google AI Overviews.
+              </p>
+              <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed">
+                <strong className="font-bold text-neutral-900">How we help:</strong> Every project starts as a partnership, not a transaction. Your growth is my growth — which is why we build for sustainable rankings and long-term visibility, not shortcuts that disappear after the next algorithm update.
               </p>
             </div>
 
