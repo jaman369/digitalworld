@@ -117,24 +117,6 @@ export const servicesData: ServiceCategory[] = [
         secondaryCtaLink: "/portfolio?service=semantic-seo"
       },
       {
-        name: "AI SEO",
-        slug: "ai-seo",
-        tagline: "Rank in AI answers. Own the future of search.",
-        description: "Google's AI Overviews, ChatGPT, Perplexity, and Bing Copilot are changing how people find information. Businesses that adapt now will dominate the next decade of search. We optimise your content and brand to appear in AI-generated answers, not just traditional blue links.",
-        benefits: [
-          "AI Overview (SGE) optimisation strategy",
-          "Answer Engine Optimisation (AEO) for ChatGPT & Perplexity",
-          "Structured data & schema for AI comprehension",
-          "Brand entity building for AI knowledge bases",
-          "Conversational keyword & question-based content strategy",
-          "AI-resistant content that earns citations & backlinks"
-        ],
-        primaryCtaText: "Rank in AI Search",
-        primaryCtaLink: "/contact?service=ai-seo",
-        secondaryCtaText: "Case Study",
-        secondaryCtaLink: "/portfolio?service=ai-seo"
-      },
-      {
         name: "AEO",
         slug: "aeo",
         tagline: "Be the direct answer on ChatGPT, Perplexity & Siri.",
