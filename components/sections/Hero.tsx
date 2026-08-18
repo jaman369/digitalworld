@@ -97,8 +97,17 @@ export default function Hero() {
 
   return (
     <section className="relative overflow-hidden bg-transparent pt-4 pb-0 lg:pt-6 lg:pb-0 flex flex-col justify-between h-[660px] lg:h-[720px]">
-      {/* Background gradients */}
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top,rgba(0,118,255,0.05)_0%,transparent_60%)]" />
+      {/* Background design image */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <Image
+          src="/images/hero-bg.jpg"
+          alt="Background design"
+          fill
+          priority
+          className="object-cover object-center pointer-events-none select-none opacity-90"
+          sizes="100vw"
+        />
+      </div>
 
       <div className="container mx-auto max-w-7xl px-6 relative z-10 flex-1 flex flex-col justify-start pt-12 lg:pt-16">
         {/* Main Content Layout */}
