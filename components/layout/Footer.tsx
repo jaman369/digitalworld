@@ -93,7 +93,7 @@ export default async function Footer() {
               <li><Link href="/services/seo#svc-local" className="text-neutral-400 hover:text-white transition-colors">Local SEO</Link></li>
               <li><Link href="/services/seo#svc-ecommerce" className="text-neutral-400 hover:text-white transition-colors">Ecommerce SEO</Link></li>
               <li><Link href="/services/seo#svc-international" className="text-neutral-400 hover:text-white transition-colors">International SEO</Link></li>
-              <li><Link href="/services/seo#svc-youtube" className="text-neutral-400 hover:text-white transition-colors">Youtube / Video SEO</Link></li>
+              <li><Link href="/services/seo#link-building" className="text-neutral-400 hover:text-white transition-colors">Link Building</Link></li>
               <li><Link href="/services/seo#svc-saas" className="text-neutral-400 hover:text-white transition-colors">SaaS SEO</Link></li>
               <li><Link href="/services/seo#svc-semantic" className="text-neutral-400 hover:text-white transition-colors">Semantic SEO</Link></li>
             </ul>

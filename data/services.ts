@@ -63,22 +63,22 @@ export const servicesData: ServiceCategory[] = [
         secondaryCtaLink: "/portfolio?service=international-seo"
       },
       {
-        name: "Video SEO",
-        slug: "youtube-video-seo",
-        tagline: "Rank your videos. Grow your audience.",
-        description: "YouTube is the world's second-largest search engine, and most creators are leaving massive discoverability on the table. We optimize your channel and videos to rank in both YouTube search and Google video results — bringing you views that convert.",
+        name: "Link Building",
+        slug: "link-building",
+        tagline: "High-authority backlinks that drive search rankings & domain trust.",
+        description: "High-quality, white-hat backlinks are one of Google's top ranking signals. We execute targeted outreach, digital PR campaigns, and niche placement strategies to build real domain authority and sustainably increase your search rankings.",
         benefits: [
-          "YouTube keyword research (search volume + competition)",
-          "Title, description & tag optimisation for maximum click-through",
-          "Thumbnail strategy & A/B testing guidance",
-          "Channel page & playlist architecture optimisation",
-          "Video schema markup for Google rich results",
-          "Subscriber & watch-time growth strategy"
+          "Manual white-hat blogger outreach & niche editorial placements",
+          "High DR / DA domain target vetting (zero spam networks)",
+          "Digital PR campaigns & data-driven story pitching",
+          "Broken link building & competitor backlink gap replication",
+          "Anchor text diversity optimization & penalty-safe profiles",
+          "Transparent monthly backlink placement & referral traffic reporting"
         ],
-        primaryCtaText: "Grow My Channel",
-        primaryCtaLink: "/contact?service=video-seo",
+        primaryCtaText: "Build Backlinks",
+        primaryCtaLink: "/contact?service=link-building",
         secondaryCtaText: "Case Study",
-        secondaryCtaLink: "/portfolio?service=video-seo"
+        secondaryCtaLink: "/portfolio?service=link-building"
       },
       {
         name: "SaaS SEO",
