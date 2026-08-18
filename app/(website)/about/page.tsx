@@ -226,12 +226,15 @@ export default function AboutPage() {
               {/* Ambient Glow behind image */}
               <div className="absolute inset-2 rounded-[2.5rem] bg-gradient-to-tr from-blue-500/15 via-sky-400/10 to-indigo-500/15 blur-2xl -z-10" />
 
-              {/* Large Image Container */}
-              <div className="relative w-full max-w-lg lg:max-w-xl rounded-[2.25rem] lg:rounded-[32px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-neutral-200/80 bg-white p-3 sm:p-5 flex items-center justify-center">
-                <img
+              {/* Large Portrait Image Container */}
+              <div className="relative w-full max-w-lg lg:max-w-xl aspect-[4/4.8] rounded-[2.25rem] lg:rounded-[32px] overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.12)] border border-neutral-200/80 bg-neutral-100">
+                <Image
                   src={aboutData.imagePath || "/images/23.png"}
-                  alt={aboutData.name || "Digital World Marketing Ecosystem"}
-                  className="w-full h-auto object-contain drop-shadow-md select-none hover:scale-[1.01] transition-transform duration-500 rounded-2xl"
+                  alt={aboutData.name || "Kamrujjaman Mufti"}
+                  fill
+                  className="object-cover object-top hover:scale-[1.02] transition-transform duration-500"
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                 />
               </div>
             </div>
