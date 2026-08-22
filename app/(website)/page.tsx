@@ -4,7 +4,6 @@ import PainPoints from "@/components/sections/PainPoints";
 import AboutUsSection from "@/components/sections/AboutUsSection";
 import ServicesGrid from "@/components/sections/ServicesGrid";
 import HowItWorks from "@/components/sections/HowItWorks";
-import ResultsMetrics from "@/components/sections/ResultsMetrics";
 import Industries from "@/components/sections/Industries";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
 import Testimonials from "@/components/sections/Testimonials";
@@ -32,9 +31,6 @@ export default function Home() {
 
       {/* 08 — PROCESS */}
       <HowItWorks />
-
-      {/* 10 — RESULTS / METRICS */}
-      <ResultsMetrics />
 
       {/* 11 — INDUSTRIES */}
       <Industries />
