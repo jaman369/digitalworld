@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import Link from "next/link";
 import * as Icons from "lucide-react";
 
+import Image from "next/image";
+
 interface ServiceExtraSectionsProps {
   categorySlug?: string;
 }
@@ -464,9 +466,11 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
             {/* Left Column: Transparent Cutout Image (Without Frame or Box) */}
             <div className="lg:col-span-6 flex justify-center items-center">
               <div className="relative w-full max-w-md flex items-center justify-center p-2">
-                <img
+                <Image
                   src={highlight.imagePath}
                   alt={highlight.title}
+                  width={420}
+                  height={420}
                   className="w-full h-auto max-w-[340px] sm:max-w-[380px] lg:max-w-[420px] object-contain drop-shadow-xl select-none hover:scale-[1.02] transition-transform duration-500"
                 />
               </div>

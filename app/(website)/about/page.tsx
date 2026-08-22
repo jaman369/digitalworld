@@ -227,9 +227,11 @@ export default function AboutPage() {
               <div className="absolute inset-0 bg-blue-500/10 blur-[80px] pointer-events-none -z-10 rounded-full" />
 
               <div className="relative w-full max-w-[360px] sm:max-w-[400px] lg:max-w-[440px] flex items-center justify-center p-2">
-                <img
+                <Image
                   src={aboutData.imagePath || "/images/23.png"}
                   alt={aboutData.name || "Kamrujjaman Mufti"}
+                  width={440}
+                  height={440}
                   className="w-full h-auto object-contain mix-blend-multiply select-none hover:scale-[1.02] transition-transform duration-500 rounded-3xl"
                 />
               </div>

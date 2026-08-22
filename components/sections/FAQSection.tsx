@@ -5,6 +5,8 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
 
+import Image from "next/image";
+
 interface FAQItem {
   id: string;
   question: string;
@@ -164,9 +166,11 @@ export default function FAQSection() {
             className="lg:col-span-6 relative flex justify-center items-center"
           >
             <Link href="/contact" className="relative block w-full max-w-[500px] transition-transform duration-300 hover:scale-[1.02]">
-              <img
+              <Image
                 src="/images/faq-blob.png"
                 alt="Have a project in mind? Let's get to work."
+                width={500}
+                height={500}
                 className="w-full h-auto object-contain drop-shadow-xl select-none"
               />
             </Link>

@@ -4,6 +4,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, TrendingUp, ShieldCheck } from "lucide-react";
 
+import Image from "next/image";
+
 export default function AboutUsSection() {
   return (
     <section className="py-16 sm:py-24 lg:py-32 bg-white relative z-10 overflow-hidden">
@@ -30,9 +32,11 @@ export default function AboutUsSection() {
               <div className="absolute inset-4 rounded-3xl bg-gradient-to-tr from-indigo-500/10 via-purple-500/10 to-blue-500/10 blur-3xl -z-10" />
 
               {/* Transparent 3D Graphic Image 17 */}
-              <img
+              <Image
                 src="/images/17.png"
                 alt="Analyze your business to reach your goals"
+                width={660}
+                height={440}
                 className="w-full h-auto max-w-[560px] sm:max-w-[620px] lg:max-w-[660px] object-contain drop-shadow-2xl select-none hover:scale-[1.02] transition-transform duration-500"
               />
             </div>

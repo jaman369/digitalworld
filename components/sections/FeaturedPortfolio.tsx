@@ -4,6 +4,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowUpRight, TrendingUp, Users, Target } from "lucide-react";
 
+import Image from "next/image";
+
 const caseStudies = [
   {
     id: "01",
@@ -72,9 +74,11 @@ export default function FeaturedPortfolio() {
               {/* Project Visual Area (Left) */}
               <div className="lg:col-span-6 relative bg-gradient-to-tr from-neutral-100 to-neutral-50 p-8 sm:p-12 flex items-center justify-center min-h-[300px]">
                 <div className="relative w-full max-w-md aspect-4/3 rounded-2xl overflow-hidden shadow-md border border-white">
-                  <img
+                  <Image
                     src={study.image}
                     alt={study.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     className="w-full h-full object-cover select-none hover:scale-105 transition-transform duration-500"
                   />
                 </div>
