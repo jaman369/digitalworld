@@ -2,6 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 2592000,
     domains: ["picsum.photos", "images.unsplash.com", "unsplash.com"],
     remotePatterns: [
       {

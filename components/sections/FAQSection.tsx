@@ -171,6 +171,7 @@ export default function FAQSection() {
                 alt="Have a project in mind? Let's get to work."
                 width={500}
                 height={500}
+                sizes="(max-width: 640px) 90vw, 500px"
                 className="w-full h-auto object-contain drop-shadow-xl select-none"
               />
             </Link>

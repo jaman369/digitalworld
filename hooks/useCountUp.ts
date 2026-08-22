@@ -33,30 +33,30 @@ export function useCountUp(
   }, [ref]);
 
   useEffect(() => {
-    if (!hasStarted) return;
+    if (!hasStarted || target === 0) return;
 
-    let start = 0;
-    const end = target;
-    if (start === end) return;
+    let startTime: number | null = null;
+    let animationFrameId: number;
 
-    const stepTime = 16; // Roughly 60fps
-    const totalSteps = duration / stepTime;
-    const increment = end / totalSteps;
-    
-    let currentStep = 0;
+    const updateCount = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      // Ease out cubic
+      const easeProgress = 1 - Math.pow(1 - progress, 3);
+      const currentVal = Math.floor(easeProgress * target);
 
-    const timer = setInterval(() => {
-      currentStep++;
-      const currentVal = Math.floor(increment * currentStep);
-      if (currentVal >= end || currentStep >= totalSteps) {
-        setCount(end);
-        clearInterval(timer);
+      setCount(currentVal);
+
+      if (progress < 1) {
+        animationFrameId = requestAnimationFrame(updateCount);
       } else {
-        setCount(currentVal);
+        setCount(target);
       }
-    }, stepTime);
+    };
 
-    return () => clearInterval(timer);
+    animationFrameId = requestAnimationFrame(updateCount);
+
+    return () => cancelAnimationFrame(animationFrameId);
   }, [hasStarted, target, duration]);
 
   return count;

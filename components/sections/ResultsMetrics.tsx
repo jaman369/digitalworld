@@ -99,7 +99,7 @@ export default function ResultsMetrics() {
                 alt="Growth Distribution Graph Chart"
                 width={480}
                 height={480}
-                priority
+                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 40vw, 480px"
                 className="w-full h-auto max-w-[340px] sm:max-w-[400px] lg:max-w-[440px] object-contain drop-shadow-2xl transition-all duration-500 group-hover:scale-[1.03]"
               />
 

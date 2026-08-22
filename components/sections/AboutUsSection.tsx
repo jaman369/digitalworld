@@ -37,6 +37,7 @@ export default function AboutUsSection() {
                 alt="Analyze your business to reach your goals"
                 width={660}
                 height={440}
+                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 50vw, 660px"
                 className="w-full h-auto max-w-[560px] sm:max-w-[620px] lg:max-w-[660px] object-contain drop-shadow-2xl select-none hover:scale-[1.02] transition-transform duration-500"
               />
             </div>
