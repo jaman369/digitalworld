@@ -63,44 +63,80 @@ export default function HowItWorks() {
           </p>
         </div>
 
-        {/* Desktop Linear Pathway Process (LG+ Screens - Single Horizontal Row Flow) */}
-        <div className="hidden lg:block relative max-w-6xl mx-auto mb-10">
+        {/* Desktop Wavy Pathway Process (LG+ Screens - Original Wavy Pathway Design) */}
+        <div className="hidden lg:block relative min-h-[460px] max-w-6xl mx-auto mb-10">
           
-          {/* Continuous Straight Connecting Line */}
-          <div className="absolute top-[36px] left-[10%] right-[10%] h-0.5 bg-gradient-to-r from-blue-500 via-sky-400 to-blue-600 z-0" />
+          {/* Continuous SVG Blue Wave Path */}
+          <svg
+            className="absolute top-0 left-0 w-full h-[220px] pointer-events-none overflow-visible z-0"
+            viewBox="0 0 1000 220"
+            fill="none"
+            preserveAspectRatio="none"
+          >
+            {/* Soft Ambient Shadow Line */}
+            <path
+              d="M 0 120 C 120 180, 180 30, 300 30 C 420 30, 480 170, 600 170 C 720 170, 780 30, 900 30 C 950 30, 980 80, 1000 100"
+              stroke="#3b82f6"
+              strokeWidth="6"
+              strokeOpacity="0.12"
+              fill="none"
+            />
+            {/* Primary Crisp Wavy Line */}
+            <path
+              d="M 0 120 C 120 180, 180 30, 300 30 C 420 30, 480 170, 600 170 C 720 170, 780 30, 900 30 C 950 30, 980 80, 1000 100"
+              stroke="url(#blue-gradient)"
+              strokeWidth="3.5"
+              strokeLinecap="round"
+              fill="none"
+            />
+            <defs>
+              <linearGradient id="blue-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#2563eb" />
+                <stop offset="50%" stopColor="#0284c7" />
+                <stop offset="100%" stopColor="#2563eb" />
+              </linearGradient>
+            </defs>
+          </svg>
 
-          {/* 4 Steps Positioned in a Single Linear Row */}
-          <div className="grid grid-cols-4 gap-6 relative z-10">
+          {/* 4 Steps Positioned Along the Wave */}
+          <div className="grid grid-cols-4 gap-6 relative z-10 pt-4">
             {steps.map((step, idx) => {
               const StepIcon = stepIcons[idx % stepIcons.length];
+              
+              const nodePositions = [
+                "mt-[96px]",  // Step 1
+                "mt-[6px]",   // Step 2
+                "mt-[146px]", // Step 3
+                "mt-[6px]",   // Step 4
+              ];
 
               return (
                 <motion.div
                   key={idx}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: idx * 0.12 }}
-                  className="flex flex-col items-center text-center relative group"
+                  transition={{ duration: 0.6, delay: idx * 0.15 }}
+                  className={`flex flex-col items-center text-center ${nodePositions[idx]} relative group`}
                 >
-                  {/* Icon Node */}
+                  {/* Hexagonal / Rotated Soft White Icon Node */}
                   <div className="relative mb-6">
                     {/* Glowing outer shadow ring */}
-                    <div className="absolute -inset-1.5 bg-gradient-to-r from-blue-500/20 to-sky-400/20 rounded-xl blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute -inset-1.5 bg-gradient-to-r from-blue-500/20 to-sky-400/20 rounded-2xl blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     
-                    {/* Rounded Icon Container */}
-                    <div className="relative h-16 w-16 bg-white rounded-xl border border-neutral-100 shadow-[0_10px_25px_rgba(37,99,235,0.12)] flex items-center justify-center transform transition-transform duration-300 group-hover:scale-110">
-                      <div className="h-10 w-10 rounded-lg bg-blue-50/80 text-primary flex items-center justify-center">
+                    {/* White Hexagon/Rounded Icon Container */}
+                    <div className="relative h-16 w-16 bg-white rounded-2xl border border-neutral-100 shadow-[0_10px_25px_rgba(37,99,235,0.12)] flex items-center justify-center transform transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+                      <div className="h-10 w-10 rounded-xl bg-blue-50/80 text-primary flex items-center justify-center">
                         <StepIcon className="h-5 w-5 stroke-[2.2]" />
                       </div>
                     </div>
                   </div>
 
                   {/* Step Content Box with Watermark Number */}
-                  <div className="relative bg-white/80 backdrop-blur-sm border border-neutral-100 rounded-xl p-6 shadow-[0_4px_20px_rgba(0,0,0,0.02)] group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-all duration-300 w-full overflow-hidden flex-1 flex flex-col justify-start text-center">
+                  <div className="relative bg-white/70 backdrop-blur-sm border border-neutral-100 rounded-2xl p-6 shadow-[0_4px_20px_rgba(0,0,0,0.02)] group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.05)] transition-all duration-300 w-full overflow-hidden">
                     
                     {/* Giant Watermark Step Number (1, 2, 3, 4) */}
-                    <span className="absolute -top-3 -right-1 font-serif text-6xl font-bold text-neutral-200/40 select-none pointer-events-none leading-none group-hover:text-primary/10 transition-colors duration-300">
+                    <span className="absolute -top-4 -right-1 font-serif text-7xl font-bold text-neutral-200/40 select-none pointer-events-none leading-none group-hover:text-primary/10 transition-colors duration-300">
                       {step.stepNumber || idx + 1}
                     </span>
 
