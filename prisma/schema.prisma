@@ -50,7 +50,47 @@ model BlogPost {
   seoDescription  String?
   canonicalUrl    String?
   robotsSettings  String         @default("index, follow")
-  schemas         String?        // JSON string of auto-generated article schemas
+  schemas         String?
+
+  // ── AEO (Answer Engine Optimization) ──
+  aeoTargetQuestion   String?
+  aeoDirectAnswer     String?
+  aeoFaqItems         String?   // JSON [{question, answer}]
+  aeoPaaQuestions     String?   // JSON [string]
+
+  // ── GEO (Generative Engine Optimization) ──
+  geoStatistics       String?   // JSON [{stat, source, url}]
+  geoCitations        String?   // JSON [{source, url, claim}]
+  geoExpertQuotes     String?   // JSON [{quote, expert, title}]
+
+  // ── LLMO (Large Language Model Optimization) ──
+  llmoEntityName      String?
+  llmoTopicCluster    String?
+  llmoRelatedEntities String?   // JSON [string]
+  llmoContentDepth    String?   // comprehensive | overview | deep-dive | comparison
+
+  // ── VEO (Visual Engine Optimization) ──
+  veoImages           String?   // JSON [{url, alt, caption}]
+  veoVideoUrl         String?
+  veoVideoTitle       String?
+  veoInfographicUrl   String?
+
+  // ── CEO (ChatGPT Engine Optimization) ──
+  ceoConversationalSummary String?
+  ceoPrimaryKeyTakeaway    String?
+  ceoActionableSteps       String?   // JSON [string]
+
+  // ── BEO (Brand Engine Optimization) ──
+  beoAuthorCredentials String?
+  beoCompanyMention    String?
+  beoBrandKeywords     String?   // JSON [string]
+  beoTrustSignals      String?   // JSON [string]
+
+  // ── MSEO (Multimodal Search Engine Optimization) ──
+  mseoContentFormat      String?   // text | text+video | text+infographic | all
+  mseoTableData          String?   // JSON [{title, headers[], rows[][]}]
+  mseoKeyDefinitions     String?   // JSON [{term, definition}]
+
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
 }

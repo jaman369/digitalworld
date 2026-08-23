@@ -84,6 +84,43 @@ export async function POST(request: Request) {
       imageAltText,
       categoryName,
       isDraft,
+      // SEO
+      seoTitle,
+      seoDescription,
+      canonicalUrl,
+      robotsSettings,
+      // AEO
+      aeoTargetQuestion,
+      aeoDirectAnswer,
+      aeoFaqItems,
+      aeoPaaQuestions,
+      // GEO
+      geoStatistics,
+      geoCitations,
+      geoExpertQuotes,
+      // LLMO
+      llmoEntityName,
+      llmoTopicCluster,
+      llmoRelatedEntities,
+      llmoContentDepth,
+      // VEO
+      veoImages,
+      veoVideoUrl,
+      veoVideoTitle,
+      veoInfographicUrl,
+      // CEO
+      ceoConversationalSummary,
+      ceoPrimaryKeyTakeaway,
+      ceoActionableSteps,
+      // BEO
+      beoAuthorCredentials,
+      beoCompanyMention,
+      beoBrandKeywords,
+      beoTrustSignals,
+      // MSEO
+      mseoContentFormat,
+      mseoTableData,
+      mseoKeyDefinitions,
     } = body;
 
     if (!title || !slug || !content || !categoryName) {
@@ -107,6 +144,43 @@ export async function POST(request: Request) {
       authorId: session.userId,
       isDraft: isDraft !== undefined ? isDraft : true,
       publishedAt: isDraft ? null : new Date(),
+      // SEO
+      seoTitle: seoTitle || null,
+      seoDescription: seoDescription || null,
+      canonicalUrl: canonicalUrl || null,
+      robotsSettings: robotsSettings || "index, follow",
+      // AEO
+      aeoTargetQuestion: aeoTargetQuestion || null,
+      aeoDirectAnswer: aeoDirectAnswer || null,
+      aeoFaqItems: aeoFaqItems || null,
+      aeoPaaQuestions: aeoPaaQuestions || null,
+      // GEO
+      geoStatistics: geoStatistics || null,
+      geoCitations: geoCitations || null,
+      geoExpertQuotes: geoExpertQuotes || null,
+      // LLMO
+      llmoEntityName: llmoEntityName || null,
+      llmoTopicCluster: llmoTopicCluster || null,
+      llmoRelatedEntities: llmoRelatedEntities || null,
+      llmoContentDepth: llmoContentDepth || null,
+      // VEO
+      veoImages: veoImages || null,
+      veoVideoUrl: veoVideoUrl || null,
+      veoVideoTitle: veoVideoTitle || null,
+      veoInfographicUrl: veoInfographicUrl || null,
+      // CEO
+      ceoConversationalSummary: ceoConversationalSummary || null,
+      ceoPrimaryKeyTakeaway: ceoPrimaryKeyTakeaway || null,
+      ceoActionableSteps: ceoActionableSteps || null,
+      // BEO
+      beoAuthorCredentials: beoAuthorCredentials || null,
+      beoCompanyMention: beoCompanyMention || null,
+      beoBrandKeywords: beoBrandKeywords || null,
+      beoTrustSignals: beoTrustSignals || null,
+      // MSEO
+      mseoContentFormat: mseoContentFormat || null,
+      mseoTableData: mseoTableData || null,
+      mseoKeyDefinitions: mseoKeyDefinitions || null,
     };
 
     let dbPost;

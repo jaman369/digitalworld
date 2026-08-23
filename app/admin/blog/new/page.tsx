@@ -1,13 +1,53 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import * as Icons from "lucide-react";
 
+// ── Optimization tab definitions ──
+const OPT_TABS = [
+  { key: "seo", label: "SEO & Meta", icon: Icons.Search, color: "text-blue-600 bg-blue-50 border-blue-200" },
+  { key: "aeo", label: "AEO", icon: Icons.MessageCircleQuestion, color: "text-violet-600 bg-violet-50 border-violet-200" },
+  { key: "geo", label: "GEO", icon: Icons.Globe, color: "text-emerald-600 bg-emerald-50 border-emerald-200" },
+  { key: "llmo", label: "LLMO", icon: Icons.Brain, color: "text-pink-600 bg-pink-50 border-pink-200" },
+  { key: "veo", label: "VEO", icon: Icons.Image, color: "text-orange-600 bg-orange-50 border-orange-200" },
+  { key: "ceo", label: "CEO", icon: Icons.MessageSquare, color: "text-cyan-600 bg-cyan-50 border-cyan-200" },
+  { key: "beo", label: "BEO", icon: Icons.Award, color: "text-amber-600 bg-amber-50 border-amber-200" },
+  { key: "mseo", label: "MSEO", icon: Icons.Layers, color: "text-indigo-600 bg-indigo-50 border-indigo-200" },
+] as const;
+
+type OptTab = typeof OPT_TABS[number]["key"];
+
+// ── Helper: JSON array state manager ──
+function useJsonArray(initial: string[] = [""]) {
+  const [items, setItems] = useState(initial);
+  const add = () => setItems([...items, ""]);
+  const remove = (i: number) => setItems(items.filter((_, idx) => idx !== i));
+  const update = (i: number, val: string) => {
+    const copy = [...items];
+    copy[i] = val;
+    setItems(copy);
+  };
+  return { items, setItems, add, remove, update };
+}
+
+// ── FAQ item type ──
+interface FaqItem { question: string; answer: string; }
+interface CitationItem { source: string; url: string; claim: string; }
+interface StatItem { stat: string; source: string; url: string; }
+interface QuoteItem { quote: string; expert: string; title: string; }
+interface VeoImage { url: string; alt: string; caption: string; }
+interface DefinitionItem { term: string; definition: string; }
+
 export default function NewBlogPostPage() {
   const router = useRouter();
+  const editorRef = useRef<HTMLDivElement>(null);
 
+  // ── Content tab: Visual / Text ──
+  const [editorMode, setEditorMode] = useState<"visual" | "text">("visual");
+
+  // ── Core fields ──
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
   const [excerpt, setExcerpt] = useState("");
@@ -16,33 +56,190 @@ export default function NewBlogPostPage() {
   const [imageAltText, setImageAltText] = useState("");
   const [categoryName, setCategoryName] = useState("SEO");
   const [isDraft, setIsDraft] = useState(true);
+  const [tagsInput, setTagsInput] = useState("");
 
+  // ── SEO fields ──
+  const [seoTitle, setSeoTitle] = useState("");
+  const [seoDescription, setSeoDescription] = useState("");
+  const [canonicalUrl, setCanonicalUrl] = useState("");
+  const [robotsSettings, setRobotsSettings] = useState("index, follow");
+
+  // ── AEO fields ──
+  const [aeoTargetQuestion, setAeoTargetQuestion] = useState("");
+  const [aeoDirectAnswer, setAeoDirectAnswer] = useState("");
+  const [aeoFaqItems, setAeoFaqItems] = useState<FaqItem[]>([{ question: "", answer: "" }]);
+  const paaQuestions = useJsonArray([""]);
+
+  // ── GEO fields ──
+  const [geoStats, setGeoStats] = useState<StatItem[]>([{ stat: "", source: "", url: "" }]);
+  const [geoCitations, setGeoCitations] = useState<CitationItem[]>([{ source: "", url: "", claim: "" }]);
+  const [geoQuotes, setGeoQuotes] = useState<QuoteItem[]>([{ quote: "", expert: "", title: "" }]);
+
+  // ── LLMO fields ──
+  const [llmoEntityName, setLlmoEntityName] = useState("");
+  const [llmoTopicCluster, setLlmoTopicCluster] = useState("");
+  const llmoRelated = useJsonArray([""]);
+  const [llmoContentDepth, setLlmoContentDepth] = useState("comprehensive");
+
+  // ── VEO fields ──
+  const [veoImages, setVeoImages] = useState<VeoImage[]>([{ url: "", alt: "", caption: "" }]);
+  const [veoVideoUrl, setVeoVideoUrl] = useState("");
+  const [veoVideoTitle, setVeoVideoTitle] = useState("");
+  const [veoInfographicUrl, setVeoInfographicUrl] = useState("");
+
+  // ── CEO fields ──
+  const [ceoSummary, setCeoSummary] = useState("");
+  const [ceoTakeaway, setCeoTakeaway] = useState("");
+  const ceoSteps = useJsonArray([""]);
+
+  // ── BEO fields ──
+  const [beoCredentials, setBeoCredentials] = useState("");
+  const [beoCompanyMention, setBeoCompanyMention] = useState("");
+  const beoBrandKw = useJsonArray([""]);
+  const beoTrust = useJsonArray([""]);
+
+  // ── MSEO fields ──
+  const [mseoFormat, setMseoFormat] = useState("text");
+  const [mseoDefinitions, setMseoDefinitions] = useState<DefinitionItem[]>([{ term: "", definition: "" }]);
+
+  // ── UI state ──
+  const [activeOptTab, setActiveOptTab] = useState<OptTab>("seo");
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState("");
+  const [wordCount, setWordCount] = useState(0);
 
   const handleTitleChange = (val: string) => {
     setTitle(val);
     setSlug(val.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""));
   };
 
+  // ── Rich text toolbar commands ──
+  const execCmd = useCallback((cmd: string, val?: string) => {
+    document.execCommand(cmd, false, val);
+    editorRef.current?.focus();
+  }, []);
+
+  const handleEditorInput = () => {
+    if (editorRef.current) {
+      const html = editorRef.current.innerHTML;
+      setContent(html);
+      const text = editorRef.current.innerText || "";
+      setWordCount(text.trim() ? text.trim().split(/\s+/).length : 0);
+    }
+  };
+
+  const handleTextareaChange = (val: string) => {
+    setContent(val);
+    setWordCount(val.trim() ? val.trim().split(/\s+/).length : 0);
+  };
+
+  const switchToVisual = () => {
+    setEditorMode("visual");
+    setTimeout(() => {
+      if (editorRef.current) editorRef.current.innerHTML = content;
+    }, 0);
+  };
+
+  const switchToText = () => {
+    if (editorRef.current) setContent(editorRef.current.innerHTML);
+    setEditorMode("text");
+  };
+
+  // ── Score calculator ──
+  const calcScore = () => {
+    let filled = 0;
+    let total = 0;
+    // SEO
+    total += 4;
+    if (seoTitle) filled++;
+    if (seoDescription) filled++;
+    if (canonicalUrl) filled++;
+    if (imageAltText) filled++;
+    // AEO
+    total += 3;
+    if (aeoTargetQuestion) filled++;
+    if (aeoDirectAnswer) filled++;
+    if (aeoFaqItems.some(f => f.question && f.answer)) filled++;
+    // GEO
+    total += 2;
+    if (geoStats.some(s => s.stat)) filled++;
+    if (geoCitations.some(c => c.source)) filled++;
+    // LLMO
+    total += 3;
+    if (llmoEntityName) filled++;
+    if (llmoTopicCluster) filled++;
+    if (llmoRelated.items.some(r => r)) filled++;
+    // VEO
+    total += 2;
+    if (veoImages.some(img => img.url)) filled++;
+    if (veoVideoUrl || veoInfographicUrl) filled++;
+    // CEO
+    total += 3;
+    if (ceoSummary) filled++;
+    if (ceoTakeaway) filled++;
+    if (ceoSteps.items.some(s => s)) filled++;
+    // BEO
+    total += 2;
+    if (beoCredentials) filled++;
+    if (beoCompanyMention) filled++;
+    // MSEO
+    total += 2;
+    if (mseoFormat !== "text") filled++;
+    if (mseoDefinitions.some(d => d.term)) filled++;
+    return Math.round((filled / total) * 100);
+  };
+
+  // ── Submit ──
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSaving(true);
     setError("");
+
+    // Get final content from visual editor
+    let finalContent = content;
+    if (editorMode === "visual" && editorRef.current) {
+      finalContent = editorRef.current.innerHTML;
+    }
 
     try {
       const res = await fetch("/api/admin/blog", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          title,
-          slug,
-          excerpt,
-          content,
-          featuredImage,
-          imageAltText,
-          categoryName,
-          isDraft,
+          title, slug, excerpt,
+          content: finalContent,
+          featuredImage, imageAltText, categoryName, isDraft,
+          tags: tagsInput.split(",").map(t => t.trim()).filter(Boolean),
+          // SEO
+          seoTitle, seoDescription, canonicalUrl, robotsSettings,
+          // AEO
+          aeoTargetQuestion, aeoDirectAnswer,
+          aeoFaqItems: JSON.stringify(aeoFaqItems.filter(f => f.question)),
+          aeoPaaQuestions: JSON.stringify(paaQuestions.items.filter(Boolean)),
+          // GEO
+          geoStatistics: JSON.stringify(geoStats.filter(s => s.stat)),
+          geoCitations: JSON.stringify(geoCitations.filter(c => c.source)),
+          geoExpertQuotes: JSON.stringify(geoQuotes.filter(q => q.quote)),
+          // LLMO
+          llmoEntityName, llmoTopicCluster,
+          llmoRelatedEntities: JSON.stringify(llmoRelated.items.filter(Boolean)),
+          llmoContentDepth,
+          // VEO
+          veoImages: JSON.stringify(veoImages.filter(img => img.url)),
+          veoVideoUrl, veoVideoTitle, veoInfographicUrl,
+          // CEO
+          ceoConversationalSummary: ceoSummary,
+          ceoPrimaryKeyTakeaway: ceoTakeaway,
+          ceoActionableSteps: JSON.stringify(ceoSteps.items.filter(Boolean)),
+          // BEO
+          beoAuthorCredentials: beoCredentials,
+          beoCompanyMention,
+          beoBrandKeywords: JSON.stringify(beoBrandKw.items.filter(Boolean)),
+          beoTrustSignals: JSON.stringify(beoTrust.items.filter(Boolean)),
+          // MSEO
+          mseoContentFormat: mseoFormat,
+          mseoTableData: "[]",
+          mseoKeyDefinitions: JSON.stringify(mseoDefinitions.filter(d => d.term)),
         }),
       });
 
@@ -60,154 +257,787 @@ export default function NewBlogPostPage() {
     }
   };
 
+  // ── Reusable input styles ──
+  const inputCls = "w-full rounded-lg border border-neutral-200 bg-white py-2 px-3 text-sm outline-none text-neutral-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 transition-all";
+  const labelCls = "block text-xs font-semibold text-neutral-500 mb-1.5";
+  const helpCls = "text-[11px] text-neutral-400 mt-1";
+  const cardCls = "bg-white border border-neutral-200 rounded-lg shadow-sm";
+
+  // ── Toolbar button ──
+  const ToolBtn = ({ cmd, icon: Icon, title: t, val }: { cmd: string; icon: React.ComponentType<{className?:string}>; title: string; val?: string }) => (
+    <button type="button" onClick={() => execCmd(cmd, val)} title={t}
+      className="flex h-7 w-7 items-center justify-center rounded hover:bg-neutral-100 text-neutral-600 hover:text-neutral-900 transition-colors">
+      <Icon className="h-3.5 w-3.5" />
+    </button>
+  );
+
+  const score = calcScore();
+
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-6">
+      {/* Header */}
       <div className="flex items-center gap-4">
-        <Link
-          href="/admin/blog"
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-500 hover:text-neutral-700 transition-colors shadow-sm"
-        >
+        <Link href="/admin/blog"
+          className="flex h-9 w-9 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-500 hover:text-neutral-700 transition-colors shadow-sm">
           <Icons.ArrowLeft className="h-4 w-4" />
         </Link>
         <div>
-          <h1 className="font-serif text-3xl font-bold text-neutral-900 tracking-tight leading-none mb-2">
-            Compose New Article
+          <h1 className="font-serif text-2xl font-bold text-neutral-900 tracking-tight leading-none mb-1">
+            Add New Post
           </h1>
-          <p className="font-sans text-sm text-neutral-500">
-            Write content, specify category tags, and optimize SEO structures.
+          <p className="font-sans text-xs text-neutral-400">
+            Write content, optimize for AI engines, and publish.
           </p>
         </div>
       </div>
 
       {error && (
-        <div className="flex items-center gap-2 rounded-xl bg-red-50 border border-red-100 p-3.5 text-xs text-red-600 font-semibold">
+        <div className="flex items-center gap-2 rounded-lg bg-red-50 border border-red-200 p-3 text-xs text-red-600 font-semibold">
           <Icons.AlertCircle className="h-4 w-4 shrink-0" />
           <span>{error}</span>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        <div className="lg:col-span-8 flex flex-col gap-6 bg-white border border-neutral-100 rounded-2xl p-6 shadow-[0_6px_20px_rgba(0,0,0,0.01)]">
-          <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-bold text-neutral-400 uppercase tracking-wider">Article Title</label>
-            <input
-              type="text"
-              required
-              value={title}
-              onChange={(e) => handleTitleChange(e.target.value)}
-              placeholder="e.g. 5 SEO Tips to Boost Conversions"
-              className="rounded-xl border border-neutral-200 bg-white py-2.5 px-3.5 text-sm outline-none text-neutral-700 focus:border-primary focus:ring-2 focus:ring-primary/10"
-            />
-          </div>
+      <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        {/* ════════════════════════════════════════════════ */}
+        {/* LEFT COLUMN: Main Editor (WordPress-style)      */}
+        {/* ════════════════════════════════════════════════ */}
+        <div className="lg:col-span-8 flex flex-col gap-5">
 
-          <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-bold text-neutral-400 uppercase tracking-wider">SEO Slug URL</label>
+          {/* ── Title ── */}
+          <input
+            type="text"
+            required
+            value={title}
+            onChange={(e) => handleTitleChange(e.target.value)}
+            placeholder="Enter title here"
+            className="w-full rounded-lg border border-neutral-200 bg-white py-3 px-4 text-xl font-serif font-bold outline-none text-neutral-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 placeholder:text-neutral-300 transition-all"
+          />
+
+          {/* ── Slug ── */}
+          <div className="flex items-center gap-2 text-xs text-neutral-500">
+            <span className="font-semibold">Permalink:</span>
+            <span className="text-neutral-400">/blog/</span>
             <input
-              type="text"
-              required
-              value={slug}
+              type="text" required value={slug}
               onChange={(e) => setSlug(e.target.value)}
-              placeholder="e.g. 5-seo-tips-boost-conversions"
-              className="rounded-xl border border-neutral-200 bg-white py-2.5 px-3.5 text-sm outline-none text-neutral-700 focus:border-primary font-mono text-xs"
+              className="border-b border-dashed border-neutral-300 bg-transparent py-0.5 px-1 text-xs font-mono text-neutral-700 outline-none focus:border-blue-500 min-w-[200px]"
             />
           </div>
 
-          <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-bold text-neutral-400 uppercase tracking-wider">Summary Excerpt</label>
-            <textarea
-              required
-              rows={3}
-              value={excerpt}
-              onChange={(e) => setExcerpt(e.target.value)}
-              placeholder="Provide a brief summary for the blog indexes page..."
-              className="rounded-xl border border-neutral-200 bg-white py-2.5 px-3.5 text-sm outline-none text-neutral-700 focus:border-primary focus:ring-2 focus:ring-primary/10 resize-none font-sans"
-            />
+          {/* ── Content Editor (WordPress-style) ── */}
+          <div className={cardCls}>
+            {/* Toolbar */}
+            <div className="flex items-center justify-between border-b border-neutral-200 px-3 py-1.5">
+              {/* Left: Formatting tools */}
+              <div className="flex items-center gap-0.5 flex-wrap">
+                <ToolBtn cmd="bold" icon={Icons.Bold} title="Bold (Ctrl+B)" />
+                <ToolBtn cmd="italic" icon={Icons.Italic} title="Italic (Ctrl+I)" />
+                <ToolBtn cmd="strikeThrough" icon={Icons.Strikethrough} title="Strikethrough" />
+                <div className="w-px h-5 bg-neutral-200 mx-1" />
+                <ToolBtn cmd="insertUnorderedList" icon={Icons.List} title="Bullet list" />
+                <ToolBtn cmd="insertOrderedList" icon={Icons.ListOrdered} title="Numbered list" />
+                <div className="w-px h-5 bg-neutral-200 mx-1" />
+                <button type="button" onClick={() => execCmd("formatBlock", "<blockquote>")} title="Blockquote"
+                  className="flex h-7 w-7 items-center justify-center rounded hover:bg-neutral-100 text-neutral-600 hover:text-neutral-900 transition-colors">
+                  <Icons.Quote className="h-3.5 w-3.5" />
+                </button>
+                <div className="w-px h-5 bg-neutral-200 mx-1" />
+                <ToolBtn cmd="justifyLeft" icon={Icons.AlignLeft} title="Align left" />
+                <ToolBtn cmd="justifyCenter" icon={Icons.AlignCenter} title="Align center" />
+                <ToolBtn cmd="justifyRight" icon={Icons.AlignRight} title="Align right" />
+                <ToolBtn cmd="justifyFull" icon={Icons.AlignJustify} title="Justify" />
+                <div className="w-px h-5 bg-neutral-200 mx-1" />
+                <button type="button" onClick={() => {
+                  const url = prompt("Enter link URL:");
+                  if (url) execCmd("createLink", url);
+                }} title="Insert Link"
+                  className="flex h-7 w-7 items-center justify-center rounded hover:bg-neutral-100 text-neutral-600 hover:text-neutral-900 transition-colors">
+                  <Icons.Link className="h-3.5 w-3.5" />
+                </button>
+                <ToolBtn cmd="unlink" icon={Icons.Unlink} title="Remove link" />
+                <div className="w-px h-5 bg-neutral-200 mx-1" />
+                {/* Heading selector */}
+                <select
+                  onChange={(e) => execCmd("formatBlock", e.target.value)}
+                  className="text-xs border border-neutral-200 rounded px-1.5 py-1 text-neutral-600 bg-white outline-none cursor-pointer"
+                  defaultValue=""
+                >
+                  <option value="" disabled>Heading</option>
+                  <option value="<p>">Paragraph</option>
+                  <option value="<h2>">Heading 2</option>
+                  <option value="<h3>">Heading 3</option>
+                  <option value="<h4>">Heading 4</option>
+                  <option value="<h5>">Heading 5</option>
+                </select>
+              </div>
+
+              {/* Right: Visual / Text toggle */}
+              <div className="flex border border-neutral-200 rounded overflow-hidden text-xs font-semibold">
+                <button type="button" onClick={switchToVisual}
+                  className={`px-3 py-1 transition-colors ${editorMode === "visual" ? "bg-white text-neutral-800 shadow-sm" : "bg-neutral-50 text-neutral-400 hover:text-neutral-600"}`}>
+                  Visual
+                </button>
+                <button type="button" onClick={switchToText}
+                  className={`px-3 py-1 transition-colors ${editorMode === "text" ? "bg-white text-neutral-800 shadow-sm" : "bg-neutral-50 text-neutral-400 hover:text-neutral-600"}`}>
+                  Text
+                </button>
+              </div>
+            </div>
+
+            {/* Editor Area */}
+            {editorMode === "visual" ? (
+              <div
+                ref={editorRef}
+                contentEditable
+                onInput={handleEditorInput}
+                className="min-h-[400px] px-4 py-3 text-sm text-neutral-700 leading-relaxed outline-none font-sans prose prose-sm max-w-none
+                  [&_h2]:text-xl [&_h2]:font-bold [&_h2]:mt-6 [&_h2]:mb-3
+                  [&_h3]:text-lg [&_h3]:font-bold [&_h3]:mt-5 [&_h3]:mb-2
+                  [&_blockquote]:border-l-4 [&_blockquote]:border-blue-300 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-neutral-500
+                  [&_a]:text-blue-600 [&_a]:underline
+                  [&_ul]:list-disc [&_ul]:ml-5 [&_ol]:list-decimal [&_ol]:ml-5"
+                suppressContentEditableWarning
+              />
+            ) : (
+              <textarea
+                value={content}
+                onChange={(e) => handleTextareaChange(e.target.value)}
+                className="w-full min-h-[400px] px-4 py-3 text-xs font-mono text-neutral-700 leading-relaxed outline-none resize-y border-0"
+                placeholder="<p>Write your HTML content here...</p>"
+              />
+            )}
+
+            {/* Footer: Path + Word Count */}
+            <div className="flex items-center justify-between border-t border-neutral-200 px-3 py-1.5 text-[11px] text-neutral-400">
+              <span>Path: p</span>
+              <span>Word count: {wordCount}</span>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-bold text-neutral-400 uppercase tracking-wider">Article Body (HTML/Markdown)</label>
-            <textarea
-              required
-              rows={12}
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              placeholder="Write or paste your article content here..."
-              className="rounded-xl border border-neutral-200 bg-white py-2.5 px-3.5 text-sm outline-none text-neutral-700 focus:border-primary focus:ring-2 focus:ring-primary/10 font-mono text-xs"
-            />
+          {/* ── Excerpt ── */}
+          <div className={cardCls}>
+            <button type="button" className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-neutral-700">
+              Excerpt
+              <Icons.ChevronDown className="h-4 w-4 text-neutral-400" />
+            </button>
+            <div className="px-4 pb-4">
+              <textarea
+                rows={3} value={excerpt}
+                onChange={(e) => setExcerpt(e.target.value)}
+                placeholder="Write a brief summary (used in blog listing cards and meta descriptions)..."
+                className={`${inputCls} resize-none font-sans`}
+              />
+              <p className={helpCls}>Excerpts are optional hand-crafted summaries of your content that appear on blog listings.</p>
+            </div>
+          </div>
+
+          {/* ══════════════════════════════════════════════════ */}
+          {/* OPTIMIZATION PANELS (Below Editor, Tabbed Layout) */}
+          {/* ══════════════════════════════════════════════════ */}
+          <div className={cardCls}>
+            <div className="border-b border-neutral-200 px-4 py-3">
+              <h3 className="text-sm font-bold text-neutral-800 flex items-center gap-2">
+                <Icons.Zap className="h-4 w-4 text-amber-500" />
+                Engine Optimization
+                <span className={`ml-auto text-xs font-bold px-2.5 py-0.5 rounded-full ${
+                  score >= 70 ? "bg-emerald-50 text-emerald-600 border border-emerald-200" :
+                  score >= 40 ? "bg-amber-50 text-amber-600 border border-amber-200" :
+                  "bg-red-50 text-red-600 border border-red-200"
+                }`}>{score}%</span>
+              </h3>
+            </div>
+
+            {/* Tab pills */}
+            <div className="flex flex-wrap gap-1.5 px-4 py-3 border-b border-neutral-100">
+              {OPT_TABS.map(tab => {
+                const TabIcon = tab.icon;
+                const isActive = activeOptTab === tab.key;
+                return (
+                  <button key={tab.key} type="button" onClick={() => setActiveOptTab(tab.key)}
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-all ${
+                      isActive ? tab.color : "bg-white border-neutral-200 text-neutral-500 hover:bg-neutral-50"
+                    }`}>
+                    <TabIcon className="h-3 w-3" />
+                    {tab.label}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Tab content */}
+            <div className="px-4 py-4 flex flex-col gap-4">
+
+              {/* ── SEO & Meta ── */}
+              {activeOptTab === "seo" && (
+                <>
+                  <div>
+                    <label className={labelCls}>SEO Title</label>
+                    <input type="text" value={seoTitle} onChange={e => setSeoTitle(e.target.value)}
+                      placeholder="Custom title for search engines (50-60 chars)" className={inputCls} />
+                    <p className={helpCls}>{seoTitle.length}/60 characters</p>
+                  </div>
+                  <div>
+                    <label className={labelCls}>Meta Description</label>
+                    <textarea rows={2} value={seoDescription} onChange={e => setSeoDescription(e.target.value)}
+                      placeholder="Compelling description for SERPs (150-160 chars)" className={`${inputCls} resize-none`} />
+                    <p className={helpCls}>{seoDescription.length}/160 characters</p>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className={labelCls}>Canonical URL</label>
+                      <input type="text" value={canonicalUrl} onChange={e => setCanonicalUrl(e.target.value)}
+                        placeholder="https://..." className={inputCls} />
+                    </div>
+                    <div>
+                      <label className={labelCls}>Robots</label>
+                      <select value={robotsSettings} onChange={e => setRobotsSettings(e.target.value)} className={inputCls}>
+                        <option value="index, follow">index, follow</option>
+                        <option value="noindex, follow">noindex, follow</option>
+                        <option value="index, nofollow">index, nofollow</option>
+                        <option value="noindex, nofollow">noindex, nofollow</option>
+                      </select>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {/* ── AEO ── */}
+              {activeOptTab === "aeo" && (
+                <>
+                  <p className="text-xs text-neutral-500 bg-violet-50/50 rounded-lg px-3 py-2 border border-violet-100">
+                    <strong>Answer Engine Optimization</strong> — Optimize for featured snippets, Google SGE, and voice search answers.
+                  </p>
+                  <div>
+                    <label className={labelCls}>Target Question</label>
+                    <input type="text" value={aeoTargetQuestion} onChange={e => setAeoTargetQuestion(e.target.value)}
+                      placeholder="e.g. What is the best SEO strategy for 2025?" className={inputCls} />
+                    <p className={helpCls}>The primary question this article directly answers.</p>
+                  </div>
+                  <div>
+                    <label className={labelCls}>Direct Answer (40-60 words)</label>
+                    <textarea rows={3} value={aeoDirectAnswer} onChange={e => setAeoDirectAnswer(e.target.value)}
+                      placeholder="Write a concise, direct answer that can be featured as a snippet..."
+                      className={`${inputCls} resize-none`} />
+                    <p className={helpCls}>{aeoDirectAnswer.split(/\s+/).filter(Boolean).length}/60 words</p>
+                  </div>
+                  <div>
+                    <label className={labelCls}>FAQ Items (for FAQ Schema)</label>
+                    {aeoFaqItems.map((faq, i) => (
+                      <div key={i} className="flex flex-col gap-2 mb-3 p-3 bg-neutral-50 rounded-lg border border-neutral-100">
+                        <input type="text" value={faq.question}
+                          onChange={e => { const copy = [...aeoFaqItems]; copy[i].question = e.target.value; setAeoFaqItems(copy); }}
+                          placeholder={`Question ${i + 1}`} className={inputCls} />
+                        <textarea rows={2} value={faq.answer}
+                          onChange={e => { const copy = [...aeoFaqItems]; copy[i].answer = e.target.value; setAeoFaqItems(copy); }}
+                          placeholder="Answer..." className={`${inputCls} resize-none`} />
+                        {aeoFaqItems.length > 1 && (
+                          <button type="button" onClick={() => setAeoFaqItems(aeoFaqItems.filter((_, idx) => idx !== i))}
+                            className="self-end text-xs text-red-500 hover:text-red-700 font-semibold">Remove</button>
+                        )}
+                      </div>
+                    ))}
+                    <button type="button" onClick={() => setAeoFaqItems([...aeoFaqItems, { question: "", answer: "" }])}
+                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1">
+                      <Icons.Plus className="h-3 w-3" /> Add FAQ
+                    </button>
+                  </div>
+                  <div>
+                    <label className={labelCls}>People Also Ask Questions</label>
+                    {paaQuestions.items.map((q, i) => (
+                      <div key={i} className="flex gap-2 mb-2">
+                        <input type="text" value={q} onChange={e => paaQuestions.update(i, e.target.value)}
+                          placeholder={`PAA question ${i + 1}`} className={`${inputCls} flex-1`} />
+                        {paaQuestions.items.length > 1 && (
+                          <button type="button" onClick={() => paaQuestions.remove(i)}
+                            className="text-red-400 hover:text-red-600"><Icons.X className="h-4 w-4" /></button>
+                        )}
+                      </div>
+                    ))}
+                    <button type="button" onClick={paaQuestions.add}
+                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1">
+                      <Icons.Plus className="h-3 w-3" /> Add PAA Question
+                    </button>
+                  </div>
+                </>
+              )}
+
+              {/* ── GEO ── */}
+              {activeOptTab === "geo" && (
+                <>
+                  <p className="text-xs text-neutral-500 bg-emerald-50/50 rounded-lg px-3 py-2 border border-emerald-100">
+                    <strong>Generative Engine Optimization</strong> — Add cited statistics, authoritative sources, and expert quotes so AI overviews cite your content.
+                  </p>
+                  <div>
+                    <label className={labelCls}>Statistics with Sources</label>
+                    {geoStats.map((s, i) => (
+                      <div key={i} className="grid grid-cols-3 gap-2 mb-2">
+                        <input type="text" value={s.stat} onChange={e => { const c = [...geoStats]; c[i].stat = e.target.value; setGeoStats(c); }}
+                          placeholder="Statistic" className={inputCls} />
+                        <input type="text" value={s.source} onChange={e => { const c = [...geoStats]; c[i].source = e.target.value; setGeoStats(c); }}
+                          placeholder="Source name" className={inputCls} />
+                        <div className="flex gap-1">
+                          <input type="text" value={s.url} onChange={e => { const c = [...geoStats]; c[i].url = e.target.value; setGeoStats(c); }}
+                            placeholder="Source URL" className={`${inputCls} flex-1`} />
+                          {geoStats.length > 1 && <button type="button" onClick={() => setGeoStats(geoStats.filter((_, idx) => idx !== i))}
+                            className="text-red-400 hover:text-red-600"><Icons.X className="h-4 w-4" /></button>}
+                        </div>
+                      </div>
+                    ))}
+                    <button type="button" onClick={() => setGeoStats([...geoStats, { stat: "", source: "", url: "" }])}
+                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1">
+                      <Icons.Plus className="h-3 w-3" /> Add Statistic
+                    </button>
+                  </div>
+                  <div>
+                    <label className={labelCls}>Authoritative Citations</label>
+                    {geoCitations.map((c, i) => (
+                      <div key={i} className="grid grid-cols-3 gap-2 mb-2">
+                        <input type="text" value={c.source} onChange={e => { const copy = [...geoCitations]; copy[i].source = e.target.value; setGeoCitations(copy); }}
+                          placeholder="Source" className={inputCls} />
+                        <input type="text" value={c.url} onChange={e => { const copy = [...geoCitations]; copy[i].url = e.target.value; setGeoCitations(copy); }}
+                          placeholder="URL" className={inputCls} />
+                        <div className="flex gap-1">
+                          <input type="text" value={c.claim} onChange={e => { const copy = [...geoCitations]; copy[i].claim = e.target.value; setGeoCitations(copy); }}
+                            placeholder="Claim" className={`${inputCls} flex-1`} />
+                          {geoCitations.length > 1 && <button type="button" onClick={() => setGeoCitations(geoCitations.filter((_, idx) => idx !== i))}
+                            className="text-red-400 hover:text-red-600"><Icons.X className="h-4 w-4" /></button>}
+                        </div>
+                      </div>
+                    ))}
+                    <button type="button" onClick={() => setGeoCitations([...geoCitations, { source: "", url: "", claim: "" }])}
+                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1">
+                      <Icons.Plus className="h-3 w-3" /> Add Citation
+                    </button>
+                  </div>
+                  <div>
+                    <label className={labelCls}>Expert Quotes</label>
+                    {geoQuotes.map((q, i) => (
+                      <div key={i} className="grid grid-cols-3 gap-2 mb-2">
+                        <input type="text" value={q.quote} onChange={e => { const c = [...geoQuotes]; c[i].quote = e.target.value; setGeoQuotes(c); }}
+                          placeholder="Quote text" className={inputCls} />
+                        <input type="text" value={q.expert} onChange={e => { const c = [...geoQuotes]; c[i].expert = e.target.value; setGeoQuotes(c); }}
+                          placeholder="Expert name" className={inputCls} />
+                        <div className="flex gap-1">
+                          <input type="text" value={q.title} onChange={e => { const c = [...geoQuotes]; c[i].title = e.target.value; setGeoQuotes(c); }}
+                            placeholder="Title/role" className={`${inputCls} flex-1`} />
+                          {geoQuotes.length > 1 && <button type="button" onClick={() => setGeoQuotes(geoQuotes.filter((_, idx) => idx !== i))}
+                            className="text-red-400 hover:text-red-600"><Icons.X className="h-4 w-4" /></button>}
+                        </div>
+                      </div>
+                    ))}
+                    <button type="button" onClick={() => setGeoQuotes([...geoQuotes, { quote: "", expert: "", title: "" }])}
+                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1">
+                      <Icons.Plus className="h-3 w-3" /> Add Quote
+                    </button>
+                  </div>
+                </>
+              )}
+
+              {/* ── LLMO ── */}
+              {activeOptTab === "llmo" && (
+                <>
+                  <p className="text-xs text-neutral-500 bg-pink-50/50 rounded-lg px-3 py-2 border border-pink-100">
+                    <strong>Large Language Model Optimization</strong> — Structure content so LLMs understand your topic authority and entity relationships.
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className={labelCls}>Primary Entity Name</label>
+                      <input type="text" value={llmoEntityName} onChange={e => setLlmoEntityName(e.target.value)}
+                        placeholder="e.g. Local SEO" className={inputCls} />
+                      <p className={helpCls}>The main entity/topic this content establishes authority on.</p>
+                    </div>
+                    <div>
+                      <label className={labelCls}>Topic Cluster</label>
+                      <input type="text" value={llmoTopicCluster} onChange={e => setLlmoTopicCluster(e.target.value)}
+                        placeholder="e.g. SEO Strategy" className={inputCls} />
+                      <p className={helpCls}>Parent topic cluster this post belongs to.</p>
+                    </div>
+                  </div>
+                  <div>
+                    <label className={labelCls}>Content Depth</label>
+                    <select value={llmoContentDepth} onChange={e => setLlmoContentDepth(e.target.value)} className={inputCls}>
+                      <option value="comprehensive">Comprehensive Guide</option>
+                      <option value="overview">Overview / Summary</option>
+                      <option value="deep-dive">Deep Dive / Technical</option>
+                      <option value="comparison">Comparison / Versus</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className={labelCls}>Related Entities</label>
+                    {llmoRelated.items.map((r, i) => (
+                      <div key={i} className="flex gap-2 mb-2">
+                        <input type="text" value={r} onChange={e => llmoRelated.update(i, e.target.value)}
+                          placeholder={`Related entity ${i + 1}`} className={`${inputCls} flex-1`} />
+                        {llmoRelated.items.length > 1 && <button type="button" onClick={() => llmoRelated.remove(i)}
+                          className="text-red-400 hover:text-red-600"><Icons.X className="h-4 w-4" /></button>}
+                      </div>
+                    ))}
+                    <button type="button" onClick={llmoRelated.add}
+                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1">
+                      <Icons.Plus className="h-3 w-3" /> Add Entity
+                    </button>
+                  </div>
+                </>
+              )}
+
+              {/* ── VEO ── */}
+              {activeOptTab === "veo" && (
+                <>
+                  <p className="text-xs text-neutral-500 bg-orange-50/50 rounded-lg px-3 py-2 border border-orange-100">
+                    <strong>Visual Engine Optimization</strong> — Optimize images, videos, and infographics for visual search engines (Google Images, Pinterest, YouTube).
+                  </p>
+                  <div>
+                    <label className={labelCls}>Content Images</label>
+                    {veoImages.map((img, i) => (
+                      <div key={i} className="grid grid-cols-3 gap-2 mb-2">
+                        <input type="text" value={img.url} onChange={e => { const c = [...veoImages]; c[i].url = e.target.value; setVeoImages(c); }}
+                          placeholder="Image URL" className={inputCls} />
+                        <input type="text" value={img.alt} onChange={e => { const c = [...veoImages]; c[i].alt = e.target.value; setVeoImages(c); }}
+                          placeholder="Alt text" className={inputCls} />
+                        <div className="flex gap-1">
+                          <input type="text" value={img.caption} onChange={e => { const c = [...veoImages]; c[i].caption = e.target.value; setVeoImages(c); }}
+                            placeholder="Caption" className={`${inputCls} flex-1`} />
+                          {veoImages.length > 1 && <button type="button" onClick={() => setVeoImages(veoImages.filter((_, idx) => idx !== i))}
+                            className="text-red-400 hover:text-red-600"><Icons.X className="h-4 w-4" /></button>}
+                        </div>
+                      </div>
+                    ))}
+                    <button type="button" onClick={() => setVeoImages([...veoImages, { url: "", alt: "", caption: "" }])}
+                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1">
+                      <Icons.Plus className="h-3 w-3" /> Add Image
+                    </button>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className={labelCls}>Video URL</label>
+                      <input type="text" value={veoVideoUrl} onChange={e => setVeoVideoUrl(e.target.value)}
+                        placeholder="YouTube/Vimeo embed URL" className={inputCls} />
+                    </div>
+                    <div>
+                      <label className={labelCls}>Video Title</label>
+                      <input type="text" value={veoVideoTitle} onChange={e => setVeoVideoTitle(e.target.value)}
+                        placeholder="Video title for schema" className={inputCls} />
+                    </div>
+                  </div>
+                  <div>
+                    <label className={labelCls}>Infographic URL</label>
+                    <input type="text" value={veoInfographicUrl} onChange={e => setVeoInfographicUrl(e.target.value)}
+                      placeholder="URL of an infographic image" className={inputCls} />
+                  </div>
+                </>
+              )}
+
+              {/* ── CEO ── */}
+              {activeOptTab === "ceo" && (
+                <>
+                  <p className="text-xs text-neutral-500 bg-cyan-50/50 rounded-lg px-3 py-2 border border-cyan-100">
+                    <strong>ChatGPT Engine Optimization</strong> — Provide concise summaries and actionable steps optimized for ChatGPT citations.
+                  </p>
+                  <div>
+                    <label className={labelCls}>Conversational Summary (2-3 sentences)</label>
+                    <textarea rows={3} value={ceoSummary} onChange={e => setCeoSummary(e.target.value)}
+                      placeholder="Write a brief, conversational summary that ChatGPT could cite directly..."
+                      className={`${inputCls} resize-none`} />
+                  </div>
+                  <div>
+                    <label className={labelCls}>Primary Key Takeaway</label>
+                    <input type="text" value={ceoTakeaway} onChange={e => setCeoTakeaway(e.target.value)}
+                      placeholder="Single most important sentence from this article" className={inputCls} />
+                  </div>
+                  <div>
+                    <label className={labelCls}>Actionable Steps</label>
+                    {ceoSteps.items.map((s, i) => (
+                      <div key={i} className="flex gap-2 mb-2">
+                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-cyan-50 text-cyan-600 text-xs font-bold border border-cyan-200">
+                          {i + 1}
+                        </span>
+                        <input type="text" value={s} onChange={e => ceoSteps.update(i, e.target.value)}
+                          placeholder={`Step ${i + 1}`} className={`${inputCls} flex-1`} />
+                        {ceoSteps.items.length > 1 && <button type="button" onClick={() => ceoSteps.remove(i)}
+                          className="text-red-400 hover:text-red-600"><Icons.X className="h-4 w-4" /></button>}
+                      </div>
+                    ))}
+                    <button type="button" onClick={ceoSteps.add}
+                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1">
+                      <Icons.Plus className="h-3 w-3" /> Add Step
+                    </button>
+                  </div>
+                </>
+              )}
+
+              {/* ── BEO ── */}
+              {activeOptTab === "beo" && (
+                <>
+                  <p className="text-xs text-neutral-500 bg-amber-50/50 rounded-lg px-3 py-2 border border-amber-100">
+                    <strong>Brand Engine Optimization</strong> — Strengthen E-E-A-T signals, author credentials, and brand visibility in AI results.
+                  </p>
+                  <div>
+                    <label className={labelCls}>Author Credentials</label>
+                    <textarea rows={2} value={beoCredentials} onChange={e => setBeoCredentials(e.target.value)}
+                      placeholder="e.g. 5+ years in digital marketing, certified Google Ads specialist, served 200+ clients..."
+                      className={`${inputCls} resize-none`} />
+                  </div>
+                  <div>
+                    <label className={labelCls}>Brand Mention Format</label>
+                    <input type="text" value={beoCompanyMention} onChange={e => setBeoCompanyMention(e.target.value)}
+                      placeholder="e.g. Digital World, a full-service digital marketing agency" className={inputCls} />
+                  </div>
+                  <div>
+                    <label className={labelCls}>Brand Keywords</label>
+                    {beoBrandKw.items.map((k, i) => (
+                      <div key={i} className="flex gap-2 mb-2">
+                        <input type="text" value={k} onChange={e => beoBrandKw.update(i, e.target.value)}
+                          placeholder={`Brand keyword ${i + 1}`} className={`${inputCls} flex-1`} />
+                        {beoBrandKw.items.length > 1 && <button type="button" onClick={() => beoBrandKw.remove(i)}
+                          className="text-red-400 hover:text-red-600"><Icons.X className="h-4 w-4" /></button>}
+                      </div>
+                    ))}
+                    <button type="button" onClick={beoBrandKw.add}
+                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1">
+                      <Icons.Plus className="h-3 w-3" /> Add Keyword
+                    </button>
+                  </div>
+                  <div>
+                    <label className={labelCls}>Trust Signals</label>
+                    {beoTrust.items.map((t, i) => (
+                      <div key={i} className="flex gap-2 mb-2">
+                        <input type="text" value={t} onChange={e => beoTrust.update(i, e.target.value)}
+                          placeholder={`e.g. "5 years experience", "200+ clients", "Google Partner"`} className={`${inputCls} flex-1`} />
+                        {beoTrust.items.length > 1 && <button type="button" onClick={() => beoTrust.remove(i)}
+                          className="text-red-400 hover:text-red-600"><Icons.X className="h-4 w-4" /></button>}
+                      </div>
+                    ))}
+                    <button type="button" onClick={beoTrust.add}
+                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1">
+                      <Icons.Plus className="h-3 w-3" /> Add Trust Signal
+                    </button>
+                  </div>
+                </>
+              )}
+
+              {/* ── MSEO ── */}
+              {activeOptTab === "mseo" && (
+                <>
+                  <p className="text-xs text-neutral-500 bg-indigo-50/50 rounded-lg px-3 py-2 border border-indigo-100">
+                    <strong>Multimodal Search Engine Optimization</strong> — Optimize for multimodal search with structured data tables, key definitions, and content format signals.
+                  </p>
+                  <div>
+                    <label className={labelCls}>Content Format</label>
+                    <select value={mseoFormat} onChange={e => setMseoFormat(e.target.value)} className={inputCls}>
+                      <option value="text">Text Only</option>
+                      <option value="text+video">Text + Video</option>
+                      <option value="text+infographic">Text + Infographic</option>
+                      <option value="text+audio">Text + Audio</option>
+                      <option value="all">All Formats (Text + Video + Images + Audio)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className={labelCls}>Key Definitions (for Knowledge Panels)</label>
+                    {mseoDefinitions.map((d, i) => (
+                      <div key={i} className="grid grid-cols-2 gap-2 mb-2">
+                        <input type="text" value={d.term} onChange={e => { const c = [...mseoDefinitions]; c[i].term = e.target.value; setMseoDefinitions(c); }}
+                          placeholder="Term" className={inputCls} />
+                        <div className="flex gap-1">
+                          <input type="text" value={d.definition} onChange={e => { const c = [...mseoDefinitions]; c[i].definition = e.target.value; setMseoDefinitions(c); }}
+                            placeholder="Definition" className={`${inputCls} flex-1`} />
+                          {mseoDefinitions.length > 1 && <button type="button" onClick={() => setMseoDefinitions(mseoDefinitions.filter((_, idx) => idx !== i))}
+                            className="text-red-400 hover:text-red-600"><Icons.X className="h-4 w-4" /></button>}
+                        </div>
+                      </div>
+                    ))}
+                    <button type="button" onClick={() => setMseoDefinitions([...mseoDefinitions, { term: "", definition: "" }])}
+                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1">
+                      <Icons.Plus className="h-3 w-3" /> Add Definition
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
 
-        <div className="lg:col-span-4 flex flex-col gap-6 bg-white border border-neutral-100 rounded-2xl p-6 shadow-[0_6px_20px_rgba(0,0,0,0.01)]">
-          <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-bold text-neutral-400 uppercase tracking-wider">Category</label>
-            <select
-              value={categoryName}
-              onChange={(e) => setCategoryName(e.target.value)}
-              className="rounded-xl border border-neutral-200 bg-white py-2.5 px-3.5 text-sm outline-none text-neutral-700 focus:border-primary"
-            >
-              <option value="SEO">SEO</option>
-              <option value="Google Ads">Google Ads</option>
-              <option value="Web Dev">Web Dev</option>
-              <option value="Content Marketing">Content Marketing</option>
-              <option value="Email Marketing">Email Marketing</option>
-              <option value="Social Media">Social Media</option>
-              <option value="E-commerce">E-commerce</option>
-            </select>
+        {/* ════════════════════════════════════════════════ */}
+        {/* RIGHT COLUMN: Sidebar (WordPress-style)         */}
+        {/* ════════════════════════════════════════════════ */}
+        <div className="lg:col-span-4 flex flex-col gap-5">
+
+          {/* ── Publish Box ── */}
+          <div className={cardCls}>
+            <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-200">
+              <h3 className="text-sm font-bold text-neutral-800">Publish</h3>
+            </div>
+            <div className="px-4 py-3 flex flex-col gap-3">
+              {/* Save Draft / Preview */}
+              <div className="flex gap-2">
+                <button type="button" onClick={() => { setIsDraft(true); }}
+                  className="flex-1 py-2 px-3 text-xs font-semibold border border-neutral-200 rounded-lg text-neutral-600 hover:bg-neutral-50 transition-colors">
+                  Save Draft
+                </button>
+                <button type="button"
+                  className="flex-1 py-2 px-3 text-xs font-semibold border border-neutral-200 rounded-lg text-neutral-600 hover:bg-neutral-50 transition-colors">
+                  Preview
+                </button>
+              </div>
+
+              <div className="flex flex-col gap-2 text-xs text-neutral-600">
+                <div className="flex items-center gap-2">
+                  <Icons.Key className="h-3.5 w-3.5 text-neutral-400" />
+                  <span>Status: <strong>{isDraft ? "Draft" : "Published"}</strong></span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Icons.Eye className="h-3.5 w-3.5 text-neutral-400" />
+                  <span>Visibility: <strong>Public</strong></span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Icons.Calendar className="h-3.5 w-3.5 text-neutral-400" />
+                  <span>Publish: <strong>Immediately</strong></span>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between border-t border-neutral-200 pt-3">
+                <button type="button" className="text-xs text-red-500 hover:text-red-700 font-semibold">
+                  Move to Trash
+                </button>
+                <button type="submit" disabled={isSaving}
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 disabled:bg-neutral-200 px-5 py-2 text-xs font-bold text-white shadow-sm transition-all cursor-pointer border-0">
+                  {isSaving ? <><Icons.Loader2 className="h-3.5 w-3.5 animate-spin" /> Publishing...</> : "Publish"}
+                </button>
+              </div>
+            </div>
           </div>
 
-          <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-bold text-neutral-400 uppercase tracking-wider">Featured Image URL</label>
-            <input
-              type="text"
-              value={featuredImage}
-              onChange={(e) => setFeaturedImage(e.target.value)}
-              placeholder="e.g. https://picsum.photos/800/500?random=1"
-              className="rounded-xl border border-neutral-200 bg-white py-2.5 px-3.5 text-sm outline-none text-neutral-700 focus:border-primary text-xs"
-            />
+          {/* ── Format ── */}
+          <div className={cardCls}>
+            <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-200">
+              <h3 className="text-sm font-bold text-neutral-800">Format</h3>
+            </div>
+            <div className="px-4 py-3 flex flex-col gap-1.5">
+              {[
+                { value: "standard", label: "Standard", icon: Icons.Pin },
+                { value: "image", label: "Image", icon: Icons.Image },
+                { value: "video", label: "Video", icon: Icons.Video },
+                { value: "quote", label: "Quote", icon: Icons.Quote },
+                { value: "link", label: "Link", icon: Icons.Link },
+              ].map(f => (
+                <label key={f.value} className="flex items-center gap-2 text-xs text-neutral-600 cursor-pointer py-0.5">
+                  <input type="radio" name="format" value={f.value} defaultChecked={f.value === "standard"}
+                    className="accent-blue-600" />
+                  <f.icon className="h-3.5 w-3.5 text-neutral-400" />
+                  {f.label}
+                </label>
+              ))}
+            </div>
           </div>
 
-          <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-bold text-neutral-400 uppercase tracking-wider">Image Alt Text</label>
-            <input
-              type="text"
-              value={imageAltText}
-              onChange={(e) => setImageAltText(e.target.value)}
-              placeholder="Describe the image..."
-              className="rounded-xl border border-neutral-200 bg-white py-2.5 px-3.5 text-sm outline-none text-neutral-700 focus:border-primary text-xs"
-            />
+          {/* ── Categories ── */}
+          <div className={cardCls}>
+            <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-200">
+              <h3 className="text-sm font-bold text-neutral-800">Categories</h3>
+            </div>
+            <div className="px-4 py-3">
+              <div className="flex flex-col gap-1.5 max-h-40 overflow-y-auto mb-3">
+                {["SEO", "Google Ads", "Web Dev", "Content Marketing", "Email Marketing", "Social Media", "E-commerce", "AI & Automation"].map(cat => (
+                  <label key={cat} className="flex items-center gap-2 text-xs text-neutral-600 cursor-pointer py-0.5">
+                    <input type="radio" name="category" value={cat}
+                      checked={categoryName === cat} onChange={() => setCategoryName(cat)}
+                      className="accent-blue-600" />
+                    {cat}
+                  </label>
+                ))}
+              </div>
+              <button type="button" className="text-xs text-blue-600 font-semibold hover:text-blue-800">
+                + Add New Category
+              </button>
+            </div>
           </div>
 
-          <div className="flex items-center justify-between border-t border-neutral-100 pt-5">
-            <span className="text-sm font-semibold text-neutral-700">Save as Draft</span>
-            <button
-              type="button"
-              onClick={() => setIsDraft(!isDraft)}
-              className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out outline-none ${
-                isDraft ? "bg-primary" : "bg-neutral-200"
-              }`}
-            >
-              <span
-                className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${
-                  isDraft ? "translate-x-5" : "translate-x-0"
-                }`}
-              />
-            </button>
+          {/* ── Tags ── */}
+          <div className={cardCls}>
+            <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-200">
+              <h3 className="text-sm font-bold text-neutral-800">Tags</h3>
+            </div>
+            <div className="px-4 py-3">
+              <div className="flex gap-2">
+                <input type="text" value={tagsInput} onChange={e => setTagsInput(e.target.value)}
+                  placeholder="Add tags (comma-separated)" className={`${inputCls} flex-1`} />
+              </div>
+              <p className={helpCls}>Separate tags with commas. e.g. SEO, Google, Marketing</p>
+              {tagsInput && (
+                <div className="flex flex-wrap gap-1.5 mt-2">
+                  {tagsInput.split(",").map((tag, i) => tag.trim() && (
+                    <span key={i} className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-neutral-100 text-xs text-neutral-600 font-medium border border-neutral-200">
+                      {tag.trim()}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
-          <button
-            type="submit"
-            disabled={isSaving}
-            className="w-full flex items-center justify-center gap-2 rounded-full bg-primary hover:bg-primary-hover disabled:bg-neutral-200 py-3.5 font-sans text-xs font-bold text-white shadow-sm transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer border-0"
-          >
-            {isSaving ? (
-              <>
-                <Icons.Loader2 className="h-3.5 w-3.5 animate-spin" />
-                Publishing...
-              </>
-            ) : (
-              "Save Post"
-            )}
-          </button>
+          {/* ── Featured Image ── */}
+          <div className={cardCls}>
+            <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-200">
+              <h3 className="text-sm font-bold text-neutral-800">Featured Image</h3>
+            </div>
+            <div className="px-4 py-3 flex flex-col gap-3">
+              <input type="text" value={featuredImage} onChange={e => setFeaturedImage(e.target.value)}
+                placeholder="Image URL (e.g. https://...)" className={inputCls} />
+              <input type="text" value={imageAltText} onChange={e => setImageAltText(e.target.value)}
+                placeholder="Alt text (SEO description of image)" className={inputCls} />
+              {featuredImage && (
+                <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-neutral-200 bg-neutral-50">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={featuredImage} alt={imageAltText || "Preview"} className="w-full h-full object-cover" />
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* ── Optimization Score ── */}
+          <div className={cardCls}>
+            <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-200">
+              <h3 className="text-sm font-bold text-neutral-800 flex items-center gap-1.5">
+                <Icons.BarChart3 className="h-4 w-4 text-blue-500" />
+                Optimization Score
+              </h3>
+            </div>
+            <div className="px-4 py-3">
+              {/* Overall score */}
+              <div className="flex items-center justify-center mb-4">
+                <div className={`relative flex items-center justify-center h-20 w-20 rounded-full border-4 ${
+                  score >= 70 ? "border-emerald-400" : score >= 40 ? "border-amber-400" : "border-red-400"
+                }`}>
+                  <span className={`text-2xl font-bold ${
+                    score >= 70 ? "text-emerald-600" : score >= 40 ? "text-amber-600" : "text-red-600"
+                  }`}>{score}%</span>
+                </div>
+              </div>
+              {/* Per-category mini bars */}
+              <div className="flex flex-col gap-2">
+                {[
+                  { label: "SEO", filled: [seoTitle, seoDescription, canonicalUrl, imageAltText].filter(Boolean).length, total: 4, color: "bg-blue-500" },
+                  { label: "AEO", filled: [aeoTargetQuestion, aeoDirectAnswer, aeoFaqItems.some(f => f.question && f.answer)].filter(Boolean).length, total: 3, color: "bg-violet-500" },
+                  { label: "GEO", filled: [geoStats.some(s => s.stat), geoCitations.some(c => c.source)].filter(Boolean).length, total: 2, color: "bg-emerald-500" },
+                  { label: "LLMO", filled: [llmoEntityName, llmoTopicCluster, llmoRelated.items.some(r => r)].filter(Boolean).length, total: 3, color: "bg-pink-500" },
+                  { label: "VEO", filled: [veoImages.some(i => i.url), veoVideoUrl || veoInfographicUrl].filter(Boolean).length, total: 2, color: "bg-orange-500" },
+                  { label: "CEO", filled: [ceoSummary, ceoTakeaway, ceoSteps.items.some(s => s)].filter(Boolean).length, total: 3, color: "bg-cyan-500" },
+                  { label: "BEO", filled: [beoCredentials, beoCompanyMention].filter(Boolean).length, total: 2, color: "bg-amber-500" },
+                  { label: "MSEO", filled: [mseoFormat !== "text", mseoDefinitions.some(d => d.term)].filter(Boolean).length, total: 2, color: "bg-indigo-500" },
+                ].map(cat => (
+                  <div key={cat.label} className="flex items-center gap-2 text-xs">
+                    <span className="w-10 font-semibold text-neutral-500">{cat.label}</span>
+                    <div className="flex-1 h-1.5 bg-neutral-100 rounded-full overflow-hidden">
+                      <div className={`h-full ${cat.color} rounded-full transition-all duration-300`}
+                        style={{ width: `${(cat.filled / cat.total) * 100}%` }} />
+                    </div>
+                    <span className="w-7 text-right text-neutral-400">{cat.filled}/{cat.total}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
         </div>
       </form>
     </div>
