@@ -50,10 +50,10 @@ export default function CountriesServed() {
             <motion.div
               key={country.id}
               variants={itemVariants}
-              className="flex flex-col items-center justify-center p-6 rounded-2xl border border-neutral-200 bg-white shadow-sm transition-all duration-300 hover:shadow-md text-center"
+              className="flex flex-col items-center justify-center p-5 rounded-lg border border-neutral-100 bg-white/80 shadow-2xs transition-all duration-300 hover:shadow-xs hover:border-neutral-200 text-center"
             >
               {/* Flag Image */}
-              <div className="relative h-10 w-14 overflow-hidden rounded border border-neutral-100 shadow-sm mb-4">
+              <div className="relative h-8 w-12 overflow-hidden rounded border border-neutral-100 shadow-2xs mb-3">
                 <Image
                   src={country.flagPath}
                   alt={`${country.name} flag`}
@@ -63,13 +63,13 @@ export default function CountriesServed() {
               </div>
 
               {/* Name */}
-              <span className="font-sans font-bold text-sm text-neutral-800 mb-1">
+              <span className="font-sans font-medium text-xs text-neutral-700 mb-1">
                 {country.name}
               </span>
 
               {/* Specialty Tag */}
               {country.specialtyTag && (
-                <span className="font-sans text-[10px] font-semibold text-primary bg-primary-light px-2 py-0.5 rounded-full border border-primary/5">
+                <span className="font-sans text-xs font-semibold text-primary bg-primary-light px-2 py-0.5 rounded-full border border-primary/5">
                   {country.specialtyTag}
                 </span>
               )}

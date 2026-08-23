@@ -23,7 +23,7 @@ export default async function Footer() {
   return (
     <footer className="bg-bg-dark text-neutral-300 font-sans border-t border-neutral-800">
       <div className="container mx-auto max-w-7xl px-6 py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {/* Brand Info */}
           <div className="flex flex-col gap-6">
             <Link href="/" className="flex items-center gap-2.5 font-sans font-bold text-white text-lg">
@@ -88,7 +88,7 @@ export default async function Footer() {
 
           {/* Column 1: SEO Solutions */}
           <div className="flex flex-col gap-4">
-            <h4 className="text-sm font-semibold text-white tracking-wider uppercase">SEO Solutions</h4>
+            <h3 className="text-sm font-semibold text-white tracking-wider uppercase">SEO Solutions</h3>
             <ul className="flex flex-col gap-3 text-sm">
               <li><Link href="/services/seo#svc-local" className="text-neutral-400 hover:text-white transition-colors">Local SEO</Link></li>
               <li><Link href="/services/seo#svc-ecommerce" className="text-neutral-400 hover:text-white transition-colors">Ecommerce SEO</Link></li>
@@ -101,7 +101,7 @@ export default async function Footer() {
 
           {/* Column 2: Dev & Ads */}
           <div className="flex flex-col gap-4">
-            <h4 className="text-sm font-semibold text-white tracking-wider uppercase">Development & Ads</h4>
+            <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Development & Ads</h3>
             <ul className="flex flex-col gap-3 text-sm">
               <li><Link href="/services/web-design-dev#svc-wordpress" className="text-neutral-400 hover:text-white transition-colors">WordPress Development</Link></li>
               <li><Link href="/services/web-design-dev#svc-shopify" className="text-neutral-400 hover:text-white transition-colors">Shopify Development</Link></li>
@@ -114,7 +114,7 @@ export default async function Footer() {
 
           {/* Column 3: Contact Info */}
           <div className="flex flex-col gap-4">
-            <h4 className="text-sm font-semibold text-white tracking-wider uppercase">Company</h4>
+            <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Company</h3>
             <ul className="flex flex-col gap-3 text-sm">
               <li><Link href="/about" className="text-neutral-400 hover:text-white transition-colors">About Us</Link></li>
               <li><Link href="/portfolio" className="text-neutral-400 hover:text-white transition-colors">Portfolio</Link></li>

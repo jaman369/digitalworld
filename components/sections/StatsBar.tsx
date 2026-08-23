@@ -9,7 +9,7 @@ import { CloudHomepageData } from "@/types";
 export default function StatsBar() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [data, setData] = useState<CloudHomepageData>({
-    statsEyebrow: "PROVEN TRACK RECORD",
+    statsEyebrow: "Proven Track Record",
     stats: statsData,
   });
 
@@ -36,8 +36,8 @@ export default function StatsBar() {
       <div className="container mx-auto max-w-7xl px-4 sm:px-6">
         {/* Section Eyebrow Title */}
         <div className="text-center mb-6">
-          <span className="text-[10px] sm:text-xs font-bold text-neutral-500 uppercase tracking-[0.25em] font-sans">
-            {data.statsEyebrow || "PROVEN TRACK RECORD"}
+          <span className="text-xs font-bold text-neutral-500 uppercase tracking-widest font-sans">
+            {data.statsEyebrow || "Proven Track Record"}
           </span>
         </div>
 

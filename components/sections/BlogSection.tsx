@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, Variants } from "framer-motion";
-import { Share2, ArrowUpRight } from "lucide-react";
+import { Share2 } from "lucide-react";
 import { blogData } from "@/data/blog";
 import { BlogPost } from "@/types";
+import ReadMoreLink from "@/components/common/ReadMoreLink";
 
 export default function BlogSection() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -144,13 +145,10 @@ export default function BlogSection() {
                   </h3>
 
                   <div className="flex items-center justify-between border-t border-white/20 pt-4">
-                    <Link
+                    <ReadMoreLink
                       href={`/blog/${p.slug}`}
-                      className="inline-flex items-center gap-1.5 font-sans text-xs font-bold uppercase tracking-wider text-white hover:text-indigo-200 transition-colors"
-                    >
-                      READ MORE
-                      <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </Link>
+                      className="text-white hover:text-indigo-200"
+                    />
 
                     <button
                       type="button"

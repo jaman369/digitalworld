@@ -96,9 +96,9 @@ export default function Testimonials() {
                 </div>
                 
                 <div>
-                  <h4 className="font-sans font-bold text-sm text-neutral-900 leading-tight">
+                  <h3 className="font-sans font-bold text-sm text-neutral-900 leading-tight">
                     {test.name}
-                  </h4>
+                  </h3>
                   
                   <div className="flex items-center gap-2 mt-1">
                     {/* Country Flag */}

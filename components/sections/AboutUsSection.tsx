@@ -52,43 +52,36 @@ export default function AboutUsSection() {
             className="lg:col-span-6 flex flex-col justify-center"
           >
             {/* Main Section Title */}
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.6rem] font-bold text-neutral-900 tracking-tight leading-[1.2] mb-6">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.6rem] font-bold text-neutral-900 tracking-tight leading-[1.2] mb-4">
               Analyze your business to reach your goals
             </h2>
 
-            {/* Paragraph 1 */}
-            <p className="font-sans text-sm sm:text-base text-neutral-700 font-semibold leading-relaxed mb-3">
-              Build trust to your customers and increase your sales like a pro.
+            {/* Paragraph Text */}
+            <p className="font-sans text-sm sm:text-base text-neutral-700 font-medium leading-relaxed mb-2">
+              Build trust with your customers and increase your sales like a pro.
             </p>
-
-            {/* Paragraph 2 */}
-            <p className="font-sans text-xs sm:text-sm text-neutral-500 leading-relaxed mb-3">
-              Take your brand to the new height. Get ahead with your target quickly.
-            </p>
-
-            {/* Paragraph 3 */}
-            <p className="font-sans text-xs sm:text-sm text-neutral-500 leading-relaxed mb-8">
-              And Take your brand to the new height.
+            <p className="font-sans text-xs sm:text-sm text-neutral-500 leading-relaxed mb-5">
+              Take your brand to new heights with tailored strategies and dedicated growth specialists.
             </p>
 
             {/* Highlights Grid */}
-            <div className="grid grid-cols-1 xs:grid-cols-2 gap-3.5 sm:gap-4 mb-8">
-              <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-neutral-50/80 border border-neutral-100/80 shadow-xs">
-                <div className="p-2.5 rounded-xl bg-indigo-50 text-indigo-600">
+            <div className="grid grid-cols-1 xs:grid-cols-2 gap-3.5 sm:gap-4 mb-6">
+              <div className="flex items-center gap-3 p-3.5 rounded-lg bg-neutral-50/80 border border-neutral-100/80 shadow-xs">
+                <div className="p-2.5 rounded-md bg-indigo-50 text-indigo-600">
                   <TrendingUp className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-neutral-900">High Growth ROI</h4>
-                  <p className="text-[11px] text-neutral-500">Compounding traffic</p>
+                  <h3 className="text-xs font-bold text-neutral-900">High Growth ROI</h3>
+                  <p className="text-xs text-neutral-500">Compounding traffic</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3 p-3.5 rounded-2xl bg-neutral-50/80 border border-neutral-100/80 shadow-xs">
-                <div className="p-2.5 rounded-xl bg-blue-50 text-blue-600">
+              <div className="flex items-center gap-3 p-3.5 rounded-lg bg-neutral-50/80 border border-neutral-100/80 shadow-xs">
+                <div className="p-2.5 rounded-md bg-blue-50 text-blue-600">
                   <ShieldCheck className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-neutral-900">Proven Expertise</h4>
-                  <p className="text-[11px] text-neutral-500">Dedicated specialists</p>
+                  <h3 className="text-xs font-bold text-neutral-900">Proven Expertise</h3>
+                  <p className="text-xs text-neutral-500">Dedicated specialists</p>
                 </div>
               </div>
             </div>
@@ -97,7 +90,7 @@ export default function AboutUsSection() {
             <div>
               <Link
                 href="/about"
-                className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full border border-indigo-600/40 text-indigo-600 font-sans text-xs font-bold uppercase tracking-widest hover:bg-indigo-600 hover:text-white hover:border-indigo-600 transition-all duration-300 shadow-sm hover:shadow-md"
+                className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-indigo-600/40 text-indigo-600 font-sans text-xs font-bold uppercase tracking-wider hover:bg-indigo-600 hover:text-white hover:border-indigo-600 transition-all duration-300 shadow-sm"
               >
                 <span>Learn how</span>
                 <ArrowRight className="w-4 h-4" />

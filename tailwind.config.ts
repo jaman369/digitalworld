@@ -12,6 +12,14 @@ const config: Config = {
         sans: ["var(--font-sans)", "sans-serif"],
         serif: ["var(--font-serif)", "serif"],
       },
+      fontSize: {
+        xs: ["12px", "16px"],
+        sm: ["14px", "20px"],
+        base: ["16px", "24px"],
+        lg: ["20px", "28px"],
+        xl: ["24px", "32px"],
+        "2xl": ["32px", "40px"],
+      },
       colors: {
         primary: {
           DEFAULT: "#0076ff",      // Vibrant Blue
@@ -22,6 +30,13 @@ const config: Config = {
           DEFAULT: "#10b981",    // Green badge/status
           hover: "#059669",
           light: "#ecfdf5",
+        },
+        text: {
+          primary: "#0f172a",    // Slate 900
+          secondary: "#334155",  // Slate 700
+          muted: "#64748b",      // Slate 500
+          link: "#0076ff",
+          linkHover: "#005ecf",
         },
         success: "#10b981",
         error: "#ef4444",
@@ -48,10 +63,10 @@ const config: Config = {
         },
       },
       borderRadius: {
-        sm: "8px",
-        md: "12px",
-        lg: "20px",
-        xl: "30px",
+        sm: "4px",
+        md: "8px",
+        lg: "16px",
+        full: "9999px",
       },
       boxShadow: {
         sm: "0 1px 3px rgba(0,0,0,0.05)",

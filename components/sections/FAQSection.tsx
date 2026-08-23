@@ -95,7 +95,7 @@ export default function FAQSection() {
 
             {/* Main Section Title */}
             <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#2A2B48] tracking-tight leading-[1.2] mb-8">
-              Freequently Ask Questions
+              Frequently Asked Questions
             </h2>
 
             {/* Accordion List */}
@@ -150,9 +150,9 @@ export default function FAQSection() {
             <div>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center px-7 py-3 rounded border border-[#818CF8]/40 text-[#6366F1] font-sans text-xs font-bold uppercase tracking-wider hover:bg-[#6366F1] hover:text-white hover:border-[#6366F1] transition-all duration-300 shadow-2xs"
+                className="inline-flex items-center justify-center px-7 py-3 rounded border border-[#818CF8]/40 text-[#6366F1] font-sans text-xs font-semibold hover:bg-[#6366F1] hover:text-white hover:border-[#6366F1] transition-all duration-300 shadow-2xs"
               >
-                DISCOVER MORE
+                Discover more
               </Link>
             </div>
           </motion.div>

@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
 import { servicesData } from "@/data/services";
 import { CloudHomepageData } from "@/types";
+import ReadMoreLink from "@/components/common/ReadMoreLink";
 
 /* ── 6 Distinct Vibrant Per-Card Color Themes ── */
 const cardThemes: Record<string, {
@@ -285,7 +286,7 @@ export default function ServicesGrid() {
                           {sub.name}
                         </Link>
                         {isPopular && (
-                          <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold border ${theme.popularBg}`}>
+                          <span className="rounded-full px-2.5 py-0.5 text-xs font-bold bg-amber-500 text-white shadow-xs border border-amber-400/30">
                             Popular
                           </span>
                         )}
@@ -296,13 +297,7 @@ export default function ServicesGrid() {
 
                 {/* ── READ MORE link ── */}
                 <div className="mt-auto">
-                  <Link
-                    href={`/services/${category.slug}`}
-                    className={`group/link inline-flex items-center gap-1.5 font-sans text-xs font-bold uppercase tracking-widest ${theme.linkColor} ${theme.linkHoverColor} transition-colors duration-200`}
-                  >
-                    Read More
-                    <Icons.Play className="h-2.5 w-2.5 fill-current group-hover/link:translate-x-0.5 transition-transform duration-200" />
-                  </Link>
+                  <ReadMoreLink href={`/services/${category.slug}`} />
                 </div>
               </motion.div>
             );
