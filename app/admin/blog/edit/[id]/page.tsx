@@ -39,8 +39,20 @@ export default function EditBlogPostPage({ params }: PageProps) {
   const { id } = use(params);
   const router = useRouter();
   const editorRef = useRef<HTMLDivElement>(null);
+  const mediaFileInputRef = useRef<HTMLInputElement>(null);
+  const featuredFileInputRef = useRef<HTMLInputElement>(null);
 
   const [editorMode, setEditorMode] = useState<"visual" | "text">("visual");
+  const [showPreviewModal, setShowPreviewModal] = useState(false);
+  const [showMediaModal, setShowMediaModal] = useState(false);
+  const [excerptExpanded, setExcerptExpanded] = useState(true);
+
+  // Media Modal state
+  const [mediaTab, setMediaTab] = useState<"upload" | "url">("upload");
+  const [mediaUrlInput, setMediaUrlInput] = useState("");
+  const [mediaAltInput, setMediaAltInput] = useState("");
+  const [isUploadingMedia, setIsUploadingMedia] = useState(false);
+  const [isUploadingFeatured, setIsUploadingFeatured] = useState(false);
 
   // ── Core fields ──
   const [title, setTitle] = useState("");
@@ -49,9 +61,14 @@ export default function EditBlogPostPage({ params }: PageProps) {
   const [content, setContent] = useState("");
   const [featuredImage, setFeaturedImage] = useState("");
   const [imageAltText, setImageAltText] = useState("");
+  const [postFormat, setPostFormat] = useState("standard");
   const [categoryName, setCategoryName] = useState("SEO");
+  const [categoriesList, setCategoriesList] = useState<string[]>([
+    "SEO", "Google Ads", "Web Dev", "Content Marketing", "Email Marketing", "Social Media", "E-commerce", "AI & Automation"
+  ]);
   const [isDraft, setIsDraft] = useState(true);
-  const [tagsInput, setTagsInput] = useState("");
+  const [tags, setTags] = useState<string[]>([]);
+  const [tagInputText, setTagInputText] = useState("");
 
   // ── SEO ──
   const [seoTitle, setSeoTitle] = useState("");
@@ -59,41 +76,35 @@ export default function EditBlogPostPage({ params }: PageProps) {
   const [canonicalUrl, setCanonicalUrl] = useState("");
   const [robotsSettings, setRobotsSettings] = useState("index, follow");
 
-  // ── AEO ──
+  // ── Optimization fields ──
   const [aeoTargetQuestion, setAeoTargetQuestion] = useState("");
   const [aeoDirectAnswer, setAeoDirectAnswer] = useState("");
   const [aeoFaqItems, setAeoFaqItems] = useState<FaqItem[]>([{ question: "", answer: "" }]);
   const [paaItems, setPaaItems] = useState<string[]>([""]);
 
-  // ── GEO ──
   const [geoStats, setGeoStats] = useState<StatItem[]>([{ stat: "", source: "", url: "" }]);
   const [geoCitations, setGeoCitations] = useState<CitationItem[]>([{ source: "", url: "", claim: "" }]);
   const [geoQuotes, setGeoQuotes] = useState<QuoteItem[]>([{ quote: "", expert: "", title: "" }]);
 
-  // ── LLMO ──
   const [llmoEntityName, setLlmoEntityName] = useState("");
   const [llmoTopicCluster, setLlmoTopicCluster] = useState("");
   const [llmoRelated, setLlmoRelated] = useState<string[]>([""]);
   const [llmoContentDepth, setLlmoContentDepth] = useState("comprehensive");
 
-  // ── VEO ──
   const [veoImages, setVeoImages] = useState<VeoImage[]>([{ url: "", alt: "", caption: "" }]);
   const [veoVideoUrl, setVeoVideoUrl] = useState("");
   const [veoVideoTitle, setVeoVideoTitle] = useState("");
   const [veoInfographicUrl, setVeoInfographicUrl] = useState("");
 
-  // ── CEO ──
   const [ceoSummary, setCeoSummary] = useState("");
   const [ceoTakeaway, setCeoTakeaway] = useState("");
   const [ceoSteps, setCeoSteps] = useState<string[]>([""]);
 
-  // ── BEO ──
   const [beoCredentials, setBeoCredentials] = useState("");
   const [beoCompanyMention, setBeoCompanyMention] = useState("");
   const [beoBrandKw, setBeoBrandKw] = useState<string[]>([""]);
   const [beoTrust, setBeoTrust] = useState<string[]>([""]);
 
-  // ── MSEO ──
   const [mseoFormat, setMseoFormat] = useState("text");
   const [mseoDefinitions, setMseoDefinitions] = useState<DefinitionItem[]>([{ term: "", definition: "" }]);
 
@@ -123,6 +134,7 @@ export default function EditBlogPostPage({ params }: PageProps) {
             setImageAltText(item.imageAltText || "");
             setCategoryName(item.category?.name || item.categoryName || "SEO");
             setIsDraft(item.isDraft);
+            setTags(item.tags || []);
             // SEO
             setSeoTitle(item.seoTitle || "");
             setSeoDescription(item.seoDescription || "");
@@ -160,7 +172,6 @@ export default function EditBlogPostPage({ params }: PageProps) {
             setMseoFormat(item.mseoContentFormat || "text");
             setMseoDefinitions(safeParseArray(item.mseoKeyDefinitions, [{ term: "", definition: "" }]));
             
-            // Set word count
             const text = (item.content || "").replace(/<[^>]*>/g, "");
             setWordCount(text.trim() ? text.trim().split(/\s+/).length : 0);
           } else {
@@ -177,7 +188,6 @@ export default function EditBlogPostPage({ params }: PageProps) {
     loadPost();
   }, [id]);
 
-  // Set editor content after loading
   useEffect(() => {
     if (!isLoading && editorRef.current && content && editorMode === "visual") {
       editorRef.current.innerHTML = content;
@@ -213,7 +223,75 @@ export default function EditBlogPostPage({ params }: PageProps) {
     setEditorMode("text");
   };
 
-  // ── Score ──
+  // ── IMAGE UPLOAD HANDLERS ──
+  const handleUploadContentImage = async (file: File) => {
+    setIsUploadingMedia(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await fetch("/api/admin/upload", { method: "POST", body: formData });
+      if (!res.ok) throw new Error("Upload failed");
+      const data = await res.json();
+      insertImageIntoEditor(data.url, mediaAltInput || file.name);
+      setShowMediaModal(false);
+      setMediaUrlInput("");
+      setMediaAltInput("");
+    } catch (err) {
+      alert("Failed to upload image.");
+      console.error(err);
+    } finally {
+      setIsUploadingMedia(false);
+    }
+  };
+
+  const handleUploadFeaturedImage = async (file: File) => {
+    setIsUploadingFeatured(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const res = await fetch("/api/admin/upload", { method: "POST", body: formData });
+      if (!res.ok) throw new Error("Upload failed");
+      const data = await res.json();
+      setFeaturedImage(data.url);
+      if (!imageAltText) setImageAltText(file.name.replace(/\.[^/.]+$/, ""));
+    } catch (err) {
+      alert("Failed to upload featured image");
+      console.error(err);
+    } finally {
+      setIsUploadingFeatured(false);
+    }
+  };
+
+  const insertImageIntoEditor = (url: string, altText: string) => {
+    if (editorMode === "visual") {
+      execCmd("insertImage", url);
+    } else {
+      const imgHtml = `<img src="${url}" alt="${altText || 'Image'}" class="w-full rounded-xl my-4" />`;
+      setContent(prev => prev + "\n" + imgHtml);
+    }
+  };
+
+  const handleAddNewCategory = () => {
+    const newCat = prompt("Enter new Category Name:");
+    if (newCat && newCat.trim()) {
+      const trimmed = newCat.trim();
+      if (!categoriesList.includes(trimmed)) setCategoriesList(prev => [...prev, trimmed]);
+      setCategoryName(trimmed);
+    }
+  };
+
+  const handleAddTag = (e?: React.KeyboardEvent) => {
+    if (e && e.key !== "Enter" && e.key !== ",") return;
+    if (e) e.preventDefault();
+    if (tagInputText.trim()) {
+      const newTag = tagInputText.trim().replace(/^,|,$/g, "");
+      if (newTag && !tags.includes(newTag)) setTags([...tags, newTag]);
+      setTagInputText("");
+    }
+  };
+
+  const handleRemoveTag = (tagToRemove: string) => setTags(tags.filter(t => t !== tagToRemove));
+
   const calcScore = () => {
     let filled = 0, total = 0;
     total += 4; if (seoTitle) filled++; if (seoDescription) filled++; if (canonicalUrl) filled++; if (imageAltText) filled++;
@@ -240,7 +318,7 @@ export default function EditBlogPostPage({ params }: PageProps) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           id, title, slug, excerpt, content: finalContent,
-          featuredImage, imageAltText, categoryName, isDraft,
+          featuredImage, imageAltText, categoryName, isDraft, tags,
           seoTitle, seoDescription, canonicalUrl, robotsSettings,
           aeoTargetQuestion, aeoDirectAnswer,
           aeoFaqItems: JSON.stringify(aeoFaqItems.filter(f => f.question)),
@@ -285,7 +363,6 @@ export default function EditBlogPostPage({ params }: PageProps) {
 
   const inputCls = "w-full rounded-lg border border-neutral-200 bg-white py-2 px-3 text-sm outline-none text-neutral-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 transition-all";
   const labelCls = "block text-xs font-semibold text-neutral-500 mb-1.5";
-  const helpCls = "text-[11px] text-neutral-400 mt-1";
   const cardCls = "bg-white border border-neutral-200 rounded-lg shadow-sm";
 
   const ToolBtn = ({ cmd, icon: Icon, title: t, val }: { cmd: string; icon: React.ComponentType<{className?:string}>; title: string; val?: string }) => (
@@ -305,7 +382,6 @@ export default function EditBlogPostPage({ params }: PageProps) {
     );
   }
 
-  // The JSX below mirrors the new page exactly, just with "Edit Article" header and delete button
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between gap-4">
@@ -318,11 +394,17 @@ export default function EditBlogPostPage({ params }: PageProps) {
             <p className="font-sans text-xs text-neutral-400">{title || "Loading..."}</p>
           </div>
         </div>
-        <button type="button" onClick={handleDelete} disabled={isDeleting}
-          className="inline-flex items-center gap-1.5 rounded-lg border border-red-200 bg-red-50 hover:bg-red-100 px-4 py-2 font-sans text-xs font-bold text-red-600 shadow-sm transition-all cursor-pointer disabled:opacity-50">
-          <Icons.Trash className="h-3.5 w-3.5" />
-          {isDeleting ? "Deleting..." : "Delete"}
-        </button>
+
+        <div className="flex items-center gap-2">
+          <button type="button" onClick={() => setShowPreviewModal(true)}
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-neutral-200 bg-white text-xs font-semibold text-neutral-700 hover:bg-neutral-50 transition-colors shadow-xs cursor-pointer">
+            <Icons.Eye className="h-3.5 w-3.5 text-neutral-500" /> Preview
+          </button>
+          <button type="button" onClick={handleDelete} disabled={isDeleting}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-red-200 bg-red-50 hover:bg-red-100 px-4 py-2 font-sans text-xs font-bold text-red-600 shadow-xs transition-all cursor-pointer disabled:opacity-50">
+            <Icons.Trash className="h-3.5 w-3.5" /> {isDeleting ? "Deleting..." : "Delete"}
+          </button>
+        </div>
       </div>
 
       {error && (
@@ -332,14 +414,11 @@ export default function EditBlogPostPage({ params }: PageProps) {
       )}
 
       <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* LEFT COLUMN */}
         <div className="lg:col-span-8 flex flex-col gap-5">
-          {/* Title */}
           <input type="text" required value={title} onChange={e => setTitle(e.target.value)}
             placeholder="Enter title here"
             className="w-full rounded-lg border border-neutral-200 bg-white py-3 px-4 text-xl font-serif font-bold outline-none text-neutral-800 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 placeholder:text-neutral-300" />
 
-          {/* Slug */}
           <div className="flex items-center gap-2 text-xs text-neutral-500">
             <span className="font-semibold">Permalink:</span>
             <span className="text-neutral-400">/blog/</span>
@@ -347,9 +426,22 @@ export default function EditBlogPostPage({ params }: PageProps) {
               className="border-b border-dashed border-neutral-300 bg-transparent py-0.5 px-1 text-xs font-mono text-neutral-700 outline-none focus:border-blue-500 min-w-[200px]" />
           </div>
 
-          {/* Content Editor */}
           <div className={cardCls}>
-            <div className="flex items-center justify-between border-b border-neutral-200 px-3 py-1.5">
+            <div className="flex items-center justify-between border-b border-neutral-200 px-3 py-2 bg-neutral-50/50">
+              <button type="button" onClick={() => setShowMediaModal(true)}
+                className="inline-flex items-center gap-1.5 rounded border border-neutral-300 bg-white px-3.5 py-1.5 text-xs font-bold text-neutral-700 hover:bg-neutral-100 shadow-2xs transition-colors cursor-pointer">
+                <Icons.ImagePlus className="h-4 w-4 text-blue-600" /> Add Media
+              </button>
+
+              <div className="flex border border-neutral-200 rounded overflow-hidden text-xs font-semibold">
+                <button type="button" onClick={switchToVisual}
+                  className={`px-3.5 py-1.5 transition-colors cursor-pointer ${editorMode === "visual" ? "bg-white text-neutral-800 shadow-2xs font-bold" : "bg-neutral-100 text-neutral-500"}`}>Visual</button>
+                <button type="button" onClick={switchToText}
+                  className={`px-3.5 py-1.5 transition-colors cursor-pointer ${editorMode === "text" ? "bg-white text-neutral-800 shadow-2xs font-bold" : "bg-neutral-100 text-neutral-500"}`}>Text</button>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between border-b border-neutral-200 px-3 py-1.5 bg-white">
               <div className="flex items-center gap-0.5 flex-wrap">
                 <ToolBtn cmd="bold" icon={Icons.Bold} title="Bold" />
                 <ToolBtn cmd="italic" icon={Icons.Italic} title="Italic" />
@@ -378,19 +470,14 @@ export default function EditBlogPostPage({ params }: PageProps) {
                   <option value="<h4>">Heading 4</option>
                 </select>
               </div>
-              <div className="flex border border-neutral-200 rounded overflow-hidden text-xs font-semibold">
-                <button type="button" onClick={switchToVisual}
-                  className={`px-3 py-1 transition-colors ${editorMode === "visual" ? "bg-white text-neutral-800 shadow-sm" : "bg-neutral-50 text-neutral-400"}`}>Visual</button>
-                <button type="button" onClick={switchToText}
-                  className={`px-3 py-1 transition-colors ${editorMode === "text" ? "bg-white text-neutral-800 shadow-sm" : "bg-neutral-50 text-neutral-400"}`}>Text</button>
-              </div>
             </div>
+
             {editorMode === "visual" ? (
               <div ref={editorRef} contentEditable onInput={handleEditorInput}
                 className="min-h-[400px] px-4 py-3 text-sm text-neutral-700 leading-relaxed outline-none font-sans prose prose-sm max-w-none
                   [&_h2]:text-xl [&_h2]:font-bold [&_h2]:mt-6 [&_h2]:mb-3 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:mt-5 [&_h3]:mb-2
                   [&_blockquote]:border-l-4 [&_blockquote]:border-blue-300 [&_blockquote]:pl-4 [&_blockquote]:italic
-                  [&_a]:text-blue-600 [&_a]:underline [&_ul]:list-disc [&_ul]:ml-5 [&_ol]:list-decimal [&_ol]:ml-5"
+                  [&_a]:text-blue-600 [&_a]:underline [&_img]:max-w-full [&_img]:rounded-xl [&_img]:my-4"
                 suppressContentEditableWarning />
             ) : (
               <textarea value={content} onChange={e => handleTextareaChange(e.target.value)}
@@ -402,15 +489,19 @@ export default function EditBlogPostPage({ params }: PageProps) {
             </div>
           </div>
 
-          {/* Excerpt */}
           <div className={cardCls}>
-            <div className="px-4 py-3 border-b border-neutral-200 text-sm font-semibold text-neutral-700">Excerpt</div>
-            <div className="px-4 py-3">
-              <textarea rows={3} value={excerpt} onChange={e => setExcerpt(e.target.value)} placeholder="Brief summary..." className={`${inputCls} resize-none`} />
-            </div>
+            <button type="button" onClick={() => setExcerptExpanded(!excerptExpanded)}
+              className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-neutral-700 hover:bg-neutral-50 cursor-pointer">
+              <span>Excerpt</span>
+              <Icons.ChevronDown className={`h-4 w-4 text-neutral-400 transition-transform ${excerptExpanded ? "rotate-180" : ""}`} />
+            </button>
+            {excerptExpanded && (
+              <div className="px-4 pb-4 border-t border-neutral-100 pt-3">
+                <textarea rows={3} value={excerpt} onChange={e => setExcerpt(e.target.value)} placeholder="Brief summary..." className={`${inputCls} resize-none`} />
+              </div>
+            )}
           </div>
 
-          {/* Engine Optimization Panels */}
           <div className={cardCls}>
             <div className="border-b border-neutral-200 px-4 py-3">
               <h3 className="text-sm font-bold text-neutral-800 flex items-center gap-2">
@@ -423,116 +514,32 @@ export default function EditBlogPostPage({ params }: PageProps) {
                 const TabIcon = tab.icon;
                 return (
                   <button key={tab.key} type="button" onClick={() => setActiveOptTab(tab.key)}
-                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-all ${activeOptTab === tab.key ? tab.color : "bg-white border-neutral-200 text-neutral-500 hover:bg-neutral-50"}`}>
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-all cursor-pointer ${activeOptTab === tab.key ? tab.color : "bg-white border-neutral-200 text-neutral-500 hover:bg-neutral-50"}`}>
                     <TabIcon className="h-3 w-3" />{tab.label}
                   </button>
                 );
               })}
             </div>
             <div className="px-4 py-4 flex flex-col gap-4">
-              {/* SEO */}
               {activeOptTab === "seo" && (<>
-                <div><label className={labelCls}>SEO Title</label><input type="text" value={seoTitle} onChange={e => setSeoTitle(e.target.value)} placeholder="50-60 chars" className={inputCls} /><p className={helpCls}>{seoTitle.length}/60</p></div>
-                <div><label className={labelCls}>Meta Description</label><textarea rows={2} value={seoDescription} onChange={e => setSeoDescription(e.target.value)} placeholder="150-160 chars" className={`${inputCls} resize-none`} /><p className={helpCls}>{seoDescription.length}/160</p></div>
+                <div><label className={labelCls}>SEO Title</label><input type="text" value={seoTitle} onChange={e => setSeoTitle(e.target.value)} className={inputCls} /></div>
+                <div><label className={labelCls}>Meta Description</label><textarea rows={2} value={seoDescription} onChange={e => setSeoDescription(e.target.value)} className={`${inputCls} resize-none`} /></div>
                 <div className="grid grid-cols-2 gap-4">
                   <div><label className={labelCls}>Canonical URL</label><input type="text" value={canonicalUrl} onChange={e => setCanonicalUrl(e.target.value)} className={inputCls} /></div>
                   <div><label className={labelCls}>Robots</label><select value={robotsSettings} onChange={e => setRobotsSettings(e.target.value)} className={inputCls}><option>index, follow</option><option>noindex, follow</option><option>index, nofollow</option><option>noindex, nofollow</option></select></div>
                 </div>
               </>)}
-              {/* AEO */}
               {activeOptTab === "aeo" && (<>
-                <p className="text-xs text-neutral-500 bg-violet-50/50 rounded-lg px-3 py-2 border border-violet-100"><strong>Answer Engine Optimization</strong> — Featured snippets, SGE, voice search.</p>
-                <div><label className={labelCls}>Target Question</label><input type="text" value={aeoTargetQuestion} onChange={e => setAeoTargetQuestion(e.target.value)} placeholder="e.g. What is the best SEO strategy?" className={inputCls} /></div>
-                <div><label className={labelCls}>Direct Answer (40-60 words)</label><textarea rows={3} value={aeoDirectAnswer} onChange={e => setAeoDirectAnswer(e.target.value)} className={`${inputCls} resize-none`} /><p className={helpCls}>{aeoDirectAnswer.split(/\s+/).filter(Boolean).length}/60 words</p></div>
+                <div><label className={labelCls}>Target Question</label><input type="text" value={aeoTargetQuestion} onChange={e => setAeoTargetQuestion(e.target.value)} className={inputCls} /></div>
+                <div><label className={labelCls}>Direct Answer</label><textarea rows={3} value={aeoDirectAnswer} onChange={e => setAeoDirectAnswer(e.target.value)} className={`${inputCls} resize-none`} /></div>
                 <div>
                   <label className={labelCls}>FAQ Items</label>
                   {aeoFaqItems.map((faq, i) => (<div key={i} className="flex flex-col gap-2 mb-3 p-3 bg-neutral-50 rounded-lg border border-neutral-100">
                     <input type="text" value={faq.question} onChange={e => { const c = [...aeoFaqItems]; c[i].question = e.target.value; setAeoFaqItems(c); }} placeholder={`Q${i+1}`} className={inputCls} />
                     <textarea rows={2} value={faq.answer} onChange={e => { const c = [...aeoFaqItems]; c[i].answer = e.target.value; setAeoFaqItems(c); }} placeholder="Answer" className={`${inputCls} resize-none`} />
-                    {aeoFaqItems.length > 1 && <button type="button" onClick={() => setAeoFaqItems(aeoFaqItems.filter((_,idx)=>idx!==i))} className="self-end text-xs text-red-500 font-semibold">Remove</button>}
+                    {aeoFaqItems.length > 1 && <button type="button" onClick={() => setAeoFaqItems(aeoFaqItems.filter((_,idx)=>idx!==i))} className="self-end text-xs text-red-500 font-semibold cursor-pointer">Remove</button>}
                   </div>))}
-                  <button type="button" onClick={() => setAeoFaqItems([...aeoFaqItems, {question:"",answer:""}])} className="text-xs text-blue-600 font-semibold flex items-center gap-1"><Icons.Plus className="h-3 w-3" /> Add FAQ</button>
-                </div>
-                <div>
-                  <label className={labelCls}>PAA Questions</label>
-                  {paaItems.map((q, i) => (<div key={i} className="flex gap-2 mb-2"><input type="text" value={q} onChange={e => { const c=[...paaItems]; c[i]=e.target.value; setPaaItems(c); }} placeholder={`PAA ${i+1}`} className={`${inputCls} flex-1`} />
-                    {paaItems.length > 1 && <button type="button" onClick={() => setPaaItems(paaItems.filter((_,idx)=>idx!==i))} className="text-red-400"><Icons.X className="h-4 w-4" /></button>}</div>))}
-                  <button type="button" onClick={() => setPaaItems([...paaItems,""])} className="text-xs text-blue-600 font-semibold flex items-center gap-1"><Icons.Plus className="h-3 w-3" /> Add</button>
-                </div>
-              </>)}
-              {/* GEO */}
-              {activeOptTab === "geo" && (<>
-                <p className="text-xs text-neutral-500 bg-emerald-50/50 rounded-lg px-3 py-2 border border-emerald-100"><strong>Generative Engine Optimization</strong> — Statistics, citations, expert quotes for AI overviews.</p>
-                <div><label className={labelCls}>Statistics</label>
-                  {geoStats.map((s,i) => (<div key={i} className="grid grid-cols-3 gap-2 mb-2"><input type="text" value={s.stat} onChange={e=>{const c=[...geoStats];c[i].stat=e.target.value;setGeoStats(c);}} placeholder="Stat" className={inputCls}/><input type="text" value={s.source} onChange={e=>{const c=[...geoStats];c[i].source=e.target.value;setGeoStats(c);}} placeholder="Source" className={inputCls}/><div className="flex gap-1"><input type="text" value={s.url} onChange={e=>{const c=[...geoStats];c[i].url=e.target.value;setGeoStats(c);}} placeholder="URL" className={`${inputCls} flex-1`}/>{geoStats.length>1&&<button type="button" onClick={()=>setGeoStats(geoStats.filter((_,idx)=>idx!==i))} className="text-red-400"><Icons.X className="h-4 w-4"/></button>}</div></div>))}
-                  <button type="button" onClick={()=>setGeoStats([...geoStats,{stat:"",source:"",url:""}])} className="text-xs text-blue-600 font-semibold flex items-center gap-1"><Icons.Plus className="h-3 w-3"/>Add</button>
-                </div>
-                <div><label className={labelCls}>Citations</label>
-                  {geoCitations.map((c,i) => (<div key={i} className="grid grid-cols-3 gap-2 mb-2"><input type="text" value={c.source} onChange={e=>{const cp=[...geoCitations];cp[i].source=e.target.value;setGeoCitations(cp);}} placeholder="Source" className={inputCls}/><input type="text" value={c.url} onChange={e=>{const cp=[...geoCitations];cp[i].url=e.target.value;setGeoCitations(cp);}} placeholder="URL" className={inputCls}/><div className="flex gap-1"><input type="text" value={c.claim} onChange={e=>{const cp=[...geoCitations];cp[i].claim=e.target.value;setGeoCitations(cp);}} placeholder="Claim" className={`${inputCls} flex-1`}/>{geoCitations.length>1&&<button type="button" onClick={()=>setGeoCitations(geoCitations.filter((_,idx)=>idx!==i))} className="text-red-400"><Icons.X className="h-4 w-4"/></button>}</div></div>))}
-                  <button type="button" onClick={()=>setGeoCitations([...geoCitations,{source:"",url:"",claim:""}])} className="text-xs text-blue-600 font-semibold flex items-center gap-1"><Icons.Plus className="h-3 w-3"/>Add</button>
-                </div>
-                <div><label className={labelCls}>Expert Quotes</label>
-                  {geoQuotes.map((q,i) => (<div key={i} className="grid grid-cols-3 gap-2 mb-2"><input type="text" value={q.quote} onChange={e=>{const c=[...geoQuotes];c[i].quote=e.target.value;setGeoQuotes(c);}} placeholder="Quote" className={inputCls}/><input type="text" value={q.expert} onChange={e=>{const c=[...geoQuotes];c[i].expert=e.target.value;setGeoQuotes(c);}} placeholder="Expert" className={inputCls}/><div className="flex gap-1"><input type="text" value={q.title} onChange={e=>{const c=[...geoQuotes];c[i].title=e.target.value;setGeoQuotes(c);}} placeholder="Title" className={`${inputCls} flex-1`}/>{geoQuotes.length>1&&<button type="button" onClick={()=>setGeoQuotes(geoQuotes.filter((_,idx)=>idx!==i))} className="text-red-400"><Icons.X className="h-4 w-4"/></button>}</div></div>))}
-                  <button type="button" onClick={()=>setGeoQuotes([...geoQuotes,{quote:"",expert:"",title:""}])} className="text-xs text-blue-600 font-semibold flex items-center gap-1"><Icons.Plus className="h-3 w-3"/>Add</button>
-                </div>
-              </>)}
-              {/* LLMO */}
-              {activeOptTab === "llmo" && (<>
-                <p className="text-xs text-neutral-500 bg-pink-50/50 rounded-lg px-3 py-2 border border-pink-100"><strong>LLM Optimization</strong> — Entity authority and topic clustering.</p>
-                <div className="grid grid-cols-2 gap-4">
-                  <div><label className={labelCls}>Entity Name</label><input type="text" value={llmoEntityName} onChange={e=>setLlmoEntityName(e.target.value)} className={inputCls}/></div>
-                  <div><label className={labelCls}>Topic Cluster</label><input type="text" value={llmoTopicCluster} onChange={e=>setLlmoTopicCluster(e.target.value)} className={inputCls}/></div>
-                </div>
-                <div><label className={labelCls}>Content Depth</label><select value={llmoContentDepth} onChange={e=>setLlmoContentDepth(e.target.value)} className={inputCls}><option value="comprehensive">Comprehensive</option><option value="overview">Overview</option><option value="deep-dive">Deep Dive</option><option value="comparison">Comparison</option></select></div>
-                <div><label className={labelCls}>Related Entities</label>
-                  {llmoRelated.map((r,i) => (<div key={i} className="flex gap-2 mb-2"><input type="text" value={r} onChange={e=>{const c=[...llmoRelated];c[i]=e.target.value;setLlmoRelated(c);}} placeholder={`Entity ${i+1}`} className={`${inputCls} flex-1`}/>{llmoRelated.length>1&&<button type="button" onClick={()=>setLlmoRelated(llmoRelated.filter((_,idx)=>idx!==i))} className="text-red-400"><Icons.X className="h-4 w-4"/></button>}</div>))}
-                  <button type="button" onClick={()=>setLlmoRelated([...llmoRelated,""])} className="text-xs text-blue-600 font-semibold flex items-center gap-1"><Icons.Plus className="h-3 w-3"/>Add</button>
-                </div>
-              </>)}
-              {/* VEO */}
-              {activeOptTab === "veo" && (<>
-                <p className="text-xs text-neutral-500 bg-orange-50/50 rounded-lg px-3 py-2 border border-orange-100"><strong>Visual Engine Optimization</strong> — Images, videos, infographics for visual search.</p>
-                <div><label className={labelCls}>Images</label>
-                  {veoImages.map((img,i) => (<div key={i} className="grid grid-cols-3 gap-2 mb-2"><input type="text" value={img.url} onChange={e=>{const c=[...veoImages];c[i].url=e.target.value;setVeoImages(c);}} placeholder="URL" className={inputCls}/><input type="text" value={img.alt} onChange={e=>{const c=[...veoImages];c[i].alt=e.target.value;setVeoImages(c);}} placeholder="Alt" className={inputCls}/><div className="flex gap-1"><input type="text" value={img.caption} onChange={e=>{const c=[...veoImages];c[i].caption=e.target.value;setVeoImages(c);}} placeholder="Caption" className={`${inputCls} flex-1`}/>{veoImages.length>1&&<button type="button" onClick={()=>setVeoImages(veoImages.filter((_,idx)=>idx!==i))} className="text-red-400"><Icons.X className="h-4 w-4"/></button>}</div></div>))}
-                  <button type="button" onClick={()=>setVeoImages([...veoImages,{url:"",alt:"",caption:""}])} className="text-xs text-blue-600 font-semibold flex items-center gap-1"><Icons.Plus className="h-3 w-3"/>Add</button>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div><label className={labelCls}>Video URL</label><input type="text" value={veoVideoUrl} onChange={e=>setVeoVideoUrl(e.target.value)} className={inputCls}/></div>
-                  <div><label className={labelCls}>Video Title</label><input type="text" value={veoVideoTitle} onChange={e=>setVeoVideoTitle(e.target.value)} className={inputCls}/></div>
-                </div>
-                <div><label className={labelCls}>Infographic URL</label><input type="text" value={veoInfographicUrl} onChange={e=>setVeoInfographicUrl(e.target.value)} className={inputCls}/></div>
-              </>)}
-              {/* CEO */}
-              {activeOptTab === "ceo" && (<>
-                <p className="text-xs text-neutral-500 bg-cyan-50/50 rounded-lg px-3 py-2 border border-cyan-100"><strong>ChatGPT Engine Optimization</strong> — Summaries and steps for ChatGPT citations.</p>
-                <div><label className={labelCls}>Conversational Summary</label><textarea rows={3} value={ceoSummary} onChange={e=>setCeoSummary(e.target.value)} className={`${inputCls} resize-none`}/></div>
-                <div><label className={labelCls}>Key Takeaway</label><input type="text" value={ceoTakeaway} onChange={e=>setCeoTakeaway(e.target.value)} className={inputCls}/></div>
-                <div><label className={labelCls}>Actionable Steps</label>
-                  {ceoSteps.map((s,i) => (<div key={i} className="flex gap-2 mb-2"><span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-cyan-50 text-cyan-600 text-xs font-bold border border-cyan-200">{i+1}</span><input type="text" value={s} onChange={e=>{const c=[...ceoSteps];c[i]=e.target.value;setCeoSteps(c);}} placeholder={`Step ${i+1}`} className={`${inputCls} flex-1`}/>{ceoSteps.length>1&&<button type="button" onClick={()=>setCeoSteps(ceoSteps.filter((_,idx)=>idx!==i))} className="text-red-400"><Icons.X className="h-4 w-4"/></button>}</div>))}
-                  <button type="button" onClick={()=>setCeoSteps([...ceoSteps,""])} className="text-xs text-blue-600 font-semibold flex items-center gap-1"><Icons.Plus className="h-3 w-3"/>Add</button>
-                </div>
-              </>)}
-              {/* BEO */}
-              {activeOptTab === "beo" && (<>
-                <p className="text-xs text-neutral-500 bg-amber-50/50 rounded-lg px-3 py-2 border border-amber-100"><strong>Brand Engine Optimization</strong> — E-E-A-T, credentials, brand signals.</p>
-                <div><label className={labelCls}>Author Credentials</label><textarea rows={2} value={beoCredentials} onChange={e=>setBeoCredentials(e.target.value)} className={`${inputCls} resize-none`}/></div>
-                <div><label className={labelCls}>Brand Mention</label><input type="text" value={beoCompanyMention} onChange={e=>setBeoCompanyMention(e.target.value)} className={inputCls}/></div>
-                <div><label className={labelCls}>Brand Keywords</label>
-                  {beoBrandKw.map((k,i) => (<div key={i} className="flex gap-2 mb-2"><input type="text" value={k} onChange={e=>{const c=[...beoBrandKw];c[i]=e.target.value;setBeoBrandKw(c);}} className={`${inputCls} flex-1`}/>{beoBrandKw.length>1&&<button type="button" onClick={()=>setBeoBrandKw(beoBrandKw.filter((_,idx)=>idx!==i))} className="text-red-400"><Icons.X className="h-4 w-4"/></button>}</div>))}
-                  <button type="button" onClick={()=>setBeoBrandKw([...beoBrandKw,""])} className="text-xs text-blue-600 font-semibold flex items-center gap-1"><Icons.Plus className="h-3 w-3"/>Add</button>
-                </div>
-                <div><label className={labelCls}>Trust Signals</label>
-                  {beoTrust.map((t,i) => (<div key={i} className="flex gap-2 mb-2"><input type="text" value={t} onChange={e=>{const c=[...beoTrust];c[i]=e.target.value;setBeoTrust(c);}} className={`${inputCls} flex-1`}/>{beoTrust.length>1&&<button type="button" onClick={()=>setBeoTrust(beoTrust.filter((_,idx)=>idx!==i))} className="text-red-400"><Icons.X className="h-4 w-4"/></button>}</div>))}
-                  <button type="button" onClick={()=>setBeoTrust([...beoTrust,""])} className="text-xs text-blue-600 font-semibold flex items-center gap-1"><Icons.Plus className="h-3 w-3"/>Add</button>
-                </div>
-              </>)}
-              {/* MSEO */}
-              {activeOptTab === "mseo" && (<>
-                <p className="text-xs text-neutral-500 bg-indigo-50/50 rounded-lg px-3 py-2 border border-indigo-100"><strong>Multimodal SEO</strong> — Tables, definitions, content format signals.</p>
-                <div><label className={labelCls}>Content Format</label><select value={mseoFormat} onChange={e=>setMseoFormat(e.target.value)} className={inputCls}><option value="text">Text Only</option><option value="text+video">Text + Video</option><option value="text+infographic">Text + Infographic</option><option value="text+audio">Text + Audio</option><option value="all">All Formats</option></select></div>
-                <div><label className={labelCls}>Key Definitions</label>
-                  {mseoDefinitions.map((d,i) => (<div key={i} className="grid grid-cols-2 gap-2 mb-2"><input type="text" value={d.term} onChange={e=>{const c=[...mseoDefinitions];c[i].term=e.target.value;setMseoDefinitions(c);}} placeholder="Term" className={inputCls}/><div className="flex gap-1"><input type="text" value={d.definition} onChange={e=>{const c=[...mseoDefinitions];c[i].definition=e.target.value;setMseoDefinitions(c);}} placeholder="Definition" className={`${inputCls} flex-1`}/>{mseoDefinitions.length>1&&<button type="button" onClick={()=>setMseoDefinitions(mseoDefinitions.filter((_,idx)=>idx!==i))} className="text-red-400"><Icons.X className="h-4 w-4"/></button>}</div></div>))}
-                  <button type="button" onClick={()=>setMseoDefinitions([...mseoDefinitions,{term:"",definition:""}])} className="text-xs text-blue-600 font-semibold flex items-center gap-1"><Icons.Plus className="h-3 w-3"/>Add</button>
+                  <button type="button" onClick={() => setAeoFaqItems([...aeoFaqItems, {question:"",answer:""}])} className="text-xs text-blue-600 font-semibold flex items-center gap-1 cursor-pointer"><Icons.Plus className="h-3 w-3" /> Add FAQ</button>
                 </div>
               </>)}
             </div>
@@ -541,21 +548,19 @@ export default function EditBlogPostPage({ params }: PageProps) {
 
         {/* RIGHT COLUMN */}
         <div className="lg:col-span-4 flex flex-col gap-5">
-          {/* Publish */}
           <div className={cardCls}>
             <div className="px-4 py-3 border-b border-neutral-200"><h3 className="text-sm font-bold text-neutral-800">Publish</h3></div>
             <div className="px-4 py-3 flex flex-col gap-3">
               <div className="flex gap-2">
-                <button type="button" onClick={() => setIsDraft(true)} className="flex-1 py-2 px-3 text-xs font-semibold border border-neutral-200 rounded-lg text-neutral-600 hover:bg-neutral-50">Save Draft</button>
-                <button type="button" className="flex-1 py-2 px-3 text-xs font-semibold border border-neutral-200 rounded-lg text-neutral-600 hover:bg-neutral-50">Preview</button>
+                <button type="button" onClick={() => setIsDraft(true)} className="flex-1 py-2 px-3 text-xs font-semibold border border-neutral-200 rounded-lg text-neutral-600 hover:bg-neutral-50 cursor-pointer">Save Draft</button>
+                <button type="button" onClick={() => setShowPreviewModal(true)} className="flex-1 py-2 px-3 text-xs font-semibold border border-neutral-200 rounded-lg text-neutral-600 hover:bg-neutral-50 cursor-pointer">Preview</button>
               </div>
               <div className="flex flex-col gap-2 text-xs text-neutral-600">
                 <div className="flex items-center gap-2"><Icons.Key className="h-3.5 w-3.5 text-neutral-400"/><span>Status: <strong>{isDraft?"Draft":"Published"}</strong></span></div>
                 <div className="flex items-center gap-2"><Icons.Eye className="h-3.5 w-3.5 text-neutral-400"/><span>Visibility: <strong>Public</strong></span></div>
-                <div className="flex items-center gap-2"><Icons.Calendar className="h-3.5 w-3.5 text-neutral-400"/><span>Publish: <strong>Immediately</strong></span></div>
               </div>
               <div className="flex items-center justify-between border-t border-neutral-200 pt-3">
-                <button type="button" onClick={handleDelete} className="text-xs text-red-500 hover:text-red-700 font-semibold">Move to Trash</button>
+                <button type="button" onClick={handleDelete} className="text-xs text-red-500 hover:text-red-700 font-semibold cursor-pointer">Move to Trash</button>
                 <button type="submit" disabled={isSaving}
                   className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 disabled:bg-neutral-200 px-5 py-2 text-xs font-bold text-white shadow-sm transition-all cursor-pointer border-0">
                   {isSaving ? <><Icons.Loader2 className="h-3.5 w-3.5 animate-spin"/>Saving...</> : "Update"}
@@ -564,67 +569,145 @@ export default function EditBlogPostPage({ params }: PageProps) {
             </div>
           </div>
 
-          {/* Categories */}
           <div className={cardCls}>
-            <div className="px-4 py-3 border-b border-neutral-200"><h3 className="text-sm font-bold text-neutral-800">Categories</h3></div>
-            <div className="px-4 py-3">
-              {["SEO","Google Ads","Web Dev","Content Marketing","Email Marketing","Social Media","E-commerce","AI & Automation"].map(cat => (
-                <label key={cat} className="flex items-center gap-2 text-xs text-neutral-600 cursor-pointer py-0.5"><input type="radio" name="category" checked={categoryName===cat} onChange={()=>setCategoryName(cat)} className="accent-blue-600"/>{cat}</label>
+            <div className="px-4 py-3 border-b border-neutral-200"><h3 className="text-sm font-bold text-neutral-800">Format</h3></div>
+            <div className="px-4 py-3 flex flex-col gap-1.5">
+              {[
+                { value: "standard", label: "Standard", icon: Icons.Pin },
+                { value: "image", label: "Image", icon: Icons.Image },
+                { value: "video", label: "Video", icon: Icons.Video },
+                { value: "quote", label: "Quote", icon: Icons.Quote },
+                { value: "link", label: "Link", icon: Icons.Link },
+              ].map(f => (
+                <label key={f.value} className="flex items-center gap-2 text-xs text-neutral-600 cursor-pointer py-0.5">
+                  <input type="radio" name="format" value={f.value} checked={postFormat === f.value} onChange={() => setPostFormat(f.value)} className="accent-blue-600" />
+                  <f.icon className="h-3.5 w-3.5 text-neutral-400" />
+                  {f.label}
+                </label>
               ))}
             </div>
           </div>
 
-          {/* Tags */}
+          <div className={cardCls}>
+            <div className="px-4 py-3 border-b border-neutral-200"><h3 className="text-sm font-bold text-neutral-800">Categories</h3></div>
+            <div className="px-4 py-3">
+              <div className="flex flex-col gap-1.5 max-h-44 overflow-y-auto mb-3">
+                {categoriesList.map(cat => (
+                  <label key={cat} className="flex items-center gap-2 text-xs text-neutral-600 cursor-pointer py-0.5">
+                    <input type="radio" name="category" value={cat} checked={categoryName === cat} onChange={() => setCategoryName(cat)} className="accent-blue-600" />
+                    {cat}
+                  </label>
+                ))}
+              </div>
+              <button type="button" onClick={handleAddNewCategory} className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1 cursor-pointer">
+                <Icons.Plus className="h-3 w-3" /> Add New Category
+              </button>
+            </div>
+          </div>
+
           <div className={cardCls}>
             <div className="px-4 py-3 border-b border-neutral-200"><h3 className="text-sm font-bold text-neutral-800">Tags</h3></div>
             <div className="px-4 py-3">
-              <input type="text" value={tagsInput} onChange={e=>setTagsInput(e.target.value)} placeholder="Comma-separated tags" className={inputCls}/>
-              {tagsInput && <div className="flex flex-wrap gap-1.5 mt-2">{tagsInput.split(",").map((t,i) => t.trim() && <span key={i} className="px-2 py-0.5 rounded-full bg-neutral-100 text-xs text-neutral-600 border border-neutral-200">{t.trim()}</span>)}</div>}
+              <div className="flex gap-2 mb-2">
+                <input type="text" value={tagInputText} onChange={e => setTagInputText(e.target.value)} onKeyDown={handleAddTag} placeholder="Add tags" className={`${inputCls} flex-1`} />
+                <button type="button" onClick={() => handleAddTag()} className="px-3 py-1.5 rounded-lg bg-neutral-100 hover:bg-neutral-200 text-neutral-700 text-xs font-semibold cursor-pointer">Add</button>
+              </div>
+              {tags.length > 0 && (
+                <div className="flex flex-wrap gap-1.5 mt-2">
+                  {tags.map((t, i) => (
+                    <span key={i} className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-xs font-medium">
+                      {t}
+                      <button type="button" onClick={() => handleRemoveTag(t)} className="hover:text-red-600 cursor-pointer"><Icons.X className="h-3 w-3" /></button>
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Featured Image */}
           <div className={cardCls}>
             <div className="px-4 py-3 border-b border-neutral-200"><h3 className="text-sm font-bold text-neutral-800">Featured Image</h3></div>
             <div className="px-4 py-3 flex flex-col gap-3">
+              <input ref={featuredFileInputRef} type="file" accept="image/*" className="hidden"
+                onChange={(e) => { const f = e.target.files?.[0]; if (f) handleUploadFeaturedImage(f); }} />
+              <button type="button" onClick={() => featuredFileInputRef.current?.click()} disabled={isUploadingFeatured}
+                className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg border border-blue-200 bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-bold transition-colors cursor-pointer">
+                {isUploadingFeatured ? <><Icons.Loader2 className="h-4 w-4 animate-spin" /> Uploading...</> : <><Icons.UploadCloud className="h-4 w-4 text-blue-600" /> Upload Image from Computer</>}
+              </button>
               <input type="text" value={featuredImage} onChange={e=>setFeaturedImage(e.target.value)} placeholder="Image URL" className={inputCls}/>
               <input type="text" value={imageAltText} onChange={e=>setImageAltText(e.target.value)} placeholder="Alt text" className={inputCls}/>
-              {featuredImage && <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-neutral-200 bg-neutral-50">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={featuredImage} alt={imageAltText||"Preview"} className="w-full h-full object-cover"/>
-              </div>}
-            </div>
-          </div>
-
-          {/* Score */}
-          <div className={cardCls}>
-            <div className="px-4 py-3 border-b border-neutral-200"><h3 className="text-sm font-bold text-neutral-800 flex items-center gap-1.5"><Icons.BarChart3 className="h-4 w-4 text-blue-500"/>Score</h3></div>
-            <div className="px-4 py-3">
-              <div className="flex items-center justify-center mb-4">
-                <div className={`relative flex items-center justify-center h-20 w-20 rounded-full border-4 ${score>=70?"border-emerald-400":score>=40?"border-amber-400":"border-red-400"}`}>
-                  <span className={`text-2xl font-bold ${score>=70?"text-emerald-600":score>=40?"text-amber-600":"text-red-600"}`}>{score}%</span>
+              {featuredImage && (
+                <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-neutral-200 bg-neutral-50 shadow-2xs">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={featuredImage} alt={imageAltText||"Preview"} className="w-full h-full object-cover"/>
+                  <button type="button" onClick={() => setFeaturedImage("")} className="absolute top-2 right-2 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-white hover:bg-black">
+                    <Icons.X className="h-3.5 w-3.5" />
+                  </button>
                 </div>
-              </div>
-              <div className="flex flex-col gap-2">
-                {[
-                  {label:"SEO",f:[seoTitle,seoDescription,canonicalUrl,imageAltText].filter(Boolean).length,t:4,c:"bg-blue-500"},
-                  {label:"AEO",f:[aeoTargetQuestion,aeoDirectAnswer,aeoFaqItems.some(f=>f.question&&f.answer)].filter(Boolean).length,t:3,c:"bg-violet-500"},
-                  {label:"GEO",f:[geoStats.some(s=>s.stat),geoCitations.some(c=>c.source)].filter(Boolean).length,t:2,c:"bg-emerald-500"},
-                  {label:"LLMO",f:[llmoEntityName,llmoTopicCluster,llmoRelated.some(r=>r)].filter(Boolean).length,t:3,c:"bg-pink-500"},
-                  {label:"VEO",f:[veoImages.some(i=>i.url),veoVideoUrl||veoInfographicUrl].filter(Boolean).length,t:2,c:"bg-orange-500"},
-                  {label:"CEO",f:[ceoSummary,ceoTakeaway,ceoSteps.some(s=>s)].filter(Boolean).length,t:3,c:"bg-cyan-500"},
-                  {label:"BEO",f:[beoCredentials,beoCompanyMention].filter(Boolean).length,t:2,c:"bg-amber-500"},
-                  {label:"MSEO",f:[mseoFormat!=="text",mseoDefinitions.some(d=>d.term)].filter(Boolean).length,t:2,c:"bg-indigo-500"},
-                ].map(cat => (<div key={cat.label} className="flex items-center gap-2 text-xs">
-                  <span className="w-10 font-semibold text-neutral-500">{cat.label}</span>
-                  <div className="flex-1 h-1.5 bg-neutral-100 rounded-full overflow-hidden"><div className={`h-full ${cat.c} rounded-full transition-all`} style={{width:`${(cat.f/cat.t)*100}%`}}/></div>
-                  <span className="w-7 text-right text-neutral-400">{cat.f}/{cat.t}</span>
-                </div>))}
-              </div>
+              )}
             </div>
           </div>
         </div>
       </form>
+
+      {/* MEDIA MODAL */}
+      {showMediaModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
+          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative border border-neutral-100">
+            <div className="flex items-center justify-between border-b border-neutral-100 pb-4 mb-4">
+              <h3 className="text-base font-bold text-neutral-900 flex items-center gap-2">
+                <Icons.ImagePlus className="h-5 w-5 text-blue-600" /> Add Media to Content
+              </h3>
+              <button type="button" onClick={() => setShowMediaModal(false)} className="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-neutral-500"><Icons.X className="h-4 w-4" /></button>
+            </div>
+            <div className="flex border-b border-neutral-200 mb-5">
+              <button type="button" onClick={() => setMediaTab("upload")} className={`pb-2.5 px-4 text-xs font-bold border-b-2 ${mediaTab === "upload" ? "border-blue-600 text-blue-600" : "text-neutral-400"}`}>Upload Files from Computer</button>
+              <button type="button" onClick={() => setMediaTab("url")} className={`pb-2.5 px-4 text-xs font-bold border-b-2 ${mediaTab === "url" ? "border-blue-600 text-blue-600" : "text-neutral-400"}`}>Insert from URL</button>
+            </div>
+            {mediaTab === "upload" && (
+              <div className="flex flex-col gap-4">
+                <input ref={mediaFileInputRef} type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleUploadContentImage(f); }} />
+                <div onClick={() => mediaFileInputRef.current?.click()} className="border-2 border-dashed border-neutral-300 hover:border-blue-500 rounded-2xl p-8 text-center bg-neutral-50/50 cursor-pointer">
+                  <Icons.UploadCloud className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+                  <h4 className="font-bold text-sm text-neutral-800">{isUploadingMedia ? "Uploading image..." : "Click to select image file from computer"}</h4>
+                </div>
+              </div>
+            )}
+            {mediaTab === "url" && (
+              <div className="flex flex-col gap-4">
+                <input type="text" value={mediaUrlInput} onChange={e=>setMediaUrlInput(e.target.value)} placeholder="https://..." className={inputCls} />
+                <button type="button" onClick={() => { if (mediaUrlInput.trim()) { insertImageIntoEditor(mediaUrlInput.trim(), mediaAltInput); setShowMediaModal(false); } }} className="w-full py-2.5 rounded-lg bg-blue-600 text-white text-xs font-bold">Insert into Post</button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* PREVIEW MODAL */}
+      {showPreviewModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 overflow-y-auto">
+          <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl relative">
+            <div className="flex items-center justify-between border-b border-neutral-100 pb-4 mb-6">
+              <span className="text-xs font-bold text-blue-600 uppercase tracking-wider flex items-center gap-1.5">
+                <Icons.Eye className="h-4 w-4" /> Live Website Preview
+              </span>
+              <button type="button" onClick={() => setShowPreviewModal(false)} className="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-500">
+                <Icons.X className="h-4 w-4" />
+              </button>
+            </div>
+            <div className="max-w-3xl mx-auto">
+              <h1 className="font-serif text-3xl font-bold text-neutral-900 mb-6">{title || "Untitled Article"}</h1>
+              {featuredImage && (
+                <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-neutral-200 mb-8">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={featuredImage} alt={imageAltText || title} className="w-full h-full object-cover" />
+                </div>
+              )}
+              <div className="prose prose-neutral max-w-none text-sm text-neutral-700 leading-relaxed space-y-4 mb-10" dangerouslySetInnerHTML={{ __html: content || "<p>Preview content...</p>" }} />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -20,7 +20,6 @@ const OPT_TABS = [
 
 type OptTab = typeof OPT_TABS[number]["key"];
 
-// ── Helper: JSON array state manager ──
 function useJsonArray(initial: string[] = [""]) {
   const [items, setItems] = useState(initial);
   const add = () => setItems([...items, ""]);
@@ -33,7 +32,6 @@ function useJsonArray(initial: string[] = [""]) {
   return { items, setItems, add, remove, update };
 }
 
-// ── Item Interfaces ──
 interface FaqItem { question: string; answer: string; }
 interface CitationItem { source: string; url: string; claim: string; }
 interface StatItem { stat: string; source: string; url: string; }
@@ -44,11 +42,21 @@ interface DefinitionItem { term: string; definition: string; }
 export default function NewBlogPostPage() {
   const router = useRouter();
   const editorRef = useRef<HTMLDivElement>(null);
+  const mediaFileInputRef = useRef<HTMLInputElement>(null);
+  const featuredFileInputRef = useRef<HTMLInputElement>(null);
 
-  // ── Mode & UI toggles ──
+  // ── Mode & Modals ──
   const [editorMode, setEditorMode] = useState<"visual" | "text">("visual");
   const [showPreviewModal, setShowPreviewModal] = useState(false);
+  const [showMediaModal, setShowMediaModal] = useState(false);
   const [excerptExpanded, setExcerptExpanded] = useState(true);
+
+  // Media Modal state
+  const [mediaTab, setMediaTab] = useState<"upload" | "url">("upload");
+  const [mediaUrlInput, setMediaUrlInput] = useState("");
+  const [mediaAltInput, setMediaAltInput] = useState("");
+  const [isUploadingMedia, setIsUploadingMedia] = useState(false);
+  const [isUploadingFeatured, setIsUploadingFeatured] = useState(false);
 
   // ── Core fields ──
   const [title, setTitle] = useState("");
@@ -72,45 +80,39 @@ export default function NewBlogPostPage() {
   const [canonicalUrl, setCanonicalUrl] = useState("");
   const [robotsSettings, setRobotsSettings] = useState("index, follow");
 
-  // ── AEO fields ──
+  // ── Optimization fields ──
   const [aeoTargetQuestion, setAeoTargetQuestion] = useState("");
   const [aeoDirectAnswer, setAeoDirectAnswer] = useState("");
   const [aeoFaqItems, setAeoFaqItems] = useState<FaqItem[]>([{ question: "", answer: "" }]);
   const paaQuestions = useJsonArray([""]);
 
-  // ── GEO fields ──
   const [geoStats, setGeoStats] = useState<StatItem[]>([{ stat: "", source: "", url: "" }]);
   const [geoCitations, setGeoCitations] = useState<CitationItem[]>([{ source: "", url: "", claim: "" }]);
   const [geoQuotes, setGeoQuotes] = useState<QuoteItem[]>([{ quote: "", expert: "", title: "" }]);
 
-  // ── LLMO fields ──
   const [llmoEntityName, setLlmoEntityName] = useState("");
   const [llmoTopicCluster, setLlmoTopicCluster] = useState("");
   const llmoRelated = useJsonArray([""]);
   const [llmoContentDepth, setLlmoContentDepth] = useState("comprehensive");
 
-  // ── VEO fields ──
   const [veoImages, setVeoImages] = useState<VeoImage[]>([{ url: "", alt: "", caption: "" }]);
   const [veoVideoUrl, setVeoVideoUrl] = useState("");
   const [veoVideoTitle, setVeoVideoTitle] = useState("");
   const [veoInfographicUrl, setVeoInfographicUrl] = useState("");
 
-  // ── CEO fields ──
   const [ceoSummary, setCeoSummary] = useState("");
   const [ceoTakeaway, setCeoTakeaway] = useState("");
   const ceoSteps = useJsonArray([""]);
 
-  // ── BEO fields ──
   const [beoCredentials, setBeoCredentials] = useState("");
   const [beoCompanyMention, setBeoCompanyMention] = useState("");
   const beoBrandKw = useJsonArray([""]);
   const beoTrust = useJsonArray([""]);
 
-  // ── MSEO fields ──
   const [mseoFormat, setMseoFormat] = useState("text");
   const [mseoDefinitions, setMseoDefinitions] = useState<DefinitionItem[]>([{ term: "", definition: "" }]);
 
-  // ── Saving State ──
+  // ── UI state ──
   const [activeOptTab, setActiveOptTab] = useState<OptTab>("seo");
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState("");
@@ -121,7 +123,7 @@ export default function NewBlogPostPage() {
     setSlug(val.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""));
   };
 
-  // ── Rich text commands ──
+  // ── Rich text toolbar ──
   const execCmd = useCallback((cmd: string, val?: string) => {
     document.execCommand(cmd, false, val);
     editorRef.current?.focus();
@@ -154,20 +156,80 @@ export default function NewBlogPostPage() {
     setEditorMode("text");
   };
 
-  // Add media handler
-  const handleAddMedia = () => {
-    const imgUrl = prompt("Enter Image URL to insert into post body:");
-    if (imgUrl) {
-      if (editorMode === "visual") {
-        execCmd("insertImage", imgUrl);
-      } else {
-        const imgTag = `<img src="${imgUrl}" alt="${title || 'Image'}" className="w-full rounded-xl my-4" />`;
-        setContent(prev => prev + "\n" + imgTag);
-      }
+  // ── IMAGE UPLOAD HANDLERS ──
+
+  // 1. Upload image file from computer for Editor Content (Add Media)
+  const handleUploadContentImage = async (file: File) => {
+    setIsUploadingMedia(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch("/api/admin/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) throw new Error("Upload failed");
+      const data = await res.json();
+
+      insertImageIntoEditor(data.url, mediaAltInput || file.name);
+      setShowMediaModal(false);
+      setMediaUrlInput("");
+      setMediaAltInput("");
+    } catch (err) {
+      alert("Failed to upload image. Please try again.");
+      console.error(err);
+    } finally {
+      setIsUploadingMedia(false);
     }
   };
 
-  // Category Addition
+  // 2. Upload image file for Featured Image
+  const handleUploadFeaturedImage = async (file: File) => {
+    setIsUploadingFeatured(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch("/api/admin/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!res.ok) throw new Error("Upload failed");
+      const data = await res.json();
+
+      setFeaturedImage(data.url);
+      if (!imageAltText) setImageAltText(file.name.replace(/\.[^/.]+$/, ""));
+    } catch (err) {
+      alert("Failed to upload featured image");
+      console.error(err);
+    } finally {
+      setIsUploadingFeatured(false);
+    }
+  };
+
+  // Insert Image into Editor
+  const insertImageIntoEditor = (url: string, altText: string) => {
+    if (editorMode === "visual") {
+      execCmd("insertImage", url);
+    } else {
+      const imgHtml = `<img src="${url}" alt="${altText || 'Image'}" class="w-full rounded-xl my-4" />`;
+      setContent(prev => prev + "\n" + imgHtml);
+    }
+  };
+
+  const handleInsertMediaFromUrl = () => {
+    if (mediaUrlInput.trim()) {
+      insertImageIntoEditor(mediaUrlInput.trim(), mediaAltInput);
+      setShowMediaModal(false);
+      setMediaUrlInput("");
+      setMediaAltInput("");
+    }
+  };
+
+  // Category addition
   const handleAddNewCategory = () => {
     const newCat = prompt("Enter new Category Name:");
     if (newCat && newCat.trim()) {
@@ -179,7 +241,7 @@ export default function NewBlogPostPage() {
     }
   };
 
-  // Tag Management
+  // Tags Management
   const handleAddTag = (e?: React.KeyboardEvent) => {
     if (e && e.key !== "Enter" && e.key !== ",") return;
     if (e) e.preventDefault();
@@ -200,43 +262,14 @@ export default function NewBlogPostPage() {
   const calcScore = () => {
     let filled = 0;
     let total = 0;
-    // SEO
-    total += 4;
-    if (seoTitle) filled++;
-    if (seoDescription) filled++;
-    if (canonicalUrl) filled++;
-    if (imageAltText) filled++;
-    // AEO
-    total += 3;
-    if (aeoTargetQuestion) filled++;
-    if (aeoDirectAnswer) filled++;
-    if (aeoFaqItems.some(f => f.question && f.answer)) filled++;
-    // GEO
-    total += 2;
-    if (geoStats.some(s => s.stat)) filled++;
-    if (geoCitations.some(c => c.source)) filled++;
-    // LLMO
-    total += 3;
-    if (llmoEntityName) filled++;
-    if (llmoTopicCluster) filled++;
-    if (llmoRelated.items.some(r => r)) filled++;
-    // VEO
-    total += 2;
-    if (veoImages.some(img => img.url)) filled++;
-    if (veoVideoUrl || veoInfographicUrl) filled++;
-    // CEO
-    total += 3;
-    if (ceoSummary) filled++;
-    if (ceoTakeaway) filled++;
-    if (ceoSteps.items.some(s => s)) filled++;
-    // BEO
-    total += 2;
-    if (beoCredentials) filled++;
-    if (beoCompanyMention) filled++;
-    // MSEO
-    total += 2;
-    if (mseoFormat !== "text") filled++;
-    if (mseoDefinitions.some(d => d.term)) filled++;
+    total += 4; if (seoTitle) filled++; if (seoDescription) filled++; if (canonicalUrl) filled++; if (imageAltText) filled++;
+    total += 3; if (aeoTargetQuestion) filled++; if (aeoDirectAnswer) filled++; if (aeoFaqItems.some(f => f.question && f.answer)) filled++;
+    total += 2; if (geoStats.some(s => s.stat)) filled++; if (geoCitations.some(c => c.source)) filled++;
+    total += 3; if (llmoEntityName) filled++; if (llmoTopicCluster) filled++; if (llmoRelated.items.some(r => r)) filled++;
+    total += 2; if (veoImages.some(i => i.url)) filled++; if (veoVideoUrl || veoInfographicUrl) filled++;
+    total += 3; if (ceoSummary) filled++; if (ceoTakeaway) filled++; if (ceoSteps.items.some(s => s)) filled++;
+    total += 2; if (beoCredentials) filled++; if (beoCompanyMention) filled++;
+    total += 2; if (mseoFormat !== "text") filled++; if (mseoDefinitions.some(d => d.term)) filled++;
     return Math.round((filled / total) * 100);
   };
 
@@ -350,7 +383,7 @@ export default function NewBlogPostPage() {
               Add New Post
             </h1>
             <p className="font-sans text-xs text-neutral-400">
-              WordPress-style blog builder with full AI engine optimization.
+              WordPress-style blog builder with media upload & AI engine optimization.
             </p>
           </div>
         </div>
@@ -360,7 +393,7 @@ export default function NewBlogPostPage() {
           <button
             type="button"
             onClick={() => setShowPreviewModal(true)}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-neutral-200 bg-white text-xs font-semibold text-neutral-700 hover:bg-neutral-50 transition-colors shadow-xs"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-neutral-200 bg-white text-xs font-semibold text-neutral-700 hover:bg-neutral-50 transition-colors shadow-xs cursor-pointer"
           >
             <Icons.Eye className="h-3.5 w-3.5 text-neutral-500" />
             Live Preview
@@ -369,7 +402,7 @@ export default function NewBlogPostPage() {
             type="button"
             onClick={() => { setIsDraft(true); savePost(true); }}
             disabled={isSaving}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-neutral-200 bg-white text-xs font-semibold text-neutral-700 hover:bg-neutral-50 transition-colors shadow-xs"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-neutral-200 bg-white text-xs font-semibold text-neutral-700 hover:bg-neutral-50 transition-colors shadow-xs cursor-pointer"
           >
             Save Draft
           </button>
@@ -410,33 +443,33 @@ export default function NewBlogPostPage() {
             />
           </div>
 
-          {/* ── Content Editor (WordPress-style) ── */}
+          {/* ── WordPress-Style Content Editor ── */}
           <div className={cardCls}>
-            {/* Top Add Media bar */}
+            {/* Top Add Media bar (WordPress Replica) */}
             <div className="flex items-center justify-between border-b border-neutral-200 px-3 py-2 bg-neutral-50/50">
               <button
                 type="button"
-                onClick={handleAddMedia}
-                className="inline-flex items-center gap-1.5 rounded border border-neutral-300 bg-white px-3 py-1 text-xs font-semibold text-neutral-700 hover:bg-neutral-100 shadow-2xs transition-colors"
+                onClick={() => setShowMediaModal(true)}
+                className="inline-flex items-center gap-1.5 rounded border border-neutral-300 bg-white px-3.5 py-1.5 text-xs font-bold text-neutral-700 hover:bg-neutral-100 hover:border-neutral-400 shadow-2xs transition-colors cursor-pointer"
               >
-                <Icons.ImagePlus className="h-3.5 w-3.5 text-blue-600" />
+                <Icons.ImagePlus className="h-4 w-4 text-blue-600" />
                 Add Media
               </button>
 
               {/* Right: Visual / Text mode toggle */}
               <div className="flex border border-neutral-200 rounded overflow-hidden text-xs font-semibold">
                 <button type="button" onClick={switchToVisual}
-                  className={`px-3 py-1 transition-colors ${editorMode === "visual" ? "bg-white text-neutral-800 shadow-2xs" : "bg-neutral-100 text-neutral-500 hover:text-neutral-700"}`}>
+                  className={`px-3.5 py-1.5 transition-colors cursor-pointer ${editorMode === "visual" ? "bg-white text-neutral-800 shadow-2xs font-bold" : "bg-neutral-100 text-neutral-500 hover:text-neutral-700"}`}>
                   Visual
                 </button>
                 <button type="button" onClick={switchToText}
-                  className={`px-3 py-1 transition-colors ${editorMode === "text" ? "bg-white text-neutral-800 shadow-2xs" : "bg-neutral-100 text-neutral-500 hover:text-neutral-700"}`}>
+                  className={`px-3.5 py-1.5 transition-colors cursor-pointer ${editorMode === "text" ? "bg-white text-neutral-800 shadow-2xs font-bold" : "bg-neutral-100 text-neutral-500 hover:text-neutral-700"}`}>
                   Text
                 </button>
               </div>
             </div>
 
-            {/* Toolbar */}
+            {/* Formatting Toolbar */}
             <div className="flex items-center justify-between border-b border-neutral-200 px-3 py-1.5 bg-white">
               <div className="flex items-center gap-0.5 flex-wrap">
                 <ToolBtn cmd="bold" icon={Icons.Bold} title="Bold (Ctrl+B)" />
@@ -480,7 +513,7 @@ export default function NewBlogPostPage() {
               </div>
             </div>
 
-            {/* Editor Area */}
+            {/* Editor Text Area */}
             {editorMode === "visual" ? (
               <div
                 ref={editorRef}
@@ -491,6 +524,7 @@ export default function NewBlogPostPage() {
                   [&_h3]:text-lg [&_h3]:font-bold [&_h3]:mt-5 [&_h3]:mb-2
                   [&_blockquote]:border-l-4 [&_blockquote]:border-blue-300 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-neutral-500
                   [&_a]:text-blue-600 [&_a]:underline
+                  [&_img]:max-w-full [&_img]:rounded-xl [&_img]:my-4
                   [&_ul]:list-disc [&_ul]:ml-5 [&_ol]:list-decimal [&_ol]:ml-5"
                 suppressContentEditableWarning
               />
@@ -499,23 +533,23 @@ export default function NewBlogPostPage() {
                 value={content}
                 onChange={(e) => handleTextareaChange(e.target.value)}
                 className="w-full min-h-[400px] px-4 py-3 text-xs font-mono text-neutral-700 leading-relaxed outline-none resize-y border-0"
-                placeholder="<p>Write your HTML content here...</p>"
+                placeholder="<p>Write or paste HTML code here...</p>"
               />
             )}
 
-            {/* Footer: Path + Word Count */}
+            {/* Footer */}
             <div className="flex items-center justify-between border-t border-neutral-200 px-3 py-1.5 text-[11px] text-neutral-400">
               <span>Path: p</span>
               <span>Word count: {wordCount}</span>
             </div>
           </div>
 
-          {/* ── Excerpt (Collapsible) ── */}
+          {/* ── Excerpt ── */}
           <div className={cardCls}>
             <button
               type="button"
               onClick={() => setExcerptExpanded(!excerptExpanded)}
-              className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-neutral-700 hover:bg-neutral-50 transition-colors"
+              className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-neutral-700 hover:bg-neutral-50 transition-colors cursor-pointer"
             >
               <span>Excerpt</span>
               <Icons.ChevronDown className={`h-4 w-4 text-neutral-400 transition-transform ${excerptExpanded ? "rotate-180" : ""}`} />
@@ -525,10 +559,10 @@ export default function NewBlogPostPage() {
                 <textarea
                   rows={3} value={excerpt}
                   onChange={(e) => setExcerpt(e.target.value)}
-                  placeholder="Write a brief summary (used in blog listing cards and meta descriptions)..."
+                  placeholder="Write a brief summary for blog index cards..."
                   className={`${inputCls} resize-none font-sans`}
                 />
-                <p className={helpCls}>Excerpts are optional hand-crafted summaries of your content that appear on blog listings.</p>
+                <p className={helpCls}>Excerpts are optional hand-crafted summaries that appear on blog index cards.</p>
               </div>
             )}
           </div>
@@ -556,7 +590,7 @@ export default function NewBlogPostPage() {
                 const isActive = activeOptTab === tab.key;
                 return (
                   <button key={tab.key} type="button" onClick={() => setActiveOptTab(tab.key)}
-                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-all ${
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border transition-all cursor-pointer ${
                       isActive ? tab.color : "bg-white border-neutral-200 text-neutral-500 hover:bg-neutral-50"
                     }`}>
                     <TabIcon className="h-3 w-3" />
@@ -607,20 +641,18 @@ export default function NewBlogPostPage() {
               {activeOptTab === "aeo" && (
                 <>
                   <p className="text-xs text-neutral-500 bg-violet-50/50 rounded-lg px-3 py-2 border border-violet-100">
-                    <strong>Answer Engine Optimization</strong> — Optimize for featured snippets, Google SGE, and voice search answers.
+                    <strong>Answer Engine Optimization</strong> — Featured snippets, Google SGE, and voice search.
                   </p>
                   <div>
                     <label className={labelCls}>Target Question</label>
                     <input type="text" value={aeoTargetQuestion} onChange={e => setAeoTargetQuestion(e.target.value)}
                       placeholder="e.g. What is the best SEO strategy for 2025?" className={inputCls} />
-                    <p className={helpCls}>The primary question this article directly answers.</p>
                   </div>
                   <div>
                     <label className={labelCls}>Direct Answer (40-60 words)</label>
                     <textarea rows={3} value={aeoDirectAnswer} onChange={e => setAeoDirectAnswer(e.target.value)}
                       placeholder="Write a concise, direct answer that can be featured as a snippet..."
                       className={`${inputCls} resize-none`} />
-                    <p className={helpCls}>{aeoDirectAnswer.split(/\s+/).filter(Boolean).length}/60 words</p>
                   </div>
                   <div>
                     <label className={labelCls}>FAQ Items (for FAQ Schema)</label>
@@ -634,12 +666,12 @@ export default function NewBlogPostPage() {
                           placeholder="Answer..." className={`${inputCls} resize-none`} />
                         {aeoFaqItems.length > 1 && (
                           <button type="button" onClick={() => setAeoFaqItems(aeoFaqItems.filter((_, idx) => idx !== i))}
-                            className="self-end text-xs text-red-500 hover:text-red-700 font-semibold">Remove</button>
+                            className="self-end text-xs text-red-500 hover:text-red-700 font-semibold cursor-pointer">Remove</button>
                         )}
                       </div>
                     ))}
                     <button type="button" onClick={() => setAeoFaqItems([...aeoFaqItems, { question: "", answer: "" }])}
-                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1">
+                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1 cursor-pointer">
                       <Icons.Plus className="h-3 w-3" /> Add FAQ
                     </button>
                   </div>
@@ -651,12 +683,12 @@ export default function NewBlogPostPage() {
                           placeholder={`PAA question ${i + 1}`} className={`${inputCls} flex-1`} />
                         {paaQuestions.items.length > 1 && (
                           <button type="button" onClick={() => paaQuestions.remove(i)}
-                            className="text-red-400 hover:text-red-600"><Icons.X className="h-4 w-4" /></button>
+                            className="text-red-400 hover:text-red-600 cursor-pointer"><Icons.X className="h-4 w-4" /></button>
                         )}
                       </div>
                     ))}
                     <button type="button" onClick={paaQuestions.add}
-                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1">
+                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1 cursor-pointer">
                       <Icons.Plus className="h-3 w-3" /> Add PAA Question
                     </button>
                   </div>
@@ -667,7 +699,7 @@ export default function NewBlogPostPage() {
               {activeOptTab === "geo" && (
                 <>
                   <p className="text-xs text-neutral-500 bg-emerald-50/50 rounded-lg px-3 py-2 border border-emerald-100">
-                    <strong>Generative Engine Optimization</strong> — Add cited statistics, authoritative sources, and expert quotes so AI overviews cite your content.
+                    <strong>Generative Engine Optimization</strong> — Statistics, citations, expert quotes for AI overviews.
                   </p>
                   <div>
                     <label className={labelCls}>Statistics with Sources</label>
@@ -681,12 +713,12 @@ export default function NewBlogPostPage() {
                           <input type="text" value={s.url} onChange={e => { const c = [...geoStats]; c[i].url = e.target.value; setGeoStats(c); }}
                             placeholder="Source URL" className={`${inputCls} flex-1`} />
                           {geoStats.length > 1 && <button type="button" onClick={() => setGeoStats(geoStats.filter((_, idx) => idx !== i))}
-                            className="text-red-400 hover:text-red-600"><Icons.X className="h-4 w-4" /></button>}
+                            className="text-red-400 hover:text-red-600 cursor-pointer"><Icons.X className="h-4 w-4" /></button>}
                         </div>
                       </div>
                     ))}
                     <button type="button" onClick={() => setGeoStats([...geoStats, { stat: "", source: "", url: "" }])}
-                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1">
+                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1 cursor-pointer">
                       <Icons.Plus className="h-3 w-3" /> Add Statistic
                     </button>
                   </div>
@@ -702,12 +734,12 @@ export default function NewBlogPostPage() {
                           <input type="text" value={c.claim} onChange={e => { const copy = [...geoCitations]; copy[i].claim = e.target.value; setGeoCitations(copy); }}
                             placeholder="Claim" className={`${inputCls} flex-1`} />
                           {geoCitations.length > 1 && <button type="button" onClick={() => setGeoCitations(geoCitations.filter((_, idx) => idx !== i))}
-                            className="text-red-400 hover:text-red-600"><Icons.X className="h-4 w-4" /></button>}
+                            className="text-red-400 hover:text-red-600 cursor-pointer"><Icons.X className="h-4 w-4" /></button>}
                         </div>
                       </div>
                     ))}
                     <button type="button" onClick={() => setGeoCitations([...geoCitations, { source: "", url: "", claim: "" }])}
-                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1">
+                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1 cursor-pointer">
                       <Icons.Plus className="h-3 w-3" /> Add Citation
                     </button>
                   </div>
@@ -723,12 +755,12 @@ export default function NewBlogPostPage() {
                           <input type="text" value={q.title} onChange={e => { const c = [...geoQuotes]; c[i].title = e.target.value; setGeoQuotes(c); }}
                             placeholder="Title/role" className={`${inputCls} flex-1`} />
                           {geoQuotes.length > 1 && <button type="button" onClick={() => setGeoQuotes(geoQuotes.filter((_, idx) => idx !== i))}
-                            className="text-red-400 hover:text-red-600"><Icons.X className="h-4 w-4" /></button>}
+                            className="text-red-400 hover:text-red-600 cursor-pointer"><Icons.X className="h-4 w-4" /></button>}
                         </div>
                       </div>
                     ))}
                     <button type="button" onClick={() => setGeoQuotes([...geoQuotes, { quote: "", expert: "", title: "" }])}
-                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1">
+                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1 cursor-pointer">
                       <Icons.Plus className="h-3 w-3" /> Add Quote
                     </button>
                   </div>
@@ -739,20 +771,18 @@ export default function NewBlogPostPage() {
               {activeOptTab === "llmo" && (
                 <>
                   <p className="text-xs text-neutral-500 bg-pink-50/50 rounded-lg px-3 py-2 border border-pink-100">
-                    <strong>Large Language Model Optimization</strong> — Structure content so LLMs understand your topic authority and entity relationships.
+                    <strong>LLM Optimization</strong> — Entity authority and topic clustering.
                   </p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className={labelCls}>Primary Entity Name</label>
                       <input type="text" value={llmoEntityName} onChange={e => setLlmoEntityName(e.target.value)}
                         placeholder="e.g. Local SEO" className={inputCls} />
-                      <p className={helpCls}>The main entity/topic this content establishes authority on.</p>
                     </div>
                     <div>
                       <label className={labelCls}>Topic Cluster</label>
                       <input type="text" value={llmoTopicCluster} onChange={e => setLlmoTopicCluster(e.target.value)}
                         placeholder="e.g. SEO Strategy" className={inputCls} />
-                      <p className={helpCls}>Parent topic cluster this post belongs to.</p>
                     </div>
                   </div>
                   <div>
@@ -771,11 +801,11 @@ export default function NewBlogPostPage() {
                         <input type="text" value={r} onChange={e => llmoRelated.update(i, e.target.value)}
                           placeholder={`Related entity ${i + 1}`} className={`${inputCls} flex-1`} />
                         {llmoRelated.items.length > 1 && <button type="button" onClick={() => llmoRelated.remove(i)}
-                          className="text-red-400 hover:text-red-600"><Icons.X className="h-4 w-4" /></button>}
+                          className="text-red-400 hover:text-red-600 cursor-pointer"><Icons.X className="h-4 w-4" /></button>}
                       </div>
                     ))}
                     <button type="button" onClick={llmoRelated.add}
-                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1">
+                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1 cursor-pointer">
                       <Icons.Plus className="h-3 w-3" /> Add Entity
                     </button>
                   </div>
@@ -786,7 +816,7 @@ export default function NewBlogPostPage() {
               {activeOptTab === "veo" && (
                 <>
                   <p className="text-xs text-neutral-500 bg-orange-50/50 rounded-lg px-3 py-2 border border-orange-100">
-                    <strong>Visual Engine Optimization</strong> — Optimize images, videos, and infographics for visual search engines (Google Images, Pinterest, YouTube).
+                    <strong>Visual Engine Optimization</strong> — Images, videos, infographics.
                   </p>
                   <div>
                     <label className={labelCls}>Content Images</label>
@@ -800,12 +830,12 @@ export default function NewBlogPostPage() {
                           <input type="text" value={img.caption} onChange={e => { const c = [...veoImages]; c[i].caption = e.target.value; setVeoImages(c); }}
                             placeholder="Caption" className={`${inputCls} flex-1`} />
                           {veoImages.length > 1 && <button type="button" onClick={() => setVeoImages(veoImages.filter((_, idx) => idx !== i))}
-                            className="text-red-400 hover:text-red-600"><Icons.X className="h-4 w-4" /></button>}
+                            className="text-red-400 hover:text-red-600 cursor-pointer"><Icons.X className="h-4 w-4" /></button>}
                         </div>
                       </div>
                     ))}
                     <button type="button" onClick={() => setVeoImages([...veoImages, { url: "", alt: "", caption: "" }])}
-                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1">
+                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1 cursor-pointer">
                       <Icons.Plus className="h-3 w-3" /> Add Image
                     </button>
                   </div>
@@ -833,18 +863,17 @@ export default function NewBlogPostPage() {
               {activeOptTab === "ceo" && (
                 <>
                   <p className="text-xs text-neutral-500 bg-cyan-50/50 rounded-lg px-3 py-2 border border-cyan-100">
-                    <strong>ChatGPT Engine Optimization</strong> — Provide concise summaries and actionable steps optimized for ChatGPT citations.
+                    <strong>ChatGPT Engine Optimization</strong> — Summaries and actionable steps for ChatGPT citations.
                   </p>
                   <div>
-                    <label className={labelCls}>Conversational Summary (2-3 sentences)</label>
+                    <label className={labelCls}>Conversational Summary</label>
                     <textarea rows={3} value={ceoSummary} onChange={e => setCeoSummary(e.target.value)}
-                      placeholder="Write a brief, conversational summary that ChatGPT could cite directly..."
-                      className={`${inputCls} resize-none`} />
+                      placeholder="Write a brief, conversational summary..." className={`${inputCls} resize-none`} />
                   </div>
                   <div>
-                    <label className={labelCls}>Primary Key Takeaway</label>
+                    <label className={labelCls}>Key Takeaway</label>
                     <input type="text" value={ceoTakeaway} onChange={e => setCeoTakeaway(e.target.value)}
-                      placeholder="Single most important sentence from this article" className={inputCls} />
+                      placeholder="Single most important sentence" className={inputCls} />
                   </div>
                   <div>
                     <label className={labelCls}>Actionable Steps</label>
@@ -856,11 +885,11 @@ export default function NewBlogPostPage() {
                         <input type="text" value={s} onChange={e => ceoSteps.update(i, e.target.value)}
                           placeholder={`Step ${i + 1}`} className={`${inputCls} flex-1`} />
                         {ceoSteps.items.length > 1 && <button type="button" onClick={() => ceoSteps.remove(i)}
-                          className="text-red-400 hover:text-red-600"><Icons.X className="h-4 w-4" /></button>}
+                          className="text-red-400 hover:text-red-600 cursor-pointer"><Icons.X className="h-4 w-4" /></button>}
                       </div>
                     ))}
                     <button type="button" onClick={ceoSteps.add}
-                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1">
+                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1 cursor-pointer">
                       <Icons.Plus className="h-3 w-3" /> Add Step
                     </button>
                   </div>
@@ -871,18 +900,17 @@ export default function NewBlogPostPage() {
               {activeOptTab === "beo" && (
                 <>
                   <p className="text-xs text-neutral-500 bg-amber-50/50 rounded-lg px-3 py-2 border border-amber-100">
-                    <strong>Brand Engine Optimization</strong> — Strengthen E-E-A-T signals, author credentials, and brand visibility in AI results.
+                    <strong>Brand Engine Optimization</strong> — E-E-A-T credentials and brand signals.
                   </p>
                   <div>
                     <label className={labelCls}>Author Credentials</label>
                     <textarea rows={2} value={beoCredentials} onChange={e => setBeoCredentials(e.target.value)}
-                      placeholder="e.g. 5+ years in digital marketing, certified Google Ads specialist, served 200+ clients..."
-                      className={`${inputCls} resize-none`} />
+                      placeholder="e.g. 5+ years in digital marketing, certified specialist..." className={`${inputCls} resize-none`} />
                   </div>
                   <div>
                     <label className={labelCls}>Brand Mention Format</label>
                     <input type="text" value={beoCompanyMention} onChange={e => setBeoCompanyMention(e.target.value)}
-                      placeholder="e.g. Digital World, a full-service digital marketing agency" className={inputCls} />
+                      placeholder="e.g. Digital World, a full-service agency" className={inputCls} />
                   </div>
                   <div>
                     <label className={labelCls}>Brand Keywords</label>
@@ -891,11 +919,11 @@ export default function NewBlogPostPage() {
                         <input type="text" value={k} onChange={e => beoBrandKw.update(i, e.target.value)}
                           placeholder={`Brand keyword ${i + 1}`} className={`${inputCls} flex-1`} />
                         {beoBrandKw.items.length > 1 && <button type="button" onClick={() => beoBrandKw.remove(i)}
-                          className="text-red-400 hover:text-red-600"><Icons.X className="h-4 w-4" /></button>}
+                          className="text-red-400 hover:text-red-600 cursor-pointer"><Icons.X className="h-4 w-4" /></button>}
                       </div>
                     ))}
                     <button type="button" onClick={beoBrandKw.add}
-                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1">
+                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1 cursor-pointer">
                       <Icons.Plus className="h-3 w-3" /> Add Keyword
                     </button>
                   </div>
@@ -904,13 +932,13 @@ export default function NewBlogPostPage() {
                     {beoTrust.items.map((t, i) => (
                       <div key={i} className="flex gap-2 mb-2">
                         <input type="text" value={t} onChange={e => beoTrust.update(i, e.target.value)}
-                          placeholder={`e.g. "5 years experience", "200+ clients", "Google Partner"`} className={`${inputCls} flex-1`} />
+                          placeholder={`e.g. "5 years experience", "200+ clients"`} className={`${inputCls} flex-1`} />
                         {beoTrust.items.length > 1 && <button type="button" onClick={() => beoTrust.remove(i)}
-                          className="text-red-400 hover:text-red-600"><Icons.X className="h-4 w-4" /></button>}
+                          className="text-red-400 hover:text-red-600 cursor-pointer"><Icons.X className="h-4 w-4" /></button>}
                       </div>
                     ))}
                     <button type="button" onClick={beoTrust.add}
-                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1">
+                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1 cursor-pointer">
                       <Icons.Plus className="h-3 w-3" /> Add Trust Signal
                     </button>
                   </div>
@@ -921,7 +949,7 @@ export default function NewBlogPostPage() {
               {activeOptTab === "mseo" && (
                 <>
                   <p className="text-xs text-neutral-500 bg-indigo-50/50 rounded-lg px-3 py-2 border border-indigo-100">
-                    <strong>Multimodal Search Engine Optimization</strong> — Optimize for multimodal search with structured data tables, key definitions, and content format signals.
+                    <strong>Multimodal SEO</strong> — Tables, definitions, format signals.
                   </p>
                   <div>
                     <label className={labelCls}>Content Format</label>
@@ -930,11 +958,11 @@ export default function NewBlogPostPage() {
                       <option value="text+video">Text + Video</option>
                       <option value="text+infographic">Text + Infographic</option>
                       <option value="text+audio">Text + Audio</option>
-                      <option value="all">All Formats (Text + Video + Images + Audio)</option>
+                      <option value="all">All Formats</option>
                     </select>
                   </div>
                   <div>
-                    <label className={labelCls}>Key Definitions (for Knowledge Panels)</label>
+                    <label className={labelCls}>Key Definitions</label>
                     {mseoDefinitions.map((d, i) => (
                       <div key={i} className="grid grid-cols-2 gap-2 mb-2">
                         <input type="text" value={d.term} onChange={e => { const c = [...mseoDefinitions]; c[i].term = e.target.value; setMseoDefinitions(c); }}
@@ -943,12 +971,12 @@ export default function NewBlogPostPage() {
                           <input type="text" value={d.definition} onChange={e => { const c = [...mseoDefinitions]; c[i].definition = e.target.value; setMseoDefinitions(c); }}
                             placeholder="Definition" className={`${inputCls} flex-1`} />
                           {mseoDefinitions.length > 1 && <button type="button" onClick={() => setMseoDefinitions(mseoDefinitions.filter((_, idx) => idx !== i))}
-                            className="text-red-400 hover:text-red-600"><Icons.X className="h-4 w-4" /></button>}
+                            className="text-red-400 hover:text-red-600 cursor-pointer"><Icons.X className="h-4 w-4" /></button>}
                         </div>
                       </div>
                     ))}
                     <button type="button" onClick={() => setMseoDefinitions([...mseoDefinitions, { term: "", definition: "" }])}
-                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1">
+                      className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1 cursor-pointer">
                       <Icons.Plus className="h-3 w-3" /> Add Definition
                     </button>
                   </div>
@@ -959,7 +987,7 @@ export default function NewBlogPostPage() {
         </div>
 
         {/* ════════════════════════════════════════════════ */}
-        {/* RIGHT COLUMN: Sidebar (WordPress-style)         */}
+        {/* RIGHT COLUMN: Sidebar                            */}
         {/* ════════════════════════════════════════════════ */}
         <div className="lg:col-span-4 flex flex-col gap-5">
 
@@ -975,14 +1003,14 @@ export default function NewBlogPostPage() {
                   type="button"
                   onClick={() => { setIsDraft(true); savePost(true); }}
                   disabled={isSaving}
-                  className="flex-1 py-2 px-3 text-xs font-semibold border border-neutral-200 rounded-lg text-neutral-600 hover:bg-neutral-50 transition-colors"
+                  className="flex-1 py-2 px-3 text-xs font-semibold border border-neutral-200 rounded-lg text-neutral-600 hover:bg-neutral-50 transition-colors cursor-pointer"
                 >
                   Save Draft
                 </button>
                 <button
                   type="button"
                   onClick={() => setShowPreviewModal(true)}
-                  className="flex-1 py-2 px-3 text-xs font-semibold border border-neutral-200 rounded-lg text-neutral-600 hover:bg-neutral-50 transition-colors"
+                  className="flex-1 py-2 px-3 text-xs font-semibold border border-neutral-200 rounded-lg text-neutral-600 hover:bg-neutral-50 transition-colors cursor-pointer"
                 >
                   Preview
                 </button>
@@ -1007,7 +1035,7 @@ export default function NewBlogPostPage() {
                 <button
                   type="button"
                   onClick={handleMoveToTrash}
-                  className="text-xs text-red-500 hover:text-red-700 font-semibold"
+                  className="text-xs text-red-500 hover:text-red-700 font-semibold cursor-pointer"
                 >
                   Move to Trash
                 </button>
@@ -1076,7 +1104,7 @@ export default function NewBlogPostPage() {
               <button
                 type="button"
                 onClick={handleAddNewCategory}
-                className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1"
+                className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1 cursor-pointer"
               >
                 <Icons.Plus className="h-3 w-3" /> Add New Category
               </button>
@@ -1101,7 +1129,7 @@ export default function NewBlogPostPage() {
                 <button
                   type="button"
                   onClick={() => handleAddTag()}
-                  className="px-3 py-1.5 rounded-lg bg-neutral-100 hover:bg-neutral-200 text-neutral-700 text-xs font-semibold"
+                  className="px-3 py-1.5 rounded-lg bg-neutral-100 hover:bg-neutral-200 text-neutral-700 text-xs font-semibold cursor-pointer"
                 >
                   Add
                 </button>
@@ -1119,7 +1147,7 @@ export default function NewBlogPostPage() {
                       <button
                         type="button"
                         onClick={() => handleRemoveTag(tag)}
-                        className="hover:text-red-600"
+                        className="hover:text-red-600 cursor-pointer"
                       >
                         <Icons.X className="h-3 w-3" />
                       </button>
@@ -1130,20 +1158,70 @@ export default function NewBlogPostPage() {
             </div>
           </div>
 
-          {/* ── Featured Image ── */}
+          {/* ── Featured Image (WITH FILE UPLOAD) ── */}
           <div className={cardCls}>
             <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-200">
               <h3 className="text-sm font-bold text-neutral-800">Featured Image</h3>
             </div>
             <div className="px-4 py-3 flex flex-col gap-3">
-              <input type="text" value={featuredImage} onChange={e => setFeaturedImage(e.target.value)}
-                placeholder="Image URL (e.g. https://...)" className={inputCls} />
-              <input type="text" value={imageAltText} onChange={e => setImageAltText(e.target.value)}
-                placeholder="Alt text (SEO description of image)" className={inputCls} />
+              {/* File Upload Button */}
+              <input
+                ref={featuredFileInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) handleUploadFeaturedImage(file);
+                }}
+              />
+              
+              <button
+                type="button"
+                onClick={() => featuredFileInputRef.current?.click()}
+                disabled={isUploadingFeatured}
+                className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg border border-blue-200 bg-blue-50 hover:bg-blue-100 text-blue-700 text-xs font-bold transition-colors cursor-pointer"
+              >
+                {isUploadingFeatured ? (
+                  <><Icons.Loader2 className="h-4 w-4 animate-spin text-blue-600" /> Uploading Image...</>
+                ) : (
+                  <><Icons.UploadCloud className="h-4 w-4 text-blue-600" /> Upload Image from Computer</>
+                )}
+              </button>
+
+              <div className="relative flex py-1 items-center">
+                <div className="flex-grow border-t border-neutral-200"></div>
+                <span className="flex-shrink mx-2 text-[10px] uppercase tracking-wider text-neutral-400 font-bold">OR PASTE URL</span>
+                <div className="flex-grow border-t border-neutral-200"></div>
+              </div>
+
+              <input
+                type="text"
+                value={featuredImage}
+                onChange={e => setFeaturedImage(e.target.value)}
+                placeholder="Image URL (e.g. https://...)"
+                className={inputCls}
+              />
+              <input
+                type="text"
+                value={imageAltText}
+                onChange={e => setImageAltText(e.target.value)}
+                placeholder="Alt text (SEO description of image)"
+                className={inputCls}
+              />
+
               {featuredImage && (
-                <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-neutral-200 bg-neutral-50">
+                <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-neutral-200 bg-neutral-50 shadow-2xs">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={featuredImage} alt={imageAltText || "Preview"} className="w-full h-full object-cover" />
+                  <button
+                    type="button"
+                    onClick={() => setFeaturedImage("")}
+                    className="absolute top-2 right-2 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-white hover:bg-black transition-colors"
+                    title="Remove Featured Image"
+                  >
+                    <Icons.X className="h-3.5 w-3.5" />
+                  </button>
                 </div>
               )}
             </div>
@@ -1158,7 +1236,6 @@ export default function NewBlogPostPage() {
               </h3>
             </div>
             <div className="px-4 py-3">
-              {/* Overall score */}
               <div className="flex items-center justify-center mb-4">
                 <div className={`relative flex items-center justify-center h-20 w-20 rounded-full border-4 ${
                   score >= 70 ? "border-emerald-400" : score >= 40 ? "border-amber-400" : "border-red-400"
@@ -1168,7 +1245,6 @@ export default function NewBlogPostPage() {
                   }`}>{score}%</span>
                 </div>
               </div>
-              {/* Per-category mini bars */}
               <div className="flex flex-col gap-2">
                 {[
                   { label: "SEO", filled: [seoTitle, seoDescription, canonicalUrl, imageAltText].filter(Boolean).length, total: 4, color: "bg-blue-500" },
@@ -1195,6 +1271,127 @@ export default function NewBlogPostPage() {
 
         </div>
       </form>
+
+      {/* ══════════════════════════════════════════════════ */}
+      {/* WORDPRESS MEDIA MODAL (FILE UPLOAD + URL)          */}
+      {/* ══════════════════════════════════════════════════ */}
+      {showMediaModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
+          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative border border-neutral-100">
+            <div className="flex items-center justify-between border-b border-neutral-100 pb-4 mb-4">
+              <h3 className="text-base font-bold text-neutral-900 flex items-center gap-2">
+                <Icons.ImagePlus className="h-5 w-5 text-blue-600" />
+                Add Media to Content
+              </h3>
+              <button
+                type="button"
+                onClick={() => setShowMediaModal(false)}
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-500 transition-colors"
+              >
+                <Icons.X className="h-4 w-4" />
+              </button>
+            </div>
+
+            {/* Modal Tabs */}
+            <div className="flex border-b border-neutral-200 mb-5">
+              <button
+                type="button"
+                onClick={() => setMediaTab("upload")}
+                className={`pb-2.5 px-4 text-xs font-bold border-b-2 transition-colors cursor-pointer ${
+                  mediaTab === "upload" ? "border-blue-600 text-blue-600" : "border-transparent text-neutral-400 hover:text-neutral-600"
+                }`}
+              >
+                Upload Files from Computer
+              </button>
+              <button
+                type="button"
+                onClick={() => setMediaTab("url")}
+                className={`pb-2.5 px-4 text-xs font-bold border-b-2 transition-colors cursor-pointer ${
+                  mediaTab === "url" ? "border-blue-600 text-blue-600" : "border-transparent text-neutral-400 hover:text-neutral-600"
+                }`}
+              >
+                Insert from URL
+              </button>
+            </div>
+
+            {/* Tab 1: Upload Files */}
+            {mediaTab === "upload" && (
+              <div className="flex flex-col gap-4">
+                <input
+                  ref={mediaFileInputRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) handleUploadContentImage(file);
+                  }}
+                />
+
+                <div
+                  onClick={() => mediaFileInputRef.current?.click()}
+                  className="border-2 border-dashed border-neutral-300 hover:border-blue-500 rounded-2xl p-8 text-center bg-neutral-50/50 hover:bg-blue-50/20 transition-all cursor-pointer group"
+                >
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 text-blue-600 mx-auto mb-3 group-hover:scale-110 transition-transform">
+                    <Icons.UploadCloud className="h-6 w-6" />
+                  </div>
+                  <h4 className="font-bold text-sm text-neutral-800 mb-1">
+                    {isUploadingMedia ? "Uploading image file..." : "Click to select image file from computer"}
+                  </h4>
+                  <p className="text-xs text-neutral-400">Supports PNG, JPG, WebP, GIF, SVG</p>
+                </div>
+
+                <div>
+                  <label className={labelCls}>Alt Text / Description (Optional)</label>
+                  <input
+                    type="text"
+                    value={mediaAltInput}
+                    onChange={e => setMediaAltInput(e.target.value)}
+                    placeholder="Describe the image..."
+                    className={inputCls}
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Tab 2: Insert from URL */}
+            {mediaTab === "url" && (
+              <div className="flex flex-col gap-4">
+                <div>
+                  <label className={labelCls}>Image URL</label>
+                  <input
+                    type="text"
+                    value={mediaUrlInput}
+                    onChange={e => setMediaUrlInput(e.target.value)}
+                    placeholder="https://..."
+                    className={inputCls}
+                  />
+                </div>
+
+                <div>
+                  <label className={labelCls}>Alt Text / Description</label>
+                  <input
+                    type="text"
+                    value={mediaAltInput}
+                    onChange={e => setMediaAltInput(e.target.value)}
+                    placeholder="Describe the image..."
+                    className={inputCls}
+                  />
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleInsertMediaFromUrl}
+                  disabled={!mediaUrlInput.trim()}
+                  className="w-full py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 disabled:bg-neutral-200 text-white text-xs font-bold shadow-sm transition-all cursor-pointer"
+                >
+                  Insert into Post
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* ══════════════════════════════════════════════════ */}
       {/* LIVE PREVIEW MODAL                                */}
@@ -1230,7 +1427,6 @@ export default function NewBlogPostPage() {
                 {title || "Untitled Article Title"}
               </h1>
 
-              {/* Author */}
               <div className="flex items-center gap-3 pt-3 border-t border-neutral-100 mb-8">
                 <div className="relative h-10 w-10 overflow-hidden rounded-full border border-neutral-200">
                   <Image src="/Kamrujjaman Mufti Image/kamrujjaman-mufti.jpg" alt="Author" fill className="object-cover" />
@@ -1241,7 +1437,6 @@ export default function NewBlogPostPage() {
                 </div>
               </div>
 
-              {/* Direct Answer preview */}
               {aeoDirectAnswer && (
                 <div className="mb-8 rounded-xl bg-blue-50 border border-blue-100 p-5">
                   <div className="text-xs font-bold text-blue-700 mb-1 flex items-center gap-1.5">
@@ -1252,7 +1447,6 @@ export default function NewBlogPostPage() {
                 </div>
               )}
 
-              {/* Featured Image */}
               {featuredImage && (
                 <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-neutral-200 mb-8">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -1260,43 +1454,16 @@ export default function NewBlogPostPage() {
                 </div>
               )}
 
-              {/* Excerpt */}
               {excerpt && (
                 <p className="text-base font-medium text-neutral-600 mb-6 italic border-l-4 border-blue-600 pl-4 py-1">
                   {excerpt}
                 </p>
               )}
 
-              {/* Main Content */}
               <div
                 className="prose prose-neutral max-w-none text-sm text-neutral-700 leading-relaxed space-y-4 mb-10"
                 dangerouslySetInnerHTML={{ __html: content || "<p>Type your article body to preview it live here...</p>" }}
               />
-
-              {/* Video preview */}
-              {veoVideoUrl && (
-                <div className="mb-8">
-                  <h4 className="font-bold text-neutral-900 text-sm mb-3">Video Overview</h4>
-                  <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-neutral-200 bg-neutral-950">
-                    <iframe src={veoVideoUrl} title="Video Preview" className="w-full h-full border-0" />
-                  </div>
-                </div>
-              )}
-
-              {/* FAQs preview */}
-              {aeoFaqItems.some(f => f.question && f.answer) && (
-                <div className="border-t border-neutral-200 pt-6 mt-8">
-                  <h4 className="font-serif font-bold text-lg text-neutral-900 mb-4">Frequently Asked Questions</h4>
-                  <div className="space-y-3">
-                    {aeoFaqItems.map((faq, idx) => faq.question && (
-                      <div key={idx} className="rounded-xl border border-neutral-200 p-4">
-                        <h5 className="font-bold text-sm text-neutral-900 mb-1">{faq.question}</h5>
-                        <p className="text-xs text-neutral-600">{faq.answer}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         </div>
