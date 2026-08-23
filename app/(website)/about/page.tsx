@@ -68,7 +68,20 @@ export default function AboutPage() {
     title: "Digital Marketing Expert & Web Developer",
     bioParagraph1: "Full-service digital marketing expert with 5 years of hands-on experience helping businesses of all sizes grow through SEO, web development, paid ads, and content marketing.",
     bioParagraph2: "Every project I take on is treated as a partnership, where your success is my success.",
-    imagePath: "/images/23.png",
+    imagePath: "/Kamrujjaman Mufti Image/kamrujjaman-mufti.jpg",
+    timeline: [
+      { years: "2026 - Present", role: "AI Automation Specialist", company: "Building custom AI workflows, intelligent agents & automated growth systems" },
+      { years: "2024 - 2026", role: "Digital Marketing Expert", company: "KJ Digital World" },
+      { years: "2022 - 2024", role: "SEO & Paid Ads Specialist", company: "Freelance / Agency Partner" },
+      { years: "2021 - 2022", role: "Web Developer", company: "Building fast, optimized websites" },
+      { years: "2020 - 2021", role: "The Beginning", company: "Mastering the fundamentals of digital marketing" }
+    ],
+    metrics: [
+      { numericValue: 150, suffix: "+", label: "Projects Delivered" },
+      { numericValue: 120, suffix: "+", label: "Happy Clients" },
+      { numericValue: 5, suffix: "", label: "Years Experience" },
+      { numericValue: 11, suffix: "", label: "Countries Served" }
+    ]
   });
 
   useEffect(() => {
@@ -84,15 +97,15 @@ export default function AboutPage() {
     load();
   }, []);
 
-  const timelineData = [
-    { years: "2026 - Present", role: "AI Automation Specialist", company: "Building custom AI workflows, intelligent agents & automated growth systems", badgeColor: "bg-emerald-50 border-emerald-200 text-emerald-700" },
+  const timelineData = aboutData.timeline || [
+    { years: "2026 - Present", role: "AI Automation Specialist", company: "Building custom AI workflows, intelligent agents & automated growth systems" },
     { years: "2024 - 2026", role: "Digital Marketing Expert", company: "KJ Digital World" },
     { years: "2022 - 2024", role: "SEO & Paid Ads Specialist", company: "Freelance / Agency Partner" },
     { years: "2021 - 2022", role: "Web Developer", company: "Building fast, optimized websites" },
     { years: "2020 - 2021", role: "The Beginning", company: "Mastering the fundamentals of digital marketing" }
   ];
 
-  const statsMetrics = [
+  const statsMetrics = aboutData.metrics || [
     { numericValue: 150, suffix: "+", label: "Projects Delivered" },
     { numericValue: 120, suffix: "+", label: "Happy Clients" },
     { numericValue: 5, suffix: "", label: "Years Experience" },
@@ -125,7 +138,7 @@ export default function AboutPage() {
     { title: "Search Engine Optimization", icon: Icons.Search, desc: "Optimize GBP mappings, crawl budgets, and entity relevance architectures.", color: "bg-blue-50 text-blue-600" },
     { title: "Pay Per Click Campaigns", icon: Icons.Target, desc: "Scale acquisitions predictably across Google Search, Shopping, and Smart Bidding campaigns.", color: "bg-orange-50 text-orange-600" },
     { title: "Social Media Advertising", icon: Icons.Smartphone, desc: "Configure custom Meta Pixels, lookalike loops, and creative hooks.", color: "bg-purple-50 text-purple-600" },
-    { title: "Web Development", icon: Icons.Laptop, desc: "Stunning custom-coded Next.js/Vite visual frontends optimized for transaction speeds.", color: "bg-blue-50 text-blue-600" },
+    { title: "Web Development", icon: Icons.Laptop, desc: "Stunning custom-coded Next.js visual frontends optimized for transaction speeds.", color: "bg-blue-50 text-blue-600" },
     { title: "Sourcing Services", icon: Icons.Truck, desc: "Verify manufacturing licenses, factory compliance reports, and cargo routes.", color: "bg-orange-50 text-orange-600" },
     { title: "Content Marketing", icon: Icons.PenTool, desc: "Draft high-converting copy frameworks, editorial briefs, and syndication strategies.", color: "bg-amber-50 text-amber-600" }
   ];
@@ -164,9 +177,8 @@ export default function AboutPage() {
   return (
     <article className="min-h-screen bg-transparent">
       
-      {/* 1. About Hero Section (Matching Reference Design with Large Portrait Image) */}
+      {/* 1. About Hero Section */}
       <section className="relative overflow-hidden bg-transparent py-16 sm:py-20 lg:py-28">
-        {/* Soft background ambient radial glow */}
         <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/5 blur-[120px] pointer-events-none -z-10 rounded-full" />
         
         <div className="container mx-auto max-w-7xl px-6">
@@ -174,25 +186,37 @@ export default function AboutPage() {
             
             {/* Left Biography & CTAs */}
             <div className="lg:col-span-6 flex flex-col items-start">
-              {/* Top Eyebrow Badge */}
               <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50/80 border border-blue-100 px-3.5 py-1 text-[10px] sm:text-xs font-bold text-primary uppercase tracking-[0.2em] mb-6">
                 <span className="h-1.5 w-1.5 rounded-full bg-primary" />
                 ABOUT ME
               </span>
 
-              {/* Main Headline */}
               <h1 className="font-serif text-4xl sm:text-5xl lg:text-[3.75rem] font-bold text-neutral-900 tracking-tight leading-[1.08] mb-6">
                 Hi, I&apos;m <br />
-                Kamrujjaman <br />
-                <span className="text-primary italic font-serif">Mufti.</span>
+                {aboutData.name ? (
+                  aboutData.name.split(" ").map((part, i) => (
+                    <span key={i} className={i === 1 ? "text-primary italic font-serif" : ""}>
+                      {part}{" "}
+                    </span>
+                  ))
+                ) : (
+                  <>
+                    Kamrujjaman <br />
+                    <span className="text-primary italic font-serif">Mufti.</span>
+                  </>
+                )}
               </h1>
 
-              {/* Bio Paragraph */}
-              <p className="font-sans text-xs sm:text-sm text-neutral-500 leading-relaxed max-w-xl mb-8">
-                I am a digital marketing expert with a focus on SEO, Paid Ads, Web Design, and Content Marketing. I help businesses achieve measurable growth through data-driven strategies and creative execution.
+              <p className="font-sans text-xs sm:text-sm text-neutral-500 leading-relaxed max-w-xl mb-4">
+                {aboutData.bioParagraph1 || "Full-service digital marketing expert helping businesses grow through SEO, web development, paid ads, and content marketing."}
               </p>
               
-              {/* CTAs */}
+              {aboutData.bioParagraph2 && (
+                <p className="font-sans text-xs sm:text-sm text-neutral-500 leading-relaxed max-w-xl mb-8">
+                  {aboutData.bioParagraph2}
+                </p>
+              )}
+              
               <div className="flex flex-wrap items-center gap-4 w-full sm:w-auto mb-8">
                 <Link
                   href="/portfolio"
@@ -208,7 +232,6 @@ export default function AboutPage() {
                 </Link>
               </div>
 
-              {/* Languages List */}
               <div className="flex flex-wrap items-center gap-2 border-t border-neutral-100 pt-6 w-full">
                 {["English", "Hindi", "Urdu", "Bengali"].map((lang) => (
                   <span
@@ -221,14 +244,13 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Right Image (Clean Frameless Sketch with Multiply Blend & Balanced Size) */}
+            {/* Right Image */}
             <div className="lg:col-span-6 relative flex justify-center lg:justify-end">
-              {/* Soft Ambient Glow */}
               <div className="absolute inset-0 bg-blue-500/10 blur-[80px] pointer-events-none -z-10 rounded-full" />
 
               <div className="relative w-full max-w-[360px] sm:max-w-[400px] lg:max-w-[440px] flex items-center justify-center p-2">
                 <Image
-                  src={aboutData.imagePath || "/images/23.png"}
+                  src={aboutData.imagePath || "/Kamrujjaman Mufti Image/kamrujjaman-mufti.jpg"}
                   alt={aboutData.name || "Kamrujjaman Mufti"}
                   width={440}
                   height={440}
@@ -246,7 +268,6 @@ export default function AboutPage() {
         <div className="container mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
             
-            {/* Left Timeline Copy */}
             <div className="lg:col-span-6 flex flex-col justify-center">
               <span className="text-[10px] sm:text-xs font-bold text-primary uppercase tracking-[0.25em] mb-4">
                 MY JOURNEY
@@ -258,7 +279,7 @@ export default function AboutPage() {
                 It started with one simple question: how do websites actually rank on Google? That question turned into a career — and eventually into Digital World.
               </p>
               <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed mb-5">
-                I&apos;m Kamrujjaman, founder of Digital World, a digital marketing agency based in Dhaka, Bangladesh. For nearly a decade, I&apos;ve worked as an SEO, AEO, AIO, and GEO specialist, helping small businesses, growing brands, and enterprises across 11 countries — including the USA, UK, Canada, UAE, and Australia — build visibility that actually converts.
+                I&apos;m {aboutData.name || "Kamrujjaman"}, founder of Digital World, a digital marketing agency based in Dhaka, Bangladesh. For nearly a decade, I&apos;ve worked as an SEO, AEO, AIO, and GEO specialist, helping small businesses, growing brands, and enterprises across 11 countries — including the USA, UK, Canada, UAE, and Australia — build visibility that actually converts.
               </p>
               <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed mb-5">
                 <strong className="font-bold text-neutral-900">What we do:</strong> SEO (Local, Ecommerce, International, Video, SaaS, Semantic, and AI SEO), Google Ads and Meta Ads management, web design and development, content marketing, AI automation, and China sourcing — all under one roof.
@@ -267,7 +288,7 @@ export default function AboutPage() {
                 <strong className="font-bold text-neutral-900">Why it matters:</strong> Most businesses don&apos;t need more traffic. They need the right traffic — customers actively searching for what you sell, on Google, and increasingly on AI platforms like ChatGPT, Gemini, and Google AI Overviews.
               </p>
               <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed">
-                <strong className="font-bold text-neutral-900">How we help:</strong> Every project starts as a partnership, not a transaction. Your growth is my growth — which is why we build for sustainable rankings and long-term visibility, not shortcuts that disappear after the next algorithm update.
+                <strong className="font-bold text-neutral-900">How we help:</strong> Every project starts as a partnership, not a transaction. Your growth is my growth — which is why we build for sustainable rankings and long-term visibility.
               </p>
             </div>
 
@@ -283,14 +304,9 @@ export default function AboutPage() {
                   </div>
                   <div>
                     <div className="flex items-center gap-2 mb-2">
-                      <span className={`inline-block ${item.badgeColor || "bg-blue-50 border border-blue-100 text-primary"} text-[10px] font-bold px-3 py-1 rounded-md uppercase tracking-wider`}>
+                      <span className="bg-blue-50 border border-blue-100 text-primary text-[10px] font-bold px-3 py-1 rounded-md uppercase tracking-wider">
                         {item.years}
                       </span>
-                      {idx === 0 && (
-                        <span className="inline-flex items-center gap-1 text-[9px] font-extrabold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200 uppercase tracking-widest">
-                          <Icons.Sparkles className="h-3 w-3" /> New Skill
-                        </span>
-                      )}
                     </div>
                     <h4 className="font-sans font-bold text-sm sm:text-base text-neutral-900 mb-0.5">
                       {item.role}
@@ -319,12 +335,12 @@ export default function AboutPage() {
           </h2>
           
           <div ref={metricsRef} className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
-            {statsMetrics.map((stat) => (
+            {statsMetrics.map((stat, i) => (
               <AnimatedStat
-                key={stat.label}
-                numericValue={stat.numericValue}
-                suffix={stat.suffix}
-                label={stat.label}
+                key={i}
+                numericValue={Number(stat.numericValue) || 0}
+                suffix={stat.suffix || ""}
+                label={stat.label || ""}
                 isVisible={metricsVisible}
               />
             ))}
