@@ -3,6 +3,7 @@
 import { useState, useRef, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import * as Icons from "lucide-react";
 
 // ── Optimization tab definitions ──
@@ -32,7 +33,7 @@ function useJsonArray(initial: string[] = [""]) {
   return { items, setItems, add, remove, update };
 }
 
-// ── FAQ item type ──
+// ── Item Interfaces ──
 interface FaqItem { question: string; answer: string; }
 interface CitationItem { source: string; url: string; claim: string; }
 interface StatItem { stat: string; source: string; url: string; }
@@ -44,8 +45,10 @@ export default function NewBlogPostPage() {
   const router = useRouter();
   const editorRef = useRef<HTMLDivElement>(null);
 
-  // ── Content tab: Visual / Text ──
+  // ── Mode & UI toggles ──
   const [editorMode, setEditorMode] = useState<"visual" | "text">("visual");
+  const [showPreviewModal, setShowPreviewModal] = useState(false);
+  const [excerptExpanded, setExcerptExpanded] = useState(true);
 
   // ── Core fields ──
   const [title, setTitle] = useState("");
@@ -54,9 +57,14 @@ export default function NewBlogPostPage() {
   const [content, setContent] = useState("");
   const [featuredImage, setFeaturedImage] = useState("");
   const [imageAltText, setImageAltText] = useState("");
+  const [postFormat, setPostFormat] = useState("standard");
   const [categoryName, setCategoryName] = useState("SEO");
+  const [categoriesList, setCategoriesList] = useState<string[]>([
+    "SEO", "Google Ads", "Web Dev", "Content Marketing", "Email Marketing", "Social Media", "E-commerce", "AI & Automation"
+  ]);
   const [isDraft, setIsDraft] = useState(true);
-  const [tagsInput, setTagsInput] = useState("");
+  const [tags, setTags] = useState<string[]>([]);
+  const [tagInputText, setTagInputText] = useState("");
 
   // ── SEO fields ──
   const [seoTitle, setSeoTitle] = useState("");
@@ -102,7 +110,7 @@ export default function NewBlogPostPage() {
   const [mseoFormat, setMseoFormat] = useState("text");
   const [mseoDefinitions, setMseoDefinitions] = useState<DefinitionItem[]>([{ term: "", definition: "" }]);
 
-  // ── UI state ──
+  // ── Saving State ──
   const [activeOptTab, setActiveOptTab] = useState<OptTab>("seo");
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState("");
@@ -113,7 +121,7 @@ export default function NewBlogPostPage() {
     setSlug(val.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""));
   };
 
-  // ── Rich text toolbar commands ──
+  // ── Rich text commands ──
   const execCmd = useCallback((cmd: string, val?: string) => {
     document.execCommand(cmd, false, val);
     editorRef.current?.focus();
@@ -130,7 +138,8 @@ export default function NewBlogPostPage() {
 
   const handleTextareaChange = (val: string) => {
     setContent(val);
-    setWordCount(val.trim() ? val.trim().split(/\s+/).length : 0);
+    const plainText = val.replace(/<[^>]*>/g, "");
+    setWordCount(plainText.trim() ? plainText.trim().split(/\s+/).length : 0);
   };
 
   const switchToVisual = () => {
@@ -145,7 +154,49 @@ export default function NewBlogPostPage() {
     setEditorMode("text");
   };
 
-  // ── Score calculator ──
+  // Add media handler
+  const handleAddMedia = () => {
+    const imgUrl = prompt("Enter Image URL to insert into post body:");
+    if (imgUrl) {
+      if (editorMode === "visual") {
+        execCmd("insertImage", imgUrl);
+      } else {
+        const imgTag = `<img src="${imgUrl}" alt="${title || 'Image'}" className="w-full rounded-xl my-4" />`;
+        setContent(prev => prev + "\n" + imgTag);
+      }
+    }
+  };
+
+  // Category Addition
+  const handleAddNewCategory = () => {
+    const newCat = prompt("Enter new Category Name:");
+    if (newCat && newCat.trim()) {
+      const trimmed = newCat.trim();
+      if (!categoriesList.includes(trimmed)) {
+        setCategoriesList(prev => [...prev, trimmed]);
+      }
+      setCategoryName(trimmed);
+    }
+  };
+
+  // Tag Management
+  const handleAddTag = (e?: React.KeyboardEvent) => {
+    if (e && e.key !== "Enter" && e.key !== ",") return;
+    if (e) e.preventDefault();
+    if (tagInputText.trim()) {
+      const newTag = tagInputText.trim().replace(/^,|,$/g, "");
+      if (newTag && !tags.includes(newTag)) {
+        setTags([...tags, newTag]);
+      }
+      setTagInputText("");
+    }
+  };
+
+  const handleRemoveTag = (tagToRemove: string) => {
+    setTags(tags.filter(t => t !== tagToRemove));
+  };
+
+  // Score Calculator
   const calcScore = () => {
     let filled = 0;
     let total = 0;
@@ -189,13 +240,11 @@ export default function NewBlogPostPage() {
     return Math.round((filled / total) * 100);
   };
 
-  // ── Submit ──
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  // Submit Handler
+  const savePost = async (draftState: boolean) => {
     setIsSaving(true);
     setError("");
 
-    // Get final content from visual editor
     let finalContent = content;
     if (editorMode === "visual" && editorRef.current) {
       finalContent = editorRef.current.innerHTML;
@@ -206,10 +255,15 @@ export default function NewBlogPostPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          title, slug, excerpt,
-          content: finalContent,
-          featuredImage, imageAltText, categoryName, isDraft,
-          tags: tagsInput.split(",").map(t => t.trim()).filter(Boolean),
+          title: title || "Untitled Article",
+          slug: slug || `article-${Date.now()}`,
+          excerpt,
+          content: finalContent || "<p>Content coming soon...</p>",
+          featuredImage,
+          imageAltText,
+          categoryName,
+          isDraft: draftState,
+          tags,
           // SEO
           seoTitle, seoDescription, canonicalUrl, robotsSettings,
           // AEO
@@ -248,7 +302,7 @@ export default function NewBlogPostPage() {
         router.refresh();
       } else {
         const data = await res.json();
-        throw new Error(data.error || "Failed to create blog post");
+        throw new Error(data.error || "Failed to save blog post");
       }
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "An error occurred");
@@ -257,13 +311,22 @@ export default function NewBlogPostPage() {
     }
   };
 
-  // ── Reusable input styles ──
+  const handleFormSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    savePost(isDraft);
+  };
+
+  const handleMoveToTrash = () => {
+    if (confirm("Are you sure you want to discard this draft?")) {
+      router.push("/admin/blog");
+    }
+  };
+
   const inputCls = "w-full rounded-lg border border-neutral-200 bg-white py-2 px-3 text-sm outline-none text-neutral-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500/20 transition-all";
   const labelCls = "block text-xs font-semibold text-neutral-500 mb-1.5";
   const helpCls = "text-[11px] text-neutral-400 mt-1";
   const cardCls = "bg-white border border-neutral-200 rounded-lg shadow-sm";
 
-  // ── Toolbar button ──
   const ToolBtn = ({ cmd, icon: Icon, title: t, val }: { cmd: string; icon: React.ComponentType<{className?:string}>; title: string; val?: string }) => (
     <button type="button" onClick={() => execCmd(cmd, val)} title={t}
       className="flex h-7 w-7 items-center justify-center rounded hover:bg-neutral-100 text-neutral-600 hover:text-neutral-900 transition-colors">
@@ -276,18 +339,40 @@ export default function NewBlogPostPage() {
   return (
     <div className="flex flex-col gap-6">
       {/* Header */}
-      <div className="flex items-center gap-4">
-        <Link href="/admin/blog"
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-500 hover:text-neutral-700 transition-colors shadow-sm">
-          <Icons.ArrowLeft className="h-4 w-4" />
-        </Link>
-        <div>
-          <h1 className="font-serif text-2xl font-bold text-neutral-900 tracking-tight leading-none mb-1">
-            Add New Post
-          </h1>
-          <p className="font-sans text-xs text-neutral-400">
-            Write content, optimize for AI engines, and publish.
-          </p>
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center gap-4">
+          <Link href="/admin/blog"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-500 hover:text-neutral-700 transition-colors shadow-sm">
+            <Icons.ArrowLeft className="h-4 w-4" />
+          </Link>
+          <div>
+            <h1 className="font-serif text-2xl font-bold text-neutral-900 tracking-tight leading-none mb-1">
+              Add New Post
+            </h1>
+            <p className="font-sans text-xs text-neutral-400">
+              WordPress-style blog builder with full AI engine optimization.
+            </p>
+          </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => setShowPreviewModal(true)}
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-neutral-200 bg-white text-xs font-semibold text-neutral-700 hover:bg-neutral-50 transition-colors shadow-xs"
+          >
+            <Icons.Eye className="h-3.5 w-3.5 text-neutral-500" />
+            Live Preview
+          </button>
+          <button
+            type="button"
+            onClick={() => { setIsDraft(true); savePost(true); }}
+            disabled={isSaving}
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-neutral-200 bg-white text-xs font-semibold text-neutral-700 hover:bg-neutral-50 transition-colors shadow-xs"
+          >
+            Save Draft
+          </button>
         </div>
       </div>
 
@@ -298,9 +383,9 @@ export default function NewBlogPostPage() {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <form onSubmit={handleFormSubmit} className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* ════════════════════════════════════════════════ */}
-        {/* LEFT COLUMN: Main Editor (WordPress-style)      */}
+        {/* LEFT COLUMN: Main Editor                         */}
         {/* ════════════════════════════════════════════════ */}
         <div className="lg:col-span-8 flex flex-col gap-5">
 
@@ -327,9 +412,32 @@ export default function NewBlogPostPage() {
 
           {/* ── Content Editor (WordPress-style) ── */}
           <div className={cardCls}>
+            {/* Top Add Media bar */}
+            <div className="flex items-center justify-between border-b border-neutral-200 px-3 py-2 bg-neutral-50/50">
+              <button
+                type="button"
+                onClick={handleAddMedia}
+                className="inline-flex items-center gap-1.5 rounded border border-neutral-300 bg-white px-3 py-1 text-xs font-semibold text-neutral-700 hover:bg-neutral-100 shadow-2xs transition-colors"
+              >
+                <Icons.ImagePlus className="h-3.5 w-3.5 text-blue-600" />
+                Add Media
+              </button>
+
+              {/* Right: Visual / Text mode toggle */}
+              <div className="flex border border-neutral-200 rounded overflow-hidden text-xs font-semibold">
+                <button type="button" onClick={switchToVisual}
+                  className={`px-3 py-1 transition-colors ${editorMode === "visual" ? "bg-white text-neutral-800 shadow-2xs" : "bg-neutral-100 text-neutral-500 hover:text-neutral-700"}`}>
+                  Visual
+                </button>
+                <button type="button" onClick={switchToText}
+                  className={`px-3 py-1 transition-colors ${editorMode === "text" ? "bg-white text-neutral-800 shadow-2xs" : "bg-neutral-100 text-neutral-500 hover:text-neutral-700"}`}>
+                  Text
+                </button>
+              </div>
+            </div>
+
             {/* Toolbar */}
-            <div className="flex items-center justify-between border-b border-neutral-200 px-3 py-1.5">
-              {/* Left: Formatting tools */}
+            <div className="flex items-center justify-between border-b border-neutral-200 px-3 py-1.5 bg-white">
               <div className="flex items-center gap-0.5 flex-wrap">
                 <ToolBtn cmd="bold" icon={Icons.Bold} title="Bold (Ctrl+B)" />
                 <ToolBtn cmd="italic" icon={Icons.Italic} title="Italic (Ctrl+I)" />
@@ -357,7 +465,6 @@ export default function NewBlogPostPage() {
                 </button>
                 <ToolBtn cmd="unlink" icon={Icons.Unlink} title="Remove link" />
                 <div className="w-px h-5 bg-neutral-200 mx-1" />
-                {/* Heading selector */}
                 <select
                   onChange={(e) => execCmd("formatBlock", e.target.value)}
                   className="text-xs border border-neutral-200 rounded px-1.5 py-1 text-neutral-600 bg-white outline-none cursor-pointer"
@@ -370,18 +477,6 @@ export default function NewBlogPostPage() {
                   <option value="<h4>">Heading 4</option>
                   <option value="<h5>">Heading 5</option>
                 </select>
-              </div>
-
-              {/* Right: Visual / Text toggle */}
-              <div className="flex border border-neutral-200 rounded overflow-hidden text-xs font-semibold">
-                <button type="button" onClick={switchToVisual}
-                  className={`px-3 py-1 transition-colors ${editorMode === "visual" ? "bg-white text-neutral-800 shadow-sm" : "bg-neutral-50 text-neutral-400 hover:text-neutral-600"}`}>
-                  Visual
-                </button>
-                <button type="button" onClick={switchToText}
-                  className={`px-3 py-1 transition-colors ${editorMode === "text" ? "bg-white text-neutral-800 shadow-sm" : "bg-neutral-50 text-neutral-400 hover:text-neutral-600"}`}>
-                  Text
-                </button>
               </div>
             </div>
 
@@ -415,21 +510,27 @@ export default function NewBlogPostPage() {
             </div>
           </div>
 
-          {/* ── Excerpt ── */}
+          {/* ── Excerpt (Collapsible) ── */}
           <div className={cardCls}>
-            <button type="button" className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-neutral-700">
-              Excerpt
-              <Icons.ChevronDown className="h-4 w-4 text-neutral-400" />
+            <button
+              type="button"
+              onClick={() => setExcerptExpanded(!excerptExpanded)}
+              className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-neutral-700 hover:bg-neutral-50 transition-colors"
+            >
+              <span>Excerpt</span>
+              <Icons.ChevronDown className={`h-4 w-4 text-neutral-400 transition-transform ${excerptExpanded ? "rotate-180" : ""}`} />
             </button>
-            <div className="px-4 pb-4">
-              <textarea
-                rows={3} value={excerpt}
-                onChange={(e) => setExcerpt(e.target.value)}
-                placeholder="Write a brief summary (used in blog listing cards and meta descriptions)..."
-                className={`${inputCls} resize-none font-sans`}
-              />
-              <p className={helpCls}>Excerpts are optional hand-crafted summaries of your content that appear on blog listings.</p>
-            </div>
+            {excerptExpanded && (
+              <div className="px-4 pb-4 border-t border-neutral-100 pt-3">
+                <textarea
+                  rows={3} value={excerpt}
+                  onChange={(e) => setExcerpt(e.target.value)}
+                  placeholder="Write a brief summary (used in blog listing cards and meta descriptions)..."
+                  className={`${inputCls} resize-none font-sans`}
+                />
+                <p className={helpCls}>Excerpts are optional hand-crafted summaries of your content that appear on blog listings.</p>
+              </div>
+            )}
           </div>
 
           {/* ══════════════════════════════════════════════════ */}
@@ -870,12 +971,19 @@ export default function NewBlogPostPage() {
             <div className="px-4 py-3 flex flex-col gap-3">
               {/* Save Draft / Preview */}
               <div className="flex gap-2">
-                <button type="button" onClick={() => { setIsDraft(true); }}
-                  className="flex-1 py-2 px-3 text-xs font-semibold border border-neutral-200 rounded-lg text-neutral-600 hover:bg-neutral-50 transition-colors">
+                <button
+                  type="button"
+                  onClick={() => { setIsDraft(true); savePost(true); }}
+                  disabled={isSaving}
+                  className="flex-1 py-2 px-3 text-xs font-semibold border border-neutral-200 rounded-lg text-neutral-600 hover:bg-neutral-50 transition-colors"
+                >
                   Save Draft
                 </button>
-                <button type="button"
-                  className="flex-1 py-2 px-3 text-xs font-semibold border border-neutral-200 rounded-lg text-neutral-600 hover:bg-neutral-50 transition-colors">
+                <button
+                  type="button"
+                  onClick={() => setShowPreviewModal(true)}
+                  className="flex-1 py-2 px-3 text-xs font-semibold border border-neutral-200 rounded-lg text-neutral-600 hover:bg-neutral-50 transition-colors"
+                >
                   Preview
                 </button>
               </div>
@@ -896,11 +1004,19 @@ export default function NewBlogPostPage() {
               </div>
 
               <div className="flex items-center justify-between border-t border-neutral-200 pt-3">
-                <button type="button" className="text-xs text-red-500 hover:text-red-700 font-semibold">
+                <button
+                  type="button"
+                  onClick={handleMoveToTrash}
+                  className="text-xs text-red-500 hover:text-red-700 font-semibold"
+                >
                   Move to Trash
                 </button>
-                <button type="submit" disabled={isSaving}
-                  className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 disabled:bg-neutral-200 px-5 py-2 text-xs font-bold text-white shadow-sm transition-all cursor-pointer border-0">
+                <button
+                  type="button"
+                  onClick={() => { setIsDraft(false); savePost(false); }}
+                  disabled={isSaving}
+                  className="inline-flex items-center gap-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 disabled:bg-neutral-200 px-5 py-2 text-xs font-bold text-white shadow-sm transition-all cursor-pointer border-0"
+                >
                   {isSaving ? <><Icons.Loader2 className="h-3.5 w-3.5 animate-spin" /> Publishing...</> : "Publish"}
                 </button>
               </div>
@@ -921,8 +1037,14 @@ export default function NewBlogPostPage() {
                 { value: "link", label: "Link", icon: Icons.Link },
               ].map(f => (
                 <label key={f.value} className="flex items-center gap-2 text-xs text-neutral-600 cursor-pointer py-0.5">
-                  <input type="radio" name="format" value={f.value} defaultChecked={f.value === "standard"}
-                    className="accent-blue-600" />
+                  <input
+                    type="radio"
+                    name="format"
+                    value={f.value}
+                    checked={postFormat === f.value}
+                    onChange={() => setPostFormat(f.value)}
+                    className="accent-blue-600"
+                  />
                   <f.icon className="h-3.5 w-3.5 text-neutral-400" />
                   {f.label}
                 </label>
@@ -936,18 +1058,27 @@ export default function NewBlogPostPage() {
               <h3 className="text-sm font-bold text-neutral-800">Categories</h3>
             </div>
             <div className="px-4 py-3">
-              <div className="flex flex-col gap-1.5 max-h-40 overflow-y-auto mb-3">
-                {["SEO", "Google Ads", "Web Dev", "Content Marketing", "Email Marketing", "Social Media", "E-commerce", "AI & Automation"].map(cat => (
+              <div className="flex flex-col gap-1.5 max-h-44 overflow-y-auto mb-3">
+                {categoriesList.map(cat => (
                   <label key={cat} className="flex items-center gap-2 text-xs text-neutral-600 cursor-pointer py-0.5">
-                    <input type="radio" name="category" value={cat}
-                      checked={categoryName === cat} onChange={() => setCategoryName(cat)}
-                      className="accent-blue-600" />
+                    <input
+                      type="radio"
+                      name="category"
+                      value={cat}
+                      checked={categoryName === cat}
+                      onChange={() => setCategoryName(cat)}
+                      className="accent-blue-600"
+                    />
                     {cat}
                   </label>
                 ))}
               </div>
-              <button type="button" className="text-xs text-blue-600 font-semibold hover:text-blue-800">
-                + Add New Category
+              <button
+                type="button"
+                onClick={handleAddNewCategory}
+                className="text-xs text-blue-600 font-semibold hover:text-blue-800 flex items-center gap-1"
+              >
+                <Icons.Plus className="h-3 w-3" /> Add New Category
               </button>
             </div>
           </div>
@@ -958,16 +1089,40 @@ export default function NewBlogPostPage() {
               <h3 className="text-sm font-bold text-neutral-800">Tags</h3>
             </div>
             <div className="px-4 py-3">
-              <div className="flex gap-2">
-                <input type="text" value={tagsInput} onChange={e => setTagsInput(e.target.value)}
-                  placeholder="Add tags (comma-separated)" className={`${inputCls} flex-1`} />
+              <div className="flex gap-2 mb-2">
+                <input
+                  type="text"
+                  value={tagInputText}
+                  onChange={e => setTagInputText(e.target.value)}
+                  onKeyDown={handleAddTag}
+                  placeholder="Add tags (press Enter or comma)"
+                  className={`${inputCls} flex-1`}
+                />
+                <button
+                  type="button"
+                  onClick={() => handleAddTag()}
+                  className="px-3 py-1.5 rounded-lg bg-neutral-100 hover:bg-neutral-200 text-neutral-700 text-xs font-semibold"
+                >
+                  Add
+                </button>
               </div>
-              <p className={helpCls}>Separate tags with commas. e.g. SEO, Google, Marketing</p>
-              {tagsInput && (
-                <div className="flex flex-wrap gap-1.5 mt-2">
-                  {tagsInput.split(",").map((tag, i) => tag.trim() && (
-                    <span key={i} className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-neutral-100 text-xs text-neutral-600 font-medium border border-neutral-200">
-                      {tag.trim()}
+              <p className={helpCls}>Separate tags with commas or press Enter.</p>
+
+              {tags.length > 0 && (
+                <div className="flex flex-wrap gap-1.5 mt-3">
+                  {tags.map((tag, i) => (
+                    <span
+                      key={i}
+                      className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-xs font-medium"
+                    >
+                      {tag}
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveTag(tag)}
+                        className="hover:text-red-600"
+                      >
+                        <Icons.X className="h-3 w-3" />
+                      </button>
                     </span>
                   ))}
                 </div>
@@ -1040,6 +1195,112 @@ export default function NewBlogPostPage() {
 
         </div>
       </form>
+
+      {/* ══════════════════════════════════════════════════ */}
+      {/* LIVE PREVIEW MODAL                                */}
+      {/* ══════════════════════════════════════════════════ */}
+      {showPreviewModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 overflow-y-auto">
+          <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl relative">
+            <div className="flex items-center justify-between border-b border-neutral-100 pb-4 mb-6">
+              <span className="text-xs font-bold text-blue-600 uppercase tracking-wider flex items-center gap-1.5">
+                <Icons.Eye className="h-4 w-4" /> Live Website Preview
+              </span>
+              <button
+                type="button"
+                onClick={() => setShowPreviewModal(false)}
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-500 transition-colors"
+              >
+                <Icons.X className="h-4 w-4" />
+              </button>
+            </div>
+
+            {/* Preview Post Body */}
+            <div className="max-w-3xl mx-auto">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="inline-flex items-center rounded-full bg-blue-50 border border-blue-100 px-3 py-1 text-xs font-semibold text-blue-600 uppercase tracking-wider">
+                  {categoryName}
+                </span>
+                <span className="text-xs text-neutral-400">
+                  Preview Mode · {wordCount > 0 ? `${Math.max(1, Math.round(wordCount / 200))} min read` : "1 min read"}
+                </span>
+              </div>
+
+              <h1 className="font-serif text-3xl sm:text-4xl font-bold text-neutral-900 mb-6">
+                {title || "Untitled Article Title"}
+              </h1>
+
+              {/* Author */}
+              <div className="flex items-center gap-3 pt-3 border-t border-neutral-100 mb-8">
+                <div className="relative h-10 w-10 overflow-hidden rounded-full border border-neutral-200">
+                  <Image src="/Kamrujjaman Mufti Image/kamrujjaman-mufti.jpg" alt="Author" fill className="object-cover" />
+                </div>
+                <div>
+                  <div className="text-xs font-bold text-neutral-900">Kamrujjaman Mufti</div>
+                  <div className="text-[11px] text-neutral-400">Founder & Digital Marketing Expert</div>
+                </div>
+              </div>
+
+              {/* Direct Answer preview */}
+              {aeoDirectAnswer && (
+                <div className="mb-8 rounded-xl bg-blue-50 border border-blue-100 p-5">
+                  <div className="text-xs font-bold text-blue-700 mb-1 flex items-center gap-1.5">
+                    <Icons.Zap className="h-3.5 w-3.5 text-amber-500" />
+                    Quick Answer: {aeoTargetQuestion || title}
+                  </div>
+                  <p className="text-sm text-neutral-800 leading-relaxed font-medium">{aeoDirectAnswer}</p>
+                </div>
+              )}
+
+              {/* Featured Image */}
+              {featuredImage && (
+                <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-neutral-200 mb-8">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={featuredImage} alt={imageAltText || title} className="w-full h-full object-cover" />
+                </div>
+              )}
+
+              {/* Excerpt */}
+              {excerpt && (
+                <p className="text-base font-medium text-neutral-600 mb-6 italic border-l-4 border-blue-600 pl-4 py-1">
+                  {excerpt}
+                </p>
+              )}
+
+              {/* Main Content */}
+              <div
+                className="prose prose-neutral max-w-none text-sm text-neutral-700 leading-relaxed space-y-4 mb-10"
+                dangerouslySetInnerHTML={{ __html: content || "<p>Type your article body to preview it live here...</p>" }}
+              />
+
+              {/* Video preview */}
+              {veoVideoUrl && (
+                <div className="mb-8">
+                  <h4 className="font-bold text-neutral-900 text-sm mb-3">Video Overview</h4>
+                  <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-neutral-200 bg-neutral-950">
+                    <iframe src={veoVideoUrl} title="Video Preview" className="w-full h-full border-0" />
+                  </div>
+                </div>
+              )}
+
+              {/* FAQs preview */}
+              {aeoFaqItems.some(f => f.question && f.answer) && (
+                <div className="border-t border-neutral-200 pt-6 mt-8">
+                  <h4 className="font-serif font-bold text-lg text-neutral-900 mb-4">Frequently Asked Questions</h4>
+                  <div className="space-y-3">
+                    {aeoFaqItems.map((faq, idx) => faq.question && (
+                      <div key={idx} className="rounded-xl border border-neutral-200 p-4">
+                        <h5 className="font-bold text-sm text-neutral-900 mb-1">{faq.question}</h5>
+                        <p className="text-xs text-neutral-600">{faq.answer}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
