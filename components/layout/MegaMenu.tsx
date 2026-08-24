@@ -17,56 +17,61 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
         <>
           {/* Backdrop */}
           <div 
-            className="fixed inset-0 top-[80px] z-40 bg-black/5 backdrop-blur-[2px]" 
+            className="fixed inset-0 top-[80px] z-40 bg-black/10 backdrop-blur-xs" 
             onClick={onClose}
           />
           
-          {/* Menu Drawer */}
+          {/* Menu Drawer Container - Fits all laptop monitor resolutions */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 15 }}
-            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="absolute left-0 right-0 top-full z-50 w-full border-b border-neutral-200 bg-white shadow-premium"
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute left-0 right-0 top-full z-50 w-full border-b border-neutral-200/90 bg-white shadow-2xl max-h-[calc(100vh-90px)] overflow-y-auto"
             onMouseLeave={onClose}
           >
-            <div className="container mx-auto max-w-7xl px-6 py-8">
-              <div className="grid grid-cols-3 gap-8">
+            <div className="container mx-auto max-w-[1400px] px-4 sm:px-6 py-6">
+              {/* 6-Column Grid Layout for Perfect Laptop Monitor Display */}
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 xl:gap-5 items-start">
                 {servicesData.map((category) => {
                   // Get Lucide Icon dynamically
                   const Icon = (Icons[category.iconName as keyof typeof Icons] || Icons.HelpCircle) as React.ComponentType<{ className?: string }>;
 
                   return (
-                    <div key={category.id} className="group flex flex-col gap-3 rounded-xl p-4 transition-colors hover:bg-neutral-50">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-light text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-                          <Icon className="h-5 w-5" />
+                    <div 
+                      key={category.id} 
+                      className="group flex flex-col gap-2.5 rounded-xl p-3.5 transition-colors bg-neutral-50/60 hover:bg-blue-50/40 border border-neutral-200/60 hover:border-blue-200/80 h-full"
+                    >
+                      {/* Category Header */}
+                      <div className="flex items-center gap-2.5 pb-2 border-b border-neutral-200/60">
+                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-100/80 text-blue-700 transition-colors group-hover:bg-blue-600 group-hover:text-white">
+                          <Icon className="h-4 w-4" />
                         </div>
-                        <div>
+                        <div className="min-w-0 flex-1">
                           <Link 
                             href={`/services/${category.slug}`}
-                            className="font-sans font-semibold text-neutral-900 group-hover:text-primary"
+                            className="font-sans font-bold text-xs sm:text-sm text-neutral-900 group-hover:text-blue-600 truncate block leading-tight"
                             onClick={onClose}
                           >
                             {category.title}
                           </Link>
-                          <p className="font-sans text-xs text-neutral-400 mt-0.5 leading-snug">
-                            {category.description}
-                          </p>
+                          <span className="text-[10px] text-neutral-400 font-medium block truncate">
+                            {category.subItems.length} tracks
+                          </span>
                         </div>
                       </div>
 
-                      {/* Sub Items */}
-                      <ul className="flex flex-col gap-2 pl-[52px]">
+                      {/* Sub Items List */}
+                      <ul className="flex flex-col gap-1.5 pt-1">
                         {category.subItems.map((sub) => (
                           <li key={sub.slug}>
                             <Link
                               href={`/services/${category.slug}#${sub.slug}`}
-                              className="font-sans text-sm text-neutral-500 hover:text-primary flex items-center gap-1.5 transition-colors"
+                              className="font-sans text-[11px] sm:text-xs font-medium text-neutral-600 hover:text-blue-600 flex items-center gap-1 transition-colors leading-snug py-0.5 group/item"
                               onClick={onClose}
                             >
-                              <Icons.ChevronRight className="h-3.5 w-3.5 text-neutral-300 group-hover:text-primary/50" />
-                              {sub.name}
+                              <Icons.ChevronRight className="h-3 w-3 text-neutral-400 group-hover/item:text-blue-600 shrink-0 transition-transform group-hover/item:translate-x-0.5" />
+                              <span className="truncate">{sub.name}</span>
                             </Link>
                           </li>
                         ))}
@@ -74,6 +79,20 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                     </div>
                   );
                 })}
+              </div>
+
+              {/* Bottom Quick Bar */}
+              <div className="mt-5 pt-3 border-t border-neutral-100 flex flex-wrap items-center justify-between gap-3 text-xs">
+                <span className="text-neutral-500 font-medium">
+                  Need a custom agency solution? We build tailored strategies across all 6 core categories.
+                </span>
+                <Link
+                  href="/contact"
+                  onClick={onClose}
+                  className="inline-flex items-center gap-1.5 font-bold text-blue-600 hover:text-blue-800 transition-colors"
+                >
+                  Book Free Strategy Consultation <Icons.ArrowRight className="h-3.5 w-3.5" />
+                </Link>
               </div>
             </div>
           </motion.div>
