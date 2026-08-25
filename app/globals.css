@@ -3,55 +3,12 @@
 @tailwind utilities;
 
 /* ═══════════════════════════════════════════════════════════════════
-   RESPONSIVE DESIGN SYSTEM
-   Scales typography, spacing, and component proportions smoothly
-   across all viewport widths (mobile → tablet → laptop → desktop).
-   Uses clamp() for fluid scaling and CSS custom properties for
-   consistent spacing tokens.
+   GLOBAL DESIGN SYSTEM & BASE STYLING
+   Enforces consistent container margins, side spacing, and layout
+   across all desktop and laptop monitor screen sizes.
    ═══════════════════════════════════════════════════════════════════ */
 
 @layer base {
-  :root {
-    /* ── Fluid Section Spacing ── */
-    /* Scales smoothly between min (mobile) and max (desktop) values */
-    --section-py-sm: clamp(2.5rem, 4vw, 4rem);      /* ~40px → 64px */
-    --section-py-md: clamp(3rem, 5vw, 5rem);         /* ~48px → 80px */
-    --section-py-lg: clamp(3.5rem, 6vw, 6rem);       /* ~56px → 96px */
-    --section-py-xl: clamp(4rem, 7vw, 7rem);         /* ~64px → 112px */
-
-    /* ── Fluid Section Heading Bottom Margin ── */
-    --heading-mb-sm: clamp(1rem, 2vw, 1.5rem);       /* ~16px → 24px */
-    --heading-mb-md: clamp(1.5rem, 3vw, 2.5rem);     /* ~24px → 40px */
-    --heading-mb-lg: clamp(2rem, 4vw, 3.5rem);       /* ~32px → 56px */
-
-    /* ── Fluid Typography ── */
-    --fs-hero: clamp(2rem, 4vw + 0.5rem, 3.75rem);         /* 32px → 60px */
-    --fs-section-title: clamp(1.5rem, 2.5vw + 0.25rem, 2.75rem);  /* 24px → 44px */
-    --fs-card-title: clamp(1rem, 1.2vw + 0.25rem, 1.25rem);       /* 16px → 20px */
-    --fs-body: clamp(0.8125rem, 0.9vw, 1rem);                     /* 13px → 16px */
-    --fs-small: clamp(0.6875rem, 0.75vw + 0.125rem, 0.875rem);    /* 11px → 14px */
-
-    /* ── Container Gap Scaling ── */
-    --grid-gap: clamp(1rem, 2vw, 2rem);              /* 16px → 32px */
-    --card-padding: clamp(1.25rem, 2vw, 2rem);       /* 20px → 32px */
-  }
-
-  /* ── Laptop-Specific Tightening (1024px – 1440px) ──
-     This breakpoint range catches standard laptops (13", 14", 15.6")
-     where content often appears too large. We reduce spacing and
-     typography slightly without changing the design. */
-  @media (min-width: 1024px) and (max-width: 1440px) {
-    :root {
-      --section-py-sm: clamp(2rem, 3.5vw, 3rem);
-      --section-py-md: clamp(2.5rem, 4vw, 3.5rem);
-      --section-py-lg: clamp(3rem, 4.5vw, 4rem);
-      --section-py-xl: clamp(3.5rem, 5vw, 4.5rem);
-      --heading-mb-sm: clamp(0.75rem, 1.5vw, 1.25rem);
-      --heading-mb-md: clamp(1.25rem, 2.5vw, 2rem);
-      --heading-mb-lg: clamp(1.5rem, 3vw, 2.5rem);
-    }
-  }
-
   body {
     @apply antialiased min-h-screen text-neutral-900;
     background-image: repeating-linear-gradient(
@@ -68,78 +25,7 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   UTILITY CLASSES FOR RESPONSIVE SECTIONS
-   Apply these to section wrappers to get fluid spacing.
-   ═══════════════════════════════════════════════════════════════════ */
-@layer utilities {
-  /* Fluid section padding utilities */
-  .section-py-sm { padding-top: var(--section-py-sm); padding-bottom: var(--section-py-sm); }
-  .section-py-md { padding-top: var(--section-py-md); padding-bottom: var(--section-py-md); }
-  .section-py-lg { padding-top: var(--section-py-lg); padding-bottom: var(--section-py-lg); }
-  .section-py-xl { padding-top: var(--section-py-xl); padding-bottom: var(--section-py-xl); }
-  .section-pt-sm { padding-top: var(--section-py-sm); }
-  .section-pt-md { padding-top: var(--section-py-md); }
-  .section-pt-lg { padding-top: var(--section-py-lg); }
-  .section-pb-sm { padding-bottom: var(--section-py-sm); }
-  .section-pb-md { padding-bottom: var(--section-py-md); }
-  .section-pb-lg { padding-bottom: var(--section-py-lg); }
-
-  /* Fluid heading margin-bottom */
-  .heading-mb-sm { margin-bottom: var(--heading-mb-sm); }
-  .heading-mb-md { margin-bottom: var(--heading-mb-md); }
-  .heading-mb-lg { margin-bottom: var(--heading-mb-lg); }
-
-  /* Fluid typography */
-  .text-fluid-hero { font-size: var(--fs-hero); }
-  .text-fluid-title { font-size: var(--fs-section-title); }
-  .text-fluid-card { font-size: var(--fs-card-title); }
-  .text-fluid-body { font-size: var(--fs-body); }
-  .text-fluid-small { font-size: var(--fs-small); }
-}
-
-/* ═══════════════════════════════════════════════════════════════════
-   GLOBAL RESPONSIVE OVERRIDES
-   These rules apply broadly to reduce oversized elements on laptop
-   screens without touching individual component files.
-   ═══════════════════════════════════════════════════════════════════ */
-
-/* Laptop screens: tighten header height */
-@media (min-width: 1024px) and (max-width: 1440px) {
-  header .container {
-    max-width: 100%;
-  }
-  header .container > div {
-    height: 4.5rem; /* 72px instead of 80px */
-  }
-}
-
-/* Laptop screens: tighten section vertical padding globally */
-@media (min-width: 1024px) and (max-width: 1440px) {
-  /* Reduce oversized section padding on laptop viewports */
-  section {
-    --tw-section-scale: 0.82;
-  }
-
-  /* Footer tightening */
-  footer .container {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-  }
-  footer .container > div:last-child {
-    margin-top: 2.5rem;
-  }
-}
-
-/* Tablet screens: further tightening */
-@media (min-width: 768px) and (max-width: 1023px) {
-  footer .container {
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════════════
-   ANIMATIONS
+   ANIMATIONS & SCROLLBAR
    ═══════════════════════════════════════════════════════════════════ */
 @keyframes slide-in-right {
   from {

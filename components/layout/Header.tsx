@@ -49,7 +49,7 @@ export default function Header() {
         }`}
       >
         <div className="container mx-auto max-w-7xl px-6">
-          <div className="flex h-16 lg:h-[72px] items-center justify-between">
+          <div className="flex h-20 items-center justify-between">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 font-sans font-bold text-neutral-900 text-lg">
               <span className="h-4 w-4 rounded-full bg-gradient-to-r from-primary to-primary-hover shadow-sm" />
@@ -57,7 +57,7 @@ export default function Header() {
             </Link>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden lg:flex items-center gap-6" aria-label="Desktop Navigation">
+            <nav className="hidden lg:flex items-center gap-8" aria-label="Desktop Navigation">
               <Link
                 href="/"
                 className={`font-sans text-sm font-medium transition-colors ${
