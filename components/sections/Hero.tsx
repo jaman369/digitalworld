@@ -96,7 +96,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-transparent pt-4 pb-0 lg:pt-6 lg:pb-0 flex flex-col justify-between min-h-[580px] sm:min-h-[640px] lg:h-[720px] xl:h-[760px]">
+    <section className="relative overflow-hidden bg-transparent pt-4 pb-0 lg:pt-6 lg:pb-0 flex flex-col justify-between min-h-[580px] sm:min-h-[620px] lg:h-[650px] xl:h-[730px]">
       {/* Background design image */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <Image
@@ -109,7 +109,7 @@ export default function Hero() {
         />
       </div>
 
-      <div className="container mx-auto max-w-7xl px-4 sm:px-6 relative z-10 flex-1 flex flex-col justify-start pt-8 sm:pt-10 lg:pt-14">
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6 relative z-10 flex-1 flex flex-col justify-start pt-6 sm:pt-8 lg:pt-12 xl:pt-14">
         {/* Main Hero Content (Positioned with higher z-index & clear padding so it is ALWAYS visually dominant & unblocked) */}
         <motion.div
           variants={containerVariants}
@@ -120,16 +120,16 @@ export default function Hero() {
           {/* Eyebrow Badge */}
           <motion.div
             variants={itemVariants}
-            className="inline-flex items-center gap-2 rounded-full border border-neutral-200/90 bg-white/95 backdrop-blur-md px-4 py-1.5 text-[11px] sm:text-xs font-semibold text-neutral-600 shadow-sm mb-4 pointer-events-auto max-w-[92vw]"
+            className="inline-flex items-center gap-2 rounded-full border border-neutral-200/90 bg-white/95 backdrop-blur-md px-4 py-1.5 text-[11px] sm:text-xs font-semibold text-neutral-600 shadow-sm mb-3.5 sm:mb-4 pointer-events-auto max-w-[92vw]"
           >
             <span className="h-2 w-2 shrink-0 rounded-full bg-emerald-500 animate-pulse" />
             <span className="truncate">{data.heroTagline || "Available for new projects · Based in Dhaka, Bangladesh"}</span>
           </motion.div>
 
-          {/* Headline (Preserved Exact Title & Formatting) */}
+          {/* Headline (Preserved Exact Title & Formatting with Adaptive Laptop & PC Typography) */}
           <motion.h1
             variants={itemVariants}
-            className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-900 leading-[1.12] sm:leading-[1.1] mb-4 pointer-events-auto drop-shadow-2xs"
+            className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-neutral-900 leading-[1.12] sm:leading-[1.1] mb-3 sm:mb-4 pointer-events-auto drop-shadow-2xs"
           >
             {data.heroTitle ? (
               data.heroTitle.includes("beyond borders") ? (
@@ -151,7 +151,7 @@ export default function Hero() {
           {/* Subtext */}
           <motion.p
             variants={itemVariants}
-            className="font-sans text-xs sm:text-sm md:text-base text-neutral-600 leading-relaxed max-w-lg mb-6 pointer-events-auto px-2"
+            className="font-sans text-xs sm:text-sm md:text-base text-neutral-600 leading-relaxed max-w-lg mb-5 sm:mb-6 pointer-events-auto px-2"
           >
             {data.heroSubtitle || "Digital World is a full-service digital marketing agency helping businesses in the USA, UK, Canada, UAE, Australia & beyond dominate search, ads, and the web — led by Kamrujjaman Mufti."}
           </motion.p>
@@ -159,7 +159,7 @@ export default function Hero() {
           {/* CTAs */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6 w-full sm:w-auto pointer-events-auto px-4 sm:px-0"
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-5 sm:mb-6 w-full sm:w-auto pointer-events-auto px-4 sm:px-0"
           >
             <Link
               href={data.heroPrimaryCtaLink || "/contact"}
@@ -196,11 +196,11 @@ export default function Hero() {
         <div className="absolute inset-0 pointer-events-none hidden md:block select-none max-w-7xl mx-auto w-full h-full z-10">
           
           {/* Dashed Orbit Track Rings */}
-          <div className="absolute left-1/2 top-[290px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-blue-400/25 pointer-events-none transition-all duration-300" 
+          <div className="absolute left-1/2 top-[270px] lg:top-[280px] xl:top-[290px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-blue-400/25 pointer-events-none transition-all duration-300" 
                style={{ width: "calc(var(--radius-inner-x) * 2)", height: "calc(var(--radius-inner-y) * 2)" }} />
-          <div className="absolute left-1/2 top-[290px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-indigo-400/20 pointer-events-none transition-all duration-300" 
+          <div className="absolute left-1/2 top-[270px] lg:top-[280px] xl:top-[290px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-indigo-400/20 pointer-events-none transition-all duration-300" 
                style={{ width: "calc(var(--radius-mid-x) * 2)", height: "calc(var(--radius-mid-y) * 2)" }} />
-          <div className="absolute left-1/2 top-[290px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-purple-400/15 pointer-events-none transition-all duration-300" 
+          <div className="absolute left-1/2 top-[270px] lg:top-[280px] xl:top-[290px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-purple-400/15 pointer-events-none transition-all duration-300" 
                style={{ width: "calc(var(--radius-outer-x) * 2)", height: "calc(var(--radius-outer-y) * 2)" }} />
 
           {/* Revolving Planets (Service Badges) */}
@@ -211,7 +211,7 @@ export default function Hero() {
             return (
               <div
                 key={idx}
-                className={`absolute left-1/2 top-[290px] inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-semibold shadow-premium cursor-pointer pointer-events-auto select-none transition-all duration-300 ${badge.color} orbit-badge`}
+                className={`absolute left-1/2 top-[270px] lg:top-[280px] xl:top-[290px] inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-semibold shadow-premium cursor-pointer pointer-events-auto select-none transition-all duration-300 ${badge.color} orbit-badge`}
                 style={{
                   "--radius-x": `var(--radius-${badge.orbit}-x)`,
                   "--radius-y": `var(--radius-${badge.orbit}-y)`,
@@ -232,7 +232,7 @@ export default function Hero() {
       </div>
 
       {/* Rotating Marquee Banner */}
-      <div className="relative mt-auto border-y border-neutral-100 bg-transparent py-4 overflow-hidden">
+      <div className="relative mt-auto border-y border-neutral-100 bg-transparent py-3.5 sm:py-4 overflow-hidden">
         <div className="flex w-[200%] animate-marquee">
           {[...countries, ...countries, ...countries, ...countries].map((country, idx) => (
             <div
@@ -255,8 +255,9 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scoped CSS Inject for Concentric Solar Orbit Motion with Outer Clearance Radii */}
+      {/* Scoped CSS Inject with Optimized Laptop Monitor & PC Monitor Orbit Radii */}
       <style dangerouslySetInnerHTML={{ __html: `
+        /* ── Large PC Desktop Monitors (1440px+) ── */
         :root {
           --radius-inner-x: 540px;
           --radius-inner-y: 240px;
@@ -267,38 +268,28 @@ export default function Hero() {
           --badge-scale: 0.95;
         }
 
-        @media (max-width: 1400px) {
-          :root {
-            --radius-inner-x: 480px;
-            --radius-inner-y: 220px;
-            --radius-mid-x: 580px;
-            --radius-mid-y: 250px;
-            --radius-outer-x: 680px;
-            --radius-outer-y: 280px;
-            --badge-scale: 0.88;
-          }
-        }
-
-        @media (max-width: 1200px) {
+        /* ── Standard Laptops & 1366x768 / 1440x900 Monitors (1024px – 1439px) ── */
+        @media (min-width: 1024px) and (max-width: 1439px) {
           :root {
             --radius-inner-x: 440px;
-            --radius-inner-y: 200px;
+            --radius-inner-y: 205px;
             --radius-mid-x: 520px;
-            --radius-mid-y: 230px;
+            --radius-mid-y: 235px;
             --radius-outer-x: 600px;
-            --radius-outer-y: 260px;
+            --radius-outer-y: 265px;
             --badge-scale: 0.82;
           }
         }
 
-        @media (max-width: 991px) {
+        /* ── Tablets (768px – 1023px) ── */
+        @media (min-width: 768px) and (max-width: 1023px) {
           :root {
-            --radius-inner-x: 360px;
-            --radius-inner-y: 170px;
-            --radius-mid-x: 430px;
-            --radius-mid-y: 195px;
-            --radius-outer-x: 500px;
-            --radius-outer-y: 220px;
+            --radius-inner-x: 370px;
+            --radius-inner-y: 175px;
+            --radius-mid-x: 440px;
+            --radius-mid-y: 200px;
+            --radius-outer-x: 510px;
+            --radius-outer-y: 225px;
             --badge-scale: 0.75;
           }
         }
