@@ -31,36 +31,36 @@ export default function Hero() {
     load();
   }, []);
 
-  /* ── 10 Required Services split into Left & Right Floating Decorative Wings ── */
-  const leftWingBadges = [
-    { text: "Web Design & Dev", icon: Icons.Monitor, angle: 0, speed: 26, color: "text-purple-600 bg-purple-50/90 border-purple-200", rx: 150, ry: 110 },
-    { text: "Google Ads", icon: Icons.TrendingUp, angle: 72, speed: 26, color: "text-amber-600 bg-amber-50/90 border-amber-200", rx: 125, ry: 95 },
-    { text: "Ecommerce SEO", icon: Icons.ShoppingBag, angle: 144, speed: 26, color: "text-emerald-600 bg-emerald-50/90 border-emerald-200", rx: 160, ry: 120 },
-    { text: "WordPress", icon: Icons.Code, angle: 216, speed: 26, color: "text-sky-600 bg-sky-50/90 border-sky-200", rx: 130, ry: 100 },
-    { text: "Email Marketing", icon: Icons.Mail, angle: 288, speed: 26, color: "text-violet-600 bg-violet-50/90 border-violet-200", rx: 155, ry: 115 },
-  ];
+  /* ── 10 Required Services Allocated Across 3 Concentric Cosmic Solar System Orbits ── */
+  const orbitalPlanets = [
+    // ── Inner Solar Orbit Ring (3 Planets) ──
+    { text: "Shopify", icon: Icons.Store, orbit: "inner", angle: 30, speed: 32, direction: "cw", color: "text-emerald-700 bg-emerald-50/95 border-emerald-200" },
+    { text: "Local SEO", icon: Icons.Search, orbit: "inner", angle: 150, speed: 32, direction: "cw", color: "text-blue-600 bg-blue-50/95 border-blue-200" },
+    { text: "WordPress", icon: Icons.Code, orbit: "inner", angle: 270, speed: 32, direction: "cw", color: "text-sky-600 bg-sky-50/95 border-sky-200" },
 
-  const rightWingBadges = [
-    { text: "Local SEO", icon: Icons.Search, angle: 36, speed: 28, color: "text-blue-600 bg-blue-50/90 border-blue-200", rx: 145, ry: 105 },
-    { text: "Shopify", icon: Icons.Store, angle: 108, speed: 28, color: "text-emerald-700 bg-emerald-50/90 border-emerald-200", rx: 130, ry: 95 },
-    { text: "SaaS SEO", icon: Icons.Layers, angle: 180, speed: 28, color: "text-indigo-600 bg-indigo-50/90 border-indigo-200", rx: 160, ry: 120 },
-    { text: "Facebook Ads", icon: Icons.Users, angle: 252, speed: 28, color: "text-blue-700 bg-blue-50/90 border-blue-200", rx: 135, ry: 100 },
-    { text: "Content Marketing", icon: Icons.PenTool, angle: 324, speed: 28, color: "text-rose-600 bg-rose-50/90 border-rose-200", rx: 150, ry: 110 },
-  ];
+    // ── Middle Solar Orbit Ring (3 Planets) ──
+    { text: "Web Design & Dev", icon: Icons.Monitor, orbit: "mid", angle: 60, speed: 42, direction: "ccw", color: "text-purple-600 bg-purple-50/95 border-purple-200" },
+    { text: "Ecommerce SEO", icon: Icons.ShoppingBag, orbit: "mid", angle: 180, speed: 42, direction: "ccw", color: "text-emerald-600 bg-emerald-50/95 border-emerald-200" },
+    { text: "SaaS SEO", icon: Icons.Layers, orbit: "mid", angle: 300, speed: 42, direction: "ccw", color: "text-indigo-600 bg-indigo-50/95 border-indigo-200" },
 
-  const allBadges = [...leftWingBadges, ...rightWingBadges];
+    // ── Outer Solar Orbit Ring (4 Planets) ──
+    { text: "Google Ads", icon: Icons.TrendingUp, orbit: "outer", angle: 15, speed: 52, direction: "cw", color: "text-amber-600 bg-amber-50/95 border-amber-200" },
+    { text: "Facebook Ads", icon: Icons.Users, orbit: "outer", angle: 105, speed: 52, direction: "cw", color: "text-blue-700 bg-blue-50/95 border-blue-200" },
+    { text: "Content Marketing", icon: Icons.PenTool, orbit: "outer", angle: 195, speed: 52, direction: "cw", color: "text-rose-600 bg-rose-50/95 border-rose-200" },
+    { text: "Email Marketing", icon: Icons.Mail, orbit: "outer", angle: 285, speed: 52, direction: "cw", color: "text-violet-600 bg-violet-50/95 border-violet-200" },
+  ];
 
   const badgeGlowColors: Record<string, string> = {
-    "Local SEO": "rgba(59, 130, 246, 0.18)",
-    "SaaS SEO": "rgba(99, 102, 241, 0.18)",
-    "Ecommerce SEO": "rgba(16, 185, 129, 0.18)",
-    "WordPress": "rgba(14, 165, 233, 0.18)",
-    "Shopify": "rgba(4, 120, 87, 0.18)",
-    "Web Design & Dev": "rgba(147, 51, 234, 0.18)",
-    "Google Ads": "rgba(217, 119, 6, 0.18)",
-    "Facebook Ads": "rgba(29, 78, 216, 0.18)",
-    "Content Marketing": "rgba(225, 29, 72, 0.18)",
-    "Email Marketing": "rgba(124, 58, 237, 0.18)",
+    "Local SEO": "rgba(59, 130, 246, 0.22)",
+    "SaaS SEO": "rgba(99, 102, 241, 0.22)",
+    "Ecommerce SEO": "rgba(16, 185, 129, 0.22)",
+    "WordPress": "rgba(14, 165, 233, 0.22)",
+    "Shopify": "rgba(4, 120, 87, 0.22)",
+    "Web Design & Dev": "rgba(147, 51, 234, 0.22)",
+    "Google Ads": "rgba(217, 119, 6, 0.22)",
+    "Facebook Ads": "rgba(29, 78, 216, 0.22)",
+    "Content Marketing": "rgba(225, 29, 72, 0.22)",
+    "Email Marketing": "rgba(124, 58, 237, 0.22)",
   };
 
   const countries = [
@@ -96,8 +96,8 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-transparent pt-4 pb-0 lg:pt-6 lg:pb-0 flex flex-col justify-between min-h-[580px] sm:min-h-[640px] lg:h-[700px]">
-      {/* Background ambient design image */}
+    <section className="relative overflow-hidden bg-transparent pt-4 pb-0 lg:pt-6 lg:pb-0 flex flex-col justify-between min-h-[580px] sm:min-h-[640px] lg:h-[720px] xl:h-[760px]">
+      {/* Background design image */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <Image
           src="/images/hero-bg.jpg"
@@ -110,17 +110,17 @@ export default function Hero() {
       </div>
 
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 relative z-10 flex-1 flex flex-col justify-start pt-8 sm:pt-10 lg:pt-14">
-        {/* Main Content Layout (Higher Z-Index so main hero text is always visually dominant & unblocked) */}
+        {/* Main Hero Content (Positioned with higher z-index & clear padding so it is ALWAYS visually dominant & unblocked) */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="mx-auto max-w-2xl lg:max-w-3xl text-center flex flex-col items-center relative z-30 pointer-events-none"
+          className="mx-auto max-w-2xl text-center flex flex-col items-center relative z-30 pointer-events-none"
         >
           {/* Eyebrow Badge */}
           <motion.div
             variants={itemVariants}
-            className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white/90 backdrop-blur-xs px-3.5 sm:px-4 py-1.5 text-[11px] sm:text-xs font-semibold text-neutral-600 shadow-2xs mb-4 pointer-events-auto max-w-[92vw]"
+            className="inline-flex items-center gap-2 rounded-full border border-neutral-200/90 bg-white/95 backdrop-blur-md px-4 py-1.5 text-[11px] sm:text-xs font-semibold text-neutral-600 shadow-sm mb-4 pointer-events-auto max-w-[92vw]"
           >
             <span className="h-2 w-2 shrink-0 rounded-full bg-emerald-500 animate-pulse" />
             <span className="truncate">{data.heroTagline || "Available for new projects · Based in Dhaka, Bangladesh"}</span>
@@ -129,7 +129,7 @@ export default function Hero() {
           {/* Headline (Preserved Exact Title & Formatting) */}
           <motion.h1
             variants={itemVariants}
-            className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-900 leading-[1.12] sm:leading-[1.1] mb-4 pointer-events-auto"
+            className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-900 leading-[1.12] sm:leading-[1.1] mb-4 pointer-events-auto drop-shadow-2xs"
           >
             {data.heroTitle ? (
               data.heroTitle.includes("beyond borders") ? (
@@ -151,7 +151,7 @@ export default function Hero() {
           {/* Subtext */}
           <motion.p
             variants={itemVariants}
-            className="font-sans text-xs sm:text-sm md:text-base text-neutral-600 leading-relaxed max-w-xl mb-6 pointer-events-auto px-2"
+            className="font-sans text-xs sm:text-sm md:text-base text-neutral-600 leading-relaxed max-w-lg mb-6 pointer-events-auto px-2"
           >
             {data.heroSubtitle || "Digital World is a full-service digital marketing agency helping businesses in the USA, UK, Canada, UAE, Australia & beyond dominate search, ads, and the web — led by Kamrujjaman Mufti."}
           </motion.p>
@@ -175,9 +175,9 @@ export default function Hero() {
             </a>
           </motion.div>
 
-          {/* Mobile Service Pill Cloud (Renders below CTAs on mobile with zero text overlap) */}
+          {/* Mobile Service Pill Cloud (Renders below CTAs on mobile screens with zero text overlap) */}
           <div className="flex flex-wrap justify-center gap-2 max-w-xl md:hidden mb-6 pointer-events-auto">
-            {allBadges.map((badge, idx) => {
+            {orbitalPlanets.map((badge, idx) => {
               const Icon = badge.icon;
               return (
                 <div
@@ -192,62 +192,41 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Desktop & Laptop Decorative Side-Wing Orbit Containers (Positioned STRICTLY OUTSIDE the central text container) */}
+        {/* Desktop Concentric Solar-System Planetary Orbit Rings (Positioned OUTSIDE central text boundary) */}
         <div className="absolute inset-0 pointer-events-none hidden md:block select-none max-w-7xl mx-auto w-full h-full z-10">
           
-          {/* Left Side Wing Decorative Orbit */}
-          <div className="absolute left-[10%] lg:left-[13%] xl:left-[14%] top-[45%] -translate-x-1/2 -translate-y-1/2 w-[280px] lg:w-[320px] h-[220px] lg:h-[240px] pointer-events-none scale-90 lg:scale-100 transition-all">
-            <div className="absolute inset-0 rounded-full border border-dashed border-neutral-200/50 pointer-events-none" />
-            {leftWingBadges.map((badge, idx) => {
-              const Icon = badge.icon;
-              const glowColor = badgeGlowColors[badge.text] || "rgba(0, 118, 255, 0.15)";
-              return (
-                <div
-                  key={idx}
-                  className={`absolute left-1/2 top-1/2 inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-semibold shadow-premium cursor-pointer pointer-events-auto select-none transition-all duration-300 ${badge.color} orbit-badge`}
-                  style={{
-                    "--radius-x": `${badge.rx}px`,
-                    "--radius-y": `${badge.ry}px`,
-                    "--glow-color": glowColor,
-                    animationName: "orbit-ellipse",
-                    animationDuration: `${badge.speed}s`,
-                    animationDelay: `-${(badge.speed * (badge.angle / 360)).toFixed(2)}s`,
-                    animationDirection: "normal",
-                  } as React.CSSProperties}
-                >
-                  <Icon className="h-3.5 w-3.5" />
-                  {badge.text}
-                </div>
-              );
-            })}
-          </div>
+          {/* Dashed Orbit Track Rings */}
+          <div className="absolute left-1/2 top-[290px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-blue-400/25 pointer-events-none transition-all duration-300" 
+               style={{ width: "calc(var(--radius-inner-x) * 2)", height: "calc(var(--radius-inner-y) * 2)" }} />
+          <div className="absolute left-1/2 top-[290px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-indigo-400/20 pointer-events-none transition-all duration-300" 
+               style={{ width: "calc(var(--radius-mid-x) * 2)", height: "calc(var(--radius-mid-y) * 2)" }} />
+          <div className="absolute left-1/2 top-[290px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-purple-400/15 pointer-events-none transition-all duration-300" 
+               style={{ width: "calc(var(--radius-outer-x) * 2)", height: "calc(var(--radius-outer-y) * 2)" }} />
 
-          {/* Right Side Wing Decorative Orbit */}
-          <div className="absolute right-[10%] lg:right-[13%] xl:right-[14%] top-[45%] translate-x-1/2 -translate-y-1/2 w-[280px] lg:w-[320px] h-[220px] lg:h-[240px] pointer-events-none scale-90 lg:scale-100 transition-all">
-            <div className="absolute inset-0 rounded-full border border-dashed border-neutral-200/50 pointer-events-none" />
-            {rightWingBadges.map((badge, idx) => {
-              const Icon = badge.icon;
-              const glowColor = badgeGlowColors[badge.text] || "rgba(0, 118, 255, 0.15)";
-              return (
-                <div
-                  key={idx}
-                  className={`absolute left-1/2 top-1/2 inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-semibold shadow-premium cursor-pointer pointer-events-auto select-none transition-all duration-300 ${badge.color} orbit-badge`}
-                  style={{
-                    "--radius-x": `${badge.rx}px`,
-                    "--radius-y": `${badge.ry}px`,
-                    "--glow-color": glowColor,
-                    animationName: "orbit-ellipse",
-                    animationDuration: `${badge.speed}s`,
-                    animationDelay: `-${(badge.speed * (badge.angle / 360)).toFixed(2)}s`,
-                    animationDirection: "reverse",
-                  } as React.CSSProperties}
-                >
-                  <Icon className="h-3.5 w-3.5" />
-                  {badge.text}
-                </div>
-              );
-            })}
-          </div>
+          {/* Revolving Planets (Service Badges) */}
+          {orbitalPlanets.map((badge, idx) => {
+            const Icon = badge.icon;
+            const glowColor = badgeGlowColors[badge.text] || "rgba(0, 118, 255, 0.22)";
+            
+            return (
+              <div
+                key={idx}
+                className={`absolute left-1/2 top-[290px] inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-semibold shadow-premium cursor-pointer pointer-events-auto select-none transition-all duration-300 ${badge.color} orbit-badge`}
+                style={{
+                  "--radius-x": `var(--radius-${badge.orbit}-x)`,
+                  "--radius-y": `var(--radius-${badge.orbit}-y)`,
+                  "--glow-color": glowColor,
+                  animationName: "orbit-ellipse",
+                  animationDuration: `${badge.speed}s`,
+                  animationDelay: `-${(badge.speed * (badge.angle / 360)).toFixed(2)}s`,
+                  animationDirection: badge.direction === "ccw" ? "reverse" : "normal",
+                } as React.CSSProperties}
+              >
+                <Icon className="h-3.5 w-3.5 shrink-0" />
+                {badge.text}
+              </div>
+            );
+          })}
 
         </div>
       </div>
@@ -276,22 +255,68 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scoped CSS Inject for Smooth Side-Wing Orbit Animations */}
+      {/* Scoped CSS Inject for Concentric Solar Orbit Motion with Outer Clearance Radii */}
       <style dangerouslySetInnerHTML={{ __html: `
+        :root {
+          --radius-inner-x: 540px;
+          --radius-inner-y: 240px;
+          --radius-mid-x: 660px;
+          --radius-mid-y: 275px;
+          --radius-outer-x: 780px;
+          --radius-outer-y: 310px;
+          --badge-scale: 0.95;
+        }
+
+        @media (max-width: 1400px) {
+          :root {
+            --radius-inner-x: 480px;
+            --radius-inner-y: 220px;
+            --radius-mid-x: 580px;
+            --radius-mid-y: 250px;
+            --radius-outer-x: 680px;
+            --radius-outer-y: 280px;
+            --badge-scale: 0.88;
+          }
+        }
+
+        @media (max-width: 1200px) {
+          :root {
+            --radius-inner-x: 440px;
+            --radius-inner-y: 200px;
+            --radius-mid-x: 520px;
+            --radius-mid-y: 230px;
+            --radius-outer-x: 600px;
+            --radius-outer-y: 260px;
+            --badge-scale: 0.82;
+          }
+        }
+
+        @media (max-width: 991px) {
+          :root {
+            --radius-inner-x: 360px;
+            --radius-inner-y: 170px;
+            --radius-mid-x: 430px;
+            --radius-mid-y: 195px;
+            --radius-outer-x: 500px;
+            --radius-outer-y: 220px;
+            --badge-scale: 0.75;
+          }
+        }
+
         .orbit-badge {
           animation-iteration-count: infinite;
           animation-timing-function: linear;
           transform-origin: center center;
           will-change: transform;
-          scale: 0.9;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04), 0 0 12px var(--glow-color);
+          scale: var(--badge-scale, 0.95);
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04), 0 0 14px var(--glow-color);
           transition: scale 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease !important;
         }
 
         .orbit-badge:hover {
           animation-play-state: paused !important;
-          scale: 1.08 !important;
-          box-shadow: 0 12px 35px -5px var(--glow-color), 0 0 20px var(--glow-color) !important;
+          scale: calc(var(--badge-scale, 0.95) * 1.1) !important;
+          box-shadow: 0 12px 35px -5px var(--glow-color), 0 0 24px var(--glow-color) !important;
           z-index: 50;
         }
 
