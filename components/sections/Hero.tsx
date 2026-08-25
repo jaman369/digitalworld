@@ -31,21 +31,21 @@ export default function Hero() {
     load();
   }, []);
 
-  /* ── 10 Floating Badges Split into Left Wing (5) and Right Wing (5) ── */
+  /* ── 10 Required Services split into Left & Right Floating Decorative Wings ── */
   const leftWingBadges = [
-    { text: "Web Design & Dev", icon: Icons.Monitor, angle: 0, speed: 28, color: "text-purple-600 bg-purple-50/90 border-purple-200", rx: 160, ry: 120 },
-    { text: "Google Ads", icon: Icons.TrendingUp, angle: 72, speed: 28, color: "text-amber-600 bg-amber-50/90 border-amber-200", rx: 130, ry: 100 },
-    { text: "Ecommerce SEO", icon: Icons.ShoppingBag, angle: 144, speed: 28, color: "text-emerald-600 bg-emerald-50/90 border-emerald-200", rx: 170, ry: 130 },
-    { text: "WordPress", icon: Icons.Code, angle: 216, speed: 28, color: "text-sky-600 bg-sky-50/90 border-sky-200", rx: 140, ry: 110 },
-    { text: "Email Marketing", icon: Icons.Mail, angle: 288, speed: 28, color: "text-violet-600 bg-violet-50/90 border-violet-200", rx: 165, ry: 125 },
+    { text: "Web Design & Dev", icon: Icons.Monitor, angle: 0, speed: 26, color: "text-purple-600 bg-purple-50/90 border-purple-200", rx: 150, ry: 110 },
+    { text: "Google Ads", icon: Icons.TrendingUp, angle: 72, speed: 26, color: "text-amber-600 bg-amber-50/90 border-amber-200", rx: 125, ry: 95 },
+    { text: "Ecommerce SEO", icon: Icons.ShoppingBag, angle: 144, speed: 26, color: "text-emerald-600 bg-emerald-50/90 border-emerald-200", rx: 160, ry: 120 },
+    { text: "WordPress", icon: Icons.Code, angle: 216, speed: 26, color: "text-sky-600 bg-sky-50/90 border-sky-200", rx: 130, ry: 100 },
+    { text: "Email Marketing", icon: Icons.Mail, angle: 288, speed: 26, color: "text-violet-600 bg-violet-50/90 border-violet-200", rx: 155, ry: 115 },
   ];
 
   const rightWingBadges = [
-    { text: "Local SEO", icon: Icons.Search, angle: 36, speed: 30, color: "text-blue-600 bg-blue-50/90 border-blue-200", rx: 155, ry: 115 },
-    { text: "Shopify", icon: Icons.Store, angle: 108, speed: 30, color: "text-emerald-700 bg-emerald-50/90 border-emerald-200", rx: 135, ry: 105 },
-    { text: "SaaS SEO", icon: Icons.Layers, angle: 180, speed: 30, color: "text-indigo-600 bg-indigo-50/90 border-indigo-200", rx: 170, ry: 130 },
-    { text: "Facebook Ads", icon: Icons.Users, angle: 252, speed: 30, color: "text-blue-700 bg-blue-50/90 border-blue-200", rx: 145, ry: 110 },
-    { text: "Content Marketing", icon: Icons.PenTool, angle: 324, speed: 30, color: "text-rose-600 bg-rose-50/90 border-rose-200", rx: 160, ry: 120 },
+    { text: "Local SEO", icon: Icons.Search, angle: 36, speed: 28, color: "text-blue-600 bg-blue-50/90 border-blue-200", rx: 145, ry: 105 },
+    { text: "Shopify", icon: Icons.Store, angle: 108, speed: 28, color: "text-emerald-700 bg-emerald-50/90 border-emerald-200", rx: 130, ry: 95 },
+    { text: "SaaS SEO", icon: Icons.Layers, angle: 180, speed: 28, color: "text-indigo-600 bg-indigo-50/90 border-indigo-200", rx: 160, ry: 120 },
+    { text: "Facebook Ads", icon: Icons.Users, angle: 252, speed: 28, color: "text-blue-700 bg-blue-50/90 border-blue-200", rx: 135, ry: 100 },
+    { text: "Content Marketing", icon: Icons.PenTool, angle: 324, speed: 28, color: "text-rose-600 bg-rose-50/90 border-rose-200", rx: 150, ry: 110 },
   ];
 
   const allBadges = [...leftWingBadges, ...rightWingBadges];
@@ -97,7 +97,7 @@ export default function Hero() {
 
   return (
     <section className="relative overflow-hidden bg-transparent pt-4 pb-0 lg:pt-6 lg:pb-0 flex flex-col justify-between min-h-[580px] sm:min-h-[640px] lg:h-[700px]">
-      {/* Background design image */}
+      {/* Background ambient design image */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <Image
           src="/images/hero-bg.jpg"
@@ -110,12 +110,12 @@ export default function Hero() {
       </div>
 
       <div className="container mx-auto max-w-7xl px-4 sm:px-6 relative z-10 flex-1 flex flex-col justify-start pt-8 sm:pt-10 lg:pt-14">
-        {/* Main Content Layout (Higher Z-Index so text remains crisp and 100% unblocked) */}
+        {/* Main Content Layout (Higher Z-Index so main hero text is always visually dominant & unblocked) */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="mx-auto max-w-2xl lg:max-w-3xl text-center flex flex-col items-center relative z-20 pointer-events-none"
+          className="mx-auto max-w-2xl lg:max-w-3xl text-center flex flex-col items-center relative z-30 pointer-events-none"
         >
           {/* Eyebrow Badge */}
           <motion.div
@@ -126,7 +126,7 @@ export default function Hero() {
             <span className="truncate">{data.heroTagline || "Available for new projects · Based in Dhaka, Bangladesh"}</span>
           </motion.div>
 
-          {/* Headline (Preserved Exact Title as Requested) */}
+          {/* Headline (Preserved Exact Title & Formatting) */}
           <motion.h1
             variants={itemVariants}
             className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-900 leading-[1.12] sm:leading-[1.1] mb-4 pointer-events-auto"
@@ -175,7 +175,7 @@ export default function Hero() {
             </a>
           </motion.div>
 
-          {/* Mobile Badge Cloud */}
+          {/* Mobile Service Pill Cloud (Renders below CTAs on mobile with zero text overlap) */}
           <div className="flex flex-wrap justify-center gap-2 max-w-xl md:hidden mb-6 pointer-events-auto">
             {allBadges.map((badge, idx) => {
               const Icon = badge.icon;
@@ -192,12 +192,12 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Desktop Side-Wing Floating Animations (Positioned STRICTLY OUTSIDE the central text area on all monitor screens) */}
+        {/* Desktop & Laptop Decorative Side-Wing Orbit Containers (Positioned STRICTLY OUTSIDE the central text container) */}
         <div className="absolute inset-0 pointer-events-none hidden md:block select-none max-w-7xl mx-auto w-full h-full z-10">
           
-          {/* Left Wing Orbit Center */}
-          <div className="absolute left-[13%] lg:left-[14%] xl:left-[15%] top-[45%] -translate-x-1/2 -translate-y-1/2 w-[320px] h-[240px] pointer-events-none">
-            <div className="absolute inset-0 rounded-full border border-dashed border-neutral-200/40 pointer-events-none" />
+          {/* Left Side Wing Decorative Orbit */}
+          <div className="absolute left-[10%] lg:left-[13%] xl:left-[14%] top-[45%] -translate-x-1/2 -translate-y-1/2 w-[280px] lg:w-[320px] h-[220px] lg:h-[240px] pointer-events-none scale-90 lg:scale-100 transition-all">
+            <div className="absolute inset-0 rounded-full border border-dashed border-neutral-200/50 pointer-events-none" />
             {leftWingBadges.map((badge, idx) => {
               const Icon = badge.icon;
               const glowColor = badgeGlowColors[badge.text] || "rgba(0, 118, 255, 0.15)";
@@ -222,9 +222,9 @@ export default function Hero() {
             })}
           </div>
 
-          {/* Right Wing Orbit Center */}
-          <div className="absolute right-[13%] lg:right-[14%] xl:right-[15%] top-[45%] translate-x-1/2 -translate-y-1/2 w-[320px] h-[240px] pointer-events-none">
-            <div className="absolute inset-0 rounded-full border border-dashed border-neutral-200/40 pointer-events-none" />
+          {/* Right Side Wing Decorative Orbit */}
+          <div className="absolute right-[10%] lg:right-[13%] xl:right-[14%] top-[45%] translate-x-1/2 -translate-y-1/2 w-[280px] lg:w-[320px] h-[220px] lg:h-[240px] pointer-events-none scale-90 lg:scale-100 transition-all">
+            <div className="absolute inset-0 rounded-full border border-dashed border-neutral-200/50 pointer-events-none" />
             {rightWingBadges.map((badge, idx) => {
               const Icon = badge.icon;
               const glowColor = badgeGlowColors[badge.text] || "rgba(0, 118, 255, 0.15)";
@@ -276,15 +276,15 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scoped CSS Inject for Side Wing Orbit Animations */}
+      {/* Scoped CSS Inject for Smooth Side-Wing Orbit Animations */}
       <style dangerouslySetInnerHTML={{ __html: `
         .orbit-badge {
           animation-iteration-count: infinite;
           animation-timing-function: linear;
           transform-origin: center center;
           will-change: transform;
-          scale: 0.92;
-          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03), 0 0 10px var(--glow-color);
+          scale: 0.9;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04), 0 0 12px var(--glow-color);
           transition: scale 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease !important;
         }
 
