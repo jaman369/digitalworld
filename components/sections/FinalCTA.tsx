@@ -28,7 +28,7 @@ export default function FinalCTA() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-neutral-900 py-24 lg:py-32 text-white text-center">
+    <section className="relative overflow-hidden bg-neutral-900 py-16 lg:py-20 text-white text-center">
       {/* Background gradients */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_center,rgba(0,118,255,0.15)_0%,transparent_70%)]" />
 

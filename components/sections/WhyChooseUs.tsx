@@ -62,17 +62,17 @@ export default function WhyChooseUs() {
       ];
 
   return (
-    <section className="pt-[85px] pb-20 lg:pb-32 bg-transparent relative z-10 border-b border-neutral-100">
+    <section className="pt-16 pb-14 lg:pt-20 lg:pb-20 bg-transparent relative z-10 border-b border-neutral-100">
       <div className="container mx-auto max-w-7xl px-6">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-24">
+        <div className="text-center max-w-3xl mx-auto mb-10 lg:mb-14">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-light px-4 py-1.5 text-xs font-semibold text-primary uppercase tracking-wider mb-6">
             {data.whyUsEyebrow || "Why Us"}
           </span>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight mb-6">
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900 tracking-tight mb-4">
             {data.whyUsTitle || "Why choose Digital World"}
           </h2>
-          <p className="font-sans text-base sm:text-lg text-neutral-500 leading-relaxed">
+          <p className="font-sans text-sm sm:text-base text-neutral-500 leading-relaxed">
             {data.whyUsSubtitle || "We partner with brands to build robust organic funnels that consistently generate revenue, not just vanity clicks."}
           </p>
         </div>
@@ -83,7 +83,7 @@ export default function WhyChooseUs() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6"
         >
           {cards.map((card, idx) => {
             const Icon = (Icons[(card.iconName || "Sparkles") as keyof typeof Icons] || Icons.Sparkles) as React.ComponentType<{ className?: string }>;
@@ -92,15 +92,15 @@ export default function WhyChooseUs() {
               <motion.div
                 key={idx}
                 variants={cardVariants}
-                className="flex flex-col rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm transition-all duration-300 hover:shadow-premium hover:border-primary/20"
+                className="flex flex-col rounded-2xl border border-neutral-200 bg-white p-5 lg:p-6 shadow-sm transition-all duration-300 hover:shadow-premium hover:border-primary/20"
               >
                 {/* Icon Circle */}
-                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-light text-primary mb-6">
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-light text-primary mb-4">
                   <Icon className="h-5 w-5" />
                 </div>
 
                 {/* Title */}
-                <h3 className="font-sans font-bold text-lg text-neutral-900 mb-3">
+                <h3 className="font-sans font-bold text-base text-neutral-900 mb-2">
                   {card.title}
                 </h3>
 

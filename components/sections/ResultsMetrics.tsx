@@ -61,19 +61,19 @@ export default function ResultsMetrics() {
   }, []);
 
   return (
-    <section className="py-16 sm:py-20 lg:py-28 bg-gradient-to-b from-white via-slate-50/50 to-white relative z-10 border-b border-neutral-100 overflow-hidden">
+    <section className="py-14 sm:py-16 lg:py-20 bg-gradient-to-b from-white via-slate-50/50 to-white relative z-10 border-b border-neutral-100 overflow-hidden">
       {/* Soft Ambient Background Glow */}
       <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[400px] bg-blue-500/5 blur-[120px] pointer-events-none -z-10 rounded-full" />
       <div className="absolute top-1/2 right-1/4 translate-x-1/2 -translate-y-1/2 w-[450px] h-[350px] bg-purple-500/5 blur-[120px] pointer-events-none -z-10 rounded-full" />
 
       <div className="container mx-auto max-w-7xl px-4 sm:px-6">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-100 px-4 py-1.5 text-xs font-semibold text-emerald-600 uppercase tracking-wider mb-4">
             <Sparkles className="w-3.5 h-3.5" />
             {data.metricsEyebrow || "10 — Results / Metrics"}
           </span>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight leading-[1.15]">
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900 tracking-tight leading-[1.15]">
             {data.metricsTitle || "Measurable Impact by the Numbers"}
           </h2>
         </div>

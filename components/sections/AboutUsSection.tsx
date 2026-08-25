@@ -8,7 +8,7 @@ import Image from "next/image";
 
 export default function AboutUsSection() {
   return (
-    <section className="py-16 sm:py-24 lg:py-32 bg-white relative z-10 overflow-hidden">
+    <section className="py-14 sm:py-16 lg:py-20 bg-white relative z-10 overflow-hidden">
       {/* Background soft wavy shape background */}
       <div className="absolute inset-0 pointer-events-none -z-10">
         <div className="absolute top-0 left-0 right-0 h-24 bg-gradient-to-b from-neutral-50 to-transparent" />

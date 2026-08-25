@@ -459,7 +459,7 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
     <div className="bg-white text-neutral-900">
       
       {/* ── SERVICE HIGHLIGHT SECTION (Image Left, Text + Checklist Right) ── */}
-      <section className="py-20 lg:py-28 bg-white border-t border-neutral-200/80 overflow-hidden">
+      <section className="py-14 lg:py-20 bg-white border-t border-neutral-200/80 overflow-hidden">
         <div className="container mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
@@ -478,7 +478,7 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
 
             {/* Right Column: Text Content, Checklist & CTA */}
             <div className="lg:col-span-6 flex flex-col items-start">
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight leading-[1.18] mb-6">
+              <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900 tracking-tight leading-[1.18] mb-4">
                 {highlight.title}
               </h2>
               
@@ -520,13 +520,13 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
       </section>
 
       {/* ── 06 — WHY CHOOSE US SECTION ── */}
-      <section className="py-20 lg:py-28 border-t border-neutral-200/80 bg-white">
+      <section className="py-14 lg:py-20 border-t border-neutral-200/80 bg-white">
         <div className="container mx-auto max-w-7xl px-6">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="text-center max-w-3xl mx-auto mb-10 lg:mb-14">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-200 px-4 py-1.5 text-xs font-bold text-[#0076FF] uppercase tracking-widest mb-4">
               06 — Why Choose Us
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight">
+            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900 tracking-tight">
               Why clients trust our strategy.
             </h2>
           </div>
@@ -535,7 +535,7 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
             {whyUsCards.map((item, idx) => (
               <div
                 key={idx}
-                className="bg-[#F8FAFC] border border-neutral-200/80 rounded-2xl p-8 hover:border-[#0076FF]/60 hover:bg-white transition-all duration-300 hover:-translate-y-1 shadow-xs flex flex-col group"
+                className="bg-[#F8FAFC] border border-neutral-200/80 rounded-2xl p-5 lg:p-6 hover:border-[#0076FF]/60 hover:bg-white transition-all duration-300 hover:-translate-y-1 shadow-xs flex flex-col group"
               >
                 <div className="h-12 w-12 rounded-xl bg-white border border-neutral-200/90 flex items-center justify-center text-2xl mb-6 shadow-xs group-hover:scale-105 transition-transform">
                   <span>{item.icon}</span>
@@ -553,16 +553,16 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
       </section>
 
       {/* ── 07 — SERVICE PROCESS SECTION (Connected Horizontal Timeline + Mouse Hover Theme Per Category) ── */}
-      <section className="py-24 lg:py-32 border-t border-neutral-200/80 bg-[#F9FAFB] relative overflow-hidden">
+      <section className="py-16 lg:py-20 border-t border-neutral-200/80 bg-[#F9FAFB] relative overflow-hidden">
         <div className="container mx-auto max-w-7xl px-6 relative z-10">
           
           {/* Header */}
-          <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-            <span className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-6 ${processTheme.pillBadge}`}>
+          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+            <span className={`inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-bold uppercase tracking-widest mb-4 ${processTheme.pillBadge}`}>
               <span className={`h-2 w-2 rounded-full ${processTheme.pillDot}`} />
               HOW IT WORKS
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight leading-tight mb-4">
+            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900 tracking-tight leading-tight mb-3">
               Our proven step-by-step process.
             </h2>
             <p className="font-sans text-sm sm:text-base text-neutral-500 max-w-2xl mx-auto leading-relaxed">
@@ -626,20 +626,20 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
       </section>
 
       {/* ── 09 — FEATURED CASE STUDIES SECTION ── */}
-      <section className="py-20 lg:py-28 border-t border-neutral-200/80 bg-[#F8FAFC]">
+      <section className="py-14 lg:py-20 border-t border-neutral-200/80 bg-[#F8FAFC]">
         <div className="container mx-auto max-w-7xl px-6">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="text-center max-w-3xl mx-auto mb-10 lg:mb-14">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-200 px-4 py-1.5 text-xs font-bold text-[#0076FF] uppercase tracking-widest mb-4">
               09 — Featured Case Studies
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-neutral-900">
+            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900">
               Proven Case Study Results
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
             {caseStudies.map((cs, idx) => (
-              <div key={idx} className="bg-white border border-neutral-200/80 rounded-2xl p-8 flex flex-col justify-between shadow-xs hover:border-[#0076FF]/60 transition-all">
+              <div key={idx} className="bg-white border border-neutral-200/80 rounded-2xl p-5 lg:p-6 flex flex-col justify-between shadow-xs hover:border-[#0076FF]/60 transition-all">
                 <div>
                   <span className="text-xs font-bold text-[#0076FF] uppercase tracking-widest block mb-2">
                     {cs.metric}
@@ -688,13 +688,13 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
       </section>
 
       {/* ── 11 — INDUSTRIES / USE CASES SECTION ── */}
-      <section className="py-20 lg:py-28 border-t border-neutral-200/80 bg-[#F8FAFC]">
+      <section className="py-14 lg:py-20 border-t border-neutral-200/80 bg-[#F8FAFC]">
         <div className="container mx-auto max-w-7xl px-6">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="text-center max-w-3xl mx-auto mb-10 lg:mb-14">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-purple-50 border border-purple-200 px-4 py-1.5 text-xs font-bold text-purple-700 uppercase tracking-widest mb-4">
               11 — Industries / Use Cases
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-neutral-900">
+            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900">
               Industries We Accelerate
             </h2>
           </div>
@@ -720,13 +720,13 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
       </section>
 
       {/* ── 12 — FAQ ACCORDION SECTION ── */}
-      <section className="py-20 lg:py-28 border-t border-neutral-200/80 bg-white">
+      <section className="py-14 lg:py-20 border-t border-neutral-200/80 bg-white">
         <div className="container mx-auto max-w-4xl px-6">
-          <div className="text-center max-w-2xl mx-auto mb-16">
+          <div className="text-center max-w-2xl mx-auto mb-10 lg:mb-14">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-200 px-4 py-1.5 text-xs font-bold text-[#0076FF] uppercase tracking-widest mb-4">
               12 — FAQ
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-neutral-900">
+            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900">
               Frequently Asked Questions
             </h2>
           </div>
@@ -756,12 +756,12 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
       </section>
 
       {/* ── 13 — FINAL CTA SECTION ── */}
-      <section className="py-20 lg:py-28 border-t border-neutral-200/80 bg-gradient-to-b from-[#0F172A] to-[#1E293B] text-white text-center relative overflow-hidden">
+      <section className="py-14 lg:py-20 border-t border-neutral-200/80 bg-gradient-to-b from-[#0F172A] to-[#1E293B] text-white text-center relative overflow-hidden">
         <div className="container mx-auto max-w-4xl px-6 relative z-10">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-500/20 border border-blue-400/40 px-4 py-1.5 text-xs font-bold text-blue-300 uppercase tracking-widest mb-6">
             13 — Final Call to Action
           </span>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-6">
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight mb-4">
             Ready to scale your business?
           </h2>
           <p className="font-sans text-sm sm:text-base text-neutral-300 max-w-xl mx-auto mb-8 leading-relaxed">

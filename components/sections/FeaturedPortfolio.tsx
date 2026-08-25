@@ -39,15 +39,15 @@ const caseStudies = [
 
 export default function FeaturedPortfolio() {
   return (
-    <section className="py-20 lg:py-28 bg-[#f8fafc] relative z-10 border-b border-neutral-100 overflow-hidden">
+    <section className="py-14 lg:py-20 bg-[#f8fafc] relative z-10 border-b border-neutral-100 overflow-hidden">
       <div className="container mx-auto max-w-7xl px-6">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 lg:mb-20 gap-6">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 lg:mb-14 gap-4">
           <div>
             <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-100 px-4 py-1.5 text-xs font-semibold text-blue-600 uppercase tracking-wider mb-4">
               09 — Featured Portfolio / Case Studies
             </span>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight">
+            <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900 tracking-tight">
               Real Client Growth Stories
             </h2>
           </div>

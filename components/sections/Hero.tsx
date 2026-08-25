@@ -95,7 +95,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-transparent pt-4 pb-0 lg:pt-6 lg:pb-0 flex flex-col justify-between min-h-[580px] sm:min-h-[640px] lg:h-[700px]">
+    <section className="relative overflow-hidden bg-transparent pt-4 pb-0 lg:pt-4 lg:pb-0 flex flex-col justify-between min-h-[520px] sm:min-h-[560px] lg:h-[580px] xl:h-[640px]">
       {/* Background design image */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <Image
@@ -108,7 +108,7 @@ export default function Hero() {
         />
       </div>
 
-      <div className="container mx-auto max-w-7xl px-4 sm:px-6 relative z-10 flex-1 flex flex-col justify-start pt-8 sm:pt-10 lg:pt-14">
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6 relative z-10 flex-1 flex flex-col justify-start pt-6 sm:pt-8 lg:pt-10">
         {/* Main Content Layout (Higher Z-Index so text remains crisp and unblocked) */}
         <motion.div
           variants={containerVariants}
@@ -128,7 +128,7 @@ export default function Hero() {
           {/* Headline (Balanced Font Scaling to avoid text collision) */}
           <motion.h1
             variants={itemVariants}
-            className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-900 leading-[1.12] sm:leading-[1.1] mb-4 pointer-events-auto"
+            className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-neutral-900 leading-[1.12] sm:leading-[1.1] mb-3 pointer-events-auto"
           >
             {data.heroTitle ? (
               data.heroTitle.includes("beyond borders") ? (

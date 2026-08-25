@@ -37,14 +37,14 @@ export default function HowItWorks() {
   const steps = data.processSteps && data.processSteps.length > 0 ? data.processSteps : processStepsData;
 
   return (
-    <section className="pt-20 lg:pt-28 pb-[85px] bg-[#f8fafc]/80 relative overflow-hidden border-b border-neutral-100">
+    <section className="pt-14 lg:pt-20 pb-16 bg-[#f8fafc]/80 relative overflow-hidden border-b border-neutral-100">
       {/* Background Decorative Ambient Radial Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-blue-500/5 blur-[120px] pointer-events-none -z-10 rounded-full" />
 
       <div className="container mx-auto max-w-7xl px-6 relative z-10">
         
         {/* Section Header (Matching Image 18 Style) */}
-        <div className="text-center max-w-3xl mx-auto mb-20 lg:mb-28">
+        <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
           <div className="flex items-center justify-center gap-2 mb-4">
             <span className="h-0.5 w-6 bg-primary/40 rounded-full" />
             <span className="font-sans text-xs font-bold text-primary uppercase tracking-[0.25em]">
@@ -53,12 +53,12 @@ export default function HowItWorks() {
             <span className="h-0.5 w-6 bg-primary/40 rounded-full" />
           </div>
 
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight mb-6">
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900 tracking-tight mb-4">
             {data.processTitle || "Our simple 4-step onboarding process"}
             <span className="text-primary">.</span>
           </h2>
 
-          <p className="font-sans text-base sm:text-lg text-neutral-500 leading-relaxed max-w-2xl mx-auto">
+          <p className="font-sans text-sm sm:text-base text-neutral-500 leading-relaxed max-w-2xl mx-auto">
             {data.processSubtitle || "We structure your customer acquisition funnel from initial audit to scaled delivery with absolute clarity."}
           </p>
         </div>

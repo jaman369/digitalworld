@@ -23,17 +23,17 @@ export default function CountriesServed() {
   };
 
   return (
-    <section className="pt-0 pb-20 lg:pb-32 bg-transparent relative z-10 border-b border-neutral-100">
+    <section className="pt-0 pb-14 lg:pb-20 bg-transparent relative z-10 border-b border-neutral-100">
       <div className="container mx-auto max-w-7xl px-6">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-24">
+        <div className="text-center max-w-3xl mx-auto mb-10 lg:mb-14">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-light px-4 py-1.5 text-xs font-semibold text-primary uppercase tracking-wider mb-6">
             Global Reach
           </span>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight mb-6">
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900 tracking-tight mb-4">
             Trusted by businesses across 11 countries
           </h2>
-          <p className="font-sans text-base sm:text-lg text-neutral-500 leading-relaxed">
+          <p className="font-sans text-sm sm:text-base text-neutral-500 leading-relaxed">
             We manage search optimization campaigns and custom CRM pipelines for international brands operating across multiple regions.
           </p>
         </div>
@@ -44,7 +44,7 @@ export default function CountriesServed() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6"
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 lg:gap-5"
         >
           {countriesData.map((country) => (
             <motion.div

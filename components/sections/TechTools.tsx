@@ -71,23 +71,23 @@ export default function TechTools() {
   }, []);
 
   return (
-    <section className="py-20 lg:py-28 bg-[#fafbfe] relative z-10 border-b border-neutral-100 overflow-hidden">
+    <section className="py-14 lg:py-20 bg-[#fafbfe] relative z-10 border-b border-neutral-100 overflow-hidden">
       <div className="container mx-auto max-w-7xl px-6">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-20">
+        <div className="text-center max-w-3xl mx-auto mb-10 lg:mb-14">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-cyan-50 border border-cyan-100 px-4 py-1.5 text-xs font-semibold text-cyan-600 uppercase tracking-wider mb-6">
             {data.toolsEyebrow || "14 — Technology / Tools"}
           </span>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight mb-6">
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900 tracking-tight mb-4">
             {data.toolsTitle || "Powered by Enterprise Marketing Tech"}
           </h2>
-          <p className="font-sans text-base sm:text-lg text-neutral-500 leading-relaxed">
+          <p className="font-sans text-sm sm:text-base text-neutral-500 leading-relaxed">
             {data.toolsSubtitle || "We leverage industry-leading software and custom AI automation to execute high-precision growth campaigns."}
           </p>
         </div>
 
         {/* 6 Tool Stack Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
           {tools.map((tool, idx) => {
             const Icon = tool.icon;
             return (
@@ -97,10 +97,10 @@ export default function TechTools() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="bg-white rounded-2xl border border-neutral-200/80 p-8 shadow-xs hover:shadow-lg hover:border-cyan-200 transition-all duration-300 flex flex-col justify-between"
+                className="bg-white rounded-2xl border border-neutral-200/80 p-5 lg:p-6 shadow-xs hover:shadow-lg hover:border-cyan-200 transition-all duration-300 flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center justify-between mb-4">
                     <span className="text-xs font-bold text-cyan-600 uppercase tracking-wider bg-cyan-50 border border-cyan-100 px-3 py-1 rounded-full">
                       {tool.category}
                     </span>
@@ -108,7 +108,7 @@ export default function TechTools() {
                       <Icon className="w-5 h-5" />
                     </div>
                   </div>
-                  <h3 className="font-sans text-lg font-bold text-neutral-900 mb-2">
+                  <h3 className="font-sans text-base font-bold text-neutral-900 mb-1.5">
                     {tool.name}
                   </h3>
                   <p className="font-sans text-xs sm:text-sm text-neutral-500 leading-relaxed">

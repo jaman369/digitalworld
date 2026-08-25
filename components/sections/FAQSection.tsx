@@ -48,7 +48,7 @@ export default function FAQSection() {
   };
 
   return (
-    <section className="py-20 lg:py-32 bg-white relative z-10 overflow-hidden">
+    <section className="py-14 lg:py-20 bg-white relative z-10 overflow-hidden">
       
       {/* Background Decorative Matrix & Shapes */}
       <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
@@ -94,7 +94,7 @@ export default function FAQSection() {
             </span>
 
             {/* Main Section Title */}
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#2A2B48] tracking-tight leading-[1.2] mb-8">
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#2A2B48] tracking-tight leading-[1.2] mb-6">
               Frequently Asked Questions
             </h2>
 
@@ -107,7 +107,7 @@ export default function FAQSection() {
                   <div key={item.id} className="border-b border-neutral-100/80">
                     <button
                       onClick={() => toggleAccordion(item.id)}
-                      className="w-full py-6 sm:py-7 flex items-center justify-between text-left transition-colors group"
+                      className="w-full py-4 sm:py-5 flex items-center justify-between text-left transition-colors group"
                     >
                       <span
                         className={`font-sans text-sm sm:text-base font-bold transition-colors duration-200 ${

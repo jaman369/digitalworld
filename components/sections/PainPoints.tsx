@@ -88,7 +88,7 @@ export default function PainPoints() {
   };
 
   return (
-    <section className="py-20 lg:py-28 bg-[#fafbfe] relative z-10 border-b border-neutral-100 overflow-hidden">
+    <section className="py-14 lg:py-20 bg-[#fafbfe] relative z-10 border-b border-neutral-100 overflow-hidden">
       {/* Background Soft Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-rose-500/5 blur-[120px] pointer-events-none -z-10 rounded-full" />
 

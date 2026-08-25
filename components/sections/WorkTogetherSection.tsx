@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function WorkTogetherSection() {
   return (
-    <section className="relative bg-[#091238] text-white py-16 lg:py-24 overflow-hidden z-10">
+    <section className="relative bg-[#091238] text-white py-14 lg:py-20 overflow-hidden z-10">
       
       {/* ── BACKGROUND DECORATIVE TECH ELEMENTS ── */}
       {/* Floating Specks / Color Dots in background */}

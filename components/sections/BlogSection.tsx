@@ -49,7 +49,7 @@ export default function BlogSection() {
   };
 
   return (
-    <section className="py-20 lg:py-32 bg-gradient-to-b from-[#f8f9fc] via-white to-[#f8f9fc] relative z-10 overflow-hidden">
+    <section className="py-14 lg:py-20 bg-gradient-to-b from-[#f8f9fc] via-white to-[#f8f9fc] relative z-10 overflow-hidden">
       {/* Subtle Dot Matrix Background Texture */}
       <div className="absolute inset-0 pointer-events-none -z-10">
         <div className="absolute inset-0 bg-[radial-gradient(#e2e5ec_0.8px,transparent_0.8px)] [background-size:20px_20px] opacity-40" />
@@ -74,12 +74,12 @@ export default function BlogSection() {
 
       <div className="container mx-auto max-w-7xl px-6 relative z-10">
         {/* Header Section */}
-        <div className="text-center max-w-2xl mx-auto mb-14 lg:mb-16">
+        <div className="text-center max-w-2xl mx-auto mb-10 lg:mb-12">
           <span className="inline-flex items-center gap-2 text-xs font-bold text-indigo-600 uppercase tracking-[0.25em] mb-3">
             <span className="h-1.5 w-1.5 rounded-full bg-indigo-600" />
             BLOG
           </span>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-neutral-900 tracking-tight mb-4 leading-[1.2]">
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-[2.25rem] font-bold text-neutral-900 tracking-tight mb-3 leading-[1.2]">
             Latest News
           </h2>
           <p className="font-sans text-sm sm:text-base text-neutral-500 leading-relaxed max-w-xl mx-auto">

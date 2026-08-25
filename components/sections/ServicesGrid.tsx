@@ -215,7 +215,7 @@ export default function ServicesGrid() {
   return (
     <section
       id="services"
-      className="pt-20 lg:pt-32 pb-0 bg-gradient-to-b from-[#f8f9fc] via-white to-[#f8f9fc] relative z-10 overflow-hidden"
+      className="pt-16 lg:pt-20 pb-0 bg-gradient-to-b from-[#f8f9fc] via-white to-[#f8f9fc] relative z-10 overflow-hidden"
     >
       {/* Subtle background texture */}
       <div className="absolute inset-0 pointer-events-none -z-10">
@@ -224,12 +224,12 @@ export default function ServicesGrid() {
 
       <div className="container mx-auto max-w-7xl px-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-20 lg:mb-24">
-          <span className="inline-flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-[0.25em] mb-5">
+        <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
+          <span className="inline-flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-[0.25em] mb-4">
             <span className="h-1.5 w-1.5 rounded-full bg-primary" />
             {data.servicesEyebrow || "What We Do"}
           </span>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-neutral-900 tracking-tight mb-5 leading-[1.2]">
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-[2.25rem] font-bold text-neutral-900 tracking-tight mb-4 leading-[1.2]">
             {data.servicesTitle || "Services built to scale."}
           </h2>
           <p className="font-sans text-sm sm:text-base text-neutral-500 leading-relaxed max-w-2xl mx-auto">
@@ -244,7 +244,7 @@ export default function ServicesGrid() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-7 lg:gap-x-8 gap-y-16 lg:gap-y-20 pt-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 lg:gap-x-7 gap-y-14 lg:gap-y-16 pt-4"
         >
           {categories.map((category) => {
             const theme = cardThemes[category.slug] || cardThemes["seo"];

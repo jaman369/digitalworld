@@ -81,17 +81,17 @@ export default function MarketingEcosystem() {
   }, []);
 
   return (
-    <section className="py-14 sm:py-20 bg-white relative z-10 border-b border-neutral-200/80 overflow-hidden">
+    <section className="py-12 sm:py-16 bg-white relative z-10 border-b border-neutral-200/80 overflow-hidden">
       
       <div className="container mx-auto max-w-5xl px-4 sm:px-6">
         
         {/* ── COMPACT SECTION HEADER ── */}
-        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-14">
+        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-200/90 px-3.5 py-1 text-[11px] font-bold text-[#0076FF] uppercase tracking-widest mb-4">
             <span className="h-1.5 w-1.5 rounded-full bg-[#0076FF]" />
             {data.ecosystemEyebrow || "07 — MARKETING ECOSYSTEM"}
           </span>
-          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-neutral-900 tracking-tight leading-tight mb-3">
+          <h2 className="font-serif text-2xl sm:text-3xl font-bold text-neutral-900 tracking-tight leading-tight mb-2">
             {data.ecosystemTitle || "Our Connected Growth Ecosystem"}
           </h2>
           <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed max-w-xl mx-auto">

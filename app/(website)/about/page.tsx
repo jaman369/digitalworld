@@ -178,7 +178,7 @@ export default function AboutPage() {
     <article className="min-h-screen bg-transparent">
       
       {/* 1. About Hero Section */}
-      <section className="relative overflow-hidden bg-transparent py-16 sm:py-20 lg:py-28">
+      <section className="relative overflow-hidden bg-transparent py-12 sm:py-16 lg:py-20">
         <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/5 blur-[120px] pointer-events-none -z-10 rounded-full" />
         
         <div className="container mx-auto max-w-7xl px-6">
@@ -191,7 +191,7 @@ export default function AboutPage() {
                 ABOUT ME
               </span>
 
-              <h1 className="font-serif text-4xl sm:text-5xl lg:text-[3.75rem] font-bold text-neutral-900 tracking-tight leading-[1.08] mb-6">
+              <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight leading-[1.08] mb-4">
                 Hi, I&apos;m <br />
                 {aboutData.name ? (
                   aboutData.name.split(" ").map((part, i) => (
@@ -264,7 +264,7 @@ export default function AboutPage() {
       </section>
 
       {/* 2. Timeline / Results Section */}
-      <section className="py-20 lg:py-28 bg-white border-t border-b border-neutral-100">
+      <section className="py-14 lg:py-20 bg-white border-t border-b border-neutral-100">
         <div className="container mx-auto max-w-7xl px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
             
@@ -272,7 +272,7 @@ export default function AboutPage() {
               <span className="text-[10px] sm:text-xs font-bold text-primary uppercase tracking-[0.25em] mb-4">
                 MY JOURNEY
               </span>
-              <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-neutral-900 leading-tight tracking-tight mb-6">
+              <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900 leading-tight tracking-tight mb-4">
                 From curiosity to <br />nearly a decade of results.
               </h2>
               <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed mb-5">
@@ -324,12 +324,12 @@ export default function AboutPage() {
       </section>
 
       {/* 3. Numbers / Stats Section */}
-      <section className="py-20 lg:py-28 bg-white">
+      <section className="py-14 lg:py-20 bg-white">
         <div className="container mx-auto max-w-7xl px-6 text-center">
           <span className="text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-[0.2em] mb-4 inline-block">
             METRICS
           </span>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-neutral-900 tracking-tight mb-12">
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900 tracking-tight mb-8">
             5 years of work, <br className="sm:hidden" />
             in <span className="text-primary italic font-serif font-medium">4 numbers.</span>
           </h2>
@@ -349,12 +349,12 @@ export default function AboutPage() {
       </section>
 
       {/* 4. What I do best (Services Grid) */}
-      <section className="py-20 lg:py-28 bg-neutral-50/50 border-t border-b border-neutral-100">
+      <section className="py-14 lg:py-20 bg-neutral-50/50 border-t border-b border-neutral-100">
         <div className="container mx-auto max-w-7xl px-6 text-center">
           <span className="text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-[0.2em] mb-4 inline-block">
             EXPERTISE
           </span>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-neutral-900 tracking-tight mb-12">
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900 tracking-tight mb-8">
             What I do best.
           </h2>
 
@@ -380,12 +380,12 @@ export default function AboutPage() {
       </section>
 
       {/* 5. Values Section */}
-      <section className="py-20 lg:py-28 bg-white">
+      <section className="py-14 lg:py-20 bg-white">
         <div className="container mx-auto max-w-7xl px-6 text-center">
           <span className="text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-[0.2em] mb-4 inline-block">
             OUR VALUES
           </span>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-[2.75rem] font-bold text-neutral-900 tracking-tight mb-12">
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900 tracking-tight mb-8">
             The values behind <br className="sm:hidden" />
             every project.
           </h2>
