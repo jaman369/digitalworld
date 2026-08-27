@@ -34,20 +34,20 @@ export default function Hero() {
   /* ── 10 Required Services Allocated Across 3 Concentric Cosmic Solar System Orbits ── */
   const orbitalPlanets = [
     // ── Inner Solar Orbit Ring (3 Planets) ──
-    { text: "Shopify", icon: Icons.Store, orbit: "inner", angle: 30, speed: 32, direction: "cw", color: "text-emerald-700 bg-emerald-50/95 border-emerald-200" },
-    { text: "Local SEO", icon: Icons.Search, orbit: "inner", angle: 150, speed: 32, direction: "cw", color: "text-blue-600 bg-blue-50/95 border-blue-200" },
-    { text: "WordPress", icon: Icons.Code, orbit: "inner", angle: 270, speed: 32, direction: "cw", color: "text-sky-600 bg-sky-50/95 border-sky-200" },
+    { text: "Shopify", icon: Icons.Store, orbit: "inner", angle: 30, speed: 32, direction: "cw", color: "text-emerald-700 bg-emerald-50/95 border-emerald-300/80 shadow-emerald-500/10" },
+    { text: "Local SEO", icon: Icons.Search, orbit: "inner", angle: 150, speed: 32, direction: "cw", color: "text-blue-600 bg-blue-50/95 border-blue-300/80 shadow-blue-500/10" },
+    { text: "WordPress", icon: Icons.Code, orbit: "inner", angle: 270, speed: 32, direction: "cw", color: "text-sky-600 bg-sky-50/95 border-sky-300/80 shadow-sky-500/10" },
 
     // ── Middle Solar Orbit Ring (3 Planets) ──
-    { text: "Web Design & Dev", icon: Icons.Monitor, orbit: "mid", angle: 60, speed: 42, direction: "ccw", color: "text-purple-600 bg-purple-50/95 border-purple-200" },
-    { text: "Ecommerce SEO", icon: Icons.ShoppingBag, orbit: "mid", angle: 180, speed: 42, direction: "ccw", color: "text-emerald-600 bg-emerald-50/95 border-emerald-200" },
-    { text: "SaaS SEO", icon: Icons.Layers, orbit: "mid", angle: 300, speed: 42, direction: "ccw", color: "text-indigo-600 bg-indigo-50/95 border-indigo-200" },
+    { text: "Web Design & Dev", icon: Icons.Monitor, orbit: "mid", angle: 60, speed: 42, direction: "ccw", color: "text-purple-600 bg-purple-50/95 border-purple-300/80 shadow-purple-500/10" },
+    { text: "Ecommerce SEO", icon: Icons.ShoppingBag, orbit: "mid", angle: 180, speed: 42, direction: "ccw", color: "text-teal-600 bg-teal-50/95 border-teal-300/80 shadow-teal-500/10" },
+    { text: "SaaS SEO", icon: Icons.Layers, orbit: "mid", angle: 300, speed: 42, direction: "ccw", color: "text-indigo-600 bg-indigo-50/95 border-indigo-300/80 shadow-indigo-500/10" },
 
     // ── Outer Solar Orbit Ring (4 Planets) ──
-    { text: "Google Ads", icon: Icons.TrendingUp, orbit: "outer", angle: 15, speed: 52, direction: "cw", color: "text-amber-600 bg-amber-50/95 border-amber-200" },
-    { text: "Facebook Ads", icon: Icons.Users, orbit: "outer", angle: 105, speed: 52, direction: "cw", color: "text-blue-700 bg-blue-50/95 border-blue-200" },
-    { text: "Content Marketing", icon: Icons.PenTool, orbit: "outer", angle: 195, speed: 52, direction: "cw", color: "text-rose-600 bg-rose-50/95 border-rose-200" },
-    { text: "Email Marketing", icon: Icons.Mail, orbit: "outer", angle: 285, speed: 52, direction: "cw", color: "text-violet-600 bg-violet-50/95 border-violet-200" },
+    { text: "Google Ads", icon: Icons.TrendingUp, orbit: "outer", angle: 15, speed: 52, direction: "cw", color: "text-amber-600 bg-amber-50/95 border-amber-300/80 shadow-amber-500/10" },
+    { text: "Facebook Ads", icon: Icons.Users, orbit: "outer", angle: 105, speed: 52, direction: "cw", color: "text-blue-700 bg-blue-50/95 border-blue-300/80 shadow-blue-500/10" },
+    { text: "Content Marketing", icon: Icons.PenTool, orbit: "outer", angle: 195, speed: 52, direction: "cw", color: "text-rose-600 bg-rose-50/95 border-rose-300/80 shadow-rose-500/10" },
+    { text: "Email Marketing", icon: Icons.Mail, orbit: "outer", angle: 285, speed: 52, direction: "cw", color: "text-violet-600 bg-violet-50/95 border-violet-300/80 shadow-violet-500/10" },
   ];
 
   const badgeGlowColors: Record<string, string> = {
@@ -120,7 +120,7 @@ export default function Hero() {
           {/* Eyebrow Badge */}
           <motion.div
             variants={itemVariants}
-            className="inline-flex items-center gap-2 rounded-full border border-neutral-200/90 bg-white/95 backdrop-blur-md px-4 py-1.5 text-[11px] sm:text-xs font-semibold text-neutral-600 shadow-sm mb-3.5 sm:mb-4 pointer-events-auto max-w-[92vw]"
+            className="inline-flex items-center gap-2 rounded-full border border-neutral-200/90 bg-white/95 backdrop-blur-md px-4 py-1.5 text-[11px] sm:text-xs font-semibold text-neutral-600 shadow-xs mb-3.5 sm:mb-4 pointer-events-auto max-w-[92vw]"
           >
             <span className="h-2 w-2 shrink-0 rounded-full bg-emerald-500 animate-pulse" />
             <span className="truncate">{data.heroTagline || "Available for new projects · Based in Dhaka, Bangladesh"}</span>
@@ -182,9 +182,9 @@ export default function Hero() {
               return (
                 <div
                   key={idx}
-                  className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[11px] font-semibold shadow-2xs ${badge.color}`}
+                  className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-[11px] font-semibold backdrop-blur-md shadow-xs ${badge.color}`}
                 >
-                  <Icon className="h-3 w-3" />
+                  <Icon className="h-3.5 w-3.5" />
                   {badge.text}
                 </div>
               );
@@ -192,18 +192,10 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Desktop Concentric Solar-System Planetary Orbit Rings (Positioned OUTSIDE central text boundary) */}
+        {/* Desktop Concentric Solar-System Planetary Orbits (Clean Orbit Motion Without Lines) */}
         <div className="absolute inset-0 pointer-events-none hidden md:block select-none max-w-7xl mx-auto w-full h-full z-10">
           
-          {/* Dashed Orbit Track Rings */}
-          <div className="absolute left-1/2 top-[270px] lg:top-[280px] xl:top-[290px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-blue-400/25 pointer-events-none transition-all duration-300" 
-               style={{ width: "calc(var(--radius-inner-x) * 2)", height: "calc(var(--radius-inner-y) * 2)" }} />
-          <div className="absolute left-1/2 top-[270px] lg:top-[280px] xl:top-[290px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-indigo-400/20 pointer-events-none transition-all duration-300" 
-               style={{ width: "calc(var(--radius-mid-x) * 2)", height: "calc(var(--radius-mid-y) * 2)" }} />
-          <div className="absolute left-1/2 top-[270px] lg:top-[280px] xl:top-[290px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-dashed border-purple-400/15 pointer-events-none transition-all duration-300" 
-               style={{ width: "calc(var(--radius-outer-x) * 2)", height: "calc(var(--radius-outer-y) * 2)" }} />
-
-          {/* Revolving Planets (Service Badges) */}
+          {/* Revolving Planets (Service Badges) - Line-Free Floating Design */}
           {orbitalPlanets.map((badge, idx) => {
             const Icon = badge.icon;
             const glowColor = badgeGlowColors[badge.text] || "rgba(0, 118, 255, 0.22)";
@@ -211,7 +203,7 @@ export default function Hero() {
             return (
               <div
                 key={idx}
-                className={`absolute left-1/2 top-[270px] lg:top-[280px] xl:top-[290px] inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-semibold shadow-premium cursor-pointer pointer-events-auto select-none transition-all duration-300 ${badge.color} orbit-badge`}
+                className={`absolute left-1/2 top-[270px] lg:top-[280px] xl:top-[290px] inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-semibold backdrop-blur-md shadow-md hover:shadow-xl cursor-pointer pointer-events-auto select-none transition-all duration-300 ${badge.color} orbit-badge`}
                 style={{
                   "--radius-x": `var(--radius-${badge.orbit}-x)`,
                   "--radius-y": `var(--radius-${badge.orbit}-y)`,
@@ -255,7 +247,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scoped CSS Inject with Optimized Laptop Monitor & PC Monitor Orbit Radii */}
+      {/* Scoped CSS Inject for Concentric Solar Orbit Motion with Line-Free Clean Aesthetics */}
       <style dangerouslySetInnerHTML={{ __html: `
         /* ── Large PC Desktop Monitors (1440px+) ── */
         :root {
@@ -277,7 +269,7 @@ export default function Hero() {
             --radius-mid-y: 235px;
             --radius-outer-x: 600px;
             --radius-outer-y: 265px;
-            --badge-scale: 0.82;
+            --badge-scale: 0.84;
           }
         }
 
@@ -290,7 +282,7 @@ export default function Hero() {
             --radius-mid-y: 200px;
             --radius-outer-x: 510px;
             --radius-outer-y: 225px;
-            --badge-scale: 0.75;
+            --badge-scale: 0.78;
           }
         }
 
@@ -300,7 +292,7 @@ export default function Hero() {
           transform-origin: center center;
           will-change: transform;
           scale: var(--badge-scale, 0.95);
-          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04), 0 0 14px var(--glow-color);
+          box-shadow: 0 6px 18px -2px rgba(0, 0, 0, 0.05), 0 0 16px var(--glow-color);
           transition: scale 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease !important;
         }
 
