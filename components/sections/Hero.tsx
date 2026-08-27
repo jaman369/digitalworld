@@ -109,13 +109,13 @@ export default function Hero() {
         />
       </div>
 
-      <div className="container mx-auto max-w-7xl px-4 sm:px-6 relative z-10 flex-1 flex flex-col justify-start pt-6 sm:pt-8 lg:pt-12 xl:pt-14">
-        {/* Main Hero Content (Positioned with higher z-index & clear padding so it is ALWAYS visually dominant & unblocked) */}
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6 relative z-10 flex-1 flex flex-col justify-center items-center">
+        {/* Main Hero Content (Positioned in EXACT DEAD CENTER position of the banner) */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="mx-auto max-w-2xl text-center flex flex-col items-center relative z-30 pointer-events-none"
+          className="mx-auto max-w-2xl text-center flex flex-col items-center justify-center relative z-30 pointer-events-none my-auto"
         >
           {/* Eyebrow Badge */}
           <motion.div
@@ -126,7 +126,7 @@ export default function Hero() {
             <span className="truncate">{data.heroTagline || "Available for new projects · Based in Dhaka, Bangladesh"}</span>
           </motion.div>
 
-          {/* Headline (Preserved Exact Title & Formatting with Adaptive Laptop & PC Typography) */}
+          {/* Headline (Preserved Exact Title & Formatting with Centered Banner Position) */}
           <motion.h1
             variants={itemVariants}
             className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-neutral-900 leading-[1.12] sm:leading-[1.1] mb-3 sm:mb-4 pointer-events-auto drop-shadow-2xs"
@@ -192,10 +192,10 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Desktop Concentric Solar-System Planetary Orbits (Clean Orbit Motion Without Lines) */}
+        {/* Desktop Concentric Solar-System Planetary Orbits (Centered 100% Dead-Center with Banner) */}
         <div className="absolute inset-0 pointer-events-none hidden md:block select-none max-w-7xl mx-auto w-full h-full z-10">
           
-          {/* Revolving Planets (Service Badges) - Line-Free Floating Design */}
+          {/* Revolving Planets (Service Badges) - Centered Orbit Motion */}
           {orbitalPlanets.map((badge, idx) => {
             const Icon = badge.icon;
             const glowColor = badgeGlowColors[badge.text] || "rgba(0, 118, 255, 0.22)";
@@ -203,7 +203,7 @@ export default function Hero() {
             return (
               <div
                 key={idx}
-                className={`absolute left-1/2 top-[270px] lg:top-[280px] xl:top-[290px] inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-semibold backdrop-blur-md shadow-md hover:shadow-xl cursor-pointer pointer-events-auto select-none transition-all duration-300 ${badge.color} orbit-badge`}
+                className={`absolute left-1/2 top-[47%] inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-semibold backdrop-blur-md shadow-md hover:shadow-xl cursor-pointer pointer-events-auto select-none transition-all duration-300 ${badge.color} orbit-badge`}
                 style={{
                   "--radius-x": `var(--radius-${badge.orbit}-x)`,
                   "--radius-y": `var(--radius-${badge.orbit}-y)`,
