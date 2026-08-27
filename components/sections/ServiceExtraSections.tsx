@@ -657,32 +657,99 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
         </div>
       </section>
 
-      {/* ── 10 — RESULTS / METRICS SECTION ── */}
-      <section className="py-16 lg:py-24 border-t border-neutral-200/80 bg-white">
-        <div className="container mx-auto max-w-7xl px-6">
-          <div className="text-center max-w-2xl mx-auto mb-12">
+      {/* ── 10 — RESULTS / METRICS SECTION (With 27.png Graph Showcase & Metric Grid) ── */}
+      <section className="py-16 lg:py-24 border-t border-neutral-200/80 bg-gradient-to-b from-white via-slate-50/50 to-white relative overflow-hidden">
+        {/* Ambient Glows */}
+        <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[400px] bg-emerald-500/5 blur-[120px] pointer-events-none -z-10 rounded-full" />
+        <div className="absolute top-1/2 right-1/4 translate-x-1/2 -translate-y-1/2 w-[450px] h-[350px] bg-blue-500/5 blur-[120px] pointer-events-none -z-10 rounded-full" />
+
+        <div className="container mx-auto max-w-7xl px-6 relative z-10">
+          {/* Header */}
+          <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 border border-emerald-200 px-4 py-1.5 text-xs font-bold text-emerald-700 uppercase tracking-widest mb-3">
               10 — Results & Metrics
             </span>
-            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-neutral-900">
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight leading-tight">
               Quantified Performance
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {metrics.map((m, idx) => (
-              <div key={idx} className="bg-[#F8FAFC] border border-neutral-200/80 rounded-2xl p-6 text-center flex flex-col items-center shadow-xs">
-                <span className="font-serif text-4xl font-bold text-emerald-600 mb-2">
-                  {m.value}
-                </span>
-                <h4 className="font-sans text-sm font-bold text-neutral-900 mb-1">
-                  {m.label}
-                </h4>
-                <p className="font-sans text-xs text-neutral-600">
-                  {m.sub}
-                </p>
+          {/* 2-Column Split: Graph Design Left + Metric Grid Right */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            
+            {/* Left Column: Image 27.png 3D Pie Chart Graph Showcase */}
+            <div className="lg:col-span-5 relative flex justify-center items-center">
+              <div className="relative w-full max-w-md lg:max-w-none flex items-center justify-center p-6 sm:p-8 rounded-3xl bg-white/90 border border-neutral-200/90 shadow-[0_20px_50px_rgba(0,0,0,0.06)] backdrop-blur-md group">
+                {/* Background ambient radial glow */}
+                <div className="absolute inset-4 rounded-full bg-gradient-to-tr from-emerald-500/10 via-blue-500/10 to-indigo-500/10 blur-2xl -z-10 group-hover:scale-110 transition-transform duration-700" />
+
+                {/* Graph Image 27.png */}
+                <Image
+                  src="/images/27.png"
+                  alt="Quantified Performance Graph Chart"
+                  width={460}
+                  height={460}
+                  sizes="(max-width: 640px) 90vw, (max-width: 1024px) 40vw, 460px"
+                  className="w-full h-auto max-w-[320px] sm:max-w-[380px] lg:max-w-[420px] object-contain drop-shadow-2xl transition-all duration-500 group-hover:scale-[1.03]"
+                />
+
+                {/* Floating Badge 1: Top Right */}
+                <div className="absolute top-4 right-2 sm:right-4 bg-white/95 backdrop-blur-md border border-neutral-200/90 rounded-2xl px-3.5 py-2 shadow-lg flex items-center gap-2">
+                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="font-sans text-xs font-bold text-neutral-800">75% Market Share</span>
+                </div>
+
+                {/* Floating Badge 2: Bottom Left */}
+                <div className="absolute bottom-4 left-2 sm:left-4 bg-white/95 backdrop-blur-md border border-neutral-200/90 rounded-2xl px-3.5 py-2 shadow-lg flex items-center gap-2">
+                  <Icons.TrendingUp className="w-4 h-4 text-blue-500" />
+                  <span className="font-sans text-xs font-bold text-neutral-800">Data-Driven ROI</span>
+                </div>
               </div>
-            ))}
+            </div>
+
+            {/* Right Column: 2x2 Metric Cards Grid with Exact Information */}
+            <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
+              {metrics.map((m, idx) => {
+                const metricIcons = [Icons.TrendingUp, Icons.Award, Icons.ShieldCheck, Icons.BarChart3];
+                const IconComp = metricIcons[idx % metricIcons.length];
+                const borderColors = [
+                  "border-emerald-200 hover:border-emerald-400 text-emerald-600 bg-emerald-50/60",
+                  "border-blue-200 hover:border-blue-400 text-blue-600 bg-blue-50/60",
+                  "border-teal-200 hover:border-teal-400 text-teal-600 bg-teal-50/60",
+                  "border-indigo-200 hover:border-indigo-400 text-indigo-600 bg-indigo-50/60",
+                ];
+                const theme = borderColors[idx % borderColors.length];
+
+                return (
+                  <div
+                    key={idx}
+                    className="bg-white border border-neutral-200/80 rounded-2xl p-6 flex flex-col justify-between shadow-xs hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group"
+                  >
+                    <div className="flex items-center justify-between w-full mb-4">
+                      <div className={`p-3 rounded-xl border transition-transform duration-300 group-hover:scale-110 ${theme}`}>
+                        <IconComp className="w-5 h-5" />
+                      </div>
+                      <span className="font-mono text-xs font-bold text-neutral-300 group-hover:text-emerald-600 transition-colors">
+                        0{idx + 1}
+                      </span>
+                    </div>
+
+                    <div>
+                      <span className="font-serif text-3xl sm:text-4xl font-bold text-neutral-900 block mb-1 tracking-tight">
+                        {m.value}
+                      </span>
+                      <h4 className="font-sans text-sm sm:text-base font-bold text-neutral-900 mb-1">
+                        {m.label}
+                      </h4>
+                      <p className="font-sans text-xs text-neutral-500 leading-relaxed">
+                        {m.sub}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
           </div>
         </div>
       </section>

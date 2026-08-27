@@ -93,9 +93,9 @@ export default function ResultsMetrics() {
               {/* Radial ambient glow behind 3D pie chart */}
               <div className="absolute inset-6 rounded-full bg-gradient-to-tr from-blue-500/10 via-teal-500/10 to-indigo-500/10 blur-2xl -z-10 group-hover:scale-110 transition-transform duration-700" />
 
-              {/* 3D Graph Image 26.png */}
+              {/* 3D Graph Image 27.png */}
               <Image
-                src="/images/26.png"
+                src="/images/27.png"
                 alt="Growth Distribution Graph Chart"
                 width={480}
                 height={480}
