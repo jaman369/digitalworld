@@ -677,9 +677,9 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
           {/* 2-Column Split: Graph Design Left + Metric Grid Right */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             
-            {/* Left Column: Image 27.png 3D Pie Chart Graph Showcase */}
+            {/* Left Column: Image 27.png 3D Pie Chart Graph Showcase (Border-Free Floating Card) */}
             <div className="lg:col-span-5 relative flex justify-center items-center">
-              <div className="relative w-full max-w-md lg:max-w-none flex items-center justify-center p-6 sm:p-8 rounded-3xl bg-white/90 border border-neutral-200/90 shadow-[0_20px_50px_rgba(0,0,0,0.06)] backdrop-blur-md group">
+              <div className="relative w-full max-w-md lg:max-w-none flex items-center justify-center p-6 sm:p-8 rounded-3xl bg-white/80 shadow-[0_20px_50px_rgba(0,0,0,0.04)] backdrop-blur-md group">
                 {/* Background ambient radial glow */}
                 <div className="absolute inset-4 rounded-full bg-gradient-to-tr from-emerald-500/10 via-blue-500/10 to-indigo-500/10 blur-2xl -z-10 group-hover:scale-110 transition-transform duration-700" />
 
@@ -694,39 +694,39 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
                 />
 
                 {/* Floating Badge 1: Top Right */}
-                <div className="absolute top-4 right-2 sm:right-4 bg-white/95 backdrop-blur-md border border-neutral-200/90 rounded-2xl px-3.5 py-2 shadow-lg flex items-center gap-2">
+                <div className="absolute top-4 right-2 sm:right-4 bg-white/95 backdrop-blur-md rounded-2xl px-3.5 py-2 shadow-md flex items-center gap-2">
                   <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
                   <span className="font-sans text-xs font-bold text-neutral-800">75% Market Share</span>
                 </div>
 
                 {/* Floating Badge 2: Bottom Left */}
-                <div className="absolute bottom-4 left-2 sm:left-4 bg-white/95 backdrop-blur-md border border-neutral-200/90 rounded-2xl px-3.5 py-2 shadow-lg flex items-center gap-2">
+                <div className="absolute bottom-4 left-2 sm:left-4 bg-white/95 backdrop-blur-md rounded-2xl px-3.5 py-2 shadow-md flex items-center gap-2">
                   <Icons.TrendingUp className="w-4 h-4 text-blue-500" />
                   <span className="font-sans text-xs font-bold text-neutral-800">Data-Driven ROI</span>
                 </div>
               </div>
             </div>
 
-            {/* Right Column: 2x2 Metric Cards Grid with Exact Information */}
+            {/* Right Column: 2x2 Metric Cards Grid with Border-Free Floating Design */}
             <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
               {metrics.map((m, idx) => {
                 const metricIcons = [Icons.TrendingUp, Icons.Award, Icons.ShieldCheck, Icons.BarChart3];
                 const IconComp = metricIcons[idx % metricIcons.length];
-                const borderColors = [
-                  "border-emerald-200 hover:border-emerald-400 text-emerald-600 bg-emerald-50/60",
-                  "border-blue-200 hover:border-blue-400 text-blue-600 bg-blue-50/60",
-                  "border-teal-200 hover:border-teal-400 text-teal-600 bg-teal-50/60",
-                  "border-indigo-200 hover:border-indigo-400 text-indigo-600 bg-indigo-50/60",
+                const themes = [
+                  "text-emerald-600 bg-emerald-50/80",
+                  "text-blue-600 bg-blue-50/80",
+                  "text-teal-600 bg-teal-50/80",
+                  "text-indigo-600 bg-indigo-50/80",
                 ];
-                const theme = borderColors[idx % borderColors.length];
+                const theme = themes[idx % themes.length];
 
                 return (
                   <div
                     key={idx}
-                    className="bg-white border border-neutral-200/80 rounded-2xl p-6 flex flex-col justify-between shadow-xs hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group"
+                    className="bg-white rounded-2xl p-6 sm:p-7 flex flex-col justify-between shadow-[0_8px_30px_rgba(0,0,0,0.03)] hover:shadow-xl transition-all duration-300 hover:-translate-y-1 group"
                   >
                     <div className="flex items-center justify-between w-full mb-4">
-                      <div className={`p-3 rounded-xl border transition-transform duration-300 group-hover:scale-110 ${theme}`}>
+                      <div className={`p-3 rounded-xl transition-transform duration-300 group-hover:scale-110 ${theme}`}>
                         <IconComp className="w-5 h-5" />
                       </div>
                       <span className="font-mono text-xs font-bold text-neutral-300 group-hover:text-emerald-600 transition-colors">

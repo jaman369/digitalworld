@@ -89,7 +89,7 @@ export default function ResultsMetrics() {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-5 relative flex justify-center items-center"
           >
-            <div className="relative w-full max-w-md lg:max-w-none flex items-center justify-center p-6 rounded-3xl bg-white/70 border border-neutral-100 shadow-[0_20px_60px_rgba(0,0,0,0.04)] backdrop-blur-sm group">
+            <div className="relative w-full max-w-md lg:max-w-none flex items-center justify-center p-6 rounded-3xl bg-white/80 shadow-[0_20px_60px_rgba(0,0,0,0.03)] backdrop-blur-sm group">
               {/* Radial ambient glow behind 3D pie chart */}
               <div className="absolute inset-6 rounded-full bg-gradient-to-tr from-blue-500/10 via-teal-500/10 to-indigo-500/10 blur-2xl -z-10 group-hover:scale-110 transition-transform duration-700" />
 
@@ -107,7 +107,7 @@ export default function ResultsMetrics() {
               <motion.div
                 animate={{ y: [0, -6, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute top-4 right-2 sm:right-4 bg-white/95 backdrop-blur-md border border-neutral-200/90 rounded-2xl px-3.5 py-2 shadow-lg flex items-center gap-2"
+                className="absolute top-4 right-2 sm:right-4 bg-white/95 backdrop-blur-md rounded-2xl px-3.5 py-2 shadow-md flex items-center gap-2"
               >
                 <div className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-pulse" />
                 <span className="font-sans text-xs font-bold text-neutral-800">75% Market Share</span>
@@ -117,7 +117,7 @@ export default function ResultsMetrics() {
               <motion.div
                 animate={{ y: [0, 6, 0] }}
                 transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute bottom-4 left-2 sm:left-4 bg-white/95 backdrop-blur-md border border-neutral-200/90 rounded-2xl px-3.5 py-2 shadow-lg flex items-center gap-2"
+                className="absolute bottom-4 left-2 sm:left-4 bg-white/95 backdrop-blur-md rounded-2xl px-3.5 py-2 shadow-md flex items-center gap-2"
               >
                 <PieChart className="w-4 h-4 text-emerald-500" />
                 <span className="font-sans text-xs font-bold text-neutral-800">Data-Driven ROI</span>
@@ -136,10 +136,10 @@ export default function ResultsMetrics() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className="bg-white rounded-2xl border border-neutral-100 p-6 sm:p-7 flex flex-col items-start justify-between shadow-[0_10px_30px_rgba(0,0,0,0.02)] hover:shadow-lg hover:border-blue-200/80 transition-all duration-300 group"
+                  className="bg-white rounded-2xl p-6 sm:p-7 flex flex-col items-start justify-between shadow-[0_8px_30px_rgba(0,0,0,0.03)] hover:shadow-xl transition-all duration-300 group"
                 >
                   <div className="flex items-center justify-between w-full mb-4">
-                    <div className={`p-3 rounded-xl border transition-transform duration-300 group-hover:scale-110 ${metric.color}`}>
+                    <div className={`p-3 rounded-xl transition-transform duration-300 group-hover:scale-110 ${metric.color}`}>
                       <Icon className="w-5 h-5" />
                     </div>
                     <span className="font-mono text-xs font-bold text-neutral-300 group-hover:text-blue-500 transition-colors">
