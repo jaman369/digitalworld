@@ -96,7 +96,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-transparent pt-4 pb-0 lg:pt-6 lg:pb-0 flex flex-col justify-between min-h-[580px] sm:min-h-[620px] lg:h-[650px] xl:h-[730px]">
+    <section className="relative overflow-hidden bg-transparent pt-4 pb-0 lg:pt-6 lg:pb-0 flex flex-col justify-between min-h-[580px] sm:min-h-[640px] lg:h-[680px] xl:h-[760px]">
       {/* Background design image */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <Image
@@ -115,7 +115,7 @@ export default function Hero() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="mx-auto max-w-2xl text-center flex flex-col items-center justify-center relative z-30 pointer-events-none my-auto"
+          className="mx-auto max-w-3xl lg:max-w-4xl text-center flex flex-col items-center justify-center relative z-30 pointer-events-none my-auto"
         >
           {/* Eyebrow Badge */}
           <motion.div
@@ -126,16 +126,18 @@ export default function Hero() {
             <span className="truncate">{data.heroTagline || "Available for new projects · Based in Dhaka, Bangladesh"}</span>
           </motion.div>
 
-          {/* Headline (Preserved Exact Title & Formatting with Centered Banner Position) */}
+          {/* Headline (Enlarged, Beautiful Vibrant Gradient Styling & commanding typography) */}
           <motion.h1
             variants={itemVariants}
-            className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-neutral-900 leading-[1.12] sm:leading-[1.1] mb-3 sm:mb-4 pointer-events-auto drop-shadow-2xs"
+            className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl 2xl:text-[5rem] font-bold tracking-tight text-neutral-900 leading-[1.08] sm:leading-[1.06] mb-4 sm:mb-5 pointer-events-auto drop-shadow-2xs"
           >
             {data.heroTitle ? (
               data.heroTitle.includes("beyond borders") ? (
                 <>
                   Grow your business<br />
-                  <span className="text-blue-600 italic font-medium">beyond borders.</span>
+                  <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 bg-clip-text text-transparent italic font-serif font-medium pr-1 inline-block drop-shadow-xs">
+                    beyond borders.
+                  </span>
                 </>
               ) : (
                 data.heroTitle
@@ -143,7 +145,9 @@ export default function Hero() {
             ) : (
               <>
                 Grow your business<br />
-                <span className="text-blue-600 italic font-medium">beyond borders.</span>
+                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500 bg-clip-text text-transparent italic font-serif font-medium pr-1 inline-block drop-shadow-xs">
+                  beyond borders.
+                </span>
               </>
             )}
           </motion.h1>
@@ -151,7 +155,7 @@ export default function Hero() {
           {/* Subtext */}
           <motion.p
             variants={itemVariants}
-            className="font-sans text-xs sm:text-sm md:text-base text-neutral-600 leading-relaxed max-w-lg mb-5 sm:mb-6 pointer-events-auto px-2"
+            className="font-sans text-xs sm:text-sm md:text-base text-neutral-600 leading-relaxed max-w-xl mb-6 sm:mb-7 pointer-events-auto px-2"
           >
             {data.heroSubtitle || "Digital World is a full-service digital marketing agency helping businesses in the USA, UK, Canada, UAE, Australia & beyond dominate search, ads, and the web — led by Kamrujjaman Mufti."}
           </motion.p>
@@ -163,13 +167,13 @@ export default function Hero() {
           >
             <Link
               href={data.heroPrimaryCtaLink || "/contact"}
-              className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-blue-600 hover:bg-blue-700 px-7 sm:px-8 py-3.5 font-sans text-xs sm:text-sm font-semibold text-white shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
+              className="flex w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-blue-600 hover:bg-blue-700 px-8 sm:px-9 py-3.5 sm:py-4 font-sans text-xs sm:text-sm font-semibold text-white shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
             >
               {data.heroPrimaryCtaText || "Start a Project"} <Icons.ArrowRight className="h-4 w-4" />
             </Link>
             <a
               href={data.heroSecondaryCtaLink || "#services"}
-              className="flex w-full sm:w-auto items-center justify-center rounded-full border border-neutral-200 bg-white/90 hover:bg-white px-7 sm:px-8 py-3.5 font-sans text-xs sm:text-sm font-semibold text-neutral-700 shadow-2xs transition-all"
+              className="flex w-full sm:w-auto items-center justify-center rounded-full border border-neutral-200 bg-white/90 hover:bg-white px-8 sm:px-9 py-3.5 sm:py-4 font-sans text-xs sm:text-sm font-semibold text-neutral-700 shadow-2xs transition-all"
             >
               {data.heroSecondaryCtaText || "Explore Services"}
             </a>
@@ -251,24 +255,24 @@ export default function Hero() {
       <style dangerouslySetInnerHTML={{ __html: `
         /* ── Large PC Desktop Monitors (1440px+) ── */
         :root {
-          --radius-inner-x: 540px;
-          --radius-inner-y: 240px;
-          --radius-mid-x: 660px;
-          --radius-mid-y: 275px;
-          --radius-outer-x: 780px;
-          --radius-outer-y: 310px;
+          --radius-inner-x: 560px;
+          --radius-inner-y: 250px;
+          --radius-mid-x: 680px;
+          --radius-mid-y: 285px;
+          --radius-outer-x: 800px;
+          --radius-outer-y: 320px;
           --badge-scale: 0.95;
         }
 
         /* ── Standard Laptops & 1366x768 / 1440x900 Monitors (1024px – 1439px) ── */
         @media (min-width: 1024px) and (max-width: 1439px) {
           :root {
-            --radius-inner-x: 440px;
-            --radius-inner-y: 205px;
-            --radius-mid-x: 520px;
-            --radius-mid-y: 235px;
-            --radius-outer-x: 600px;
-            --radius-outer-y: 265px;
+            --radius-inner-x: 470px;
+            --radius-inner-y: 215px;
+            --radius-mid-x: 560px;
+            --radius-mid-y: 245px;
+            --radius-outer-x: 650px;
+            --radius-outer-y: 275px;
             --badge-scale: 0.84;
           }
         }
@@ -276,12 +280,12 @@ export default function Hero() {
         /* ── Tablets (768px – 1023px) ── */
         @media (min-width: 768px) and (max-width: 1023px) {
           :root {
-            --radius-inner-x: 370px;
-            --radius-inner-y: 175px;
-            --radius-mid-x: 440px;
-            --radius-mid-y: 200px;
-            --radius-outer-x: 510px;
-            --radius-outer-y: 225px;
+            --radius-inner-x: 390px;
+            --radius-inner-y: 185px;
+            --radius-mid-x: 460px;
+            --radius-mid-y: 210px;
+            --radius-outer-x: 530px;
+            --radius-outer-y: 235px;
             --badge-scale: 0.78;
           }
         }
