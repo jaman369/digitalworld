@@ -70,9 +70,9 @@ export default async function Footer() {
   return (
     <footer className="bg-bg-dark text-neutral-300 font-sans border-t border-neutral-800">
       <div className="container mx-auto max-w-7xl px-6 py-10 lg:py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand Info */}
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-6 lg:pr-8">
             <Link href="/" className="flex items-center gap-3.5 group">
               <div className="relative h-12 w-10 sm:h-14 sm:w-12 shrink-0 transition-transform duration-300 group-hover:scale-105">
                 <Image
@@ -152,7 +152,7 @@ export default async function Footer() {
           </div>
 
           {/* Column 1: Our Services List */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 lg:pl-4">
             <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Our Services</h3>
             <ul className="flex flex-col gap-3 text-sm">
               <li><Link href="/services/seo" className="text-neutral-400 hover:text-white transition-colors">SEO Services</Link></li>
