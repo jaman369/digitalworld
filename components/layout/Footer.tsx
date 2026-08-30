@@ -32,7 +32,7 @@ export default async function Footer() {
                   src="/images/logo.png"
                   alt="Kj Digital World Logo"
                   fill
-                  className="object-contain object-left"
+                  className="object-contain object-left brightness-0 invert"
                 />
               </div>
               <div className="flex flex-col">
