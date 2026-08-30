@@ -29,7 +29,7 @@ export default function TermsPage() {
           <section>
             <h2 className="font-serif text-2xl font-bold text-neutral-900 mb-3">1. Agreement to Terms</h2>
             <p>
-              By accessing our website or engaging Digital World Agency ("Company", "We", "Us", "Our") for SEO, PPC, Web Development, Content Marketing, AI Automation, or Factory Sourcing services, you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, you must not access our services.
+              By accessing our website or engaging Digital World Agency (&quot;Company&quot;, &quot;We&quot;, &quot;Us&quot;, &quot;Our&quot;) for SEO, PPC, Web Development, Content Marketing, AI Automation, or Factory Sourcing services, you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, you must not access our services.
             </p>
           </section>
 

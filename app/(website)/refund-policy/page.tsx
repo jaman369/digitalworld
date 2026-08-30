@@ -43,7 +43,7 @@ export default function RefundPolicyPage() {
           <section>
             <h2 className="font-serif text-2xl font-bold text-neutral-900 mb-3">3. Media Spend & Paid Ads Budgets</h2>
             <p>
-              Advertising media spend paid directly to third-party ad networks (Google Ads, Meta Ads, TikTok Ads) is controlled by the client's credit card and is non-refundable by Digital World Agency. Management fees paid to Digital World Agency are non-refundable once campaign setup and optimization have been performed.
+              Advertising media spend paid directly to third-party ad networks (Google Ads, Meta Ads, TikTok Ads) is controlled by the client&apos;s credit card and is non-refundable by Digital World Agency. Management fees paid to Digital World Agency are non-refundable once campaign setup and optimization have been performed.
             </p>
           </section>
 

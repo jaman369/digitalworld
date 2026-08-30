@@ -29,7 +29,7 @@ export default function ClientAgreementPage() {
           <section>
             <h2 className="font-serif text-2xl font-bold text-neutral-900 mb-3">1. Executive Summary</h2>
             <p>
-              This Master Client Service Agreement ("MSA") governs the commercial relationship between Digital World Agency and its clients. Individual project scopes, key performance indicators (KPIs), retainer terms, and pricing are specified in attached Statements of Work (SOW).
+              This Master Client Service Agreement (&quot;MSA&quot;) governs the commercial relationship between Digital World Agency and its clients. Individual project scopes, key performance indicators (KPIs), retainer terms, and pricing are specified in attached Statements of Work (SOW).
             </p>
           </section>
 
