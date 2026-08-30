@@ -34,6 +34,11 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Digital World - Grow your business beyond borders",
     description: "Full-Service Digital Marketing Agency & SEO Expert helping brands worldwide grow organic traffic, leads, and sales.",
+    icons: {
+      icon: "/images/logo.png",
+      shortcut: "/images/logo.png",
+      apple: "/images/logo.png",
+    },
     verification: googleVerification
       ? {
           google: googleVerification,

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import * as Icons from "lucide-react";
 import { servicesData } from "@/data/services";
@@ -45,9 +46,16 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
           >
             {/* Drawer Header */}
             <div className="flex items-center justify-between border-b border-neutral-100 pb-4">
-              <Link href="/" className="flex items-center gap-2 font-sans font-bold text-neutral-900" onClick={onClose}>
-                <span className="h-3.5 w-3.5 rounded-full bg-gradient-to-r from-primary to-primary-hover" />
-                Digital World
+              <Link href="/" className="flex items-center gap-2.5 font-sans font-bold text-neutral-900" onClick={onClose}>
+                <div className="relative h-8 w-7 shrink-0">
+                  <Image
+                    src="/images/logo.png"
+                    alt="Kj Digital World Logo"
+                    fill
+                    className="object-contain object-left"
+                  />
+                </div>
+                <span className="font-serif font-bold text-neutral-900 text-lg">Digital World</span>
               </Link>
               <button
                 onClick={onClose}

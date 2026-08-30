@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import Image from "next/image";
 import * as Icons from "lucide-react";
 import LinkComponent from "next/link";
 
@@ -49,9 +50,16 @@ export default function AdminSidebar({ session }: SidebarProps) {
   return (
     <aside className="w-64 border-r border-neutral-100 bg-white flex flex-col shrink-0">
       {/* Brand Logo */}
-      <div className="h-16 border-b border-neutral-100 px-6 flex items-center gap-2.5 font-sans font-bold text-neutral-900 text-lg">
-        <span className="h-4.5 w-4.5 rounded-full bg-gradient-to-r from-primary to-primary-hover shadow-sm" />
-        Digital World
+      <div className="h-16 border-b border-neutral-100 px-6 flex items-center gap-3 font-sans font-bold text-neutral-900 text-base">
+        <div className="relative h-8 w-7 shrink-0">
+          <Image
+            src="/images/logo.png"
+            alt="Kj Digital World Logo"
+            fill
+            className="object-contain object-left"
+          />
+        </div>
+        <span className="font-serif font-bold text-neutral-900 text-base">Digital World</span>
       </div>
 
       {/* Navigation */}

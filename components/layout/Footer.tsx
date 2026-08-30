@@ -26,9 +26,23 @@ export default async function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {/* Brand Info */}
           <div className="flex flex-col gap-6">
-            <Link href="/" className="flex items-center gap-2.5 font-sans font-bold text-white text-lg">
-              <span className="h-4 w-4 rounded-full bg-gradient-to-r from-primary to-primary-hover shadow-sm" />
-              Digital World
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="relative h-10 w-9 shrink-0 transition-transform duration-300 group-hover:scale-105">
+                <Image
+                  src="/images/logo.png"
+                  alt="Kj Digital World Logo"
+                  fill
+                  className="object-contain object-left"
+                />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-serif font-bold text-white text-lg sm:text-xl leading-tight group-hover:text-primary transition-colors">
+                  Digital World
+                </span>
+                <span className="font-sans text-[10px] font-bold text-neutral-400 tracking-wider uppercase -mt-0.5">
+                  Agency
+                </span>
+              </div>
             </Link>
             <p className="text-sm text-neutral-400 leading-relaxed">
               Full-Service Digital Marketing Agency – 5 Years Experience & Serving 11 countries worldwide.

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import Image from "next/image";
 import * as Icons from "lucide-react";
 import MegaMenu from "./MegaMenu";
 import MobileNav from "./MobileNav";
@@ -50,10 +51,25 @@ export default function Header() {
       >
         <div className="container mx-auto max-w-7xl px-6">
           <div className="flex h-20 items-center justify-between">
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-2.5 font-sans font-bold text-neutral-900 text-lg">
-              <span className="h-4 w-4 rounded-full bg-gradient-to-r from-primary to-primary-hover shadow-sm" />
-              Digital World
+            {/* Brand Logo */}
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="relative h-10 w-9 shrink-0 transition-transform duration-300 group-hover:scale-105">
+                <Image
+                  src="/images/logo.png"
+                  alt="Kj Digital World Logo"
+                  fill
+                  priority
+                  className="object-contain object-left"
+                />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-serif font-bold text-neutral-900 text-lg sm:text-xl leading-tight group-hover:text-primary transition-colors">
+                  Digital World
+                </span>
+                <span className="font-sans text-[10px] font-bold text-neutral-400 tracking-wider uppercase -mt-0.5">
+                  Agency
+                </span>
+              </div>
             </Link>
 
             {/* Desktop Navigation Links */}
