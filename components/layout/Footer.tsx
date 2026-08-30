@@ -95,17 +95,17 @@ export default async function Footer() {
               Full-Service Digital Marketing Agency – 5 Years Experience & Serving 11 countries worldwide.
             </p>
             
-            {/* Flags Grid (Serving 11 Countries Worldwide) */}
+            {/* Flags Grid (Serving 11 Countries Worldwide - Single Row Fit) */}
             <div className="flex flex-col gap-2">
               <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-widest">
                 Serving 11 Countries Worldwide
               </span>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-nowrap items-center gap-1 sm:gap-1.5 overflow-x-auto py-0.5">
                 {flags.map((flag, idx) => (
                   <div
                     key={idx}
                     title={flag.alt}
-                    className="relative h-5 w-7 overflow-hidden rounded border border-neutral-700/80 shadow-xs hover:scale-110 hover:border-primary transition-all duration-200 cursor-pointer"
+                    className="relative h-3.5 w-5 shrink-0 overflow-hidden rounded-[2px] border border-neutral-700/80 shadow-xs hover:scale-125 hover:border-primary transition-all duration-200 cursor-pointer"
                   >
                     <Image 
                       src={flag.src} 
