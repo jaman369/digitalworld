@@ -27,7 +27,7 @@ export default async function Footer() {
           {/* Brand Info */}
           <div className="flex flex-col gap-6">
             <Link href="/" className="flex items-center gap-3.5 group">
-              <div className="relative h-13 w-11 sm:h-15 sm:w-13 shrink-0 transition-transform duration-300 group-hover:scale-105">
+              <div className="relative h-12 w-10 sm:h-14 sm:w-12 shrink-0 transition-transform duration-300 group-hover:scale-105">
                 <Image
                   src="/images/logo.png"
                   alt="Kj Digital World Logo"
