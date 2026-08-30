@@ -46,8 +46,8 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
           >
             {/* Drawer Header */}
             <div className="flex items-center justify-between border-b border-neutral-100 pb-4">
-              <Link href="/" className="flex items-center gap-2.5 font-sans font-bold text-neutral-900" onClick={onClose}>
-                <div className="relative h-8 w-7 shrink-0">
+              <Link href="/" className="flex items-center gap-3 font-sans font-bold text-neutral-900" onClick={onClose}>
+                <div className="relative h-10 w-9 shrink-0">
                   <Image
                     src="/images/logo.png"
                     alt="Kj Digital World Logo"
@@ -55,7 +55,7 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
                     className="object-contain object-left"
                   />
                 </div>
-                <span className="font-serif font-bold text-neutral-900 text-lg">Digital World</span>
+                <span className="font-serif font-bold text-neutral-900 text-xl">Digital World</span>
               </Link>
               <button
                 onClick={onClose}

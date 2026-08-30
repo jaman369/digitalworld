@@ -52,8 +52,8 @@ export default function Header() {
         <div className="container mx-auto max-w-7xl px-6">
           <div className="flex h-20 items-center justify-between">
             {/* Brand Logo */}
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative h-10 w-9 shrink-0 transition-transform duration-300 group-hover:scale-105">
+            <Link href="/" className="flex items-center gap-3.5 group py-1">
+              <div className="relative h-13 w-11 sm:h-15 sm:w-13 shrink-0 transition-transform duration-300 group-hover:scale-105">
                 <Image
                   src="/images/logo.png"
                   alt="Kj Digital World Logo"
@@ -63,10 +63,10 @@ export default function Header() {
                 />
               </div>
               <div className="flex flex-col">
-                <span className="font-serif font-bold text-neutral-900 text-lg sm:text-xl leading-tight group-hover:text-primary transition-colors">
+                <span className="font-serif font-bold text-neutral-900 text-xl sm:text-2xl leading-none group-hover:text-primary transition-colors tracking-tight">
                   Digital World
                 </span>
-                <span className="font-sans text-[10px] font-bold text-neutral-400 tracking-wider uppercase -mt-0.5">
+                <span className="font-sans text-[11px] font-bold text-neutral-400 tracking-widest uppercase mt-0.5">
                   Agency
                 </span>
               </div>
