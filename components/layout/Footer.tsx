@@ -151,33 +151,33 @@ export default async function Footer() {
             </Link>
           </div>
 
-          {/* Column 1: SEO Solutions */}
+          {/* Column 1: Our Services List */}
           <div className="flex flex-col gap-4">
-            <h3 className="text-sm font-semibold text-white tracking-wider uppercase">SEO Solutions</h3>
+            <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Our Services</h3>
             <ul className="flex flex-col gap-3 text-sm">
-              <li><Link href="/services/seo#svc-local" className="text-neutral-400 hover:text-white transition-colors">Local SEO</Link></li>
-              <li><Link href="/services/seo#svc-ecommerce" className="text-neutral-400 hover:text-white transition-colors">Ecommerce SEO</Link></li>
-              <li><Link href="/services/seo#svc-international" className="text-neutral-400 hover:text-white transition-colors">International SEO</Link></li>
-              <li><Link href="/services/seo#link-building" className="text-neutral-400 hover:text-white transition-colors">Link Building</Link></li>
-              <li><Link href="/services/seo#svc-saas" className="text-neutral-400 hover:text-white transition-colors">SaaS SEO</Link></li>
-              <li><Link href="/services/seo#svc-semantic" className="text-neutral-400 hover:text-white transition-colors">Semantic SEO</Link></li>
+              <li><Link href="/services/seo" className="text-neutral-400 hover:text-white transition-colors">SEO Services</Link></li>
+              <li><Link href="/services/ppc" className="text-neutral-400 hover:text-white transition-colors">PPC & Paid Ads</Link></li>
+              <li><Link href="/services/web-design-dev" className="text-neutral-400 hover:text-white transition-colors">Web Design & Dev</Link></li>
+              <li><Link href="/services/content-marketing" className="text-neutral-400 hover:text-white transition-colors">Content Marketing</Link></li>
+              <li><Link href="/services/ai-automation" className="text-neutral-400 hover:text-white transition-colors">AI Automation</Link></li>
+              <li><Link href="/services/china-sourcing" className="text-neutral-400 hover:text-white transition-colors">China Sourcing</Link></li>
             </ul>
           </div>
 
-          {/* Column 2: Dev & Ads */}
+          {/* Column 2: Terms & Conditions for Digital Marketing Agency */}
           <div className="flex flex-col gap-4">
-            <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Development & Ads</h3>
+            <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Terms & Conditions</h3>
             <ul className="flex flex-col gap-3 text-sm">
-              <li><Link href="/services/web-design-dev#svc-wordpress" className="text-neutral-400 hover:text-white transition-colors">WordPress Development</Link></li>
-              <li><Link href="/services/web-design-dev#svc-shopify" className="text-neutral-400 hover:text-white transition-colors">Shopify Development</Link></li>
-              <li><Link href="/services/ppc#svc-google-ads" className="text-neutral-400 hover:text-white transition-colors">Google Ads / PPC</Link></li>
-              <li><Link href="/services/ppc#svc-facebook-ads" className="text-neutral-400 hover:text-white transition-colors">Facebook & Instagram Ads</Link></li>
-              <li><Link href="/services/content-marketing#svc-content" className="text-neutral-400 hover:text-white transition-colors">Content Marketing</Link></li>
-              <li><Link href="/services/ai-automation" className="text-neutral-400 hover:text-white transition-colors">AI & Automation</Link></li>
+              <li><Link href="/terms" className="text-neutral-400 hover:text-white transition-colors">Terms of Service</Link></li>
+              <li><Link href="/privacy" className="text-neutral-400 hover:text-white transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/cookies" className="text-neutral-400 hover:text-white transition-colors">Cookie Policy</Link></li>
+              <li><Link href="/refund-policy" className="text-neutral-400 hover:text-white transition-colors">Refund & Cancellation Policy</Link></li>
+              <li><Link href="/client-agreement" className="text-neutral-400 hover:text-white transition-colors">Client Service Agreement</Link></li>
+              <li><Link href="/disclaimer" className="text-neutral-400 hover:text-white transition-colors">Disclaimer</Link></li>
             </ul>
           </div>
 
-          {/* Column 3: Contact Info */}
+          {/* Column 3: Company (Unchanged) */}
           <div className="flex flex-col gap-4">
             <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Company</h3>
             <ul className="flex flex-col gap-3 text-sm">
