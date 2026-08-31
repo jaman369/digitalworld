@@ -28,6 +28,21 @@ export async function GET() {
             create: { name: post.category, slug: categorySlug },
           });
 
+          const authorId = session.userId || "admin-default-id";
+          const authorEmail = session.email || "kj.jaman369@gmail.com";
+
+          await db.user.upsert({
+            where: { id: authorId },
+            update: { email: authorEmail },
+            create: {
+              id: authorId,
+              email: authorEmail,
+              name: "Kamrujjaman Mufti",
+              passwordHash: "$2a$10$e8w.R3.V7.1234567890123456789012345678901234567890",
+              role: session.role || "ADMIN",
+            },
+          });
+
           await db.blogPost.upsert({
             where: { slug: post.slug },
             update: {},
@@ -39,7 +54,7 @@ export async function GET() {
               featuredImage: post.image,
               imageAltText: post.title,
               categoryId: cat.id,
-              authorId: session.userId,
+              authorId: authorId,
               isDraft: false,
               publishedAt: new Date(post.publishedAt),
             },
@@ -134,6 +149,22 @@ export async function POST(request: Request) {
       create: { name: categoryName, slug: categorySlug },
     });
 
+    // Ensure author user exists in DB before creating/updating post
+    const authorId = session.userId || "admin-default-id";
+    const authorEmail = session.email || "kj.jaman369@gmail.com";
+
+    await db.user.upsert({
+      where: { id: authorId },
+      update: { email: authorEmail },
+      create: {
+        id: authorId,
+        email: authorEmail,
+        name: "Kamrujjaman Mufti",
+        passwordHash: "$2a$10$e8w.R3.V7.1234567890123456789012345678901234567890",
+        role: session.role || "ADMIN",
+      },
+    });
+
     const postData = {
       title,
       excerpt: excerpt || "",
@@ -141,7 +172,7 @@ export async function POST(request: Request) {
       featuredImage: featuredImage || "https://picsum.photos/800/500?random=204",
       imageAltText: imageAltText || title,
       categoryId: category.id,
-      authorId: session.userId,
+      authorId: authorId,
       isDraft: isDraft !== undefined ? isDraft : true,
       publishedAt: isDraft ? null : new Date(),
       // SEO
