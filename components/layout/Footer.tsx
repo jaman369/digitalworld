@@ -83,7 +83,7 @@ export default async function Footer() {
                 />
               </div>
               <div className="flex flex-col">
-                <span className="font-serif font-bold text-white text-xl sm:text-2xl leading-none group-hover:text-primary transition-colors tracking-tight">
+                <span className="font-serif font-bold text-white text-xl sm:text-2xl leading-none group-hover:text-primary transition-colors tracking-tight whitespace-nowrap">
                   Digital World
                 </span>
                 <span className="font-sans text-[11px] font-bold text-neutral-400 tracking-widest uppercase mt-0.5">
