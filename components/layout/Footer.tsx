@@ -100,7 +100,7 @@ export default async function Footer() {
               <span className="text-[11px] font-bold text-neutral-400 uppercase tracking-widest">
                 Serving 11 Countries Worldwide
               </span>
-              <div className="flex flex-nowrap items-center gap-1 sm:gap-1.5 overflow-x-auto py-0.5">
+              <div className="flex flex-wrap items-center gap-1.5 py-0.5">
                 {flags.map((flag, idx) => (
                   <div
                     key={idx}
