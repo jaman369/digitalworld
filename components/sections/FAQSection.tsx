@@ -1,47 +1,66 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
-
 import Image from "next/image";
 
 interface FAQItem {
   id: string;
   question: string;
   answer: string;
+  category?: string;
 }
 
 const defaultFaqItems: FAQItem[] = [
   {
     id: "faq-1",
-    question: "Ut enim ad minim veniam exercitation ullamco?",
-    answer:
-      "Ne summo dictas pertinacia nam. Illum cetero vocent ei vim, case regione significerumque vim te. Ex mea quem munere lobortis. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.",
+    question: "How long does it take to see organic rankings results?",
+    answer: "SEO is a compounding growth engine. Most campaigns see ranking progression and organic leads increases within 90 days, with exponential trajectory building around months 4 to 6.",
+    category: "SEO & Traffic"
   },
   {
     id: "faq-2",
-    question: "Excepteur sint proident culpa qui officia?",
-    answer:
-      "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.",
+    question: "What is your typical onboarding process?",
+    answer: "We start with a 30-minute discovery call, followed by a detailed site audit and custom campaign blueprint. Once approved, we launch execution targets with weekly updates.",
+    category: "Onboarding"
   },
   {
     id: "faq-3",
-    question: "Sed ut perspiciatis unde omnis iste natus errorsit?",
-    answer:
-      "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
+    question: "Do you offer custom package deals?",
+    answer: "Yes. Every client receives a custom project proposal tailored directly to their industry, tech stack, and monthly growth target budgets.",
+    category: "Pricing & Plans"
   },
   {
     id: "faq-4",
-    question: "Consectetur adipisicing incididunt?",
-    answer:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.",
-  },
+    question: "Where are you based and how do we communicate?",
+    answer: "We are based in Dhaka, Bangladesh. We communicate via private Slack boards, weekly email summaries, and direct Zoom strategy alignments.",
+    category: "Communication"
+  }
 ];
 
 export default function FAQSection() {
+  const [faqs, setFaqs] = useState<FAQItem[]>(defaultFaqItems);
   const [activeId, setActiveId] = useState<string>("faq-1");
+
+  useEffect(() => {
+    async function loadFaqs() {
+      try {
+        const res = await fetch("/api/faq");
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            setFaqs(data);
+            setActiveId(data[0].id);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load FAQs:", err);
+      }
+    }
+    loadFaqs();
+  }, []);
 
   const toggleAccordion = (id: string) => {
     setActiveId((prev) => (prev === id ? "" : id));
@@ -49,11 +68,9 @@ export default function FAQSection() {
 
   return (
     <section className="py-14 lg:py-20 bg-white relative z-10 overflow-hidden">
-      
       {/* Background Decorative Matrix & Shapes */}
       <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
-        
-        {/* Bottom Left Dot Matrix Grid (Arc / Half-circle pattern) */}
+        {/* Bottom Left Dot Matrix Grid */}
         <div className="absolute -bottom-6 -left-6 w-64 h-64 opacity-20">
           <svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g fill="#475569">
@@ -79,9 +96,8 @@ export default function FAQSection() {
 
       <div className="container mx-auto max-w-7xl px-6 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          
           {/* Left Column: FAQ Accordion */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -100,14 +116,15 @@ export default function FAQSection() {
 
             {/* Accordion List */}
             <div className="flex flex-col border-t border-neutral-100 mb-8">
-              {defaultFaqItems.map((item) => {
+              {faqs.map((item) => {
                 const isOpen = activeId === item.id;
 
                 return (
                   <div key={item.id} className="border-b border-neutral-100/80">
                     <button
+                      type="button"
                       onClick={() => toggleAccordion(item.id)}
-                      className="w-full py-4 sm:py-5 flex items-center justify-between text-left transition-colors group"
+                      className="w-full py-4 sm:py-5 flex items-center justify-between text-left transition-colors group cursor-pointer"
                     >
                       <span
                         className={`font-sans text-sm sm:text-base font-bold transition-colors duration-200 ${
@@ -157,8 +174,8 @@ export default function FAQSection() {
             </div>
           </motion.div>
 
-          {/* Right Column: Exact Uploaded FAQ Blob Image */}
-          <motion.div 
+          {/* Right Column: FAQ Blob Image CTA */}
+          <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
@@ -176,7 +193,6 @@ export default function FAQSection() {
               />
             </Link>
           </motion.div>
-
         </div>
       </div>
     </section>
