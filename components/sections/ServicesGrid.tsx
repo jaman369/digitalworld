@@ -231,7 +231,9 @@ export default function ServicesGrid() {
       className="pt-16 lg:pt-20 pb-0 bg-gradient-to-b from-[#f8f9fc] via-white to-[#f8f9fc] relative z-10 overflow-hidden"
     >
       {/* Subtle background texture */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+      <div className="absolute inset-0 pointer-events-none -z-10">
+        <div className="absolute inset-0 bg-[radial-gradient(#e2e5ec_0.8px,transparent_0.8px)] [background-size:20px_20px] opacity-30" />
+      </div>
 
       <div className="container mx-auto max-w-7xl px-6 relative z-10">
         {/* Section Header */}
