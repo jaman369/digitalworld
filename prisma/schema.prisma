@@ -190,6 +190,7 @@ model HomepageContent {
   servicesEyebrow      String?
   servicesTitle        String?
   servicesSubtitle     String?
+  servicesCards        String?  // JSON string array of service category cards
   whyUsEyebrow         String?
   whyUsTitle           String?
   whyUsSubtitle        String?

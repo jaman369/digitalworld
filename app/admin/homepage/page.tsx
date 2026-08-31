@@ -69,6 +69,14 @@ export default function AdminHomepageCMS() {
     servicesTitle: "Services built to scale.",
     servicesSubtitle:
       "A comprehensive suite of growth services designed to expand your visibility, drive qualified leads, and maximize return on investment.",
+    servicesCards: [
+      { id: "svc-cat-1", slug: "seo", title: "Search Engine Optimization (SEO)", description: "Rank #1 on Google for high-intent search terms driving sustainable organic revenue.", iconName: "Search", popularTag: "Most Popular", subItems: ["Local & Maps SEO", "Ecommerce SEO", "International & Enterprise SEO", "Authority Link Building", "SaaS & B2B SEO", "Semantic & AI Overview SEO"] },
+      { id: "svc-cat-2", slug: "ppc", title: "PPC & Paid Search Advertising", description: "Data-driven ad campaigns targeting bottom-of-funnel buyers with maximum ROI.", iconName: "TrendingUp", popularTag: "High ROI", subItems: ["Google Search & Shopping Ads", "Meta (Facebook & IG) Ads", "LinkedIn B2B Advertising", "TikTok & Video Ads", "Retargeting & Remarketing", "Conversion Rate Optimization (CRO)"] },
+      { id: "svc-cat-3", slug: "web-design-dev", title: "Web Design & Custom Development", description: "High-converting, ultra-fast websites built for speed, SEO, and lead capture.", iconName: "Code2", popularTag: "Turnkey", subItems: ["WordPress Development", "Shopify & Ecommerce Stores", "Custom Web Application Dev", "Landing Page CRO", "Website Speed Optimization", "UI/UX Redesign"] },
+      { id: "svc-cat-4", slug: "content-marketing", title: "Content Marketing & Authority Strategy", description: "Engaging, SEO-optimized content that positions your brand as an industry leader.", iconName: "FileText", popularTag: "Authority", subItems: ["SEO Blog & Article Writing", "Thought Leadership Content", "Copywriting & Sales Pages", "Infographics & Visual Content", "Content Audit & Strategy", "Ebooks & Whitepapers"] },
+      { id: "svc-cat-5", slug: "ai-automation", title: "AI & Workflow Automation", description: "Custom AI agents and automated workflows to streamline operations and lead follow-up.", iconName: "Cpu", popularTag: "AI Powered", subItems: ["AI Lead Qualification Agents", "CRM & Sales Pipeline Automation", "Chatbot & Voice Agent Setup", "Marketing Automation", "Custom AI Integrations", "Data & Analytics Automation"] },
+      { id: "svc-cat-6", slug: "china-sourcing", title: "China Factory Sourcing & Supply Chain", description: "End-to-end product sourcing, factory audits, quality control, and global logistics.", iconName: "Globe", popularTag: "Direct Factory", subItems: ["Supplier Identification & Audit", "Price Negotiation & Contracting", "Sample Evaluation & Inspection", "Pre-shipment Quality Control", "Freight & Freight Forwarding", "Amazon FBA Prep & Packing"] },
+    ],
 
     // Marketing Ecosystem
     ecosystemEyebrow: "07 — MARKETING ECOSYSTEM",
@@ -326,6 +334,53 @@ export default function AdminHomepageCMS() {
     const current = [...(formData.painPointsCards || [])];
     current.splice(index, 1);
     setFormData({ ...formData, painPointsCards: current });
+  };
+
+  // Service Category Card Helpers
+  const addServiceCard = () => {
+    const current = formData.servicesCards || [];
+    setFormData({
+      ...formData,
+      servicesCards: [
+        ...current,
+        { id: `svc-cat-${Date.now()}`, slug: "seo", title: "New Service Category", description: "Describe this service offering...", iconName: "Layers", popularTag: "New", subItems: ["Sub Service Item 1", "Sub Service Item 2"] },
+      ],
+    });
+  };
+
+  const updateServiceCard = (index: number, field: string, value: unknown) => {
+    const current = [...(formData.servicesCards || [])];
+    current[index] = { ...current[index], [field]: value };
+    setFormData({ ...formData, servicesCards: current });
+  };
+
+  const removeServiceCard = (index: number) => {
+    const current = [...(formData.servicesCards || [])];
+    current.splice(index, 1);
+    setFormData({ ...formData, servicesCards: current });
+  };
+
+  const updateServiceCardSubItem = (cardIndex: number, subIndex: number, value: string) => {
+    const current = [...(formData.servicesCards || [])];
+    const subItems = [...(current[cardIndex].subItems || [])];
+    subItems[subIndex] = value;
+    current[cardIndex] = { ...current[cardIndex], subItems };
+    setFormData({ ...formData, servicesCards: current });
+  };
+
+  const addServiceCardSubItem = (cardIndex: number) => {
+    const current = [...(formData.servicesCards || [])];
+    const subItems = [...(current[cardIndex].subItems || []), "New Sub-Service Item"];
+    current[cardIndex] = { ...current[cardIndex], subItems };
+    setFormData({ ...formData, servicesCards: current });
+  };
+
+  const removeServiceCardSubItem = (cardIndex: number, subIndex: number) => {
+    const current = [...(formData.servicesCards || [])];
+    const subItems = [...(current[cardIndex].subItems || [])];
+    subItems.splice(subIndex, 1);
+    current[cardIndex] = { ...current[cardIndex], subItems };
+    setFormData({ ...formData, servicesCards: current });
   };
 
   if (loading) {
@@ -747,13 +802,28 @@ export default function AdminHomepageCMS() {
           </div>
         )}
 
-        {/* 4. SERVICES HEADER TAB */}
+        {/* 4. SERVICES HEADER & CARDS TAB */}
         {activeTab === "services" && (
           <div className="flex flex-col gap-6">
             <div className="flex items-center justify-between border-b border-neutral-100 pb-3">
               <h2 className="font-sans font-bold text-base text-neutral-900 flex items-center gap-2">
-                <Icons.Layers className="h-5 w-5 text-emerald-600" /> Services Grid Header
+                <Icons.Layers className="h-5 w-5 text-emerald-600" /> Services Grid & Category Cards
               </h2>
+              <div className="flex items-center gap-2">
+                <Link
+                  href="/admin/services"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-neutral-200 bg-white text-xs font-semibold text-neutral-700 hover:bg-neutral-50 transition-colors shadow-2xs"
+                >
+                  <Icons.SlidersHorizontal className="h-3.5 w-3.5 text-blue-600" /> Manage 50+ Detailed Sub-Services ↗
+                </Link>
+                <button
+                  type="button"
+                  onClick={addServiceCard}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-xs font-bold text-emerald-700 hover:bg-emerald-100 transition-colors cursor-pointer"
+                >
+                  <Icons.Plus className="h-4 w-4" /> Add Service Category Card
+                </button>
+              </div>
             </div>
 
             <div className="flex flex-col gap-1.5">
@@ -762,6 +832,7 @@ export default function AdminHomepageCMS() {
                 type="text"
                 value={formData.servicesEyebrow || ""}
                 onChange={(e) => setFormData({ ...formData, servicesEyebrow: e.target.value })}
+                placeholder="What We Do"
                 className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-800 outline-none focus:border-blue-500"
               />
             </div>
@@ -772,6 +843,7 @@ export default function AdminHomepageCMS() {
                 type="text"
                 value={formData.servicesTitle || ""}
                 onChange={(e) => setFormData({ ...formData, servicesTitle: e.target.value })}
+                placeholder="Services built to scale."
                 className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm font-bold text-neutral-900 outline-none focus:border-blue-500"
               />
             </div>
@@ -782,8 +854,161 @@ export default function AdminHomepageCMS() {
                 rows={3}
                 value={formData.servicesSubtitle || ""}
                 onChange={(e) => setFormData({ ...formData, servicesSubtitle: e.target.value })}
+                placeholder="A comprehensive suite of growth services designed to expand your visibility..."
                 className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-700 outline-none focus:border-blue-500 resize-none"
               />
+            </div>
+
+            {/* Service Category Cards List */}
+            <div className="flex flex-col gap-4 pt-4 border-t border-neutral-100">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-neutral-700 uppercase tracking-wider">
+                  Service Category Cards ({(formData.servicesCards || []).length})
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 gap-5">
+                {(formData.servicesCards || []).map((card, cardIdx) => (
+                  <div
+                    key={cardIdx}
+                    className="p-5 border border-neutral-200 rounded-2xl bg-neutral-50/60 flex flex-col gap-4 relative group hover:border-emerald-300 hover:bg-white transition-all shadow-2xs"
+                  >
+                    <div className="flex items-center justify-between border-b border-neutral-200/60 pb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="flex h-6 w-6 items-center justify-center rounded-md bg-emerald-100 text-emerald-700 text-xs font-mono font-bold">
+                          {cardIdx + 1}
+                        </span>
+                        <span className="text-xs font-bold text-neutral-800">
+                          {card.title || `Service Category #${cardIdx + 1}`}
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => removeServiceCard(cardIdx)}
+                        className="text-neutral-400 hover:text-red-600 transition-colors p-1.5 rounded-lg hover:bg-red-50"
+                        title="Remove Category Card"
+                      >
+                        <Icons.Trash2 className="h-4 w-4" />
+                      </button>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
+                      {/* Category Title */}
+                      <div className="sm:col-span-5 flex flex-col gap-1">
+                        <label className="text-[11px] font-bold text-neutral-400 uppercase">Category Title</label>
+                        <input
+                          type="text"
+                          value={card.title}
+                          onChange={(e) => updateServiceCard(cardIdx, "title", e.target.value)}
+                          placeholder="Category Name (e.g. SEO Services)"
+                          className="rounded-lg border border-neutral-200 bg-white py-2 px-3 text-xs font-bold text-neutral-900 outline-none focus:border-emerald-500"
+                        />
+                      </div>
+
+                      {/* Route Slug */}
+                      <div className="sm:col-span-3 flex flex-col gap-1">
+                        <label className="text-[11px] font-bold text-neutral-400 uppercase">Route Slug</label>
+                        <select
+                          value={card.slug || "seo"}
+                          onChange={(e) => updateServiceCard(cardIdx, "slug", e.target.value)}
+                          className="rounded-lg border border-neutral-200 bg-white py-2 px-2 text-xs font-mono text-neutral-800 outline-none focus:border-emerald-500 cursor-pointer"
+                        >
+                          <option value="seo">seo</option>
+                          <option value="ppc">ppc</option>
+                          <option value="web-design-dev">web-design-dev</option>
+                          <option value="content-marketing">content-marketing</option>
+                          <option value="ai-automation">ai-automation</option>
+                          <option value="china-sourcing">china-sourcing</option>
+                        </select>
+                      </div>
+
+                      {/* Icon */}
+                      <div className="sm:col-span-2 flex flex-col gap-1">
+                        <label className="text-[11px] font-bold text-neutral-400 uppercase">Icon</label>
+                        <select
+                          value={card.iconName || "Search"}
+                          onChange={(e) => updateServiceCard(cardIdx, "iconName", e.target.value)}
+                          className="rounded-lg border border-neutral-200 bg-white py-2 px-2 text-xs font-medium text-neutral-700 outline-none focus:border-emerald-500 cursor-pointer"
+                        >
+                          <option value="Search">Search</option>
+                          <option value="TrendingUp">TrendingUp</option>
+                          <option value="Code2">Code2</option>
+                          <option value="FileText">FileText</option>
+                          <option value="Cpu">Cpu</option>
+                          <option value="Globe">Globe</option>
+                          <option value="Layers">Layers</option>
+                          <option value="Zap">Zap</option>
+                          <option value="BarChart3">BarChart3</option>
+                          <option value="Sparkles">Sparkles</option>
+                          <option value="Settings">Settings</option>
+                        </select>
+                      </div>
+
+                      {/* Badge / Tag */}
+                      <div className="sm:col-span-2 flex flex-col gap-1">
+                        <label className="text-[11px] font-bold text-neutral-400 uppercase">Tag Badge</label>
+                        <input
+                          type="text"
+                          value={card.popularTag || ""}
+                          onChange={(e) => updateServiceCard(cardIdx, "popularTag", e.target.value)}
+                          placeholder="Popular"
+                          className="rounded-lg border border-neutral-200 bg-white py-2 px-3 text-xs font-semibold text-emerald-600 outline-none focus:border-emerald-500"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Category Description */}
+                    <div className="flex flex-col gap-1">
+                      <label className="text-[11px] font-bold text-neutral-400 uppercase">Description</label>
+                      <textarea
+                        rows={2}
+                        value={card.description}
+                        onChange={(e) => updateServiceCard(cardIdx, "description", e.target.value)}
+                        placeholder="Description of this service category..."
+                        className="rounded-lg border border-neutral-200 bg-white py-2 px-3 text-xs text-neutral-700 leading-relaxed outline-none focus:border-emerald-500 resize-none font-sans"
+                      />
+                    </div>
+
+                    {/* Sub-Items / Bullet Features List */}
+                    <div className="flex flex-col gap-2 pt-2 border-t border-neutral-200/60">
+                      <div className="flex items-center justify-between">
+                        <label className="text-[11px] font-bold text-neutral-500 uppercase tracking-wider">
+                          Sub-Service Bullet Items ({(card.subItems || []).length})
+                        </label>
+                        <button
+                          type="button"
+                          onClick={() => addServiceCardSubItem(cardIdx)}
+                          className="text-[11px] font-bold text-blue-600 hover:text-blue-800 flex items-center gap-1 cursor-pointer"
+                        >
+                          <Icons.Plus className="h-3 w-3" /> Add Bullet Item
+                        </button>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        {(card.subItems || []).map((subItem, subIdx) => (
+                          <div key={subIdx} className="flex items-center gap-1.5">
+                            <input
+                              type="text"
+                              value={subItem}
+                              onChange={(e) => updateServiceCardSubItem(cardIdx, subIdx, e.target.value)}
+                              placeholder={`Bullet ${subIdx + 1}`}
+                              className="flex-1 rounded-lg border border-neutral-200 bg-white py-1.5 px-3 text-xs text-neutral-800 outline-none focus:border-emerald-500"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => removeServiceCardSubItem(cardIdx, subIdx)}
+                              className="text-neutral-400 hover:text-red-600 transition-colors p-1"
+                              title="Remove item"
+                            >
+                              <Icons.X className="h-3.5 w-3.5" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}

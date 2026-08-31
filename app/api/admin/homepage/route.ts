@@ -120,11 +120,20 @@ export async function GET() {
       { id: "05", title: "Fragmented Tech Stack", description: "Using 10 different tools that don't sync, creating data silos and wasted subscription costs.", iconName: "Cpu", tag: "Tool Chaos" },
       { id: "06", title: "Unclear ROI Reporting", description: "Vague agency reports showing vanity metrics instead of actual pipeline revenue generated.", iconName: "BarChart2", tag: "Lack of Clarity" },
     ];
+    let parsedServicesCards = [
+      { id: "svc-cat-1", slug: "seo", title: "Search Engine Optimization (SEO)", description: "Rank #1 on Google for high-intent search terms driving sustainable organic revenue.", iconName: "Search", popularTag: "Most Popular", subItems: ["Local & Maps SEO", "Ecommerce SEO", "International & Enterprise SEO", "Authority Link Building", "SaaS & B2B SEO", "Semantic & AI Overview SEO"] },
+      { id: "svc-cat-2", slug: "ppc", title: "PPC & Paid Search Advertising", description: "Data-driven ad campaigns targeting bottom-of-funnel buyers with maximum ROI.", iconName: "TrendingUp", popularTag: "High ROI", subItems: ["Google Search & Shopping Ads", "Meta (Facebook & IG) Ads", "LinkedIn B2B Advertising", "TikTok & Video Ads", "Retargeting & Remarketing", "Conversion Rate Optimization (CRO)"] },
+      { id: "svc-cat-3", slug: "web-design-dev", title: "Web Design & Custom Development", description: "High-converting, ultra-fast websites built for speed, SEO, and lead capture.", iconName: "Code2", popularTag: "Turnkey", subItems: ["WordPress Development", "Shopify & Ecommerce Stores", "Custom Web Application Dev", "Landing Page CRO", "Website Speed Optimization", "UI/UX Redesign"] },
+      { id: "svc-cat-4", slug: "content-marketing", title: "Content Marketing & Authority Strategy", description: "Engaging, SEO-optimized content that positions your brand as an industry leader.", iconName: "FileText", popularTag: "Authority", subItems: ["SEO Blog & Article Writing", "Thought Leadership Content", "Copywriting & Sales Pages", "Infographics & Visual Content", "Content Audit & Strategy", "Ebooks & Whitepapers"] },
+      { id: "svc-cat-5", slug: "ai-automation", title: "AI & Workflow Automation", description: "Custom AI agents and automated workflows to streamline operations and lead follow-up.", iconName: "Cpu", popularTag: "AI Powered", subItems: ["AI Lead Qualification Agents", "CRM & Sales Pipeline Automation", "Chatbot & Voice Agent Setup", "Marketing Automation", "Custom AI Integrations", "Data & Analytics Automation"] },
+      { id: "svc-cat-6", slug: "china-sourcing", title: "China Factory Sourcing & Supply Chain", description: "End-to-end product sourcing, factory audits, quality control, and global logistics.", iconName: "Globe", popularTag: "Direct Factory", subItems: ["Supplier Identification & Audit", "Price Negotiation & Contracting", "Sample Evaluation & Inspection", "Pre-shipment Quality Control", "Freight & Freight Forwarding", "Amazon FBA Prep & Packing"] },
+    ];
 
     try { if (rec.stats) parsedStats = JSON.parse(rec.stats); } catch {}
     try { if (rec.whyUsCards) parsedWhyUsCards = JSON.parse(rec.whyUsCards); } catch {}
     try { if (rec.processSteps) parsedProcessSteps = JSON.parse(rec.processSteps); } catch {}
     try { if (rec.painPointsCards) parsedPainPointsCards = JSON.parse(rec.painPointsCards); } catch {}
+    try { if (rec.servicesCards) parsedServicesCards = JSON.parse(rec.servicesCards); } catch {}
 
     return NextResponse.json({
       heroTagline: rec.heroTagline || defaultHomepageData.heroTagline,
@@ -141,6 +150,7 @@ export async function GET() {
       servicesEyebrow: rec.servicesEyebrow || defaultHomepageData.servicesEyebrow,
       servicesTitle: rec.servicesTitle || defaultHomepageData.servicesTitle,
       servicesSubtitle: rec.servicesSubtitle || defaultHomepageData.servicesSubtitle,
+      servicesCards: parsedServicesCards,
 
       whyUsEyebrow: rec.whyUsEyebrow || defaultHomepageData.whyUsEyebrow,
       whyUsTitle: rec.whyUsTitle || defaultHomepageData.whyUsTitle,
@@ -217,6 +227,7 @@ export async function POST(request: Request) {
       servicesEyebrow: body.servicesEyebrow || null,
       servicesTitle: body.servicesTitle || null,
       servicesSubtitle: body.servicesSubtitle || null,
+      servicesCards: typeof body.servicesCards === "string" ? body.servicesCards : JSON.stringify(body.servicesCards || []),
 
       whyUsEyebrow: body.whyUsEyebrow || null,
       whyUsTitle: body.whyUsTitle || null,

@@ -100,6 +100,16 @@ export interface ProcessStep {
   description: string;
 }
 
+export interface ServiceCategoryCard {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  iconName: string;
+  popularTag?: string;
+  subItems?: string[];
+}
+
 export interface CloudHomepageData {
   heroTagline?: string;
   heroTitle?: string;
@@ -115,6 +125,7 @@ export interface CloudHomepageData {
   servicesEyebrow?: string;
   servicesTitle?: string;
   servicesSubtitle?: string;
+  servicesCards?: ServiceCategoryCard[];
 
   whyUsEyebrow?: string;
   whyUsTitle?: string;
