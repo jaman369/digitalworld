@@ -90,14 +90,22 @@ export async function GET() {
 
     const rec = record as Record<string, string | null | undefined>;
 
-    // Parse JSON string fields safely
     let parsedStats = defaultHomepageData.stats;
     let parsedWhyUsCards = defaultHomepageData.whyUsCards;
     let parsedProcessSteps = defaultHomepageData.processSteps;
+    let parsedPainPointsCards = [
+      { id: "01", title: "Stagnant Organic Traffic", description: "Stuck on page 2 or 3 for key terms while competitors capture high-intent buyers daily.", iconName: "TrendingDown", tag: "SEO Bottleneck" },
+      { id: "02", title: "Escalating Ad Costs (CAC)", description: "Paid ad campaigns burning budget with diminishing ROI and rising cost per acquisition.", iconName: "DollarSign", tag: "Ad Inefficiency" },
+      { id: "03", title: "Low Website Conversions", description: "Getting website visits but failing to convert visitors into qualified leads or paying customers.", iconName: "UserX", tag: "UX Bottleneck" },
+      { id: "04", title: "Manual Lead Handling", description: "Slower follow-up times letting warm leads go cold before your sales team reaches out.", iconName: "AlertCircle", tag: "Workflow Friction" },
+      { id: "05", title: "Fragmented Tech Stack", description: "Using 10 different tools that don't sync, creating data silos and wasted subscription costs.", iconName: "Cpu", tag: "Tool Chaos" },
+      { id: "06", title: "Unclear ROI Reporting", description: "Vague agency reports showing vanity metrics instead of actual pipeline revenue generated.", iconName: "BarChart2", tag: "Lack of Clarity" },
+    ];
 
     try { if (rec.stats && typeof rec.stats === "string") parsedStats = JSON.parse(rec.stats); } catch {}
     try { if (rec.whyUsCards && typeof rec.whyUsCards === "string") parsedWhyUsCards = JSON.parse(rec.whyUsCards); } catch {}
     try { if (rec.processSteps && typeof rec.processSteps === "string") parsedProcessSteps = JSON.parse(rec.processSteps); } catch {}
+    try { if (rec.painPointsCards && typeof rec.painPointsCards === "string") parsedPainPointsCards = JSON.parse(rec.painPointsCards); } catch {}
 
     return NextResponse.json({
       heroTagline: record.heroTagline || defaultHomepageData.heroTagline,
@@ -139,6 +147,7 @@ export async function GET() {
       painPointsEyebrow: rec.painPointsEyebrow || "04 — Problem / Pain Points",
       painPointsTitle: rec.painPointsTitle || "Are these bottlenecks holding your growth back?",
       painPointsSubtitle: rec.painPointsSubtitle || "Most digital agencies focus on vanity clicks. We diagnose and eliminate the core friction points in your revenue engine.",
+      painPointsCards: parsedPainPointsCards,
 
       // Ecosystem Section
       ecosystemEyebrow: rec.ecosystemEyebrow || "07 — MARKETING ECOSYSTEM",

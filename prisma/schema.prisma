@@ -209,6 +209,7 @@ model HomepageContent {
   painPointsEyebrow   String?
   painPointsTitle     String?
   painPointsSubtitle  String?
+  painPointsCards     String?  // JSON string array of pain points cards
   ecosystemEyebrow    String?
   ecosystemTitle      String?
   ecosystemSubtitle   String?

@@ -55,6 +55,14 @@ export default function AdminHomepageCMS() {
     painPointsTitle: "Are these bottlenecks holding your growth back?",
     painPointsSubtitle:
       "Most digital agencies focus on vanity clicks. We diagnose and eliminate the core friction points in your revenue engine.",
+    painPointsCards: [
+      { id: "01", title: "Stagnant Organic Traffic", description: "Stuck on page 2 or 3 for key terms while competitors capture high-intent buyers daily.", tag: "SEO Bottleneck", iconName: "TrendingDown" },
+      { id: "02", title: "Escalating Ad Costs (CAC)", description: "Paid ad campaigns burning budget with diminishing ROI and rising cost per acquisition.", tag: "Ad Inefficiency", iconName: "DollarSign" },
+      { id: "03", title: "Low Website Conversions", description: "Getting website visits but failing to convert visitors into qualified leads or paying customers.", tag: "UX Bottleneck", iconName: "UserX" },
+      { id: "04", title: "Manual Lead Handling", description: "Slower follow-up times letting warm leads go cold before your sales team reaches out.", tag: "Workflow Friction", iconName: "AlertCircle" },
+      { id: "05", title: "Fragmented Tech Stack", description: "Using 10 different tools that don't sync, creating data silos and wasted subscription costs.", tag: "Tool Chaos", iconName: "Cpu" },
+      { id: "06", title: "Unclear ROI Reporting", description: "Vague agency reports showing vanity metrics instead of actual pipeline revenue generated.", tag: "Lack of Clarity", iconName: "BarChart2" },
+    ],
 
     // Services Header
     servicesEyebrow: "What We Do",
@@ -292,6 +300,32 @@ export default function AdminHomepageCMS() {
     const current = [...(formData.whyUsCards || [])];
     current.splice(index, 1);
     setFormData({ ...formData, whyUsCards: current });
+  };
+
+  // Pain Points Card Helpers
+  const addPainPointCard = () => {
+    const current = formData.painPointsCards || [];
+    const nextNum = current.length + 1;
+    const formattedId = nextNum < 10 ? `0${nextNum}` : `${nextNum}`;
+    setFormData({
+      ...formData,
+      painPointsCards: [
+        ...current,
+        { id: formattedId, title: "New Bottleneck", description: "Describe the friction point...", tag: "Growth Bottleneck", iconName: "AlertCircle" },
+      ],
+    });
+  };
+
+  const updatePainPointCard = (index: number, field: string, value: string) => {
+    const current = [...(formData.painPointsCards || [])];
+    current[index] = { ...current[index], [field]: value };
+    setFormData({ ...formData, painPointsCards: current });
+  };
+
+  const removePainPointCard = (index: number) => {
+    const current = [...(formData.painPointsCards || [])];
+    current.splice(index, 1);
+    setFormData({ ...formData, painPointsCards: current });
   };
 
   if (loading) {
@@ -555,6 +589,13 @@ export default function AdminHomepageCMS() {
               <h2 className="font-sans font-bold text-base text-neutral-900 flex items-center gap-2">
                 <Icons.AlertCircle className="h-5 w-5 text-red-500" /> Pain Points & Bottlenecks Section
               </h2>
+              <button
+                type="button"
+                onClick={addPainPointCard}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-50 border border-rose-200 text-xs font-bold text-rose-600 hover:bg-rose-100 transition-colors cursor-pointer"
+              >
+                <Icons.Plus className="h-4 w-4" /> Add Pain Point Card
+              </button>
             </div>
 
             <div className="flex flex-col gap-1.5">
@@ -588,6 +629,120 @@ export default function AdminHomepageCMS() {
                 placeholder="Most digital agencies focus on vanity clicks..."
                 className="rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-sm text-neutral-700 outline-none focus:border-blue-500 resize-none"
               />
+            </div>
+
+            {/* Pain Points Cards List */}
+            <div className="flex flex-col gap-4 pt-4 border-t border-neutral-100">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-neutral-700 uppercase tracking-wider">
+                  Individual Pain Point Cards ({(formData.painPointsCards || []).length})
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 gap-4">
+                {(formData.painPointsCards || []).map((card, idx) => (
+                  <div
+                    key={idx}
+                    className="p-5 border border-neutral-200 rounded-2xl bg-neutral-50/60 flex flex-col gap-4 relative group hover:border-rose-300 hover:bg-white transition-all shadow-2xs"
+                  >
+                    <div className="flex items-center justify-between border-b border-neutral-200/60 pb-3">
+                      <div className="flex items-center gap-2">
+                        <span className="flex h-6 w-6 items-center justify-center rounded-md bg-rose-100 text-rose-700 text-xs font-mono font-bold">
+                          {card.id || (idx < 9 ? `0${idx + 1}` : `${idx + 1}`)}
+                        </span>
+                        <span className="text-xs font-bold text-neutral-800">
+                          Pain Point Item #{idx + 1}
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => removePainPointCard(idx)}
+                        className="text-neutral-400 hover:text-rose-600 transition-colors p-1.5 rounded-lg hover:bg-rose-50"
+                        title="Remove Card"
+                      >
+                        <Icons.Trash2 className="h-4 w-4" />
+                      </button>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-3">
+                      {/* Card ID / Number */}
+                      <div className="sm:col-span-2 flex flex-col gap-1">
+                        <label className="text-[11px] font-bold text-neutral-400 uppercase">Number</label>
+                        <input
+                          type="text"
+                          value={card.id || (idx < 9 ? `0${idx + 1}` : `${idx + 1}`)}
+                          onChange={(e) => updatePainPointCard(idx, "id", e.target.value)}
+                          placeholder="01"
+                          className="rounded-lg border border-neutral-200 bg-white py-2 px-3 text-xs font-mono font-bold text-neutral-800 outline-none focus:border-rose-500"
+                        />
+                      </div>
+
+                      {/* Card Title */}
+                      <div className="sm:col-span-5 flex flex-col gap-1">
+                        <label className="text-[11px] font-bold text-neutral-400 uppercase">Title</label>
+                        <input
+                          type="text"
+                          value={card.title}
+                          onChange={(e) => updatePainPointCard(idx, "title", e.target.value)}
+                          placeholder="Card Title (e.g. Stagnant Traffic)"
+                          className="rounded-lg border border-neutral-200 bg-white py-2 px-3 text-xs font-bold text-neutral-900 outline-none focus:border-rose-500"
+                        />
+                      </div>
+
+                      {/* Card Tag */}
+                      <div className="sm:col-span-3 flex flex-col gap-1">
+                        <label className="text-[11px] font-bold text-neutral-400 uppercase">Badge / Tag</label>
+                        <input
+                          type="text"
+                          value={card.tag || ""}
+                          onChange={(e) => updatePainPointCard(idx, "tag", e.target.value)}
+                          placeholder="Tag (e.g. SEO Bottleneck)"
+                          className="rounded-lg border border-neutral-200 bg-white py-2 px-3 text-xs font-semibold text-rose-600 outline-none focus:border-rose-500"
+                        />
+                      </div>
+
+                      {/* Card Icon */}
+                      <div className="sm:col-span-2 flex flex-col gap-1">
+                        <label className="text-[11px] font-bold text-neutral-400 uppercase">Icon</label>
+                        <select
+                          value={card.iconName || "AlertCircle"}
+                          onChange={(e) => updatePainPointCard(idx, "iconName", e.target.value)}
+                          className="rounded-lg border border-neutral-200 bg-white py-2 px-2 text-xs font-medium text-neutral-700 outline-none focus:border-rose-500 cursor-pointer"
+                        >
+                          <option value="TrendingDown">TrendingDown</option>
+                          <option value="DollarSign">DollarSign</option>
+                          <option value="UserX">UserX</option>
+                          <option value="AlertCircle">AlertCircle</option>
+                          <option value="Cpu">Cpu</option>
+                          <option value="BarChart2">BarChart2</option>
+                          <option value="Zap">Zap</option>
+                          <option value="Target">Target</option>
+                          <option value="ShieldAlert">ShieldAlert</option>
+                          <option value="PieChart">PieChart</option>
+                          <option value="Activity">Activity</option>
+                          <option value="Sparkles">Sparkles</option>
+                          <option value="Clock">Clock</option>
+                          <option value="Search">Search</option>
+                          <option value="Lock">Lock</option>
+                          <option value="Scale">Scale</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* Card Description */}
+                    <div className="flex flex-col gap-1">
+                      <label className="text-[11px] font-bold text-neutral-400 uppercase">Description</label>
+                      <textarea
+                        rows={2}
+                        value={card.description}
+                        onChange={(e) => updatePainPointCard(idx, "description", e.target.value)}
+                        placeholder="Description of this bottleneck..."
+                        className="rounded-lg border border-neutral-200 bg-white py-2 px-3 text-xs text-neutral-700 leading-relaxed outline-none focus:border-rose-500 resize-none font-sans"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}

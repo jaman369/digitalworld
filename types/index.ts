@@ -139,6 +139,7 @@ export interface CloudHomepageData {
   painPointsEyebrow?: string;
   painPointsTitle?: string;
   painPointsSubtitle?: string;
+  painPointsCards?: Array<{ id: string; title: string; description: string; tag: string; iconName?: string }>;
 
   ecosystemEyebrow?: string;
   ecosystemTitle?: string;

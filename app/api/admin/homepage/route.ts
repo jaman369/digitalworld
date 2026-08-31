@@ -112,10 +112,19 @@ export async function GET() {
     let parsedStats = defaultHomepageData.stats;
     let parsedWhyUsCards = defaultHomepageData.whyUsCards;
     let parsedProcessSteps = defaultHomepageData.processSteps;
+    let parsedPainPointsCards = [
+      { id: "01", title: "Stagnant Organic Traffic", description: "Stuck on page 2 or 3 for key terms while competitors capture high-intent buyers daily.", iconName: "TrendingDown", tag: "SEO Bottleneck" },
+      { id: "02", title: "Escalating Ad Costs (CAC)", description: "Paid ad campaigns burning budget with diminishing ROI and rising cost per acquisition.", iconName: "DollarSign", tag: "Ad Inefficiency" },
+      { id: "03", title: "Low Website Conversions", description: "Getting website visits but failing to convert visitors into qualified leads or paying customers.", iconName: "UserX", tag: "UX Bottleneck" },
+      { id: "04", title: "Manual Lead Handling", description: "Slower follow-up times letting warm leads go cold before your sales team reaches out.", iconName: "AlertCircle", tag: "Workflow Friction" },
+      { id: "05", title: "Fragmented Tech Stack", description: "Using 10 different tools that don't sync, creating data silos and wasted subscription costs.", iconName: "Cpu", tag: "Tool Chaos" },
+      { id: "06", title: "Unclear ROI Reporting", description: "Vague agency reports showing vanity metrics instead of actual pipeline revenue generated.", iconName: "BarChart2", tag: "Lack of Clarity" },
+    ];
 
     try { if (rec.stats) parsedStats = JSON.parse(rec.stats); } catch {}
     try { if (rec.whyUsCards) parsedWhyUsCards = JSON.parse(rec.whyUsCards); } catch {}
     try { if (rec.processSteps) parsedProcessSteps = JSON.parse(rec.processSteps); } catch {}
+    try { if (rec.painPointsCards) parsedPainPointsCards = JSON.parse(rec.painPointsCards); } catch {}
 
     return NextResponse.json({
       heroTagline: rec.heroTagline || defaultHomepageData.heroTagline,
@@ -156,6 +165,7 @@ export async function GET() {
       painPointsEyebrow: rec.painPointsEyebrow || defaultHomepageData.painPointsEyebrow,
       painPointsTitle: rec.painPointsTitle || defaultHomepageData.painPointsTitle,
       painPointsSubtitle: rec.painPointsSubtitle || defaultHomepageData.painPointsSubtitle,
+      painPointsCards: parsedPainPointsCards,
 
       ecosystemEyebrow: rec.ecosystemEyebrow || defaultHomepageData.ecosystemEyebrow,
       ecosystemTitle: rec.ecosystemTitle || defaultHomepageData.ecosystemTitle,
@@ -231,6 +241,7 @@ export async function POST(request: Request) {
       painPointsEyebrow: body.painPointsEyebrow || null,
       painPointsTitle: body.painPointsTitle || null,
       painPointsSubtitle: body.painPointsSubtitle || null,
+      painPointsCards: typeof body.painPointsCards === "string" ? body.painPointsCards : JSON.stringify(body.painPointsCards || []),
 
       ecosystemEyebrow: body.ecosystemEyebrow || null,
       ecosystemTitle: body.ecosystemTitle || null,
