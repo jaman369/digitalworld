@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
 import { getSession } from "@/lib/auth";
+import { put } from "@vercel/blob";
 
 export const dynamic = "force-dynamic";
 
@@ -19,27 +18,21 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
     }
 
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-
     // Create unique filename
     const originalName = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
-    const ext = path.extname(originalName) || ".png";
-    const baseName = path.basename(originalName, ext);
-    const filename = `${baseName}-${Date.now()}${ext}`;
+    const ext = originalName.substring(originalName.lastIndexOf(".")) || ".png";
+    const baseName = originalName.substring(0, originalName.lastIndexOf(".")) || originalName;
+    const filename = `uploads/${baseName}-${Date.now()}${ext}`;
 
-    const uploadDir = path.join(process.cwd(), "public", "uploads");
-    await mkdir(uploadDir, { recursive: true });
-
-    const filePath = path.join(uploadDir, filename);
-    await writeFile(filePath, buffer);
-
-    const publicUrl = `/uploads/${filename}`;
+    // Upload to Vercel Blob
+    const blob = await put(filename, file, {
+      access: "public",
+    });
 
     return NextResponse.json({
       success: true,
-      url: publicUrl,
-      filename,
+      url: blob.url,
+      filename: blob.pathname,
     });
   } catch (error) {
     console.error("Upload error:", error);

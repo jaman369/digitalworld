@@ -203,7 +203,15 @@ export async function POST(request: Request) {
     return NextResponse.json(dbPost);
   } catch (error) {
     console.error("Save blog error:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    const message = error instanceof Error ? error.message : "Internal server error";
+    // Check for common Prisma/DB errors
+    if (message.includes("Unique constraint")) {
+      return NextResponse.json({ error: `A blog post with this slug already exists. Please use a different slug.` }, { status: 409 });
+    }
+    if (message.includes("Can't reach database") || message.includes("connect")) {
+      return NextResponse.json({ error: "Database connection failed. Please check DATABASE_URL environment variable on Vercel." }, { status: 503 });
+    }
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }
 
