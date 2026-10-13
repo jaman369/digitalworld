@@ -68,7 +68,7 @@ export default function AboutPage() {
     title: "Digital Marketing Expert & Web Developer",
     bioParagraph1: "Full-service digital marketing expert with 5 years of hands-on experience helping businesses of all sizes grow through SEO, web development, paid ads, and content marketing.",
     bioParagraph2: "Every project I take on is treated as a partnership, where your success is my success.",
-    imagePath: "/Kamrujjaman Mufti Image/kamrujjaman-mufti.jpg",
+    imagePath: "/images/23.png",
     timeline: [
       { years: "2026 - Present", role: "AI Automation Specialist", company: "Building custom AI workflows, intelligent agents & automated growth systems" },
       { years: "2024 - 2026", role: "Digital Marketing Expert", company: "KJ Digital World" },
@@ -250,10 +250,11 @@ export default function AboutPage() {
 
               <div className="relative w-full max-w-[360px] sm:max-w-[400px] lg:max-w-[440px] flex items-center justify-center p-2">
                 <Image
-                  src={aboutData.imagePath || "/Kamrujjaman Mufti Image/kamrujjaman-mufti.jpg"}
+                  src={aboutData.imagePath || "/images/23.png"}
                   alt={aboutData.name || "Kamrujjaman Mufti"}
                   width={440}
                   height={440}
+                  priority
                   className="w-full h-auto object-contain mix-blend-multiply select-none hover:scale-[1.02] transition-transform duration-500 rounded-3xl"
                 />
               </div>

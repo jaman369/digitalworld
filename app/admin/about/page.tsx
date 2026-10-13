@@ -21,7 +21,7 @@ export default function AdminAboutCMS() {
     bioParagraph1:
       "Full-service digital marketing expert with 5 years of hands-on experience helping businesses of all sizes grow through SEO, web development, paid ads, and content marketing.",
     bioParagraph2: "Every project I take on is treated as a partnership, where your success is my success.",
-    imagePath: "/Kamrujjaman Mufti Image/kamrujjaman-mufti.jpg",
+    imagePath: "/images/23.png",
     timeline: [
       { years: "2026 - Present", role: "AI Automation Specialist", company: "Building custom AI workflows, intelligent agents & automated growth systems" },
       { years: "2024 - 2026", role: "Digital Marketing Expert", company: "KJ Digital World" },
@@ -264,7 +264,7 @@ export default function AdminAboutCMS() {
                   type="text"
                   value={formData.imagePath || ""}
                   onChange={(e) => setFormData({ ...formData, imagePath: e.target.value })}
-                  placeholder="/Kamrujjaman Mufti Image/kamrujjaman-mufti.jpg"
+                  placeholder="/images/23.png"
                   className="flex-1 rounded-xl border border-neutral-200 bg-white py-2.5 px-4 text-xs text-neutral-800 outline-none focus:border-blue-500 font-mono"
                 />
                 <button
