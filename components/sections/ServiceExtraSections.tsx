@@ -447,7 +447,7 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
         { emoji: "📱", text: "Short-form Reels, TikToks & YouTube Shorts" },
       ],
       ctaText: "Start My AI Video Project",
-      imagePath: "/images/22.png",
+      imagePath: "/images/16.png",
     },
   };
 
