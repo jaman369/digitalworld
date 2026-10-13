@@ -61,7 +61,7 @@ export default function ContactPage() {
     "Web Design & Development",
     "Content & Marketing",
     "AI Automation",
-    "China Sourcing Services"
+    "AI Video Production"
   ];
 
   const budgetOptions = [

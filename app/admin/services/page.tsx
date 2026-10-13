@@ -29,7 +29,7 @@ const CATEGORIES = [
   "Web Design & Development",
   "Content & Marketing",
   "AI Automation",
-  "China Sourcing Services"
+  "AI Video Production"
 ];
 
 // Helper to map category name to website route slug
@@ -39,8 +39,8 @@ function getCategoryRoute(catName: string): string {
   if (lower.includes("ppc") || lower.includes("paid")) return "ppc";
   if (lower.includes("web") || lower.includes("design")) return "web-design-dev";
   if (lower.includes("content") || lower.includes("marketing")) return "content-marketing";
+  if (lower.includes("video")) return "ai-video-production";
   if (lower.includes("ai") || lower.includes("automation")) return "ai-automation";
-  if (lower.includes("china") || lower.includes("sourcing")) return "china-sourcing";
   return "seo";
 }
 
@@ -240,8 +240,8 @@ export default function AdminServicesPage() {
         (selectedTab === "PPC / Paid Ads" && svc.categoryName.toLowerCase().includes("ppc")) ||
         (selectedTab === "Web Design & Development" && svc.categoryName.toLowerCase().includes("web")) ||
         (selectedTab === "Content & Marketing" && svc.categoryName.toLowerCase().includes("content")) ||
-        (selectedTab === "AI Automation" && svc.categoryName.toLowerCase().includes("ai")) ||
-        (selectedTab === "China Sourcing Services" && svc.categoryName.toLowerCase().includes("sourcing"));
+        (selectedTab === "AI Automation" && svc.categoryName.toLowerCase().includes("automation")) ||
+        (selectedTab === "AI Video Production" && (svc.categoryName.toLowerCase().includes("video") || svc.categoryName.toLowerCase().includes("production")));
 
       return matchesSearch && matchesTab;
     })
@@ -308,7 +308,7 @@ export default function AdminServicesPage() {
                     : "bg-neutral-100/70 hover:bg-neutral-200/60 text-neutral-600 hover:text-neutral-900"
                 }`}
               >
-                {cat === "PPC / Paid Ads" ? "PPC & Ads" : cat === "Web Design & Development" ? "Web Dev" : cat === "China Sourcing Services" ? "Sourcing" : cat}
+                {cat === "PPC / Paid Ads" ? "PPC & Ads" : cat === "Web Design & Development" ? "Web Dev" : cat === "AI Video Production" ? "AI Video" : cat}
               </button>
             ))}
           </div>

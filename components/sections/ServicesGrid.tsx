@@ -81,17 +81,17 @@ const cardThemes: Record<string, {
     popularBg: "bg-purple-50 text-purple-600 border-purple-100",
     hoverBg: "hover:bg-purple-50/40 hover:border-purple-300/80 hover:shadow-purple-500/10",
   },
-  "china-sourcing": { // .06 - Radiant Golden Amber / Rose
+  "ai-video-production": { // .06 - Vibrant Violet / Fuchsia
     badgeNumber: ".06",
-    mainGrad: "from-[#F59E0B] via-[#F97316] to-[#E11D48]",
-    blobGrad: "from-[#FBBF24] to-[#FB7185]",
-    shadowColor: "rgba(249, 115, 22, 0.38)",
-    dot1Color: "#F97316",
-    dot2Color: "#FECDD3",
-    linkColor: "text-amber-600",
-    linkHoverColor: "hover:text-amber-800",
-    popularBg: "bg-amber-50 text-amber-600 border-amber-100",
-    hoverBg: "hover:bg-amber-50/40 hover:border-amber-300/80 hover:shadow-amber-500/10",
+    mainGrad: "from-[#8B5CF6] via-[#A855F7] to-[#D946EF]",
+    blobGrad: "from-[#A78BFA] to-[#E879F9]",
+    shadowColor: "rgba(139, 92, 246, 0.38)",
+    dot1Color: "#8B5CF6",
+    dot2Color: "#F5D0FE",
+    linkColor: "text-violet-600",
+    linkHoverColor: "hover:text-violet-800",
+    popularBg: "bg-violet-50 text-violet-600 border-violet-100",
+    hoverBg: "hover:bg-violet-50/40 hover:border-violet-300/80 hover:shadow-violet-500/10",
   },
 };
 
@@ -209,7 +209,7 @@ export default function ServicesGrid() {
     "website-design-ui-ux",
     "blog-writing",
     "workflow-automation",
-    "product-sourcing",
+    "ai-explainer-promo-videos",
   ];
 
   const displayCategories = data.servicesCards && data.servicesCards.length > 0

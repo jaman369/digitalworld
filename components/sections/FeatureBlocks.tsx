@@ -82,18 +82,18 @@ export default function FeatureBlocks() {
       reverse: false
     },
     {
-      id: "feat-china",
-      badge: "China Sourcing",
-      title: "End-to-end supply chain sourcing and logistics",
-      description: "Find verified suppliers, verify product quality, negotiate prices, and manage safe shipping from China to your warehouse with direct professional support.",
+      id: "feat-video",
+      badge: "AI Video Production",
+      title: "Studio-quality AI videos for ads, explainers & virality",
+      description: "Produce high-converting product ads, explainer videos, UGC testimonials, and multilingual AI avatars in hours — at 80% lower cost than traditional video agencies.",
       bullets: [
-        "Supplier verification & factory audit reports",
-        "Quality inspection & bulk sample checks",
-        "Customs clearance & global freight logistics"
+        "AI explainer & promo videos with animated storytelling",
+        "High-converting AI product ads & UGC testimonial videos",
+        "AI spokesperson avatars & multilingual dubbing in 40+ languages"
       ],
-      iconName: "Truck",
-      ctaLink: "/services/china-sourcing",
-      image: "/All Service Images/sourcing-main.jpg",
+      iconName: "Video",
+      ctaLink: "/services/ai-video-production",
+      image: "/images/16.png",
       reverse: true
     }
   ];

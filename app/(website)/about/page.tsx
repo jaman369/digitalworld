@@ -171,7 +171,7 @@ export default function AboutPage() {
     { title: "Web Design & Dev", desc: "Custom visual frontends optimized for speed and UX.", link: "/services/web-design-dev", icon: Icons.Laptop },
     { title: "Content & Strategy", desc: "Build authority and lists that drive stable acquisitions.", link: "/services/content-marketing", icon: Icons.PenTool },
     { title: "AI Automation", desc: "Integrate custom intelligent agents and workflows.", link: "/services/ai-automation", icon: Icons.Cpu },
-    { title: "China Sourcing", desc: "End-to-end supply chain sourcing and global logistics.", link: "/services/china-sourcing", icon: Icons.Truck }
+    { title: "AI Video Production", desc: "Studio-quality AI explainers, product ads, and spokesperson videos.", link: "/services/ai-video-production", icon: Icons.Video }
   ];
 
   return (
@@ -282,7 +282,7 @@ export default function AboutPage() {
                 I&apos;m {aboutData.name || "Kamrujjaman"}, founder of Digital World, a digital marketing agency based in Dhaka, Bangladesh. For nearly a decade, I&apos;ve worked as an SEO, AEO, AIO, and GEO specialist, helping small businesses, growing brands, and enterprises across 11 countries — including the USA, UK, Canada, UAE, and Australia — build visibility that actually converts.
               </p>
               <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed mb-5">
-                <strong className="font-bold text-neutral-900">What we do:</strong> SEO (Local, Ecommerce, International, Video, SaaS, Semantic, and AI SEO), Google Ads and Meta Ads management, web design and development, content marketing, AI automation, and China sourcing — all under one roof.
+                <strong className="font-bold text-neutral-900">What we do:</strong> SEO (Local, Ecommerce, International, Video, SaaS, Semantic, and AI SEO), Google Ads and Meta Ads management, web design and development, content marketing, AI automation, and AI video production — all under one roof.
               </p>
               <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed mb-5">
                 <strong className="font-bold text-neutral-900">Why it matters:</strong> Most businesses don&apos;t need more traffic. They need the right traffic — customers actively searching for what you sell, on Google, and increasingly on AI platforms like ChatGPT, Gemini, and Google AI Overviews.
