@@ -593,65 +593,155 @@ export const servicesData: ServiceCategory[] = [
     ]
   },
   {
-    id: "china-sourcing",
-    slug: "china-sourcing",
-    title: "China Sourcing Services",
-    description: "End-to-end supply chain sourcing, audits, and logistics.",
-    iconName: "Truck",
+    id: "ai-video-production",
+    slug: "ai-video-production",
+    title: "AI Video Production",
+    description: "Studio-quality AI-generated videos for ads, explainers, UGC, and social content — at a fraction of traditional production costs.",
+    iconName: "Video",
     subItems: [
       {
-        name: "Product Sourcing",
-        slug: "product-sourcing",
-        description: "Find the best manufacturers for your designs.",
-        benefits: ["Compare pricing from multiple factories", "Negotiate bulk production contracts", "Source quality raw materials"]
+        name: "AI Explainer & Promo Videos",
+        slug: "ai-explainer-promo-videos",
+        tagline: "Explain anything. Sell everything. In minutes.",
+        description: "Transform complex products, services, or concepts into compelling AI-generated explainer and promo videos. We use cutting-edge AI video tools to produce professional-grade animated and live-action style videos that educate viewers and drive conversions — without a film crew or studio.",
+        benefits: [
+          "AI-scripted storyboards tailored to your brand voice & audience intent",
+          "Animated explainer videos (2D motion, kinetic typography, product walkthroughs)",
+          "Promotional videos for product launches, events & brand campaigns",
+          "Platform-optimized aspect ratios (16:9 for YouTube, 9:16 for Reels/TikTok)",
+          "AI voiceover in 30+ languages with human-level naturalness",
+          "Custom brand colors, logo integration & CTA overlays"
+        ],
+        primaryCtaText: "Create AI Explainer Video",
+        primaryCtaLink: "/contact?service=ai-explainer-promo-videos",
+        secondaryCtaText: "View Portfolio",
+        secondaryCtaLink: "/portfolio?service=ai-video"
       },
       {
-        name: "Supplier Verification",
-        slug: "supplier-verification",
-        description: "Run compliance audits and inspect factories.",
-        benefits: ["Verify manufacturing license validity", "Inspect factory floor capacity and setups", "Review past production export logs"]
+        name: "AI Product Ads",
+        slug: "ai-product-ads",
+        tagline: "High-converting product ads. Zero production budget.",
+        description: "Launch scroll-stopping product ad videos powered by AI — faster than a traditional shoot and at a fraction of the cost. Our AI product ad service transforms your product photos and specs into dynamic video ads optimized for Google, Meta, TikTok, and Amazon ad platforms.",
+        benefits: [
+          "AI product animation from static product images (360° spins, zoom-ins, overlays)",
+          "Conversion-optimized video scripts based on buyer psychology & ad frameworks",
+          "Multiple ad variations (A/B test-ready creatives in same production run)",
+          "Platform-specific ad specs: Facebook Feed, TikTok In-Feed, YouTube Pre-Roll, Amazon DSP",
+          "Dynamic text overlays: price callouts, USP badges, urgency triggers",
+          "AI-generated background scenes, lifestyle contexts & product staging"
+        ],
+        primaryCtaText: "Create AI Product Ads",
+        primaryCtaLink: "/contact?service=ai-product-ads",
+        secondaryCtaText: "View Portfolio",
+        secondaryCtaLink: "/portfolio?service=ai-video"
       },
       {
-        name: "Quality Inspection",
-        slug: "quality-inspection",
-        description: "Inspect items pre-shipment to prevent errors.",
-        benefits: ["Perform raw material validation checks", "Inspect during-production sample groups", "Verify final packaging specifications"]
+        name: "AI UGC-Style Videos",
+        slug: "ai-ugc-style-videos",
+        tagline: "Authentic UGC at infinite scale — no creators needed.",
+        description: "User-Generated Content (UGC) is the highest-converting ad format on Meta and TikTok. We produce AI-generated UGC-style videos that look and feel like real customer testimonials and reviews — enabling you to run unlimited authentic-looking ad creatives without hiring influencers or managing shoots.",
+        benefits: [
+          "AI avatar-based UGC ads with realistic facial expressions & natural delivery",
+          "Multiple AI personas (demographics, ages, ethnicities, styles) for A/B testing",
+          "Hook variations: pain-point hooks, transformation hooks, question hooks",
+          "Product unboxing, before/after, testimonial & review video formats",
+          "Platform-native captions, trending audio sync & in-video text overlays",
+          "Rapid production: 10–50 UGC ad variations delivered in 48–72 hours"
+        ],
+        primaryCtaText: "Scale UGC Ads with AI",
+        primaryCtaLink: "/contact?service=ai-ugc-style-videos",
+        secondaryCtaText: "View Portfolio",
+        secondaryCtaLink: "/portfolio?service=ai-video"
       },
       {
-        name: "Production Management",
-        slug: "production-management",
-        description: "Manage milestones and schedule deliveries.",
-        benefits: ["Track weekly factory output schedules", "Prevent production lag times", "Ensure raw materials remain available"]
+        name: "AI Avatar & Spokesperson Videos",
+        slug: "ai-avatar-spokesperson-videos",
+        tagline: "Your brand. Your AI spokesperson. Always on.",
+        description: "Deploy a professional AI avatar spokesperson to represent your brand in training videos, product demos, investor pitches, and marketing campaigns — in any language, any time, without scheduling a single shoot. Our AI avatars deliver your scripts with photorealistic human-like delivery.",
+        benefits: [
+          "Photorealistic AI human avatars (choose from 100+ diverse presenter styles)",
+          "Custom AI avatar creation from your own likeness (executive spokesperson cloning)",
+          "Script-to-video in under 24 hours — perfect for time-sensitive campaigns",
+          "Multilingual delivery: same avatar speaks in 40+ languages for global markets",
+          "Use cases: brand videos, onboarding training, sales demos, investor pitches, FAQ videos",
+          "Seamless b-roll integration, branded lower-thirds & professional background scenes"
+        ],
+        primaryCtaText: "Create AI Spokesperson Video",
+        primaryCtaLink: "/contact?service=ai-avatar-spokesperson-videos",
+        secondaryCtaText: "View Portfolio",
+        secondaryCtaLink: "/portfolio?service=ai-video"
       },
       {
-        name: "Order Management",
-        slug: "order-management",
-        description: "Oversee payment deposits and contracts.",
-        benefits: ["Review international payment terms", "Secure escrow deposit configurations", "Manage item delivery declarations"]
+        name: "AI Short-Form Content",
+        slug: "ai-short-form-content",
+        tagline: "Go viral. On every platform. Every week.",
+        description: "Short-form video is the most powerful organic growth engine in 2025 and beyond. We produce a consistent pipeline of AI-generated Reels, TikToks, and YouTube Shorts designed with platform-native hooks, trending formats, and SEO-optimized captions that drive follows, views, and sales.",
+        benefits: [
+          "AI-scripted hooks calibrated to platform algorithm patterns (TikTok, Instagram, YouTube)",
+          "Trend-matched content formats: talking-head style, text-on-screen, montage, transitions",
+          "AI B-roll generation & stock footage enhancement for visual storytelling",
+          "Auto-captioning with animated text overlays for silent-viewing optimization",
+          "Hashtag strategy, posting schedule & thumbnail/cover frame optimization",
+          "Batch production: 30–90 days of content delivered in a single production sprint"
+        ],
+        primaryCtaText: "Produce AI Short-Form Content",
+        primaryCtaLink: "/contact?service=ai-short-form-content",
+        secondaryCtaText: "View Portfolio",
+        secondaryCtaLink: "/portfolio?service=ai-video"
       },
       {
-        name: "Freight Forwarding",
-        slug: "freight-forwarding",
-        description: "Organize global ocean and air shipments.",
-        benefits: ["Secure container space allocations", "Compare carrier rates for savings", "Manage global port transfers"]
+        name: "AI Voiceover & Multilingual Dubbing",
+        slug: "ai-voiceover-multilingual-dubbing",
+        tagline: "One video. Every language. Global reach unlocked.",
+        description: "Break language barriers and expand your brand to global markets with AI voiceover and multilingual dubbing. We convert your existing videos or new AI-produced content into natural, human-sounding voiceovers in 40+ languages — with perfect lip-sync dubbing for presenter-style videos.",
+        benefits: [
+          "AI voiceover in 40+ languages with regional accent options (US, UK, AU, AE, BD, CA)",
+          "Lip-sync AI dubbing for talking-head and presenter videos (frame-accurate mouth movement)",
+          "Voice cloning: replicate your exact voice or a custom branded voice across all content",
+          "Human-quality emotional range: confident, warm, authoritative, conversational tones",
+          "Localization services: culturally adapted scripts, idioms & regional references",
+          "24-hour turnaround for standard voiceover projects up to 10 minutes"
+        ],
+        primaryCtaText: "Get AI Voiceover & Dubbing",
+        primaryCtaLink: "/contact?service=ai-voiceover-multilingual-dubbing",
+        secondaryCtaText: "View Portfolio",
+        secondaryCtaLink: "/portfolio?service=ai-video"
       },
       {
-        name: "Customs Clearance",
-        slug: "customs-clearance",
-        description: "File customs documents and tariff structures.",
-        benefits: ["Classify products correctly (HS Codes)", "Calculate tariff duties, import taxes", "Prevent port storage holds"]
+        name: "AI Real Estate & Property Videos",
+        slug: "ai-real-estate-property-videos",
+        tagline: "Sell properties faster with AI-powered visual storytelling.",
+        description: "Real estate buyers form first impressions in seconds — and AI video is the fastest way to make yours unforgettable. We produce AI-generated property videos, virtual staging walkthroughs, neighborhood highlight reels, and branded listing videos that help realtors and developers sell faster at higher prices.",
+        benefits: [
+          "AI virtual staging: transform empty rooms into furnished, styled interiors instantly",
+          "AI property walkthrough videos from floor plans, photos & drone footage",
+          "Neighborhood highlight reels: schools, restaurants, commute times, lifestyle features",
+          "Branded listing videos with agent spokesperson integration",
+          "AI sky replacement, exterior enhancement & seasonal transformations",
+          "Multi-format delivery: MLS listing video, social media Reels, YouTube property tours"
+        ],
+        primaryCtaText: "Create Property Video",
+        primaryCtaLink: "/contact?service=ai-real-estate-property-videos",
+        secondaryCtaText: "View Portfolio",
+        secondaryCtaLink: "/portfolio?service=ai-video"
       },
       {
-        name: "Warehousing",
-        slug: "warehousing",
-        description: "Store items at secure distribution points.",
-        benefits: ["Provide low-cost bulk storage setups", "Fulfillment updates for eCommerce", "Inspect storage moisture levels"]
-      },
-      {
-        name: "Door-to-Door Delivery",
-        slug: "door-to-door-delivery",
-        description: "Frictionless customs handling and transport.",
-        benefits: ["Handle import clearance checks", "Optimize local truck dispatch coordinates", "Provide full shipping route logs"]
+        name: "AI Video Repurposing",
+        slug: "ai-video-repurposing",
+        tagline: "One long video. Infinite content assets.",
+        description: "Stop letting long-form content sit idle. Our AI video repurposing service transforms your podcasts, webinars, interviews, and YouTube videos into dozens of high-impact short clips, quote cards, blog posts, and social captions — maximizing every minute of content you've already created.",
+        benefits: [
+          "AI-powered clip extraction: automatically identifies best moments from long-form video",
+          "Podcast-to-Reels: convert audio podcasts into animated short-form video clips",
+          "Webinar-to-YouTube: restructure webinar recordings into polished YouTube tutorials",
+          "Auto-generated subtitles, captions & transcript export for blog repurposing",
+          "Content calendar: 30-day social posting plan built from a single source video",
+          "Cross-platform formatting: YouTube Shorts, Instagram Reels, TikTok, LinkedIn Video"
+        ],
+        primaryCtaText: "Repurpose My Videos with AI",
+        primaryCtaLink: "/contact?service=ai-video-repurposing",
+        secondaryCtaText: "View Portfolio",
+        secondaryCtaLink: "/portfolio?service=ai-video"
       }
     ]
   }

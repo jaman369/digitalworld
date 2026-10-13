@@ -107,18 +107,18 @@ const heroOverrides: Record<string, HeroOverride> = {
     eyebrowColorClass: "text-purple-700 bg-purple-50/90 border-purple-200",
     btnClass: "bg-[#9333EA] hover:bg-purple-700 shadow-purple-500/20"
   },
-  "china-sourcing": {
-    eyebrow: "Global Supply Chain",
-    headlineFirst: "Direct factory sourcing",
-    headlineHighlight: "with complete QC peace of mind.",
-    description: "On-site factory vetting, Mandarin price negotiations, and pre-shipment inspections across major manufacturing hubs.",
-    ctaText: "Request Sourcing Audit",
-    ctaLink: "/contact?service=sourcing-audit",
-    highlightColorClass: "text-[#E11D48]",
-    glowClass: "bg-[radial-gradient(ellipse_at_top_left,rgba(225,29,72,0.24),transparent_55%),radial-gradient(ellipse_at_bottom_right,rgba(245,158,11,0.18),transparent_55%)]",
-    dotColorClass: "bg-[#E11D48]",
-    eyebrowColorClass: "text-rose-700 bg-rose-50/90 border-rose-200",
-    btnClass: "bg-[#E11D48] hover:bg-rose-700 shadow-rose-500/20"
+  "ai-video-production": {
+    eyebrow: "AI Video Production",
+    headlineFirst: "Studio-quality videos.",
+    headlineHighlight: "Powered by AI.",
+    description: "Explainer videos, product ads, UGC content, AI avatars, multilingual dubbing, real estate walkthroughs, and short-form Reels — all produced by AI in hours, not weeks, at a fraction of traditional production costs.",
+    ctaText: "Start AI Video Project",
+    ctaLink: "/contact?service=ai-video-production",
+    highlightColorClass: "bg-gradient-to-r from-[#8B5CF6] via-[#A855F7] to-[#D946EF] bg-clip-text text-transparent",
+    glowClass: "bg-[radial-gradient(ellipse_at_top_left,rgba(139,92,246,0.26),transparent_55%),radial-gradient(ellipse_at_bottom_right,rgba(217,70,239,0.18),transparent_55%)]",
+    dotColorClass: "bg-[#8B5CF6]",
+    eyebrowColorClass: "text-violet-700 bg-violet-50/90 border-violet-200",
+    btnClass: "bg-gradient-to-r from-violet-600 to-fuchsia-500 hover:from-violet-700 hover:to-fuchsia-600 shadow-violet-500/20"
   }
 };
 

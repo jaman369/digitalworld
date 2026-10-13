@@ -54,13 +54,13 @@ const whyUsCardsMap: Record<string, { icon: string; title: string; desc: string 
     { icon: "🧠", title: "Multi-Agent Logic", desc: "Complex autonomous agents that perform research, draft replies, and route qualified leads." },
     { icon: "📈", title: "80%+ Cost Reduction", desc: "Eliminate repetitive manual data entry tasks with scalable AI workflows." },
   ],
-  "china-sourcing": [
-    { icon: "🏭", title: "Direct Factory Vetting", desc: "On-site visits and license verification across Ningbo, Yiwu, Shenzhen & Guangzhou hubs." },
-    { icon: "💰", title: "Mandarin Price Negotiation", desc: "Bilingual sourcing agents negotiating directly with factory owners for lowest unit rates." },
-    { icon: "🔬", title: "Strict AQL Quality Control", desc: "Pre-shipment inspections ensuring zero defective products leave the factory floor." },
-    { icon: "🚢", title: "Freight Rate Savings", desc: "Discounted container and air express shipping rates negotiated with Tier-1 carriers." },
-    { icon: "📜", title: "Customs & Duty Prep", desc: "Accurate HS code classification and import paperwork for hassle-free customs clearance." },
-    { icon: "🛡️", title: "Escrow Payment Safety", desc: "Milestone-based payment protection ensuring funds are only released upon quality approval." },
+  "ai-video-production": [
+    { icon: "🎬", title: "AI at Speed of Thought", desc: "From script to final video in 24–48 hours. We eliminate the weeks-long production timelines of traditional video agencies." },
+    { icon: "💸", title: "80% Lower Production Cost", desc: "No film crews, no studio rentals, no actor fees. AI video production costs a fraction of traditional video — with equal or superior quality." },
+    { icon: "🌍", title: "40+ Language Delivery", desc: "One video, every market. We produce multilingual voiceovers and lip-sync dubbing so your content reaches every global audience." },
+    { icon: "🔁", title: "Unlimited Creative Variations", desc: "A/B test 10, 20, or 50 creative variations simultaneously. AI lets us iterate rapidly to find the highest-converting version." },
+    { icon: "🎯", title: "Platform-Native Optimization", desc: "Every video is engineered for its target platform — TikTok hooks, YouTube thumbnails, Meta ad specs, and LinkedIn formats." },
+    { icon: "📊", title: "Performance-Backed Creative", desc: "Our video scripts are built on buyer psychology, ad frameworks (AIDA, PAS, Hook-Story-Offer), and conversion data from real campaigns." },
   ],
 };
 
@@ -101,12 +101,12 @@ const processMap: Record<string, { step: string; title: string; desc: string }[]
     { step: "04", title: "CRM & Tool Integration", desc: "Connecting Make.com, Zapier, HubSpot, Slack, and webhooks." },
     { step: "05", title: "Deployment & Automated Monitoring", desc: "Rolling out automation with 24/7 error monitoring and prompt tuning." },
   ],
-  "china-sourcing": [
-    { step: "01", title: "Supplier Matching", desc: "Identifying verified factories in Ningbo, Yiwu, and Shenzhen hubs." },
-    { step: "02", title: "Mandarin Price Negotiation", desc: "Bespoke price benchmarking to secure factory-direct unit rates." },
-    { step: "03", title: "Sample Verification", desc: "Inspecting product samples against design specs before bulk production." },
-    { step: "04", title: "Pre-Shipment AQL Quality Inspection", desc: "On-site quality control checks during production runs." },
-    { step: "05", title: "Freight & Customs Clearance", desc: "Managing ocean/air freight logistics and customs paperwork for delivery." },
+  "ai-video-production": [
+    { step: "01", title: "Strategy & Script Briefing", desc: "We define the video goal, target audience, platform, messaging framework, and script outline." },
+    { step: "02", title: "AI Script & Storyboard", desc: "Our team writes the full conversion-optimized video script and maps each scene with AI storyboards." },
+    { step: "03", title: "AI Video Generation", desc: "We produce the video using AI tools: avatars, voiceovers, B-roll, animations, and motion graphics." },
+    { step: "04", title: "Editing, Branding & Captions", desc: "Color grading, logo integration, animated captions, CTA overlays, and platform-specific formatting." },
+    { step: "05", title: "Delivery & Performance Review", desc: "Final video delivery with ad account upload support, A/B variant sets, and performance review." },
   ],
 };
 
@@ -152,13 +152,13 @@ const toolsMap: Record<string, { name: string; category: string }[]> = {
     { name: "HubSpot & Salesforce", category: "CRM Integration" },
     { name: "Slack & Webhooks", category: "Real-time Notification Node" },
   ],
-  "china-sourcing": [
-    { name: "1688 & Alibaba Enterprise", category: "Factory Sourcing Engine" },
-    { name: "WeChat Pay & Escrow", category: "Secure Payment Portal" },
-    { name: "Flexport & Freightos", category: "Global Freight Booking" },
-    { name: "Customs Duty Calculator", category: "Tariff & HS Code Tool" },
-    { name: "AQL Inspection System", category: "Quality Audit Protocol" },
-    { name: "SGS Certification", category: "Compliance & Safety Standard" },
+  "ai-video-production": [
+    { name: "HeyGen AI Avatar", category: "AI Spokesperson & UGC Videos" },
+    { name: "Runway Gen-3 Alpha", category: "AI Video Generation" },
+    { name: "ElevenLabs Voice AI", category: "Voiceover & Multilingual Dubbing" },
+    { name: "Sora by OpenAI", category: "Generative Video Creation" },
+    { name: "CapCut & Adobe Premiere", category: "Pro Video Editing & Post" },
+    { name: "Midjourney & DALL-E 3", category: "AI Visual & Scene Generation" },
   ],
 };
 
@@ -189,10 +189,10 @@ const caseStudiesMap: Record<string, { title: string; metric: string; desc: stri
     { title: "Automated Lead Router", metric: "< 5s Routing Speed", desc: "Routed qualified leads into sales Slack channels instantly." },
     { title: "CRM Data Enrichment AI", metric: "30 Hrs Saved / Wk", desc: "Automated prospect research and CRM profile creation." },
   ],
-  "china-sourcing": [
-    { title: "Bulk Manufacturing Run", metric: "$14,000 Saved", desc: "Negotiated factory-direct unit pricing in Ningbo hub." },
-    { title: "Electronics Pre-Shipment QC", metric: "0 Defects Shipped", desc: "Caught packaging defects prior to ocean container loading." },
-    { title: "Global Import Logistics", metric: "5 Days Faster Delivery", desc: "Streamlined customs clearance paperwork and port handling." },
+  "ai-video-production": [
+    { title: "E-Commerce AI Product Ad Campaign", metric: "3.8x ROAS", desc: "AI-generated product ads outperformed static creatives across Meta & TikTok within 14 days." },
+    { title: "SaaS AI Explainer Video", metric: "+62% Trial Signups", desc: "AI explainer on landing page increased free trial signup rates by 62% within 30 days." },
+    { title: "Real Estate AI Video Series", metric: "2x Faster Sales", desc: "AI property walkthroughs cut average days-on-market in half for a UAE property developer." },
   ],
 };
 
@@ -228,11 +228,11 @@ const metricsMap: Record<string, { value: string; label: string; sub: string }[]
     { value: "30+ Hrs", label: "Saved Per Week", sub: "Eliminating manual task friction" },
     { value: "100%", label: "Private Data Vectoring", sub: "Zero public model data leaks" },
   ],
-  "china-sourcing": [
-    { value: "$14k+", label: "Avg Cost Savings", sub: "Per bulk factory production run" },
-    { value: "AQL 2.5", label: "Strict Inspection", sub: "Pre-shipment quality standards" },
-    { value: "100%", label: "Factory Vetted", sub: "Direct license & facility checks" },
-    { value: "0 Defects", label: "Guarantee", sub: "Escrow payment capital safety" },
+  "ai-video-production": [
+    { value: "48 Hrs", label: "Avg Production Time", sub: "Script to final delivered video" },
+    { value: "80%", label: "Lower Cost vs Traditional", sub: "Versus film crew production" },
+    { value: "40+", label: "Languages Supported", sub: "AI voiceover & lip-sync dubbing" },
+    { value: "3.8x", label: "Average ROAS on AI Ads", sub: "AI product ads vs static creatives" },
   ],
 };
 
@@ -278,11 +278,11 @@ const faqMap: Record<string, { q: string; a: string }[]> = {
     { q: "How does the AI chatbot integrate with our site?", a: "We install a lightweight JavaScript snippet on your website that renders a sleek custom chatbot UI connected to your AI vector node." },
     { q: "How long does AI workflow setup take?", a: "Basic AI chatbots launch in 3 to 5 days. Complex multi-agent CRM automation pipelines take 2 to 3 weeks." },
   ],
-  "china-sourcing": [
-    { q: "Where are your sourcing agents located?", a: "Our bilingual sourcing staff operate directly in key manufacturing hubs: Ningbo, Yiwu, Shenzhen, and Guangzhou, China." },
-    { q: "How do you ensure product quality before shipping?", a: "We conduct pre-shipment AQL 2.5 inspections on-site at the factory, sending you detailed photo and video audit reports before final payment release." },
-    { q: "Can you help negotiate lower unit prices?", a: "Yes! Our agents negotiate directly with factory managers in native Mandarin to secure factory-direct pricing without intermediary markup." },
-    { q: "Do you handle customs clearance and shipping?", a: "Yes, we handle complete door-to-door logistics including ocean container shipping, air express, customs duties, and tariffs." },
+  "ai-video-production": [
+    { q: "How quickly can you produce an AI video?", a: "Most AI explainer, product ad, and UGC-style videos are delivered within 24–72 hours of script approval. Complex multi-scene productions or full short-form content batches take 5–7 business days." },
+    { q: "Will the AI videos look professional or generic?", a: "Our AI videos are produced using the latest generation tools (HeyGen, Runway Gen-3, ElevenLabs) combined with expert human direction on scripting, pacing, and brand alignment. The results are indistinguishable from high-budget production." },
+    { q: "Can you match our brand identity in the videos?", a: "Yes. Every video is fully branded with your logo, colors, fonts, and brand voice. We create a brand style guide for your video content before production begins." },
+    { q: "Do you support multilingual videos for international markets?", a: "Absolutely. We produce AI voiceovers in 40+ languages and offer lip-sync dubbing for avatar and spokesperson videos — making your content native to every target market." },
   ],
 };
 
@@ -330,12 +330,12 @@ const processThemeMap: Record<string, CategoryHoverTheme> = {
     pillDot: "bg-[#9333EA]",
     headerAccent: "text-[#9333EA]",
   },
-  "china-sourcing": {
-    badgeHover: "group-hover:bg-[#E11D48] group-hover:text-white group-hover:border-[#E11D48] group-hover:shadow-lg group-hover:shadow-rose-500/30",
-    titleHover: "group-hover:text-[#E11D48]",
-    pillBadge: "bg-rose-50 border-rose-200 text-rose-700",
-    pillDot: "bg-[#E11D48]",
-    headerAccent: "text-[#E11D48]",
+  "ai-video-production": {
+    badgeHover: "group-hover:bg-gradient-to-r group-hover:from-violet-600 group-hover:to-fuchsia-500 group-hover:text-white group-hover:border-violet-500 group-hover:shadow-lg group-hover:shadow-violet-500/30",
+    titleHover: "group-hover:text-violet-600",
+    pillBadge: "bg-violet-50 border-violet-200 text-violet-700",
+    pillDot: "bg-[#8B5CF6]",
+    headerAccent: "text-violet-600",
   },
 };
 
@@ -436,18 +436,18 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
       ctaText: "Automate My Business",
       imagePath: "/images/22.png",
     },
-    "china-sourcing": {
-      title: "Source Better Products. Reduce Risk. Grow Profitably.",
-      description: "Find reliable products and suppliers in China without the usual sourcing headaches. We support product sourcing, supplier verification, quality inspection, production management, freight forwarding, and door-to-door delivery.",
-      subtitle: "We manage your:",
+    "ai-video-production": {
+      title: "AI Video That Sells, Educates & Goes Viral",
+      description: "From AI explainer videos and UGC-style product ads to AI avatar spokespersons, multilingual dubbing, real estate walkthroughs, and short-form Reels — we produce every type of video content with AI, faster and at dramatically lower cost than traditional production.",
+      subtitle: "We create AI videos for:",
       points: [
-        { emoji: "🔎", text: "Product & supplier sourcing from China" },
-        { emoji: "✅", text: "Supplier verification & factory audits" },
-        { emoji: "📦", text: "Quality inspection & production monitoring" },
-        { emoji: "🚢", text: "Freight forwarding, customs & DDP delivery" },
+        { emoji: "🎬", text: "Explainer, promo & product ad videos" },
+        { emoji: "🤖", text: "AI avatar, UGC-style & spokesperson videos" },
+        { emoji: "🌍", text: "Multilingual voiceover & lip-sync dubbing" },
+        { emoji: "📱", text: "Short-form Reels, TikToks & YouTube Shorts" },
       ],
-      ctaText: "Start Sourcing",
-      imagePath: "/images/16.png",
+      ctaText: "Start My AI Video Project",
+      imagePath: "/images/22.png",
     },
   };
 

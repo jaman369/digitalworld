@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Search, Target, Layout, PenTool, Cpu, PackageCheck } from "lucide-react";
+import { Search, Target, Layout, PenTool, Cpu, Video } from "lucide-react";
 
 interface ServiceCategoryNavProps {
   currentCategorySlug: string;
@@ -13,7 +13,7 @@ const serviceCategories = [
   { slug: "web-design-dev", label: "Web Design & Dev", icon: Layout },
   { slug: "content-marketing", label: "Content Marketing", icon: PenTool },
   { slug: "ai-automation", label: "AI Automation", icon: Cpu },
-  { slug: "china-sourcing", label: "China Sourcing", icon: PackageCheck },
+  { slug: "ai-video-production", label: "AI Video Production", icon: Video },
 ];
 
 export default function ServiceCategoryNav({ currentCategorySlug }: ServiceCategoryNavProps) {
