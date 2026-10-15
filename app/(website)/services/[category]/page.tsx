@@ -249,8 +249,11 @@ export default async function CategoryPage({ params }: PageProps) {
               <div
                 key={sub.slug || idx}
                 id={sub.slug}
-                className="bg-[#F8FAFC] border border-neutral-200/80 rounded-2xl p-8 hover:border-[#0076FF]/60 hover:bg-white transition-all duration-300 flex flex-col justify-between shadow-xs hover:shadow-md"
+                className="bg-[#F8FAFC] border border-neutral-200/80 rounded-2xl p-8 hover:border-[#0076FF]/60 hover:bg-white transition-all duration-300 flex flex-col justify-between shadow-xs hover:shadow-md relative"
               >
+                {sub.slug === "technical-seo" && (
+                  <span id="tachnical-seo" className="absolute -top-28 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                )}
                 <div>
                   <span className="font-mono text-xs font-bold text-[#0076FF] block mb-3">
                     {String(idx + 1).padStart(2, "0")} — CAPABILITY

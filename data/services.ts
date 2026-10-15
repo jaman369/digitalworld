@@ -11,10 +11,10 @@ export const servicesData: ServiceCategory[] = [
       {
         name: "Local SEO",
         slug: "local-seo",
-        tagline: "Dominate your local market on Google.",
+        tagline: "Dominate your local market on Google & Maps.",
         description: "When someone searches for your service near them, you need to be the first name they see — on Maps, in local packs, and in organic results. We build the full local SEO foundation that puts you there and keeps you there.",
         benefits: [
-          "Google Business Profile optimisation & management",
+          "Google Business Profile optimisation & weekly management",
           "Local citation building (60+ high-authority directories)",
           "Review generation strategy & reputation management",
           "Localised on-page SEO & geo-targeted landing pages",
@@ -29,14 +29,14 @@ export const servicesData: ServiceCategory[] = [
       {
         name: "Ecommerce SEO",
         slug: "ecommerce-seo",
-        tagline: "Turn searchers into repeat customers.",
-        description: "Ranking product and category pages requires unique technical architecture and authority. We help Shopify, WooCommerce, and custom ecommerce stores build organic search traffic that consistently buys.",
+        tagline: "Turn high-intent searchers into repeat customers.",
+        description: "Ranking product and category pages requires unique technical architecture, faceted navigation control, and transactional search intent optimization. We help Shopify, WooCommerce, and custom ecommerce stores build organic search traffic that consistently buys.",
         benefits: [
           "Site architecture optimization & facet/filter index management",
           "Structured data setup (Product, Review & Offer schema)",
           "Keyword research targeting transactional & commercial intent",
           "Optimized category & product descriptions that sell",
-          "Core Web Vitals & mobile commerce optimization",
+          "Core Web Vitals & mobile commerce checkout speed optimization",
           "Ecom link building & digital PR placements"
         ],
         primaryCtaText: "Grow Store Traffic",
@@ -47,15 +47,15 @@ export const servicesData: ServiceCategory[] = [
       {
         name: "International SEO",
         slug: "international-seo",
-        tagline: "Rank in every market you want to enter.",
-        description: "Selling across borders means competing in different languages, different search behaviours, and different Google indices. We've helped businesses rank in the USA, UK, Canada, Australia, UAE, Germany, and beyond — with the right strategy for each market.",
+        tagline: "Rank in every global market you want to enter.",
+        description: "Selling across borders means competing in different languages, regional search behaviours, and localized Google indices. We've helped businesses rank in the USA, UK, Canada, Australia, UAE, Germany, and beyond — with the right multi-regional strategy for each target country.",
         benefits: [
-          "hreflang implementation & international site architecture",
-          "Market-specific keyword research in 10+ languages",
-          "Country/language targeting via Google Search Console",
-          "Multi-market competitor analysis & gap mapping",
-          "Local domain strategy (ccTLD vs subfolder vs subdomain)",
-          "International link building & digital PR"
+          "Flawless hreflang implementation & international site architecture",
+          "Market-specific keyword research & cultural intent in 10+ languages",
+          "Country/language targeting via Google Search Console & Bing Webmaster",
+          "Multi-market competitor analysis & global backlink gap mapping",
+          "Local domain strategy guidance (ccTLD vs subfolder vs subdomain)",
+          "International link building & localized digital PR outreach"
         ],
         primaryCtaText: "Expand Globally",
         primaryCtaLink: "/contact?service=international-seo",
@@ -63,35 +63,17 @@ export const servicesData: ServiceCategory[] = [
         secondaryCtaLink: "/portfolio?service=international-seo"
       },
       {
-        name: "Link Building",
-        slug: "link-building",
-        tagline: "High-authority backlinks that drive search rankings & domain trust.",
-        description: "High-quality, white-hat backlinks are one of Google's top ranking signals. We execute targeted outreach, digital PR campaigns, and niche placement strategies to build real domain authority and sustainably increase your search rankings.",
-        benefits: [
-          "Manual white-hat blogger outreach & niche editorial placements",
-          "High DR / DA domain target vetting (zero spam networks)",
-          "Digital PR campaigns & data-driven story pitching",
-          "Broken link building & competitor backlink gap replication",
-          "Anchor text diversity optimization & penalty-safe profiles",
-          "Transparent monthly backlink placement & referral traffic reporting"
-        ],
-        primaryCtaText: "Build Backlinks",
-        primaryCtaLink: "/contact?service=link-building",
-        secondaryCtaText: "Case Study",
-        secondaryCtaLink: "/portfolio?service=link-building"
-      },
-      {
         name: "SaaS SEO",
         slug: "saas-seo",
-        tagline: "Drive signups with organic search.",
-        description: "SaaS SEO is about capturing users at every stage of the funnel — from awareness through comparison to decision. We build topical authority, rank for high-intent product keywords, and create content that turns readers into trial users.",
+        tagline: "Drive high-intent trial signups and demo bookings.",
+        description: "SaaS SEO is about capturing software buyers across the entire funnel — from awareness problem-solving through comparison to buying decisions. We build topical authority, rank for high-intent product keywords, and create content that turns readers into trial users.",
         benefits: [
-          "Full-funnel keyword strategy (TOFU, MOFU, BOFU)",
-          "Competitor & alternative page optimisation",
-          "Integration & use-case landing page SEO",
-          "Product-led content strategy & editorial calendar",
-          "Programmatic SEO for scalable page creation",
-          "B2B link building & SaaS review site management"
+          "Full-funnel SaaS keyword strategy (TOFU problem guides to BOFU alternatives)",
+          "High-converting competitor 'vs' and alternative landing page optimization",
+          "Integration directory & software use-case landing page SEO",
+          "Product-led content strategy & editorial calendar execution",
+          "Programmatic SEO for scalable feature & template page creation",
+          "High-authority B2B link building & software review directory management"
         ],
         primaryCtaText: "Grow My SaaS",
         primaryCtaLink: "/contact?service=saas-seo",
@@ -101,15 +83,15 @@ export const servicesData: ServiceCategory[] = [
       {
         name: "Semantic SEO",
         slug: "semantic-seo",
-        tagline: "Build topical authority. Outrank everyone.",
-        description: "Google doesn't just rank pages — it ranks trusted topical authorities. Semantic SEO is about building a deep, interconnected content ecosystem that signals expertise, authority, and trustworthiness across your entire niche. This is the future of SEO, and we're already doing it.",
+        tagline: "Build unshakeable topical authority that Google trusts.",
+        description: "Google doesn't just rank keywords — it evaluates entity relationships, topical depth, and comprehensive subject coverage. Semantic SEO builds a deep, interconnected content ecosystem that signals undisputed expertise, authority, and trust across your entire niche.",
         benefits: [
-          "Topical authority mapping & content cluster architecture",
-          "Entity SEO & Knowledge Graph optimisation",
-          "Semantic keyword research (NLP & LSI-based)",
-          "Pillar page + content cluster creation strategy",
-          "Internal linking architecture for authority flow",
-          "E-E-A-T signals & author authority building"
+          "Topical authority mapping & hub-and-spoke content cluster architecture",
+          "Entity SEO, Knowledge Graph alignment & semantic disambiguation",
+          "Semantic keyword research powered by NLP & LSI vector embeddings",
+          "Pillar page creation & internal linking architecture for authority flow",
+          "Advanced Schema.org markup (about, mentions, sameAs entity definitions)",
+          "E-E-A-T signals, expert author schema & trust authority building"
         ],
         primaryCtaText: "Build My Authority",
         primaryCtaLink: "/contact?service=semantic-seo",
@@ -117,40 +99,58 @@ export const servicesData: ServiceCategory[] = [
         secondaryCtaLink: "/portfolio?service=semantic-seo"
       },
       {
-        name: "AEO",
-        slug: "aeo",
-        tagline: "Be the direct answer on ChatGPT, Perplexity & Siri.",
-        description: "Answer Engine Optimization positions your brand as the single authoritative source for conversational AI engines like ChatGPT, Perplexity, Claude, and Voice Search. We format and structure your content so AI assistants cite your business first when users ask direct questions.",
+        name: "Ai SEO",
+        slug: "ai-seo",
+        tagline: "Future-proof search visibility for AI Overviews & LLMs.",
+        description: "AI is reshaping search through Google AI Overviews (SGE), ChatGPT, Perplexity, Claude, and Gemini. We optimize your brand to be cited as the primary authoritative source in conversational answers and generative AI search results.",
         benefits: [
-          "ChatGPT, Perplexity & Claude citation optimization",
-          "Direct answer snippet & Q&A content structuring",
-          "Conversational search intent & prompt targeting",
-          "Knowledge Graph & brand entity validation",
-          "Voice search & assistant response optimization",
-          "AI citation tracking & response monitoring"
+          "Generative Engine Optimization (GEO) for Google AI Overviews & SGE citations",
+          "Answer Engine Optimization (AEO) for ChatGPT, Perplexity & Claude citations",
+          "Conversational search intent modeling & direct answer snippet structuring",
+          "Entity citation indexing & brand validation across AI training corpuses",
+          "AI content quality engineering with high information gain and factual accuracy",
+          "AI citation tracking, response sentiment & generative share-of-voice monitoring"
         ],
-        primaryCtaText: "Optimize for AEO",
-        primaryCtaLink: "/contact?service=aeo",
+        primaryCtaText: "Optimize for AI SEO",
+        primaryCtaLink: "/contact?service=ai-seo",
         secondaryCtaText: "Case Study",
-        secondaryCtaLink: "/portfolio?service=aeo"
+        secondaryCtaLink: "/portfolio?service=ai-seo"
       },
       {
-        name: "GEO",
-        slug: "geo",
-        tagline: "Dominate AI Overviews & Generative Search Results.",
-        description: "Generative Engine Optimization ensures your content is selected, summarized, and recommended inside Google AI Overviews and generative search engines. We combine authoritative data points, expert quotes, and structured facts to secure top placement in generative responses.",
+        name: "Link Building",
+        slug: "link-building",
+        tagline: "High-authority backlinks that drive search rankings & domain trust.",
+        description: "High-quality, white-hat backlinks remain one of Google's top core ranking signals. We execute targeted manual outreach, digital PR campaigns, and niche placement strategies to build real domain authority and sustainably increase your search rankings.",
         benefits: [
-          "Google AI Overviews (SGE) recommendation strategy",
-          "Generative engine citation & source placement",
-          "Authoritative statistical data & expert quote integration",
-          "Multi-modal content & vector search optimization",
-          "Fluency & semantic clarity engineering for AI parsers",
-          "Generative visibility & impression analytics"
+          "100% manual white-hat blogger outreach & niche editorial placements",
+          "Strict domain target vetting (high DR/DA, real traffic, zero spam networks)",
+          "Digital PR campaigns & newsworthy data-driven story pitching to journalists",
+          "Broken link building, unlinked brand mentions & competitor backlink gap replication",
+          "Anchor text diversity optimization & penalty-safe link profiles",
+          "Transparent monthly backlink placement & referral traffic reporting"
         ],
-        primaryCtaText: "Optimize for GEO",
-        primaryCtaLink: "/contact?service=geo",
+        primaryCtaText: "Build Backlinks",
+        primaryCtaLink: "/contact?service=link-building",
         secondaryCtaText: "Case Study",
-        secondaryCtaLink: "/portfolio?service=geo"
+        secondaryCtaLink: "/portfolio?service=link-building"
+      },
+      {
+        name: "Technical SEO",
+        slug: "technical-seo",
+        tagline: "Flawless site architecture, crawlability, and speed.",
+        description: "Search engines cannot rank what they cannot efficiently crawl, render, and index. We resolve crawl budget bottlenecks, indexation blockers, Core Web Vitals issues, and code-level errors so your site performs at maximum ranking efficiency.",
+        benefits: [
+          "Deep technical crawl audits using Screaming Frog, Sitebulb & Google Search Console",
+          "Core Web Vitals acceleration (LCP, INP, CLS) & mobile performance optimization",
+          "Crawl budget optimization, XML sitemap architecture & robots.txt directives",
+          "JavaScript SEO, client-side rendering & dynamic hydration troubleshooting",
+          "Canonicalization, pagination, duplicate content & redirect chain resolution",
+          "Comprehensive JSON-LD structured data architecture & rich snippet setup"
+        ],
+        primaryCtaText: "Get Technical SEO Audit",
+        primaryCtaLink: "/contact?service=technical-seo",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=technical-seo"
       }
     ]
   },
