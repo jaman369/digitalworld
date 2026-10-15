@@ -55,7 +55,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sansFont.variable} ${serifFont.variable} antialiased`}
+      className={`${sansFont.variable} ${serifFont.variable} antialiased scroll-smooth`}
     >
       <body className="text-neutral-900 font-sans min-h-screen flex flex-col">
         <ScriptInjector />

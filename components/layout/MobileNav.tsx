@@ -145,7 +145,15 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
                                           <Link
                                             href={`/services/${category.slug}#${sub.slug}`}
                                             className="block py-1 text-xs font-medium text-neutral-500 hover:text-primary transition-colors"
-                                            onClick={onClose}
+                                            onClick={() => {
+                                              onClose();
+                                              if (typeof window !== "undefined" && window.location.pathname === `/services/${category.slug}`) {
+                                                const el = document.getElementById(sub.slug);
+                                                if (el) {
+                                                  el.scrollIntoView({ behavior: "smooth", block: "start" });
+                                                }
+                                              }
+                                            }}
                                           >
                                             {sub.name}
                                           </Link>

@@ -68,7 +68,15 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
                             <Link
                               href={`/services/${category.slug}#${sub.slug}`}
                               className="font-sans text-xs font-medium text-neutral-500 hover:text-blue-600 flex items-center gap-1.5 transition-colors py-0.5 group/item"
-                              onClick={onClose}
+                              onClick={() => {
+                                onClose();
+                                if (typeof window !== "undefined" && window.location.pathname === `/services/${category.slug}`) {
+                                  const el = document.getElementById(sub.slug);
+                                  if (el) {
+                                    el.scrollIntoView({ behavior: "smooth", block: "start" });
+                                  }
+                                }
+                              }}
                             >
                               <Icons.ChevronRight className="h-3 w-3 text-neutral-300 group-hover/item:text-blue-600 shrink-0 transition-transform group-hover/item:translate-x-0.5" />
                               <span className="truncate">{sub.name}</span>

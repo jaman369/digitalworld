@@ -4,6 +4,7 @@ import * as Icons from "lucide-react";
 import { servicesData } from "@/data/services";
 import ServiceCategoryNav from "@/components/sections/ServiceCategoryNav";
 import ServiceExtraSections from "@/components/sections/ServiceExtraSections";
+import ServiceHashScroll from "@/components/sections/ServiceHashScroll";
 import { db } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
@@ -178,6 +179,7 @@ export default async function CategoryPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-white text-neutral-900">
+      <ServiceHashScroll />
 
       {/* ── 02 — SERVICES HERO (Custom Banner Background + Unique Per-Service Ambient Color Glow) ── */}
       <section
@@ -249,10 +251,10 @@ export default async function CategoryPage({ params }: PageProps) {
               <div
                 key={sub.slug || idx}
                 id={sub.slug}
-                className="bg-[#F8FAFC] border border-neutral-200/80 rounded-2xl p-8 hover:border-[#0076FF]/60 hover:bg-white transition-all duration-300 flex flex-col justify-between shadow-xs hover:shadow-md relative"
+                className="scroll-mt-48 md:scroll-mt-56 bg-[#F8FAFC] border border-neutral-200/80 rounded-2xl p-8 hover:border-[#0076FF]/60 hover:bg-white transition-all duration-300 flex flex-col justify-between shadow-xs hover:shadow-md relative"
               >
                 {sub.slug === "technical-seo" && (
-                  <span id="tachnical-seo" className="absolute -top-28 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                  <span id="tachnical-seo" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
                 )}
                 <div>
                   <span className="font-mono text-xs font-bold text-[#0076FF] block mb-3">
