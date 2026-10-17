@@ -256,7 +256,7 @@ const faqMap: Record<string, { q: string; a: string }[]> = {
   ],
   ppc: [
     { q: "What ad budget do I need to get started?", a: "We recommend a minimum media spend of $1,000 - $3,000/month to allow sufficient data collection and rapid A/B testing." },
-    { q: "Which platforms do you manage?", a: "We manage Google Search, Performance Max, Meta (Facebook & Instagram), TikTok, and LinkedIn ad campaigns." },
+    { q: "Which platforms do you manage?", a: "We manage Google Ads, Facebook Ads, Instagram Ads, YouTube Ads, TikTok Ads, LinkedIn Ads, Pinterest Ads, and X Ads." },
     { q: "How do you prevent ad budget click fraud?", a: "We configure real-time fraud monitoring scripts like ClickCease to block bot IPs and competitor click waste out-of-the-box." },
     { q: "How quickly can my paid ads launch?", a: "Once account access and landing pages are verified, campaign builds typically launch within 3 to 5 business days." },
   ],

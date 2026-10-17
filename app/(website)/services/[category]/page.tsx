@@ -256,6 +256,23 @@ export default async function CategoryPage({ params }: PageProps) {
                 {sub.slug === "technical-seo" && (
                   <span id="tachnical-seo" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
                 )}
+                {sub.slug === "google-ads" && (
+                  <>
+                    <span id="google-search-ads" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                    <span id="google-shopping-ads" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                    <span id="performance-max" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                    <span id="remarketing-ads" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                  </>
+                )}
+                {sub.slug === "tiktok-ads" && (
+                  <span id="tiktok-linkedin-ads" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                )}
+                {sub.slug === "x-ads" && (
+                  <>
+                    <span id="twitter-ads" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                    <span id="x-twitter-ads" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                  </>
+                )}
                 <div>
                   <span className="font-mono text-xs font-bold text-[#0076FF] block mb-3">
                     {String(idx + 1).padStart(2, "0")} — CAPABILITY

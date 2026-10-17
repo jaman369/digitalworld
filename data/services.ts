@@ -162,109 +162,37 @@ export const servicesData: ServiceCategory[] = [
     iconName: "TrendingUp",
     subItems: [
       {
-        name: "Google Search Ads",
-        slug: "google-search-ads",
-        tagline: "Be first when buyers search for you.",
-        description: "Google Search Ads put your business at the very top of results when high-intent customers are actively searching. We don't just run ads — we build full-funnel keyword architecture, precision match-type strategies, and relentlessly optimised ad copy that converts browsers into buyers.",
+        name: "Google Ads",
+        slug: "google-ads",
+        tagline: "Capture high-intent buyers the exact moment they search.",
+        description: "Google Ads delivers immediate market dominance across Search, Shopping, Performance Max, Display, and Maps. We engineer full-funnel keyword architectures, negative match-type filters, high-converting ad copy, and smart Target ROAS bidding that turns active searches into profitable sales.",
         benefits: [
-          "Deep keyword research & negative keyword strategy",
-          "Compelling ad copy with A/B split testing",
-          "Smart bidding setup (Target ROAS, tCPA, Maximize Conversions)",
-          "Landing page alignment & Quality Score optimisation",
-          "Conversion tracking via Google Tag Manager",
-          "Weekly performance reporting & budget recommendations"
+          "High-intent Search, Shopping, and Performance Max campaign architecture",
+          "Precision keyword segmentation, exact/phrase match & extensive negative lists",
+          "A/B split-tested ad copy, headlines, and sitelink extensions for higher CTR",
+          "Google Tag Manager conversion tracking & server-side GA4 data streams",
+          "Smart bidding optimization (Target ROAS, Target CPA, Maximize Conversions)",
+          "Continuous search term pruning, Quality Score scaling & click-fraud shielding"
         ],
-        primaryCtaText: "Get Search Ads Quote",
-        primaryCtaLink: "/contact?service=google-search-ads",
+        primaryCtaText: "Get Google Ads Quote",
+        primaryCtaLink: "/contact?service=google-ads",
         secondaryCtaText: "Case Study",
-        secondaryCtaLink: "/portfolio?service=google-search-ads"
-      },
-      {
-        name: "Google Shopping Ads",
-        slug: "google-shopping-ads",
-        tagline: "Put your products in front of ready-to-buy shoppers.",
-        description: "Google Shopping Ads show your product image, price, and brand before a user even clicks — the highest-intent placement in e-commerce. We build bulletproof product feed architecture, optimize titles and attributes, and structure campaigns for maximum Shopping ROAS.",
-        benefits: [
-          "Google Merchant Center setup & feed optimisation",
-          "Product title & attribute optimisation for CTR",
-          "Custom label strategy for bidding segmentation",
-          "Competitor price & impression share monitoring",
-          "Shopping campaign restructuring & priority bidding",
-          "Feed health audits & policy violation fixes"
-        ],
-        primaryCtaText: "Grow Store Sales",
-        primaryCtaLink: "/contact?service=google-shopping-ads",
-        secondaryCtaText: "Case Study",
-        secondaryCtaLink: "/portfolio?service=google-shopping-ads"
-      },
-      {
-        name: "Performance Max",
-        slug: "performance-max",
-        tagline: "AI-powered campaigns. Every Google channel.",
-        description: "Performance Max lets Google's AI place your ads across Search, Shopping, Display, YouTube, Gmail, and Maps — all from a single campaign. But without the right asset strategy and audience signals, PMax wastes the budget fast. We set it up correctly from day one and continuously refine signals for outsized returns.",
-        benefits: [
-          "Asset group architecture & creative strategy",
-          "First-party audience signals & customer list uploads",
-          "Brand vs non-brand campaign segmentation",
-          "Search term insights & negative keyword feeds",
-          "Creative performance analysis & refresh schedule",
-          "PMax + Standard Search hybrid strategy"
-        ],
-        primaryCtaText: "Configure PMax",
-        primaryCtaLink: "/contact?service=performance-max",
-        secondaryCtaText: "Case Study",
-        secondaryCtaLink: "/portfolio?service=performance-max"
-      },
-      {
-        name: "YouTube Ads",
-        slug: "youtube-ads",
-        tagline: "Video ads that stop the scroll — and sell.",
-        description: "YouTube reaches over 2 billion users monthly. With the right creative and targeting, you can capture demand before it reaches Search. We handle everything from audience strategy and format selection to creative briefs and campaign optimisation — whether you're building brand awareness or driving direct response.",
-        benefits: [
-          "In-stream, in-feed, bumper & masthead format strategy",
-          "Audience targeting: affinity, intent, remarketing, lookalikes",
-          "Creative brief & video ad script consultation",
-          "Brand lift & view-through conversion tracking",
-          "YouTube + Search funnel integration",
-          "Competitor ad library analysis & creative benchmarking"
-        ],
-        primaryCtaText: "Launch Video Ads",
-        primaryCtaLink: "/contact?service=youtube-ads",
-        secondaryCtaText: "Case Study",
-        secondaryCtaLink: "/portfolio?service=youtube-ads"
-      },
-      {
-        name: "Remarketing",
-        slug: "remarketing-ads",
-        tagline: "Win back the visitors who almost converted.",
-        description: "97% of first-time visitors don't convert. Remarketing puts your brand back in front of warm audiences across Google Display, YouTube, and social platforms — keeping you top-of-mind until they're ready to buy. We build sequenced, audience-segmented remarketing funnels that close the loop on lost revenue.",
-        benefits: [
-          "Google Ads & Meta pixel setup & audience segmentation",
-          "Dynamic remarketing with personalised product ads",
-          "Sequential ad storytelling for multi-touchpoint journeys",
-          "Cart abandonment & checkout recovery campaigns",
-          "Customer list-based remarketing (email upload)",
-          "Frequency capping to avoid ad fatigue"
-        ],
-        primaryCtaText: "Set Up Remarketing",
-        primaryCtaLink: "/contact?service=remarketing-ads",
-        secondaryCtaText: "Case Study",
-        secondaryCtaLink: "/portfolio?service=remarketing-ads"
+        secondaryCtaLink: "/portfolio?service=google-ads"
       },
       {
         name: "Facebook Ads",
         slug: "facebook-ads",
-        tagline: "3 billion people. Your exact customer.",
-        description: "Facebook's ad platform remains the most powerful social advertising tool ever built — when used correctly. We combine precise interest stacking, lookalike audience engineering, and high-converting creative formats to consistently deliver profitable campaigns for e-commerce, lead gen, and service businesses alike.",
+        tagline: "Turn 3 billion monthly users into loyal paying customers.",
+        description: "Facebook's ad ecosystem remains an unmatched revenue generator for e-commerce, lead gen, and service brands. We combine Advantage+ shopping frameworks, laser-focused custom and lookalike audiences, and high-converting video and carousel creatives to consistently scale your ROAS.",
         benefits: [
-          "Campaign structure: Awareness / Consideration / Conversion",
-          "Interest, behaviour & lookalike audience targeting",
-          "Advantage+ Shopping Campaigns (ASC) setup & scaling",
-          "Ad creative strategy: static, carousel, video & UGC",
-          "Meta Pixel & Conversions API (CAPI) implementation",
-          "Scaling frameworks: horizontal & vertical budget scaling"
+          "Advantage+ Shopping Campaigns (ASC) & dynamic catalog ad setup",
+          "Laser-targeted interest, custom audience & high-value lookalike modeling",
+          "High-converting creative testing: static, carousel, video & UGC angles",
+          "Meta Conversions API (CAPI) & pixel integration with 100% event matching",
+          "Full-funnel campaign structure (TOFU awareness to BOFU direct-response retargeting)",
+          "Systematic horizontal and vertical budget scaling without ad fatigue"
         ],
-        primaryCtaText: "Scale Meta Ads",
+        primaryCtaText: "Scale Facebook Ads",
         primaryCtaLink: "/contact?service=facebook-ads",
         secondaryCtaText: "Case Study",
         secondaryCtaLink: "/portfolio?service=facebook-ads"
@@ -272,15 +200,15 @@ export const servicesData: ServiceCategory[] = [
       {
         name: "Instagram Ads",
         slug: "instagram-ads",
-        tagline: "Visual-first ads for a visual-first generation.",
-        description: "Instagram is where discovery happens — and where purchasing decisions are shaped before people even realise it. With 2 billion monthly actives and some of the highest engagement rates in social media, Instagram Ads are a goldmine for lifestyle brands, fashion, food, beauty, fitness, and e-commerce. We make your brand impossible to scroll past.",
+        tagline: "Visual-first advertising engineered to stop the scroll and sell.",
+        description: "Instagram is where brand discovery happens and modern purchasing decisions are made. We design stunning, native-style Reels, Story swipe-ups, and Explore feed ads tailored for lifestyle, e-commerce, beauty, and consumer brands that demand high engagement and immediate conversion.",
         benefits: [
-          "Reels, Stories, feed & Explore placement strategy",
-          "Creative direction: UGC-style, branded, influencer-adjacent",
-          "Instagram Shopping catalogue integration",
-          "Audience targeting by demographics, interests & behaviours",
-          "A/B testing: hook angles, CTAs, visual formats",
-          "Story-to-link swipe-up & DM automation flows"
+          "Reels, Stories, Feed, and Explore placement-native creative optimization",
+          "High-converting UGC-style, creator-adjacent & micro-influencer ad formats",
+          "Instagram Shopping product catalog integration with seamless in-app tags",
+          "Direct-to-DM automated lead flows & interactive sticker story campaigns",
+          "Hyper-targeted demographic, interest, and lifestyle behavioral segmentation",
+          "Continuous creative fatigue monitoring with weekly visual refreshed assets"
         ],
         primaryCtaText: "Launch Instagram Ads",
         primaryCtaLink: "/contact?service=instagram-ads",
@@ -288,22 +216,94 @@ export const servicesData: ServiceCategory[] = [
         secondaryCtaLink: "/portfolio?service=instagram-ads"
       },
       {
-        name: "TikTok & LinkedIn Ads",
-        slug: "tiktok-linkedin-ads",
-        tagline: "Where the next generation buys — and B2B decides.",
-        description: "TikTok reaches Gen Z and Millennial audiences with viral-native ad formats at dramatically lower CPMs than Meta. LinkedIn is the only platform where you can target by job title, company, and industry — making it the undisputed channel for B2B lead generation. We run both with platform-specific creative that actually performs.",
+        name: "Youtube Ads",
+        slug: "youtube-ads",
+        tagline: "Engage 2 billion buyers with high-converting video ads.",
+        description: "YouTube combines the visual persuasion of video with pinpoint audience targeting and real-time measurability. We build high-impact In-Stream, Shorts, and Bumper ads that hook viewers in the first 5 seconds and drive qualified traffic straight to your offer.",
         benefits: [
-          "In-feed video ads, TopView & Branded Hashtag Challenges",
-          "Spark Ads (boosting organic creator content)",
-          "TikTok Pixel setup & purchase event tracking",
-          "LinkedIn sponsored content, message ads & lead gen forms",
-          "B2B decision-maker targeting (company size, seniority, titles)",
-          "Creative briefs: hooks, trends, B2B lead Magnets"
+          "Skippable In-Stream, Non-Skippable, Shorts & Bumper video ad formats",
+          "Laser audience targeting: custom intent keywords, affinity, and competitor in-market",
+          "Scriptwriting and creative hooks engineered using the ABCD conversion framework",
+          "Brand lift, view-through attribution, and cross-device conversion tracking",
+          "Integration with Google Search funnels to capture remarketing demand",
+          "Placement exclusions and brand-safety filters to protect media investment"
         ],
-        primaryCtaText: "Launch B2B / Viral Ads",
-        primaryCtaLink: "/contact?service=tiktok-linkedin-ads",
+        primaryCtaText: "Launch YouTube Ads",
+        primaryCtaLink: "/contact?service=youtube-ads",
         secondaryCtaText: "Case Study",
-        secondaryCtaLink: "/portfolio?service=tiktok-linkedin-ads"
+        secondaryCtaLink: "/portfolio?service=youtube-ads"
+      },
+      {
+        name: "TikTok Ads",
+        slug: "tiktok-ads",
+        tagline: "Tap into viral algorithms with native short-form video ads.",
+        description: "TikTok reaches Gen Z, Millennials, and high-spending consumers with unbeatable algorithmic reach and lower CPMs than legacy platforms. We craft trend-responsive Spark Ads, In-Feed videos, and UGC creatives that feel 100% organic while generating massive commercial returns.",
+        benefits: [
+          "In-Feed video ads, Spark Ads (boosting creator posts), and TopView campaigns",
+          "TikTok Pixel and Events API implementation with advanced identity matching",
+          "Trend-driven hooks, sound sync, and rapid creator UGC creative workflows",
+          "Behavioral targeting based on video interactions, creator follows, and hashtags",
+          "TikTok Shop ad integration and direct in-feed catalog checkout funnels",
+          "Aggressive ROAS scaling with automated creative refresh cycles"
+        ],
+        primaryCtaText: "Scale TikTok Ads",
+        primaryCtaLink: "/contact?service=tiktok-ads",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=tiktok-ads"
+      },
+      {
+        name: "Linkedin Ads",
+        slug: "linkedin-ads",
+        tagline: "Target verified decision-makers, executives, and enterprise buyers.",
+        description: "LinkedIn is the premier B2B growth engine for high-ticket services, SaaS platforms, and enterprise solutions. We pinpoint verified C-suite executives, directors, and purchasing managers by job title, industry, and company size to generate pre-qualified sales calls and enterprise deals.",
+        benefits: [
+          "Precision B2B targeting by exact job title, company seniority, industry & revenue",
+          "High-converting LinkedIn Lead Gen Forms with zero landing page friction",
+          "Sponsored Content, Document Carousel Ads, and Thought Leader ad boosts",
+          "Account-Based Marketing (ABM) targeting specific high-value client lists",
+          "LinkedIn Insight Tag setup with website visitor demographic intelligence",
+          "Retargeting sequences that nurture decision-makers across the B2B sales cycle"
+        ],
+        primaryCtaText: "Generate B2B Leads",
+        primaryCtaLink: "/contact?service=linkedin-ads",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=linkedin-ads"
+      },
+      {
+        name: "Pinterest Ads",
+        slug: "pinterest-ads",
+        tagline: "Reach shoppers actively planning their next purchase.",
+        description: "Pinterest users visit with exceptionally high commercial intent, actively looking for products, home decor, fashion, and services to buy. We run visual Promoted Pins, Carousel ads, and Idea ads that capture high-intent buyers months before they purchase anywhere else.",
+        benefits: [
+          "Promoted Pins, Video Pins, Carousel Ads, and Collections catalog setups",
+          "Search intent keyword targeting + interest-based visual discovery mapping",
+          "Pinterest Tag integration with verified checkout and add-to-cart tracking",
+          "Long attribution shelf-life: pins continue driving organic sales after ad spend",
+          "Rich Product Pins synced with Shopify, WooCommerce, or custom product feeds",
+          "Remarketing to pin engagers, site visitors, and shopping cart abandoners"
+        ],
+        primaryCtaText: "Launch Pinterest Ads",
+        primaryCtaLink: "/contact?service=pinterest-ads",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=pinterest-ads"
+      },
+      {
+        name: "X Ads",
+        slug: "x-ads",
+        tagline: "Inject your message directly into real-time global conversations.",
+        description: "X (formerly Twitter) provides unparalleled real-time engagement for tech, crypto, finance, media, events, and viral announcements. We launch Promoted Posts, Trend takeovers, and Video Ads targeting active conversations, follower lookalikes, and trending niche topics.",
+        benefits: [
+          "Promoted Posts, Video Ads, and Trend Takeover campaign deployment",
+          "Follower lookalike targeting: display ads to followers of key competitor accounts",
+          "Conversation & keyword targeting matching real-time hashtags and phrases",
+          "X Pixel & Conversions API integration for granular attribution reporting",
+          "Direct-response lead generation and app install conversion optimization",
+          "High-tempo A/B testing of punchy copy, bold visuals, and urgent CTAs"
+        ],
+        primaryCtaText: "Scale on X Ads",
+        primaryCtaLink: "/contact?service=x-ads",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=x-ads"
       }
     ]
   },

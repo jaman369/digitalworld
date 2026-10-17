@@ -205,6 +205,7 @@ export default function ServicesGrid() {
 
   const popularSlugs = [
     "local-seo",
+    "google-ads",
     "google-search-ads",
     "website-design-ui-ux",
     "blog-writing",
