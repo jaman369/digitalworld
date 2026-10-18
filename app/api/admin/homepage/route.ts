@@ -150,7 +150,7 @@ export async function GET() {
         let loaded = JSON.parse(rec.servicesCards);
         if (Array.isArray(loaded)) {
           let hasLegacy = false;
-          loaded = loaded.map((card: any) => {
+          loaded = loaded.map((card: { slug?: string; title?: string; subItems?: unknown[]; [key: string]: unknown }) => {
             if (card.slug === "china-sourcing" || (card.title && card.title.toLowerCase().includes("china"))) {
               hasLegacy = true;
               return {

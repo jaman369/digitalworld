@@ -70,12 +70,28 @@ export async function GET() {
     const canonicalList = getCanonicalServices();
     const canonicalSlugsSet = new Set(canonicalList.map((s) => s.slug));
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let rawDbServices: any[] = [];
+interface DbRecordItem {
+  id?: string;
+  name?: string;
+  slug?: string;
+  categoryName?: string;
+  sortOrder?: number;
+  tagline?: string | null;
+  description?: string;
+  benefits?: string;
+  primaryCtaText?: string;
+  primaryCtaLink?: string;
+  secondaryCtaText?: string | null;
+  secondaryCtaLink?: string | null;
+  imagePath?: string | null;
+  imageAlt?: string | null;
+}
+
+    let rawDbServices: DbRecordItem[] = [];
     try {
       rawDbServices = (await db.servicePage.findMany({
         orderBy: { sortOrder: "asc" },
-      })) as any[];
+      })) as DbRecordItem[];
     } catch (dbErr) {
       console.warn("Prisma GET services error, attempting supabaseAdmin fallback:", dbErr);
     }
@@ -88,7 +104,7 @@ export async function GET() {
           .select("*")
           .order("sortOrder", { ascending: true });
         if (supaServices && supaServices.length > 0) {
-          rawDbServices = supaServices;
+          rawDbServices = supaServices as DbRecordItem[];
         }
       } catch (supaErr) {
         console.error("Supabase direct GET error:", supaErr);
@@ -98,9 +114,8 @@ export async function GET() {
     // 1. Identify obsolete legacy records in DB that are NOT in canonical 50 tracks
     // (e.g. old email-marketing, cro-audit-testing, backlink-building, china-sourcing, etc.)
     const obsoleteSlugs = (rawDbServices || [])
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .map((r: any) => r.slug)
-      .filter((slug: string) => !canonicalSlugsSet.has(slug));
+      .map((r: DbRecordItem) => r.slug)
+      .filter((slug?: string): slug is string => Boolean(slug && !canonicalSlugsSet.has(slug)));
 
     if (obsoleteSlugs.length > 0) {
       db.servicePage.deleteMany({ where: { slug: { in: obsoleteSlugs } } }).catch(() => {});
@@ -108,7 +123,7 @@ export async function GET() {
     }
 
     // 2. Identify missing canonical services that are not yet in DB
-    const existingSlugsSet = new Set((rawDbServices || []).map((r: any) => r.slug));
+    const existingSlugsSet = new Set((rawDbServices || []).map((r: DbRecordItem) => r.slug));
     const missingCanonical = canonicalList.filter((c) => !existingSlugsSet.has(c.slug));
 
     if (missingCanonical.length > 0) {
@@ -138,8 +153,7 @@ export async function GET() {
 
     // 3. Merge DB customized values into the canonical 50 tracks
     const mergedList = canonicalList.map((canonical) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const dbMatch = (rawDbServices || []).find((r: any) => r.slug === canonical.slug);
+      const dbMatch = (rawDbServices || []).find((r: DbRecordItem) => r.slug === canonical.slug);
       if (!dbMatch) {
         return canonical;
       }
