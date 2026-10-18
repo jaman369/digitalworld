@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import * as Icons from "lucide-react";
@@ -11,6 +12,29 @@ interface MegaMenuProps {
 }
 
 export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
+  const [categories, setCategories] = useState(servicesData);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function loadServices() {
+      try {
+        const res = await fetch("/api/services", { cache: "no-store" });
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0 && isMounted) {
+            setCategories(data);
+          }
+        }
+      } catch (err) {
+        console.warn("Failed to load dynamic services for MegaMenu", err);
+      }
+    }
+    loadServices();
+    return () => {
+      isMounted = false;
+    };
+  }, [isOpen]);
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -33,7 +57,7 @@ export default function MegaMenu({ isOpen, onClose }: MegaMenuProps) {
             <div className="container mx-auto max-w-7xl px-4 sm:px-6 py-5 sm:py-6">
               {/* Original First Menu Design (3 Columns with Category Icon, Title, Description & Vertical Sub-Items List) */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 items-start">
-                {servicesData.map((category) => {
+                {categories.map((category) => {
                   // Get Lucide Icon dynamically
                   const Icon = (Icons[category.iconName as keyof typeof Icons] || Icons.HelpCircle) as React.ComponentType<{ className?: string }>;
 

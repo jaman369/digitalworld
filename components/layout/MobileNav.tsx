@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -15,6 +15,28 @@ interface MobileNavProps {
 export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
   // Default open "services" so service categories are immediately visible
   const [activeAccordion, setActiveAccordion] = useState<string | null>("services");
+  const [categories, setCategories] = useState(servicesData);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function loadServices() {
+      try {
+        const res = await fetch("/api/services", { cache: "no-store" });
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0 && isMounted) {
+            setCategories(data);
+          }
+        }
+      } catch (err) {
+        console.warn("Failed to load dynamic services for MobileNav", err);
+      }
+    }
+    loadServices();
+    return () => {
+      isMounted = false;
+    };
+  }, [isOpen]);
 
   const toggleAccordion = (id: string) => {
     setActiveAccordion(activeAccordion === id ? null : id);
@@ -107,7 +129,7 @@ export default function MobileNav({ isOpen, onClose }: MobileNavProps) {
                           className="overflow-hidden"
                         >
                           <ul className="mt-3 flex flex-col gap-2 pl-4 border-l-2 border-neutral-100">
-                            {servicesData.map((category) => (
+                            {categories.map((category) => (
                               <li key={category.id}>
                                 <div className="flex flex-col">
                                   {/* Direct clickable category link + Chevron toggle button */}

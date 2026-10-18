@@ -1,11 +1,13 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import * as Icons from "lucide-react";
 import { servicesData } from "@/data/services";
 import ServiceCategoryNav from "@/components/sections/ServiceCategoryNav";
 import ServiceExtraSections from "@/components/sections/ServiceExtraSections";
 import ServiceHashScroll from "@/components/sections/ServiceHashScroll";
 import { db } from "@/lib/db";
+import { supabaseAdmin } from "@/lib/supabase/admin";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -141,6 +143,14 @@ interface SubItem {
   name: string;
   slug: string;
   description: string;
+  tagline?: string;
+  benefits?: string[];
+  primaryCtaText?: string;
+  primaryCtaLink?: string;
+  secondaryCtaText?: string | null;
+  secondaryCtaLink?: string | null;
+  imagePath?: string | null;
+  imageAlt?: string | null;
 }
 
 export default async function CategoryPage({ params }: PageProps) {
@@ -164,20 +174,68 @@ export default async function CategoryPage({ params }: PageProps) {
   let subItems: SubItem[] = staticCategory.subItems;
   try {
     const targetSlugs = staticCategory.subItems.map((s) => s.slug);
-    const dbSubPages = await db.servicePage.findMany({
-      where: {
-        slug: { in: targetSlugs }
+    let dbSubPages: Array<{
+      slug: string;
+      name?: string;
+      description?: string;
+      tagline?: string | null;
+      benefits?: string | null;
+      primaryCtaText?: string | null;
+      primaryCtaLink?: string | null;
+      secondaryCtaText?: string | null;
+      secondaryCtaLink?: string | null;
+      imagePath?: string | null;
+      imageAlt?: string | null;
+    }> = [];
+
+    try {
+      dbSubPages = (await db.servicePage.findMany({
+        where: {
+          slug: { in: targetSlugs },
+        },
+      })) as typeof dbSubPages;
+    } catch (prismaErr) {
+      console.warn("Prisma error in CategoryPage, falling back to supabaseAdmin:", prismaErr);
+    }
+
+    if (!dbSubPages || dbSubPages.length === 0) {
+      try {
+        const { data: supaRows } = await supabaseAdmin
+          .from("ServicePage")
+          .select("*")
+          .in("slug", targetSlugs);
+        if (supaRows && supaRows.length > 0) {
+          dbSubPages = supaRows as typeof dbSubPages;
+        }
+      } catch (supaErr) {
+        console.error("Supabase direct error in CategoryPage:", supaErr);
       }
-    });
+    }
 
     if (dbSubPages && dbSubPages.length > 0) {
       subItems = staticCategory.subItems.map((sub) => {
         const dbSvc = dbSubPages.find((s) => s.slug === sub.slug);
         if (!dbSvc) return sub;
+
+        let benefitsList = sub.benefits;
+        try {
+          if (dbSvc.benefits) {
+            benefitsList = typeof dbSvc.benefits === "string" ? JSON.parse(dbSvc.benefits) : dbSvc.benefits;
+          }
+        } catch {}
+
         return {
           ...sub,
           name: dbSvc.name || sub.name,
           description: dbSvc.description || sub.description,
+          tagline: dbSvc.tagline !== undefined && dbSvc.tagline !== null ? dbSvc.tagline : sub.tagline,
+          benefits: benefitsList,
+          primaryCtaText: dbSvc.primaryCtaText || sub.primaryCtaText,
+          primaryCtaLink: dbSvc.primaryCtaLink || sub.primaryCtaLink,
+          secondaryCtaText: dbSvc.secondaryCtaText !== undefined ? dbSvc.secondaryCtaText : sub.secondaryCtaText,
+          secondaryCtaLink: dbSvc.secondaryCtaLink !== undefined ? dbSvc.secondaryCtaLink : sub.secondaryCtaLink,
+          imagePath: dbSvc.imagePath !== undefined ? dbSvc.imagePath : sub.imagePath,
+          imageAlt: dbSvc.imageAlt !== undefined ? dbSvc.imageAlt : sub.imageAlt,
         };
       });
     }
@@ -355,19 +413,34 @@ export default async function CategoryPage({ params }: PageProps) {
                   <span className="font-mono text-xs font-bold text-[#0076FF] block mb-3">
                     {String(idx + 1).padStart(2, "0")} — CAPABILITY
                   </span>
-                  <h3 className="font-sans text-xl font-bold text-neutral-900 mb-3">
+                  {sub.imagePath && (
+                    <div className="relative w-full h-44 mb-4 rounded-xl overflow-hidden border border-neutral-200">
+                      <Image
+                        src={sub.imagePath}
+                        alt={sub.imageAlt || sub.name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
+                  <h3 className="font-sans text-xl font-bold text-neutral-900 mb-1.5">
                     {sub.name}
                   </h3>
+                  {sub.tagline && (
+                    <p className="font-sans text-xs font-semibold text-[#0076FF] mb-3 leading-snug">
+                      {sub.tagline}
+                    </p>
+                  )}
                   <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed mb-6">
                     {sub.description}
                   </p>
                 </div>
 
                 <Link
-                  href={`/contact?service=${categorySlug}&sub=${sub.slug}`}
+                  href={sub.primaryCtaLink || `/contact?service=${categorySlug}&sub=${sub.slug}`}
                   className="inline-flex items-center gap-1.5 font-sans text-xs font-bold text-[#0076FF] hover:text-blue-700 transition-colors uppercase tracking-wider"
                 >
-                  <span>Request Solution</span>
+                  <span>{sub.primaryCtaText || "Request Solution"}</span>
                   <Icons.ChevronRight className="w-3.5 h-3.5" />
                 </Link>
               </div>

@@ -773,7 +773,7 @@ export const servicesData: ServiceCategory[] = [
     iconName: "Video",
     subItems: [
       {
-        name: "AI Explainer & Promo Videos",
+        name: "AI Explainer Videos",
         slug: "ai-explainer-promo-videos",
         tagline: "Explain anything. Sell everything. In minutes.",
         description: "Transform complex products, services, or concepts into compelling AI-generated explainer and promo videos. We use cutting-edge AI video tools to produce professional-grade animated and live-action style videos that educate viewers and drive conversions — without a film crew or studio.",
@@ -827,7 +827,7 @@ export const servicesData: ServiceCategory[] = [
         secondaryCtaLink: "/portfolio?service=ai-video"
       },
       {
-        name: "AI Avatar & Spokesperson Videos",
+        name: "AI Avatar Videos",
         slug: "ai-avatar-spokesperson-videos",
         tagline: "Your brand. Your AI spokesperson. Always on.",
         description: "Deploy a professional AI avatar spokesperson to represent your brand in training videos, product demos, investor pitches, and marketing campaigns — in any language, any time, without scheduling a single shoot. Our AI avatars deliver your scripts with photorealistic human-like delivery.",
@@ -863,7 +863,7 @@ export const servicesData: ServiceCategory[] = [
         secondaryCtaLink: "/portfolio?service=ai-video"
       },
       {
-        name: "AI Voiceover & Multilingual Dubbing",
+        name: "AI Voiceover",
         slug: "ai-voiceover-multilingual-dubbing",
         tagline: "One video. Every language. Global reach unlocked.",
         description: "Break language barriers and expand your brand to global markets with AI voiceover and multilingual dubbing. We convert your existing videos or new AI-produced content into natural, human-sounding voiceovers in 40+ languages — with perfect lip-sync dubbing for presenter-style videos.",
@@ -881,7 +881,7 @@ export const servicesData: ServiceCategory[] = [
         secondaryCtaLink: "/portfolio?service=ai-video"
       },
       {
-        name: "AI Real Estate & Property Videos",
+        name: "AI Property Videos",
         slug: "ai-real-estate-property-videos",
         tagline: "Sell properties faster with AI-powered visual storytelling.",
         description: "Real estate buyers form first impressions in seconds — and AI video is the fastest way to make yours unforgettable. We produce AI-generated property videos, virtual staging walkthroughs, neighborhood highlight reels, and branded listing videos that help realtors and developers sell faster at higher prices.",

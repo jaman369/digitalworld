@@ -215,18 +215,18 @@ export default function ServicesGrid() {
     "ai-explainer-promo-videos",
   ];
 
-  const displayCategories = data.servicesCards && data.servicesCards.length > 0
-    ? data.servicesCards.map((c, idx) => ({
-        id: c.id || `svc-cat-${idx}`,
-        slug: c.slug || "seo",
-        title: c.title,
-        description: c.description,
-        subItems: (c.subItems || []).map((subName) => ({
-          name: typeof subName === "string" ? subName : (subName as unknown as { name: string }).name,
-          slug: (typeof subName === "string" ? subName : (subName as unknown as { name: string }).name).toLowerCase().replace(/[^a-z0-9]+/g, "-"),
-        })),
-      }))
-    : categories;
+  const displayCategories = categories.map((cat, idx) => {
+    const customCard = data.servicesCards?.find(
+      (c) => c.slug === cat.slug || c.id === cat.id
+    );
+    return {
+      id: cat.id || `svc-cat-${idx}`,
+      slug: cat.slug,
+      title: customCard?.title || cat.title,
+      description: customCard?.description || cat.description,
+      subItems: cat.subItems,
+    };
+  });
 
   return (
     <section
