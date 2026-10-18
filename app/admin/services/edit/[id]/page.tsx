@@ -9,6 +9,17 @@ interface PageProps {
   params: Promise<{ id: string }>;
 }
 
+function getCategoryRoute(catName: string): string {
+  const lower = (catName || "").toLowerCase();
+  if (lower.includes("video")) return "ai-video-production";
+  if (lower.includes("automation")) return "ai-automation";
+  if (lower.includes("content") || lower.includes("marketing") || lower.includes("writing")) return "content-marketing";
+  if (lower.includes("web") || lower.includes("design") || lower.includes("dev")) return "web-design-dev";
+  if (lower.includes("ppc") || lower.includes("paid")) return "ppc";
+  if (lower.includes("seo")) return "seo";
+  return "seo";
+}
+
 export default function EditServicePage({ params }: PageProps) {
   const { id: slug } = use(params);
   const router = useRouter();
@@ -174,7 +185,7 @@ export default function EditServicePage({ params }: PageProps) {
         </div>
 
         <Link
-          href={`/services/seo#${slug}`}
+          href={`/services/${getCategoryRoute(categoryName)}#${slug}`}
           target="_blank"
           className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-neutral-200 bg-white text-xs font-bold text-neutral-700 hover:bg-neutral-50 transition-colors shadow-2xs cursor-pointer shrink-0"
         >

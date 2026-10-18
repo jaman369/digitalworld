@@ -87,16 +87,25 @@ export default function AdminServicesPage() {
       setIsLoading(false);
     }
 
-    // Fallback: Populate initial 51 tracks from static servicesData if DB empty
+    // Fallback: Populate initial 50 tracks from static servicesData if DB empty
     let orderIdx = 1;
     const initialList: DbService[] = [];
     for (const cat of servicesData) {
+      const normalizedCatName =
+        cat.title === "Web Dev"
+          ? "Web Design & Development"
+          : cat.title === "PPC & Paid Search" || cat.title === "PPC / Paid Ads"
+          ? "PPC / Paid Ads"
+          : cat.title === "Content Marketing & Authority Strategy" || cat.slug === "content-marketing"
+          ? "Content Writing"
+          : cat.title;
+
       for (const sub of cat.subItems) {
         initialList.push({
           id: `svc-${sub.slug}`,
           name: sub.name,
           slug: sub.slug,
-          categoryName: cat.title,
+          categoryName: normalizedCatName,
           sortOrder: orderIdx++,
           tagline: sub.tagline || "",
           description: sub.description || "",

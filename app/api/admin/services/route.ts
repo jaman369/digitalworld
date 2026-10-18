@@ -8,6 +8,58 @@ import { servicesData } from "@/data/services";
 
 export const dynamic = "force-dynamic";
 
+// Helper to construct all 50 canonical tracks
+function getCanonicalServices() {
+  const list: Array<{
+    id: string;
+    name: string;
+    slug: string;
+    categoryName: string;
+    sortOrder: number;
+    tagline: string;
+    description: string;
+    benefits: string;
+    primaryCtaText: string;
+    primaryCtaLink: string;
+    secondaryCtaText: string | null;
+    secondaryCtaLink: string | null;
+    imagePath: string | null;
+    imageAlt: string | null;
+  }> = [];
+
+  let orderIdx = 1;
+  for (const cat of servicesData) {
+    const normalizedCatName =
+      cat.title === "Web Dev"
+        ? "Web Design & Development"
+        : cat.title === "PPC & Paid Search" || cat.title === "PPC / Paid Ads"
+        ? "PPC / Paid Ads"
+        : cat.title === "Content Marketing & Authority Strategy" || cat.slug === "content-marketing"
+        ? "Content Writing"
+        : cat.title;
+
+    for (const sub of cat.subItems) {
+      list.push({
+        id: `svc-${sub.slug}`,
+        name: sub.name,
+        slug: sub.slug,
+        categoryName: normalizedCatName,
+        sortOrder: orderIdx++,
+        tagline: sub.tagline || "",
+        description: sub.description || "",
+        benefits: JSON.stringify(sub.benefits || []),
+        primaryCtaText: sub.primaryCtaText || "Get Started",
+        primaryCtaLink: sub.primaryCtaLink || `/contact?service=${sub.slug}`,
+        secondaryCtaText: sub.secondaryCtaText || null,
+        secondaryCtaLink: sub.secondaryCtaLink || null,
+        imagePath: null,
+        imageAlt: null,
+      });
+    }
+  }
+  return list;
+}
+
 export async function GET() {
   try {
     const session = await getSession();
@@ -15,58 +67,101 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    let dbServices: unknown[] = [];
+    const canonicalList = getCanonicalServices();
+    const canonicalSlugsSet = new Set(canonicalList.map((s) => s.slug));
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let rawDbServices: any[] = [];
     try {
-      dbServices = await db.servicePage.findMany({
+      rawDbServices = (await db.servicePage.findMany({
         orderBy: { sortOrder: "asc" },
-      });
+      })) as any[];
     } catch (dbErr) {
       console.warn("Prisma GET services error, attempting supabaseAdmin fallback:", dbErr);
     }
 
     // Direct Supabase fallback
-    if (!dbServices || dbServices.length === 0) {
+    if (!rawDbServices || rawDbServices.length === 0) {
       try {
         const { data: supaServices } = await supabaseAdmin
           .from("ServicePage")
           .select("*")
           .order("sortOrder", { ascending: true });
         if (supaServices && supaServices.length > 0) {
-          dbServices = supaServices;
+          rawDbServices = supaServices;
         }
       } catch (supaErr) {
         console.error("Supabase direct GET error:", supaErr);
       }
     }
 
-    // Static fallback if database has no rows
-    if (!dbServices || dbServices.length === 0) {
-      let orderIdx = 1;
-      const fallbackList = [];
-      for (const cat of servicesData) {
-        for (const sub of cat.subItems) {
-          fallbackList.push({
-            id: `svc-${sub.slug}`,
-            name: sub.name,
-            slug: sub.slug,
-            categoryName: cat.title,
-            sortOrder: orderIdx++,
-            tagline: sub.tagline || "",
-            description: sub.description || "",
-            benefits: JSON.stringify(sub.benefits || []),
-            primaryCtaText: sub.primaryCtaText || "Get Started",
-            primaryCtaLink: sub.primaryCtaLink || `/contact?service=${sub.slug}`,
-            secondaryCtaText: sub.secondaryCtaText || null,
-            secondaryCtaLink: sub.secondaryCtaLink || null,
-            imagePath: null,
-            imageAlt: null,
-          });
-        }
-      }
-      return NextResponse.json(fallbackList);
+    // 1. Identify obsolete legacy records in DB that are NOT in canonical 50 tracks
+    // (e.g. old email-marketing, cro-audit-testing, backlink-building, china-sourcing, etc.)
+    const obsoleteSlugs = (rawDbServices || [])
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      .map((r: any) => r.slug)
+      .filter((slug: string) => !canonicalSlugsSet.has(slug));
+
+    if (obsoleteSlugs.length > 0) {
+      db.servicePage.deleteMany({ where: { slug: { in: obsoleteSlugs } } }).catch(() => {});
+      supabaseAdmin.from("ServicePage").delete().in("slug", obsoleteSlugs).then(() => {});
     }
 
-    return NextResponse.json(dbServices);
+    // 2. Identify missing canonical services that are not yet in DB
+    const existingSlugsSet = new Set((rawDbServices || []).map((r: any) => r.slug));
+    const missingCanonical = canonicalList.filter((c) => !existingSlugsSet.has(c.slug));
+
+    if (missingCanonical.length > 0) {
+      for (const m of missingCanonical) {
+        const payload = {
+          slug: m.slug,
+          name: m.name,
+          categoryName: m.categoryName,
+          sortOrder: m.sortOrder,
+          tagline: m.tagline,
+          description: m.description,
+          benefits: m.benefits,
+          primaryCtaText: m.primaryCtaText,
+          primaryCtaLink: m.primaryCtaLink,
+          secondaryCtaText: m.secondaryCtaText,
+          secondaryCtaLink: m.secondaryCtaLink,
+          imagePath: m.imagePath,
+          imageAlt: m.imageAlt,
+        };
+        db.servicePage.create({ data: payload }).catch(() => {});
+        supabaseAdmin
+          .from("ServicePage")
+          .upsert({ id: crypto.randomUUID(), ...payload }, { onConflict: "slug" })
+          .then(() => {});
+      }
+    }
+
+    // 3. Merge DB customized values into the canonical 50 tracks
+    const mergedList = canonicalList.map((canonical) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const dbMatch = (rawDbServices || []).find((r: any) => r.slug === canonical.slug);
+      if (!dbMatch) {
+        return canonical;
+      }
+      return {
+        id: dbMatch.id || canonical.id,
+        name: dbMatch.name || canonical.name,
+        slug: canonical.slug,
+        categoryName: canonical.categoryName, // always canonical category name
+        sortOrder: canonical.sortOrder,
+        tagline: dbMatch.tagline !== undefined && dbMatch.tagline !== null ? dbMatch.tagline : canonical.tagline,
+        description: dbMatch.description || canonical.description,
+        benefits: dbMatch.benefits || canonical.benefits,
+        primaryCtaText: dbMatch.primaryCtaText || canonical.primaryCtaText,
+        primaryCtaLink: dbMatch.primaryCtaLink || canonical.primaryCtaLink,
+        secondaryCtaText: dbMatch.secondaryCtaText !== undefined ? dbMatch.secondaryCtaText : canonical.secondaryCtaText,
+        secondaryCtaLink: dbMatch.secondaryCtaLink !== undefined ? dbMatch.secondaryCtaLink : canonical.secondaryCtaLink,
+        imagePath: dbMatch.imagePath !== undefined ? dbMatch.imagePath : canonical.imagePath,
+        imageAlt: dbMatch.imageAlt !== undefined ? dbMatch.imageAlt : canonical.imageAlt,
+      };
+    });
+
+    return NextResponse.json(mergedList);
   } catch (error) {
     console.error("GET services error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
