@@ -15,7 +15,8 @@ interface PageProps {
 }
 
 export async function generateMetadata({ params }: PageProps) {
-  const { category: categorySlug } = await params;
+  const { category: rawCategorySlug } = await params;
+  const categorySlug = rawCategorySlug === "content-writing" ? "content-marketing" : rawCategorySlug;
   const category = servicesData.find((c) => c.slug === categorySlug);
   if (!category) return {};
 
@@ -83,12 +84,25 @@ const heroOverrides: Record<string, HeroOverride> = {
     btnClass: "bg-[#6366F1] hover:bg-indigo-600 shadow-indigo-500/20"
   },
   "content-marketing": {
-    eyebrow: "Content Strategy",
-    headlineFirst: "Authoritative content that",
-    headlineHighlight: "converts lists to leads.",
-    description: "Turn search intent into brand loyalty with high-quality content plans and automated email nurturing sequences.",
-    ctaText: "Get Content Plan",
-    ctaLink: "/contact?service=content-plan",
+    eyebrow: "Content Writing",
+    headlineFirst: "Words that rank,",
+    headlineHighlight: "copy that converts.",
+    description: "High-impact blog writing, website copy, product descriptions, email sequences, and high-converting ad copy that capture attention and turn readers into paying customers.",
+    ctaText: "Get Content Writing Quote",
+    ctaLink: "/contact?service=content-writing",
+    highlightColorClass: "text-[#D97706]",
+    glowClass: "bg-[radial-gradient(ellipse_at_top_left,rgba(245,158,11,0.24),transparent_55%),radial-gradient(ellipse_at_bottom_right,rgba(217,119,6,0.18),transparent_55%)]",
+    dotColorClass: "bg-[#D97706]",
+    eyebrowColorClass: "text-amber-700 bg-amber-50/90 border-amber-200",
+    btnClass: "bg-[#D97706] hover:bg-amber-700 shadow-amber-500/20"
+  },
+  "content-writing": {
+    eyebrow: "Content Writing",
+    headlineFirst: "Words that rank,",
+    headlineHighlight: "copy that converts.",
+    description: "High-impact blog writing, website copy, product descriptions, email sequences, and high-converting ad copy that capture attention and turn readers into paying customers.",
+    ctaText: "Get Content Writing Quote",
+    ctaLink: "/contact?service=content-writing",
     highlightColorClass: "text-[#D97706]",
     glowClass: "bg-[radial-gradient(ellipse_at_top_left,rgba(245,158,11,0.24),transparent_55%),radial-gradient(ellipse_at_bottom_right,rgba(217,119,6,0.18),transparent_55%)]",
     dotColorClass: "bg-[#D97706]",
@@ -130,7 +144,8 @@ interface SubItem {
 }
 
 export default async function CategoryPage({ params }: PageProps) {
-  const { category: categorySlug } = await params;
+  const { category: rawCategorySlug } = await params;
+  const categorySlug = rawCategorySlug === "content-writing" ? "content-marketing" : rawCategorySlug;
 
   // 1. Fetch static fallback
   const staticCategory = servicesData.find((c) => c.slug === categorySlug);
@@ -271,6 +286,31 @@ export default async function CategoryPage({ params }: PageProps) {
                   <>
                     <span id="twitter-ads" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
                     <span id="x-twitter-ads" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                  </>
+                )}
+                {sub.slug === "blog-writing" && (
+                  <>
+                    <span id="content-marketing" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                    <span id="content-strategy" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                  </>
+                )}
+                {sub.slug === "website-copy" && (
+                  <span id="cro-audit-testing" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                )}
+                {sub.slug === "social-media-copy" && (
+                  <span id="social-media-content" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                )}
+                {sub.slug === "email-copy" && (
+                  <span id="email-marketing" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                )}
+                {sub.slug === "ad-copy" && (
+                  <span id="press-releases" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                )}
+                {sub.slug === "sales-copy" && (
+                  <>
+                    <span id="backlink-building" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                    <span id="digital-pr" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                    <span id="haro-services" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
                   </>
                 )}
                 <div>

@@ -59,7 +59,7 @@ export default function ContactPage() {
     "Search Engine Optimization (SEO)",
     "PPC / Paid Ads",
     "Web Design & Development",
-    "Content & Marketing",
+    "Content Writing",
     "AI Automation",
     "AI Video Production"
   ];

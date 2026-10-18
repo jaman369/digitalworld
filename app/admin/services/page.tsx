@@ -27,7 +27,7 @@ const CATEGORIES = [
   "SEO",
   "PPC / Paid Ads",
   "Web Design & Development",
-  "Content & Marketing",
+  "Content Writing",
   "AI Automation",
   "AI Video Production"
 ];
@@ -38,7 +38,7 @@ function getCategoryRoute(catName: string): string {
   if (lower.includes("seo")) return "seo";
   if (lower.includes("ppc") || lower.includes("paid")) return "ppc";
   if (lower.includes("web") || lower.includes("design")) return "web-design-dev";
-  if (lower.includes("content") || lower.includes("marketing")) return "content-marketing";
+  if (lower.includes("content") || lower.includes("marketing") || lower.includes("writing")) return "content-marketing";
   if (lower.includes("video")) return "ai-video-production";
   if (lower.includes("ai") || lower.includes("automation")) return "ai-automation";
   return "seo";
@@ -239,7 +239,7 @@ export default function AdminServicesPage() {
         (selectedTab === "SEO" && svc.categoryName.toLowerCase().includes("seo")) ||
         (selectedTab === "PPC / Paid Ads" && svc.categoryName.toLowerCase().includes("ppc")) ||
         (selectedTab === "Web Design & Development" && svc.categoryName.toLowerCase().includes("web")) ||
-        (selectedTab === "Content & Marketing" && svc.categoryName.toLowerCase().includes("content")) ||
+        (selectedTab === "Content Writing" && (svc.categoryName.toLowerCase().includes("content") || svc.categoryName.toLowerCase().includes("writing"))) ||
         (selectedTab === "AI Automation" && svc.categoryName.toLowerCase().includes("automation")) ||
         (selectedTab === "AI Video Production" && (svc.categoryName.toLowerCase().includes("video") || svc.categoryName.toLowerCase().includes("production")));
 

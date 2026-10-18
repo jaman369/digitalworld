@@ -158,7 +158,7 @@ export default async function Footer() {
               <li><Link href="/services/seo" className="text-neutral-400 hover:text-white transition-colors">SEO Services</Link></li>
               <li><Link href="/services/ppc" className="text-neutral-400 hover:text-white transition-colors">PPC & Paid Ads</Link></li>
               <li><Link href="/services/web-design-dev" className="text-neutral-400 hover:text-white transition-colors">Web Design & Dev</Link></li>
-              <li><Link href="/services/content-marketing" className="text-neutral-400 hover:text-white transition-colors">Content Marketing</Link></li>
+              <li><Link href="/services/content-marketing" className="text-neutral-400 hover:text-white transition-colors">Content Writing</Link></li>
               <li><Link href="/services/ai-automation" className="text-neutral-400 hover:text-white transition-colors">AI Automation</Link></li>
               <li><Link href="/services/ai-video-production" className="text-neutral-400 hover:text-white transition-colors">AI Video Production</Link></li>
             </ul>

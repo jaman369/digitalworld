@@ -209,6 +209,8 @@ export default function ServicesGrid() {
     "google-search-ads",
     "website-design-ui-ux",
     "blog-writing",
+    "website-copy",
+    "sales-copy",
     "workflow-automation",
     "ai-explainer-promo-videos",
   ];

@@ -463,63 +463,152 @@ export const servicesData: ServiceCategory[] = [
   {
     id: "content-marketing",
     slug: "content-marketing",
-    title: "Content & Marketing",
-    description: "Build authority and lists that drive stable acquisitions.",
+    title: "Content Writing",
+    description: "Authoritative content and persuasive copy that rank and convert.",
     iconName: "PenTool",
     subItems: [
       {
         name: "Blog Writing",
         slug: "blog-writing",
-        description: "SEO-optimized articles targeting search intent.",
-        benefits: ["Thorough competitor intent checking", "Optimized heading hierarchy structures", "Direct keyword positioning edits"]
+        tagline: "SEO-driven blog posts and long-form articles that rank on Google and convert.",
+        description: "High-impact blog articles engineered to capture high-intent organic search queries, establish deep topical authority, and educate readers into paying customers. Every article is backed by thorough competitor analysis, semantic keyword clustering, and clear conversion pathways.",
+        benefits: [
+          "Deep competitor SERP intent analysis and keyword clustering",
+          "SEO-optimized heading structures, title tags, and meta descriptions",
+          "Engaging, authoritative long-form writing with expert industry insights",
+          "Internal linking architecture to pass topical authority across your site",
+          "Compelling in-content lead magnets, CTAs, and banner placements",
+          "100% human-crafted, fact-checked, and plagiarism-free editorial quality"
+        ],
+        primaryCtaText: "Start Blog Writing",
+        primaryCtaLink: "/contact?service=blog-writing",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=blog-writing"
       },
       {
-        name: "Email Marketing",
-        slug: "email-marketing",
-        description: "Nurture lists and convert checkouts automatically.",
-        benefits: ["Lifecycle automation workflow setup", "High-converting copy layouts", "Continuous list cleansing and validation"]
+        name: "Website Copy",
+        slug: "website-copy",
+        tagline: "Engaging, high-converting copy that turns website visitors into buyers.",
+        description: "Your website is your 24/7 digital salesperson. We craft clear, persuasive homepage, about page, and service page copy designed around buyer psychology, clear value propositions, and frictionless calls-to-action that maximize conversion rates.",
+        benefits: [
+          "Irresistible above-the-fold hero messaging and value propositions",
+          "Customer pain-point agitation paired with clear solution frameworks",
+          "Feature-to-benefit translation that speaks directly to buyer desires",
+          "Social proof, trust badges, and credibility element positioning",
+          "Frictionless UX micro-copy for buttons, forms, and navigation",
+          "Conversion-rate-optimized (CRO) layout structure and readability flow"
+        ],
+        primaryCtaText: "Get Website Copy",
+        primaryCtaLink: "/contact?service=website-copy",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=website-copy"
       },
       {
-        name: "Content Marketing",
-        slug: "content-marketing",
-        description: "Setup whitepapers, lead generation PDFs, and guides.",
-        benefits: ["Authoritative brand content design", "Lead magnet acquisition setups", "Social distribution templates"]
+        name: "Product Descriptions",
+        slug: "product-descriptions",
+        tagline: "Persuasive e-commerce copy that sparks desire and drives add-to-cart clicks.",
+        description: "Turn browsing shoppers into eager buyers with sensory, benefit-driven product descriptions. We combine e-commerce search optimization with emotional storytelling and clear feature breakdowns to increase add-to-cart rates and lower return rates.",
+        benefits: [
+          "Sensory, benefit-led descriptions that overcome buyer hesitation",
+          "E-commerce SEO keyword integration for Google Shopping and search rank",
+          "Key feature bullet points engineered for rapid scannability",
+          "Technical specifications, sizing, and material clarity to reduce returns",
+          "Urgency and scarcity triggers that motivate immediate purchasing",
+          "Scalable batch writing for Shopify, WooCommerce, and Amazon catalogs"
+        ],
+        primaryCtaText: "Order Product Descriptions",
+        primaryCtaLink: "/contact?service=product-descriptions",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=product-descriptions"
       },
       {
-        name: "CRO Audit & Testing",
-        slug: "cro-audit-testing",
-        description: "Identify search bottlenecks and lift sales.",
-        benefits: ["Heatmap and screen recording analysis", "Run structural A/B visual tests", "Streamline cart page drop-offs"]
+        name: "Social Media Copy",
+        slug: "social-media-copy",
+        tagline: "Scroll-stopping captions and posts that build community and drive engagement.",
+        description: "Cut through the social feed noise with punchy, platform-native copy. We write captivating hooks, storytelling captions, and engaging calls-to-action tailored for LinkedIn, Instagram, Facebook, and X to spark conversations and build loyal followers.",
+        benefits: [
+          "High-retention scroll-stopping opening hooks that halt the feed",
+          "Platform-native formatting tailored for LinkedIn, Instagram, X & Facebook",
+          "Storytelling narratives that humanize your brand and build authority",
+          "Strategic call-to-actions designed to maximize comments, shares, and saves",
+          "Curated hashtag clusters and profile bio optimization",
+          "Consistent brand voice guidelines across all daily social publishing"
+        ],
+        primaryCtaText: "Boost Social Copy",
+        primaryCtaLink: "/contact?service=social-media-copy",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=social-media-copy"
       },
       {
-        name: "Backlink Building",
-        slug: "backlink-building",
-        description: "Build authority links from niche relevant sites.",
-        benefits: ["Run outbound email reach campaigns", "Identify unlinked brand mentions", "Anchor text optimization configurations"]
+        name: "Email Copy",
+        slug: "email-copy",
+        tagline: "High-converting email sequences and newsletters that nurture and close.",
+        description: "Generate predictable revenue from your subscriber list. We craft curiosity-inducing subject lines, personalized nurture sequences, promotional launch emails, and automated abandoned-cart flows that land in the primary inbox and convert.",
+        benefits: [
+          "High-open subject lines and preview text engineered to beat spam filters",
+          "Automated welcome series and onboarding nurture drip campaigns",
+          "High-converting abandoned cart and browse abandonment recovery copy",
+          "Promotional product launch and seasonal sales blast sequences",
+          "Value-packed weekly newsletters that build long-term subscriber loyalty",
+          "A/B split testing of subject lines, hooks, and call-to-action buttons"
+        ],
+        primaryCtaText: "Write Email Copy",
+        primaryCtaLink: "/contact?service=email-copy",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=email-copy"
       },
       {
-        name: "Digital PR",
-        slug: "digital-pr",
-        description: "Earn mentions from major news and publisher sites.",
-        benefits: ["Establish data-backed outreach pitches", "Pitch editors and journalists directly", "Gain high authority trust links"]
+        name: "Ad Copy",
+        slug: "ad-copy",
+        tagline: "Direct-response ad copy for Google, Meta & TikTok that slashes CPA.",
+        description: "High-performing paid ads require copy that hooks attention in microseconds and compels action. We engineer high-converting headlines, primary text, and creative hooks for Google Search, Facebook, Instagram, TikTok, and LinkedIn ad campaigns.",
+        benefits: [
+          "Proven direct-response formulas: AIDA, PAS, and Hook-Story-Offer",
+          "Multiple creative hook angles for rapid testing and audience segmentation",
+          "Google Ads responsive search headlines and description variations",
+          "Meta & TikTok feed-native primary text that feels organic and authentic",
+          "Clear, friction-free calls-to-action aligned with landing page messaging",
+          "Systematic ad copy refreshes to permanently eliminate creative fatigue"
+        ],
+        primaryCtaText: "Get High-ROAS Ad Copy",
+        primaryCtaLink: "/contact?service=ad-copy",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=ad-copy"
       },
       {
-        name: "HARO",
-        slug: "haro-services",
-        description: "Pitch journalist queries for press mentions.",
-        benefits: ["Monitor Help a Reporter queries daily", "Formulate expert medical/tech responses", "Earn high domain trust links"]
+        name: "Sales Copy",
+        slug: "sales-copy",
+        tagline: "Psychology-backed sales letters, VSLs, and landing pages that close deals.",
+        description: "For high-ticket offers, courses, and SaaS products, ordinary copy won't cut it. We craft deep-dive sales pages, pitch decks, and long-form sales letters using proven conversion psychology to dismantle objections and make buying the only logical choice.",
+        benefits: [
+          "Deep prospect psychological profiling and pain-point amplification",
+          "Irresistible offer structuring, stack presentation, and risk reversal",
+          "Comprehensive objection handling addressing price, timing, and trust",
+          "Compelling case study storytelling and social proof integration",
+          "Strategic multi-tiered CTA placements and urgency/guarantee frameworks",
+          "Long-form landing pages and Video Sales Letter (VSL) written scripts"
+        ],
+        primaryCtaText: "Order Sales Copy",
+        primaryCtaLink: "/contact?service=sales-copy",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=sales-copy"
       },
       {
-        name: "Social Media Content",
-        slug: "social-media-content",
-        description: "Vibrant visual schedules for social platforms.",
-        benefits: ["Design graphic asset groups in Figma", "Manage regular post schedules", "Build brand profile consistency"]
-      },
-      {
-        name: "Press Releases",
-        slug: "press-releases",
-        description: "Draft and distribute announcements.",
-        benefits: ["Draft official press launch copies", "Distribute to wire distribution chains", "Improve syndication visibility"]
+        name: "Video Scripts",
+        slug: "video-scripts",
+        tagline: "Engaging scripts for YouTube, TikTok, explainers, and video sales letters.",
+        description: "Video content lives or dies by its script. We write compelling, well-paced scripts for YouTube videos, viral TikTok/Reels, company explainer videos, and commercial ads with visual cues, retention-maximizing hooks, and seamless CTA transitions.",
+        benefits: [
+          "Attention-grabbing 3-second visual and audio hooks that prevent drop-off",
+          "Dual-column script formatting with exact spoken audio and on-screen visuals",
+          "Pacing calibrated for viewer watch-time and algorithm optimization",
+          "Storyboards and sound design cues integrated directly into the script",
+          "Scripts tailored for YouTube long-form, Shorts, TikTok & commercial ads"
+        ],
+        primaryCtaText: "Get Video Scripts",
+        primaryCtaLink: "/contact?service=video-scripts",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=video-scripts"
       }
     ]
   },

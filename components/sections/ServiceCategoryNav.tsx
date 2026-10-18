@@ -11,7 +11,7 @@ const serviceCategories = [
   { slug: "seo", label: "SEO Services", icon: Search },
   { slug: "ppc", label: "PPC & Paid Ads", icon: Target },
   { slug: "web-design-dev", label: "Web Design & Dev", icon: Layout },
-  { slug: "content-marketing", label: "Content Marketing", icon: PenTool },
+  { slug: "content-marketing", label: "Content Writing", icon: PenTool },
   { slug: "ai-automation", label: "AI Automation", icon: Cpu },
   { slug: "ai-video-production", label: "AI Video Production", icon: Video },
 ];

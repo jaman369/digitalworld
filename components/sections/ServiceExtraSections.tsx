@@ -39,12 +39,12 @@ const whyUsCardsMap: Record<string, { icon: string; title: string; desc: string 
     { icon: "🛡️", title: "Enterprise Hardening", desc: "Bank-level SSL security, automated daily cloud backups, and DDOS protection included." },
   ],
   "content-marketing": [
-    { icon: "✍️", title: "Buyer-Intent Copywriting", desc: "Long-form content written to solve user queries, build brand authority, and close sales." },
-    { icon: "🧠", title: "Topical Authority Mapping", desc: "Comprehensive pillar page and cluster content architecture to dominate search queries." },
-    { icon: "🔗", title: "Editorial Media Outreach", desc: "Digital PR campaigns securing backlinks from top authority news publications." },
-    { icon: "📧", title: "Automated Email Sequences", desc: "Nurturing email workflows that turn cold subscribers into high-paying clients." },
-    { icon: "📊", title: "Attribution Tracking", desc: "Clear reporting showing exact revenue generated from published content assets." },
-    { icon: "⚡", title: "Consistent Publishing", desc: "Strict editorial calendar management ensuring regular, high-impact content delivery." },
+    { icon: "✍️", title: "Conversion-First Copywriting", desc: "Every word is engineered to hook readers, eliminate friction, and drive high-intent commercial action." },
+    { icon: "🧠", title: "Topical Authority & SEO", desc: "In-depth blog articles and guides structured to rank on Google and capture qualified organic search traffic." },
+    { icon: "🎯", title: "Platform-Native Ad Copy", desc: "Scroll-stopping hooks, high-converting ad angles, and direct-response formulas built to lower CPA." },
+    { icon: "📧", title: "High-ROI Email Sequences", desc: "Automated onboarding, nurture, and sales email copy that converts subscribers into repeat buyers." },
+    { icon: "📦", title: "Persuasive Product Copy", desc: "Compelling e-commerce descriptions that highlight key benefits and accelerate purchase decisions." },
+    { icon: "⚡", title: "Fast Turnaround & Quality", desc: "Strict editorial standards, 100% human-crafted copy, and fast turnaround with transparent revisions." },
   ],
   "ai-automation": [
     { icon: "🤖", title: "Custom Fine-Tuned AI", desc: "AI models trained exclusively on your business documentation, knowledge bases, and FAQs." },
@@ -88,11 +88,11 @@ const processMap: Record<string, { step: string; title: string; desc: string }[]
     { step: "05", title: "QA Testing & Launch", desc: "Cross-browser testing, SSL setup, domain migration, and launch." },
   ],
   "content-marketing": [
-    { step: "01", title: "Audience & Intent Research", desc: "Identifying buyer questions, commercial keywords, and content gaps." },
-    { step: "02", title: "Topical Cluster Planning", desc: "Structuring pillar content and supporting article roadmaps." },
-    { step: "03", title: "High-Authority Writing", desc: "Crafting engaging, search-optimized articles and lead magnets." },
-    { step: "04", title: "Digital PR & Backlink Distribution", desc: "Promoting content to media outlets and industry publications." },
-    { step: "05", title: "Conversion Optimization", desc: "Adding CRO elements to convert article readers into active buyers." },
+    { step: "01", title: "Strategy & Audience Brief", desc: "Analyzing customer pain points, search intent, and brand voice guidelines." },
+    { step: "02", title: "Outline & Hook Structuring", desc: "Mapping irresistible hooks, clear value props, and conversion triggers." },
+    { step: "03", title: "Expert Copy & Content Writing", desc: "Drafting persuasive, SEO-optimized copy tailored for each platform and format." },
+    { step: "04", title: "Editorial Review & Polish", desc: "Grammar, clarity, flow, fact-checking, and conversion optimization checks." },
+    { step: "05", title: "Delivery & Performance Review", desc: "Delivering finalized copy with layout cues, meta tags, and A/B test angles." },
   ],
   "ai-automation": [
     { step: "01", title: "Workflow Bottleneck Audit", desc: "Mapping manual tasks, data entry bottlenecks, and API opportunities." },
@@ -137,12 +137,12 @@ const toolsMap: Record<string, { name: string; category: string }[]> = {
     { name: "Vercel Cloud", category: "Global Edge Hosting" },
   ],
   "content-marketing": [
-    { name: "Clearscope", category: "Content Grading" },
-    { name: "Klaviyo & HubSpot", category: "Email Automation" },
+    { name: "Clearscope & Surfer", category: "Content & SEO Tuning" },
     { name: "Grammarly Business", category: "Editorial Quality" },
-    { name: "Canva Pro", category: "Custom Visual Infographics" },
-    { name: "BuzzSumo", category: "Viral Content Trends" },
-    { name: "Google Docs & Notion", category: "Collaborative Editorial" },
+    { name: "Hemingway Editor", category: "Clarity & Readability" },
+    { name: "Google Search Console", category: "Search Intent Research" },
+    { name: "Notion & Google Docs", category: "Collaborative Editorial" },
+    { name: "Klaviyo & Mailchimp", category: "Email Formatting" },
   ],
   "ai-automation": [
     { name: "OpenAI GPT-4o API", category: "Generative Reasoning" },
@@ -180,9 +180,9 @@ const caseStudiesMap: Record<string, { title: string; metric: string; desc: stri
     { title: "E-Commerce Storefront", metric: "$1.2M Sales Scaled", desc: "Created custom Shopify Headless experience for peak traffic." },
   ],
   "content-marketing": [
-    { title: "Enterprise Blog Strategy", metric: "50+ Leads / Mo", desc: "Published targeted pillar content converting search visitors." },
-    { title: "HARO Digital PR Placement", metric: "DA 24 to 58", desc: "Secured high-authority media coverage in Forbes & TechCrunch." },
-    { title: "Email Nurture Automation", metric: "+22% Revenue Spike", desc: "Built lifecycle email sequences engaging repeat buyers." },
+    { title: "SaaS Blog Writing Program", metric: "+320% Organic Leads", desc: "Published 24 high-intent buyer articles ranking Page 1 in 6 months." },
+    { title: "E-Commerce Product Copy Redesign", metric: "+45% Cart Conversion", desc: "Rewrote 85 product descriptions focusing on benefits and emotional triggers." },
+    { title: "B2B Sales Email Sequence", metric: "41% Open & 3.8x Pipeline", desc: "Crafted automated 6-part cold-to-call email nurture sequence." },
   ],
   "ai-automation": [
     { title: "Customer Support AI Bot", metric: "78% Tickets Solved", desc: "Deployed custom RAG chatbot resolving tickets 24/7." },
@@ -217,10 +217,10 @@ const metricsMap: Record<string, { value: string; label: string; sub: string }[]
     { value: "100%", label: "Mobile Responsive", sub: "Optimized for all device displays" },
   ],
   "content-marketing": [
-    { value: "500+", label: "Pillar Articles Written", sub: "Targeting high-intent buyer intent" },
-    { value: "DA 50+", label: "Media Backlinks Secured", sub: "Via editorial PR outreach" },
-    { value: "+22%", label: "Email Revenue Growth", sub: "Generated from nurture sequences" },
-    { value: "100%", label: "Original Content", sub: "Researched and human-vetted" },
+    { value: "1,200+", label: "Articles & Assets Written", sub: "Covering blogs, web, ads, and email" },
+    { value: "+45%", label: "Average Conversion Lift", sub: "From website & landing page rewrites" },
+    { value: "100%", label: "Human-Crafted & Vetted", sub: "Plagiarism-free, verified writing" },
+    { value: "41%", label: "Average Email Open Rate", sub: "Across custom nurture campaigns" },
   ],
   "ai-automation": [
     { value: "78%", label: "Support Tickets Resolved", sub: "By automated RAG AI chatbots" },
@@ -267,10 +267,10 @@ const faqMap: Record<string, { q: string; a: string }[]> = {
     { q: "How long does a custom website build take?", a: "Standard 5-10 page custom websites take 3 to 4 weeks from Figma wireframes to live domain launch." },
   ],
   "content-marketing": [
-    { q: "Who writes the content for our site?", a: "Our team of experienced native writers and SEO strategists craft all articles, whitepapers, and email copy tailored specifically to your industry." },
-    { q: "How do you ensure the content ranks on Google?", a: "We use content grading tools like Clearscope and Surfer SEO to map search intent, keyword density, and topical cluster authority before publishing." },
-    { q: "What is Digital PR and HARO outreach?", a: "We pitch your brand as an expert source to journalists at top publications (like Forbes, TechCrunch, Business Insider) to earn high-DA editorial backlinks." },
-    { q: "Do you create email marketing newsletters?", a: "Yes! We design automated welcome, nurture, and promotional email sequences to convert article readers into active clients." },
+    { q: "Who writes the content and copy for our brand?", a: "Our team of specialized native copywriters and SEO editors crafts all articles, website copy, product descriptions, and email sequences tailored to your niche." },
+    { q: "How do you ensure blog articles rank on Google?", a: "We analyze competitor rankings, user search intent, and topical keyword clusters with tools like Clearscope and Surfer SEO before drafting, guaranteeing depth and search relevance." },
+    { q: "Can you adopt our company's unique brand voice?", a: "Yes. Before writing, we analyze your current assets, brand guidelines, and target customer psychology to ensure every line matches your tone and persona." },
+    { q: "What types of writing do you deliver?", a: "We provide blog writing, website copy, product descriptions, social media copy, email sequences, paid ad copy, sales pages, and video scripts." },
   ],
   "ai-automation": [
     { q: "Is our proprietary business data kept private?", a: "Yes 100%. We deploy private vector database nodes with enterprise encryption. Your data is never trained on public AI models." },
@@ -341,13 +341,14 @@ const processThemeMap: Record<string, CategoryHoverTheme> = {
 
 /* ──────── MAIN COMPONENT RENDER ──────── */
 export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceExtraSectionsProps) {
-  const whyUsCards = whyUsCardsMap[categorySlug] || whyUsCardsMap["seo"];
-  const steps = processMap[categorySlug] || processMap["seo"];
-  const tools = toolsMap[categorySlug] || toolsMap["seo"];
-  const caseStudies = caseStudiesMap[categorySlug] || caseStudiesMap["seo"];
-  const metrics = metricsMap[categorySlug] || metricsMap["seo"];
-  const faqs = faqMap[categorySlug] || faqMap["seo"];
-  const processTheme = processThemeMap[categorySlug] || processThemeMap["seo"];
+  const currentSlug = categorySlug === "content-writing" ? "content-marketing" : categorySlug;
+  const whyUsCards = whyUsCardsMap[currentSlug] || whyUsCardsMap["seo"];
+  const steps = processMap[currentSlug] || processMap["seo"];
+  const tools = toolsMap[currentSlug] || toolsMap["seo"];
+  const caseStudies = caseStudiesMap[currentSlug] || caseStudiesMap["seo"];
+  const metrics = metricsMap[currentSlug] || metricsMap["seo"];
+  const faqs = faqMap[currentSlug] || faqMap["seo"];
+  const processTheme = processThemeMap[currentSlug] || processThemeMap["seo"];
 
   /* ── Per-service highlight content (user-provided exact copy) ── */
   const highlightContentMap: Record<string, {
@@ -411,16 +412,29 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
       imagePath: "/images/15.png",
     },
     "content-marketing": {
-      title: "Create Content That Ranks, Engages & Sells",
-      description: "Turn ideas into content that attracts search traffic and moves customers toward action. Our SEO blog writing, email marketing, and content marketing approach combines search intent, valuable information, and conversion-focused messaging.",
-      subtitle: "We create and optimize your:",
+      title: "Content Writing That Ranks, Engages & Converts",
+      description: "Turn ideas into compelling copy and authoritative content that attracts search traffic and moves customers toward purchase. From blog posts and website copy to product descriptions, email sequences, and high-impact ad copy, we craft words that sell.",
+      subtitle: "We write and optimize your:",
       points: [
-        { emoji: "✍️", text: "SEO-optimized blog posts & content strategies" },
-        { emoji: "📧", text: "Email marketing & automated campaigns" },
-        { emoji: "🧩", text: "Content pillars, clusters & repurposing" },
-        { emoji: "📊", text: "CRO content & conversion-focused copy" },
+        { emoji: "✍️", text: "SEO blog writing & in-depth article guides" },
+        { emoji: "🌐", text: "High-converting website copy & landing pages" },
+        { emoji: "📦", text: "Persuasive product descriptions & e-commerce copy" },
+        { emoji: "📧", text: "Email sequences, ad copy, sales copy & video scripts" },
       ],
-      ctaText: "Create Better Content",
+      ctaText: "Get Content Writing Quote",
+      imagePath: "/images/13.png",
+    },
+    "content-writing": {
+      title: "Content Writing That Ranks, Engages & Converts",
+      description: "Turn ideas into compelling copy and authoritative content that attracts search traffic and moves customers toward purchase. From blog posts and website copy to product descriptions, email sequences, and high-impact ad copy, we craft words that sell.",
+      subtitle: "We write and optimize your:",
+      points: [
+        { emoji: "✍️", text: "SEO blog writing & in-depth article guides" },
+        { emoji: "🌐", text: "High-converting website copy & landing pages" },
+        { emoji: "📦", text: "Persuasive product descriptions & e-commerce copy" },
+        { emoji: "📧", text: "Email sequences, ad copy, sales copy & video scripts" },
+      ],
+      ctaText: "Get Content Writing Quote",
       imagePath: "/images/13.png",
     },
     "ai-automation": {
@@ -451,7 +465,7 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
     },
   };
 
-  const highlight = highlightContentMap[categorySlug] || highlightContentMap["seo"];
+  const highlight = highlightContentMap[currentSlug] || highlightContentMap["seo"];
 
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
