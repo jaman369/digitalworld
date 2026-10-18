@@ -145,7 +145,51 @@ export async function GET() {
     try { if (rec.whyUsCards) parsedWhyUsCards = JSON.parse(rec.whyUsCards); } catch {}
     try { if (rec.processSteps) parsedProcessSteps = JSON.parse(rec.processSteps); } catch {}
     try { if (rec.painPointsCards) parsedPainPointsCards = JSON.parse(rec.painPointsCards); } catch {}
-    try { if (rec.servicesCards) parsedServicesCards = JSON.parse(rec.servicesCards); } catch {}
+    try {
+      if (rec.servicesCards) {
+        let loaded = JSON.parse(rec.servicesCards);
+        if (Array.isArray(loaded)) {
+          let hasLegacy = false;
+          loaded = loaded.map((card: any) => {
+            if (card.slug === "china-sourcing" || (card.title && card.title.toLowerCase().includes("china"))) {
+              hasLegacy = true;
+              return {
+                id: "svc-cat-6",
+                slug: "ai-video-production",
+                title: "AI Video Production & Visual Media",
+                description: "Studio-quality explainer videos, product ads, UGC content, and AI avatars produced in hours.",
+                iconName: "Video",
+                popularTag: "High ROI",
+                subItems: ["AI Explainer & Promo Videos", "AI Product Ads", "AI UGC-Style Videos", "AI Avatar & Spokesperson Videos", "AI Short-Form Content", "AI Voiceover & Multilingual Dubbing", "AI Real Estate & Property Videos", "AI Video Repurposing"],
+              };
+            }
+            if (card.slug === "content-marketing" && (card.title !== "Content Writing" || card.subItems?.length !== 8)) {
+              hasLegacy = true;
+              return {
+                ...card,
+                title: "Content Writing",
+                subItems: ["Blog Writing", "Website Copy", "Product Descriptions", "Social Media Copy", "Email Copy", "Ad Copy", "Sales Copy", "Video Scripts"],
+              };
+            }
+            return card;
+          });
+          parsedServicesCards = loaded;
+
+          if (hasLegacy) {
+            const updatedJson = JSON.stringify(loaded);
+            db.homepageContent.update({
+              where: { id: "default" },
+              data: { servicesCards: updatedJson },
+            }).catch(() => {});
+            supabaseAdmin
+              .from("HomepageContent")
+              .update({ servicesCards: updatedJson })
+              .eq("id", "default")
+              .then(() => {});
+          }
+        }
+      }
+    } catch {}
 
     return NextResponse.json({
       heroTagline: rec.heroTagline || defaultHomepageData.heroTagline,
