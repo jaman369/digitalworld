@@ -150,33 +150,41 @@ export default async function CategoryPage({ params }: PageProps) {
   // 1. Fetch static fallback
   const staticCategory = servicesData.find((c) => c.slug === categorySlug);
 
-  // 2. Fetch CMS override from DB
-  let cmsCategory = null;
-  try {
-    const found = await db.servicePage.findFirst({
-      where: { slug: categorySlug },
-    });
-    if (found) {
-      cmsCategory = {
-        title: found.name,
-        description: found.description,
-        iconName: "Search",
-        subItems: typeof found.benefits === "string" ? JSON.parse(found.benefits) : [],
-      };
-    }
-  } catch (err) {
-    console.error("DB fetch error in category page:", err);
-  }
-
-  if (!staticCategory && !cmsCategory) {
+  if (!staticCategory) {
     notFound();
   }
 
-  const title = cmsCategory?.title || staticCategory?.title || "";
-  const description = cmsCategory?.description || staticCategory?.description || "";
-  const subItems: SubItem[] = (cmsCategory?.subItems && cmsCategory.subItems.length > 0)
-    ? (cmsCategory.subItems as SubItem[])
-    : (staticCategory?.subItems || []);
+  const title = (categorySlug === "content-marketing" || categorySlug === "content-writing")
+    ? "Content Writing"
+    : staticCategory.title;
+
+  const description = staticCategory.description;
+
+  // 2. Fetch sub-services from DB (CMS) with fallback to static servicesData
+  let subItems: SubItem[] = staticCategory.subItems;
+  try {
+    const categoryNamesToQuery = [staticCategory.title];
+    if (categorySlug === "content-marketing" || categorySlug === "content-writing") {
+      categoryNamesToQuery.push("Content Writing", "Content & Marketing");
+    }
+
+    const dbSubPages = await db.servicePage.findMany({
+      where: {
+        categoryName: { in: categoryNamesToQuery }
+      },
+      orderBy: { sortOrder: "asc" }
+    });
+
+    if (dbSubPages && dbSubPages.length > 0) {
+      subItems = dbSubPages.map((p) => ({
+        name: p.name,
+        slug: p.slug,
+        description: p.description,
+      }));
+    }
+  } catch (err) {
+    console.error("DB fetch error in category page, falling back to static servicesData:", err);
+  }
 
   const override = heroOverrides[categorySlug] || {
     eyebrow: title,
