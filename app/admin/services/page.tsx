@@ -276,7 +276,7 @@ export default function AdminServicesPage() {
             Service Content CMS
           </h1>
           <p className="font-sans text-xs text-neutral-500">
-            Easily update titles, copy blocks, image links, alt tags, benefits, and CTAs across all 50 service tracks.
+            Easily update titles, copy blocks, image links, alt tags, benefits, and CTAs across all {services.length || 48} service tracks.
           </p>
         </div>
 

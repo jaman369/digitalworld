@@ -320,6 +320,37 @@ export default async function CategoryPage({ params }: PageProps) {
                     <span id="haro-services" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
                   </>
                 )}
+                {sub.slug === "ai-lead-automation" && (
+                  <>
+                    <span id="lead-generation-automation" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                    <span id="lead-scoring-automation" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                    <span id="lead-scoring" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                  </>
+                )}
+                {sub.slug === "crm-automation" && (
+                  <span id="crm-integration" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                )}
+                {sub.slug === "ai-customer-support" && (
+                  <>
+                    <span id="ai-chatbot-development" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                    <span id="chatbot-development" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                    <span id="chatbot" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                  </>
+                )}
+                {sub.slug === "workflow-automation" && (
+                  <span id="ai-agent-development" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                )}
+                {sub.slug === "mcp-integrations" && (
+                  <span id="custom-ai-solutions" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                )}
+                {sub.slug === "rag-knowledge-base" && (
+                  <>
+                    <span id="ai-content-tools" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                    <span id="ai-content-automation" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                    <span id="ai-seo-automation" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                    <span id="ai-analytics-reporting" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                  </>
+                )}
                 <div>
                   <span className="font-mono text-xs font-bold text-[#0076FF] block mb-3">
                     {String(idx + 1).padStart(2, "0")} — CAPABILITY

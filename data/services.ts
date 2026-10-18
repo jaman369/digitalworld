@@ -616,68 +616,152 @@ export const servicesData: ServiceCategory[] = [
     id: "ai-automation",
     slug: "ai-automation",
     title: "AI Automation",
-    description: "Integrate custom intelligent agents and workflows.",
+    description: "Integrate custom intelligent agents, voice bots, and automated workflows.",
     iconName: "Cpu",
     subItems: [
       {
-        name: "AI Chatbot Development",
-        slug: "ai-chatbot-development",
-        description: "Conversational customer engagement solutions.",
-        benefits: ["Setup RAG system mapping to site documentation", "Seamless hand-off to support teams", "Custom widget designs and brand checks"]
-      },
-      {
-        name: "AI Agent Development",
-        slug: "ai-agent-development",
-        description: "Autonomous task execution engines.",
-        benefits: ["Program custom task sequences", "Integrate LLM API nodes securely", "Verify logic and state transitions"]
-      },
-      {
-        name: "Lead Generation Automation",
-        slug: "lead-generation-automation",
-        description: "Scrape and route new prospective client details.",
-        benefits: ["Automate database collection flows", "Enrich leads with social profile stats", "Deliver details directly to team slacks"]
+        name: "AI Lead Automation",
+        slug: "ai-lead-automation",
+        tagline: "Autonomous lead capture, enrichment, and qualification on autopilot.",
+        description: "Deploy autonomous AI lead pipelines that discover, scrape, enrich, and qualify high-intent prospective buyers 24/7 without manual sales rep intervention.",
+        benefits: [
+          "Automated B2B lead scraping & intent data monitoring across target markets",
+          "Real-time contact enrichment with LinkedIn, verified emails & firmographic data",
+          "AI qualification scoring & instant SDR routing to Slack, Teams, or CRM",
+          "Multi-channel outbound sequences with dynamic personalization",
+          "High-intent buying signal detection (funding rounds, hiring, tech stack shifts)",
+          "Seamless CRM auto-sync with 100% data hygiene and zero manual entry"
+        ],
+        primaryCtaText: "Automate My Leads",
+        primaryCtaLink: "/contact?service=ai-lead-automation",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=ai-lead-automation"
       },
       {
         name: "CRM Automation",
         slug: "crm-automation",
-        description: "Sync client profiles across pipeline trackers.",
-        benefits: ["Setup HubSpot, Salesforce, or Zoho triggers", "Auto-update pipeline deal statuses", "Sync forms submissions instantly"]
+        tagline: "Flawless end-to-end data pipelines across HubSpot, Salesforce & Zoho.",
+        description: "Connect and synchronize your entire sales and marketing stack with custom bi-directional CRM automation workflows that update pipeline stages, log interactions, and eliminate data silos.",
+        benefits: [
+          "Bi-directional sync across HubSpot, Salesforce, Zoho, and Pipedrive",
+          "Automated pipeline deal stage progression & activity logging",
+          "Webhook & API integrations connecting custom forms & landing pages",
+          "Contact deduplication, data cleansing, and standardized data models",
+          "Automated task generation and SLA reminder triggers for sales teams",
+          "Comprehensive revenue attribution & closed-loop reporting"
+        ],
+        primaryCtaText: "Integrate My CRM",
+        primaryCtaLink: "/contact?service=crm-automation",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=crm-automation"
       },
       {
-        name: "Workflow Automation",
-        slug: "workflow-automation",
-        description: "Automate repetitive administrative tasks.",
-        benefits: ["Setup Make.com or Zapier blueprints", "Minimize manual data entries", "Establish secure API pipelines"]
+        name: "WhatsApp Automation",
+        slug: "whatsapp-automation",
+        tagline: "Scale conversational commerce and customer support on WhatsApp.",
+        description: "Build intelligent WhatsApp bots with the official Meta Cloud API to automate customer onboarding, broadcast campaigns, booking confirmations, and immediate sales inquiries.",
+        benefits: [
+          "Official WhatsApp Business API setup & verified green tick guidance",
+          "Intelligent interactive chatbots for FAQs, orders & lead capture",
+          "Automated order tracking, appointment scheduling & payment links",
+          "Broadcast messaging & segmented opt-in promotional campaigns",
+          "Human agent handoff with multi-agent collaborative inbox support",
+          "Seamless integration with CRM, e-commerce, and ERP systems"
+        ],
+        primaryCtaText: "Launch WhatsApp Bot",
+        primaryCtaLink: "/contact?service=whatsapp-automation",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=whatsapp-automation"
+      },
+      {
+        name: "AI Voice Agents",
+        slug: "ai-voice-agents",
+        tagline: "Ultra-realistic conversational voice bots for inbound and outbound calls.",
+        description: "Deploy ultra-low latency, natural-sounding AI voice agents powered by modern speech-to-speech models to qualify inbound callers, schedule appointments, and follow up with leads.",
+        benefits: [
+          "Sub-second latency conversational AI with human-like prosody and intonation",
+          "Inbound call handling: 24/7 reception, FAQs, and appointment booking",
+          "Outbound lead qualification calls & event attendance confirmation",
+          "Real-time call transcription, sentiment analysis & CRM logging",
+          "Native VoIP integration with Twilio, SIP trunks & existing PBX",
+          "Multilingual voice support with regional accent calibration"
+        ],
+        primaryCtaText: "Deploy Voice Agent",
+        primaryCtaLink: "/contact?service=ai-voice-agents",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=ai-voice-agents"
       },
       {
         name: "AI Customer Support",
         slug: "ai-customer-support",
-        description: "24/7 client response automation.",
-        benefits: ["Handle ticket categorizations automatically", "Generate smart draft replies based on docs", "Reduce ticket response time by 80%"]
+        tagline: "24/7 omnichannel customer service with 80%+ instant resolution.",
+        description: "Transform support operations with context-aware AI support agents that resolve tier-1 and tier-2 tickets across Zendesk, Intercom, Freshdesk, email, and website live chat.",
+        benefits: [
+          "Instant ticket resolution for common inquiries, order status, and returns",
+          "Contextual retrieval based on your internal knowledge base and policies",
+          "Sentiment-aware routing and warm escalations to human agents",
+          "Multi-channel unified support across website chat, email, and social",
+          "Automated draft generation for complex tickets to assist human agents",
+          "Support analytics: CSAT tracking, resolution rates & latency metrics"
+        ],
+        primaryCtaText: "Automate Support",
+        primaryCtaLink: "/contact?service=ai-customer-support",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=ai-customer-support"
       },
       {
-        name: "AI Content Automation",
-        slug: "ai-content-automation",
-        description: "Scaled content production templates.",
-        benefits: ["Create programmatic outlines and posts", "Verify copy with human editors", "Configure auto-publishing integrations"]
+        name: "Workflow Automation",
+        slug: "workflow-automation",
+        tagline: "Eliminate repetitive tasks and streamline operations across your company.",
+        description: "Design and implement resilient, complex multi-step automations using Make.com, n8n, Zapier, and custom serverless functions to eliminate human error and scale operations.",
+        benefits: [
+          "Complex logic design: branching, error handling, retries, and data formatting",
+          "Deep integrations with Make.com, n8n (self-hosted), and Zapier",
+          "Custom API wrappers, webhooks & serverless microservices",
+          "Automated document generation, invoice processing, and contract approvals",
+          "Cross-departmental operational handoffs (Sales -> Onboarding -> Finance)",
+          "99.9% uptime monitoring and automated failure alerts"
+        ],
+        primaryCtaText: "Automate Workflows",
+        primaryCtaLink: "/contact?service=workflow-automation",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=workflow-automation"
       },
       {
-        name: "AI SEO Automation",
-        slug: "ai-seo-automation",
-        description: "Automated ranking audits and checks.",
-        benefits: ["Audit rank deviations dynamically", "Automated title tag optimization cycles", "Identify technical index shifts"]
+        name: "MCP Integrations",
+        slug: "mcp-integrations",
+        tagline: "Model Context Protocol servers connecting LLMs directly to your tools.",
+        description: "Build secure, production-grade Model Context Protocol (MCP) servers and clients that give AI agents and LLMs real-time access to your databases, APIs, codebases, and SaaS platforms.",
+        benefits: [
+          "Custom MCP server development for proprietary databases and internal APIs",
+          "Seamless integration with Claude Desktop, Cursor, and autonomous agent loops",
+          "Secure authentication, permission scoping, and sandboxed tool execution",
+          "Standardized resource templates and real-time schema discovery",
+          "Bi-directional data streaming and structured tool calling workflows",
+          "Enterprise-grade logging, audit trails, and compliance guardrails"
+        ],
+        primaryCtaText: "Build MCP Servers",
+        primaryCtaLink: "/contact?service=mcp-integrations",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=mcp-integrations"
       },
       {
-        name: "Custom AI Solutions",
-        slug: "custom-ai-solutions",
-        description: "Custom built machine learning architectures.",
-        benefits: ["Fine-tune custom model structures", "Integrate local private database nodes", "Setup security compliance parameters"]
-      },
-      {
-        name: "AI Analytics & Reporting",
-        slug: "ai-analytics-reporting",
-        description: "Dynamic reporting dashboards.",
-        benefits: ["Predict customer behaviors and trends", "Summarize complex conversion reports", "Setup anomaly alerts"]
+        name: "RAG Knowledge Base",
+        slug: "rag-knowledge-base",
+        tagline: "Grounded enterprise intelligence with zero hallucinations.",
+        description: "Engineered Retrieval-Augmented Generation (RAG) pipelines that ingest company documents, PDFs, manuals, and databases to deliver accurate, citation-backed answers to internal teams and clients.",
+        benefits: [
+          "Multi-format ingestion: PDFs, Notion, Confluence, Google Docs & SQL DBs",
+          "Advanced chunking strategies, semantic embedding models & vector stores",
+          "Hybrid search: vector semantic similarity + BM25 keyword reranking",
+          "Strict hallucination prevention with source document citation tags",
+          "Role-based access control (RBAC) ensuring users only see authorized data",
+          "Continuous indexing pipelines to keep knowledge bases real-time fresh"
+        ],
+        primaryCtaText: "Build Knowledge Base",
+        primaryCtaLink: "/contact?service=rag-knowledge-base",
+        secondaryCtaText: "Case Study",
+        secondaryCtaLink: "/portfolio?service=rag-knowledge-base"
       }
     ]
   },
