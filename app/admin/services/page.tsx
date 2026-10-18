@@ -35,12 +35,12 @@ const CATEGORIES = [
 // Helper to map category name to website route slug
 function getCategoryRoute(catName: string): string {
   const lower = catName.toLowerCase();
-  if (lower.includes("seo")) return "seo";
-  if (lower.includes("ppc") || lower.includes("paid")) return "ppc";
-  if (lower.includes("web") || lower.includes("design")) return "web-design-dev";
-  if (lower.includes("content") || lower.includes("marketing") || lower.includes("writing")) return "content-marketing";
   if (lower.includes("video")) return "ai-video-production";
-  if (lower.includes("ai") || lower.includes("automation")) return "ai-automation";
+  if (lower.includes("automation")) return "ai-automation";
+  if (lower.includes("content") || lower.includes("marketing") || lower.includes("writing")) return "content-marketing";
+  if (lower.includes("web") || lower.includes("design") || lower.includes("dev")) return "web-design-dev";
+  if (lower.includes("ppc") || lower.includes("paid")) return "ppc";
+  if (lower.includes("seo")) return "seo";
   return "seo";
 }
 
@@ -233,15 +233,18 @@ export default function AdminServicesPage() {
         svc.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
         svc.slug.toLowerCase().includes(searchQuery.toLowerCase());
       
+      const cat = svc.categoryName.toLowerCase().trim();
+      const tab = selectedTab.toLowerCase().trim();
+
       const matchesTab =
         selectedTab === "All" ||
-        svc.categoryName.toLowerCase().trim().includes(selectedTab.toLowerCase().trim()) ||
-        (selectedTab === "SEO" && svc.categoryName.toLowerCase().includes("seo")) ||
-        (selectedTab === "PPC / Paid Ads" && svc.categoryName.toLowerCase().includes("ppc")) ||
-        (selectedTab === "Web Design & Development" && svc.categoryName.toLowerCase().includes("web")) ||
-        (selectedTab === "Content Writing" && (svc.categoryName.toLowerCase().includes("content") || svc.categoryName.toLowerCase().includes("writing"))) ||
-        (selectedTab === "AI Automation" && svc.categoryName.toLowerCase().includes("automation")) ||
-        (selectedTab === "AI Video Production" && (svc.categoryName.toLowerCase().includes("video") || svc.categoryName.toLowerCase().includes("production")));
+        cat === tab ||
+        (selectedTab === "SEO" && cat.includes("seo")) ||
+        (selectedTab === "PPC / Paid Ads" && (cat.includes("ppc") || cat.includes("paid"))) ||
+        (selectedTab === "Web Design & Development" && (cat.includes("web") || cat.includes("dev"))) ||
+        (selectedTab === "Content Writing" && (cat.includes("content") || cat.includes("writing"))) ||
+        (selectedTab === "AI Automation" && (cat.includes("automation") || cat === "ai automation")) ||
+        (selectedTab === "AI Video Production" && (cat.includes("video") || cat.includes("production")));
 
       return matchesSearch && matchesTab;
     })
@@ -264,7 +267,7 @@ export default function AdminServicesPage() {
             Service Content CMS
           </h1>
           <p className="font-sans text-xs text-neutral-500">
-            Easily update titles, copy blocks, image links, alt tags, benefits, and CTAs across all 51 service tracks.
+            Easily update titles, copy blocks, image links, alt tags, benefits, and CTAs across all 50 service tracks.
           </p>
         </div>
 

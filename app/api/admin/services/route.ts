@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
+import crypto from "crypto";
 import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { supabaseAdmin } from "@/lib/supabase/admin";
 import { servicesData } from "@/data/services";
 
 export const dynamic = "force-dynamic";
@@ -18,41 +20,27 @@ export async function GET() {
       dbServices = await db.servicePage.findMany({
         orderBy: { sortOrder: "asc" },
       });
-
-      // Auto-seed PostgreSQL database if empty
-      if (dbServices.length === 0) {
-        let orderIndex = 1;
-        for (const cat of servicesData) {
-          for (const sub of cat.subItems) {
-            await db.servicePage.upsert({
-              where: { slug: sub.slug },
-              update: {},
-              create: {
-                name: sub.name,
-                slug: sub.slug,
-                categoryName: cat.title,
-                sortOrder: orderIndex,
-                tagline: sub.tagline || "",
-                description: sub.description || "",
-                benefits: JSON.stringify(sub.benefits || []),
-                primaryCtaText: sub.primaryCtaText || "Get Started",
-                primaryCtaLink: sub.primaryCtaLink || `/contact?service=${sub.slug}`,
-                secondaryCtaText: sub.secondaryCtaText || null,
-                secondaryCtaLink: sub.secondaryCtaLink || null,
-              },
-            }).catch(() => {});
-            orderIndex++;
-          }
-        }
-        dbServices = await db.servicePage.findMany({
-          orderBy: { sortOrder: "asc" },
-        }).catch(() => []);
-      }
     } catch (dbErr) {
-      console.error("DB services GET error:", dbErr);
+      console.warn("Prisma GET services error, attempting supabaseAdmin fallback:", dbErr);
     }
 
-    if (dbServices.length === 0) {
+    // Direct Supabase fallback
+    if (!dbServices || dbServices.length === 0) {
+      try {
+        const { data: supaServices } = await supabaseAdmin
+          .from("ServicePage")
+          .select("*")
+          .order("sortOrder", { ascending: true });
+        if (supaServices && supaServices.length > 0) {
+          dbServices = supaServices;
+        }
+      } catch (supaErr) {
+        console.error("Supabase direct GET error:", supaErr);
+      }
+    }
+
+    // Static fallback if database has no rows
+    if (!dbServices || dbServices.length === 0) {
       let orderIdx = 1;
       const fallbackList = [];
       for (const cat of servicesData) {
@@ -130,23 +118,58 @@ export async function POST(request: Request) {
       faqItems: typeof faqItems === "string" ? faqItems : JSON.stringify(faqItems || []),
     };
 
-    const dbRecord = await db.servicePage.upsert({
-      where: { slug },
-      update: updateData,
-      create: {
-        slug,
-        ...updateData,
-      },
-    });
+    let dbRecord: unknown = null;
+    try {
+      dbRecord = await db.servicePage.upsert({
+        where: { slug },
+        update: updateData,
+        create: {
+          slug,
+          ...updateData,
+        },
+      });
+    } catch (prismaErr) {
+      console.warn("Prisma upsert failed, falling back to supabaseAdmin:", prismaErr);
+    }
+
+    // Direct Supabase fallback
+    if (!dbRecord) {
+      try {
+        const { data: existing } = await supabaseAdmin
+          .from("ServicePage")
+          .select("id")
+          .eq("slug", slug)
+          .maybeSingle();
+
+        const payload = {
+          id: existing?.id || crypto.randomUUID(),
+          slug,
+          ...updateData,
+          updatedAt: new Date().toISOString(),
+        };
+
+        const { data: savedRecord, error: supaErr } = await supabaseAdmin
+          .from("ServicePage")
+          .upsert(payload, { onConflict: "slug" })
+          .select()
+          .single();
+
+        if (supaErr) throw supaErr;
+        dbRecord = savedRecord;
+      } catch (supaErr) {
+        console.error("Supabase direct upsert error:", supaErr);
+      }
+    }
 
     try {
       revalidatePath("/services/[category]");
+      revalidatePath("/admin/services");
       revalidatePath("/", "layout");
     } catch (revalErr) {
       console.error("Revalidate cache error:", revalErr);
     }
 
-    return NextResponse.json(dbRecord);
+    return NextResponse.json(dbRecord || { slug, ...updateData });
   } catch (error) {
     console.error("Save service error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

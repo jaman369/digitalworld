@@ -14,13 +14,13 @@ export default async function AdminDashboardPage() {
     db.redirect.count().catch(() => 0),
   ]);
 
-  const servicesCount = servicesData.length;
+  const totalTracksCount = servicesData.reduce((acc, cat) => acc + cat.subItems.length, 0);
 
   const kpis = [
     { name: "Active Leads", value: leadsCount, label: "Total inquiries", icon: Icons.Inbox, color: "text-blue-600 bg-blue-50 border-blue-100", href: "/admin/leads" },
     { name: "Blog Articles", value: postsCount, label: "Published & drafts", icon: Icons.FileText, color: "text-indigo-600 bg-indigo-50 border-indigo-100", href: "/admin/blog" },
     { name: "Portfolio Studies", value: portfolioCount, label: "Client achievements", icon: Icons.Briefcase, color: "text-amber-600 bg-amber-50 border-amber-100", href: "/admin/portfolio" },
-    { name: "Service Pages", value: servicesCount, label: "Active categories", icon: Icons.Layers, color: "text-emerald-600 bg-emerald-50 border-emerald-100", href: "/admin/services" },
+    { name: "Service Tracks", value: totalTracksCount, label: `${servicesData.length} active categories`, icon: Icons.Layers, color: "text-emerald-600 bg-emerald-50 border-emerald-100", href: "/admin/services" },
     { name: "SEO Redirects", value: redirectsCount, label: "Active 301 paths", icon: Icons.Compass, color: "text-purple-600 bg-purple-50 border-purple-100", href: "/admin/settings" },
   ];
 

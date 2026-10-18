@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { supabaseAdmin } from "@/lib/supabase/admin";
 
 export const dynamic = "force-dynamic";
 
@@ -104,6 +105,17 @@ export async function GET() {
     }
 
     if (!record) {
+      try {
+        const { data: supaRow } = await supabaseAdmin
+          .from("HomepageContent")
+          .select("*")
+          .eq("id", "default")
+          .maybeSingle();
+        if (supaRow) record = supaRow;
+      } catch {}
+    }
+
+    if (!record) {
       return NextResponse.json(defaultHomepageData);
     }
 
@@ -122,11 +134,11 @@ export async function GET() {
     ];
     let parsedServicesCards = [
       { id: "svc-cat-1", slug: "seo", title: "Search Engine Optimization (SEO)", description: "Rank #1 on Google for high-intent search terms driving sustainable organic revenue.", iconName: "Search", popularTag: "Most Popular", subItems: ["Local SEO", "Ecommerce SEO", "International SEO", "SaaS SEO", "Semantic SEO", "Ai SEO", "Link Building", "Technical SEO"] },
-      { id: "svc-cat-2", slug: "ppc", title: "PPC & Paid Search Advertising", description: "Data-driven ad campaigns targeting bottom-of-funnel buyers with maximum ROI.", iconName: "TrendingUp", popularTag: "High ROI", subItems: ["Google Search & Shopping Ads", "Meta (Facebook & IG) Ads", "LinkedIn B2B Advertising", "TikTok & Video Ads", "Retargeting & Remarketing", "Conversion Rate Optimization (CRO)"] },
-      { id: "svc-cat-3", slug: "web-design-dev", title: "Web Design & Custom Development", description: "High-converting, ultra-fast websites built for speed, SEO, and lead capture.", iconName: "Code2", popularTag: "Turnkey", subItems: ["WordPress Development", "Shopify & Ecommerce Stores", "Custom Web Application Dev", "Landing Page CRO", "Website Speed Optimization", "UI/UX Redesign"] },
-      { id: "svc-cat-4", slug: "content-marketing", title: "Content Marketing & Authority Strategy", description: "Engaging, SEO-optimized content that positions your brand as an industry leader.", iconName: "FileText", popularTag: "Authority", subItems: ["SEO Blog & Article Writing", "Thought Leadership Content", "Copywriting & Sales Pages", "Infographics & Visual Content", "Content Audit & Strategy", "Ebooks & Whitepapers"] },
-      { id: "svc-cat-5", slug: "ai-automation", title: "AI & Workflow Automation", description: "Custom AI agents and automated workflows to streamline operations and lead follow-up.", iconName: "Cpu", popularTag: "AI Powered", subItems: ["AI Lead Qualification Agents", "CRM & Sales Pipeline Automation", "Chatbot & Voice Agent Setup", "Marketing Automation", "Custom AI Integrations", "Data & Analytics Automation"] },
-      { id: "svc-cat-6", slug: "ai-video-production", title: "AI Video Production & Visual Media", description: "Studio-quality explainer videos, product ads, UGC content, and AI avatars produced in hours.", iconName: "Video", popularTag: "High ROI", subItems: ["AI Explainer & Promo Videos", "AI Product Ads", "AI UGC-Style Videos", "AI Avatar & Spokesperson Videos", "AI Short-Form Content", "AI Voiceover & Dubbing"] },
+      { id: "svc-cat-2", slug: "ppc", title: "PPC & Paid Search Advertising", description: "Data-driven ad campaigns targeting bottom-of-funnel buyers with maximum ROI.", iconName: "TrendingUp", popularTag: "High ROI", subItems: ["Google Ads", "Facebook Ads", "Instagram Ads", "Youtube Ads", "TikTok Ads", "Linkedin Ads", "Pinterest Ads", "X Ads"] },
+      { id: "svc-cat-3", slug: "web-design-dev", title: "Web Design & Custom Development", description: "High-converting, ultra-fast websites built for speed, SEO, and lead capture.", iconName: "Code2", popularTag: "Turnkey", subItems: ["Website Design (UI/UX)", "WordPress Development", "Shopify Development", "Landing Page Design", "Website Speed Optimization", "Website Maintenance", "Website Migration", "CMS Setup"] },
+      { id: "svc-cat-4", slug: "content-marketing", title: "Content Writing", description: "Authoritative content and persuasive copy that rank on Google and convert visitors into buyers.", iconName: "FileText", popularTag: "Authority", subItems: ["Blog Writing", "Website Copy", "Product Descriptions", "Social Media Copy", "Email Copy", "Ad Copy", "Sales Copy", "Video Scripts"] },
+      { id: "svc-cat-5", slug: "ai-automation", title: "AI & Workflow Automation", description: "Custom AI agents and automated workflows to streamline operations and lead follow-up.", iconName: "Cpu", popularTag: "AI Powered", subItems: ["AI Chatbot Development", "AI Agent Development", "Lead Generation Automation", "CRM Automation", "Workflow Automation", "AI Customer Support", "AI Content Automation", "Custom AI Solutions"] },
+      { id: "svc-cat-6", slug: "ai-video-production", title: "AI Video Production & Visual Media", description: "Studio-quality explainer videos, product ads, UGC content, and AI avatars produced in hours.", iconName: "Video", popularTag: "High ROI", subItems: ["AI Explainer & Promo Videos", "AI Product Ads", "AI UGC-Style Videos", "AI Avatar & Spokesperson Videos", "AI Short-Form Content", "AI Voiceover & Multilingual Dubbing", "AI Real Estate & Property Videos", "AI Video Repurposing"] },
     ];
 
     try { if (rec.stats) parsedStats = JSON.parse(rec.stats); } catch {}
@@ -345,7 +357,18 @@ export async function POST(request: Request) {
     }
 
     try {
+      await supabaseAdmin.from("HomepageContent").upsert({
+        id: "default",
+        ...dataToSave,
+        updatedAt: new Date().toISOString(),
+      }, { onConflict: "id" });
+    } catch (supaErr) {
+      console.warn("Supabase direct upsert for HomepageContent error:", supaErr);
+    }
+
+    try {
       revalidatePath("/");
+      revalidatePath("/admin/homepage");
     } catch {}
 
     const safeResponse = JSON.parse(JSON.stringify({ success: true, data: record || {} }));
