@@ -160,27 +160,26 @@ export default async function CategoryPage({ params }: PageProps) {
 
   const description = staticCategory.description;
 
-  // 2. Fetch sub-services from DB (CMS) with fallback to static servicesData
+  // 2. Fetch sub-services from DB (CMS) mapped to the category's subItems
   let subItems: SubItem[] = staticCategory.subItems;
   try {
-    const categoryNamesToQuery = [staticCategory.title];
-    if (categorySlug === "content-marketing" || categorySlug === "content-writing") {
-      categoryNamesToQuery.push("Content Writing", "Content & Marketing");
-    }
-
+    const targetSlugs = staticCategory.subItems.map((s) => s.slug);
     const dbSubPages = await db.servicePage.findMany({
       where: {
-        categoryName: { in: categoryNamesToQuery }
-      },
-      orderBy: { sortOrder: "asc" }
+        slug: { in: targetSlugs }
+      }
     });
 
     if (dbSubPages && dbSubPages.length > 0) {
-      subItems = dbSubPages.map((p) => ({
-        name: p.name,
-        slug: p.slug,
-        description: p.description,
-      }));
+      subItems = staticCategory.subItems.map((sub) => {
+        const dbSvc = dbSubPages.find((s) => s.slug === sub.slug);
+        if (!dbSvc) return sub;
+        return {
+          ...sub,
+          name: dbSvc.name || sub.name,
+          description: dbSvc.description || sub.description,
+        };
+      });
     }
   } catch (err) {
     console.error("DB fetch error in category page, falling back to static servicesData:", err);
