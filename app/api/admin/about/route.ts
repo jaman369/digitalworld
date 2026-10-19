@@ -2,26 +2,51 @@ import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { supabaseAdmin } from "@/lib/supabase/admin";
 
 export const dynamic = "force-dynamic";
 
 const defaultAboutData = {
   name: "Kamrujjaman Mufti",
-  title: "Digital Marketing Expert & Web Developer",
-  bioParagraph1: "Full-service digital marketing expert with 5 years of hands-on experience helping businesses of all sizes grow through SEO, web development, paid ads, and content marketing.",
-  bioParagraph2: "Every project I take on is treated as a partnership, where your success is my success.",
+  title: "Founder of Digital World",
+  bioParagraph1:
+    "I'm Kamrujjaman Mufti, founder of Digital World, a digital marketing agency based in Dhaka, Bangladesh. With 5+ years of experience, I help businesses grow through SEO, AEO, GEO, paid advertising, web development, content marketing, and AI-powered solutions.",
+  bioParagraph2:
+    "My approach is simple: understand the business, identify the right opportunities, and build digital strategies around meaningful growth.",
   imagePath: "/images/23.png",
   timeline: [
-    { years: "2019 - Present", role: "Digital Marketing Expert & Founder", company: "Digital World Agency" },
-    { years: "2021 - Present", role: "Senior SEO & PPC Strategist", company: "Global Client Portfolio" },
-    { years: "2020 - 2022", role: "Full-Stack Web Developer", company: "Enterprise Clients" },
+    {
+      years: "2026 – Present",
+      role: "AI Automation",
+      company: "Exploring AI-powered workflows, intelligent agents, and business process automation."
+    },
+    {
+      years: "2024 – 2026",
+      role: "Digital Marketing Expert",
+      company: "Bringing digital marketing expertise together through KJ Digital World."
+    },
+    {
+      years: "2022 – 2024",
+      role: "SEO & Paid Ads",
+      company: "Expanding into search engine optimization and paid advertising."
+    },
+    {
+      years: "2021 – 2022",
+      role: "Web Development",
+      company: "Developing an understanding of websites, user experience, and website performance."
+    },
+    {
+      years: "2020 – 2021",
+      role: "The Beginning",
+      company: "Building a foundation in digital marketing and learning the fundamentals of online growth."
+    }
   ],
   metrics: [
     { numericValue: 150, suffix: "+", label: "Projects Completed" },
     { numericValue: 120, suffix: "+", label: "Happy Clients" },
-    { numericValue: 5, suffix: "+", label: "Years Experience" },
-    { numericValue: 11, suffix: "+", label: "Countries Served" },
-  ],
+    { numericValue: 5, suffix: "+", label: "Years of Experience" },
+    { numericValue: 11, suffix: "+", label: "Countries Served" }
+  ]
 };
 
 export async function GET() {
@@ -31,33 +56,55 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    let record: unknown = null;
+    let record: Record<string, unknown> | null = null;
     try {
-      record = await db.aboutContent.findUnique({
+      record = (await db.aboutContent.findUnique({
         where: { id: "default" },
-      });
+      })) as Record<string, unknown> | null;
     } catch (dbErr) {
-      console.error("DB query error in admin about GET:", dbErr);
+      console.warn("DB query error in admin about GET, falling back to supabaseAdmin:", dbErr);
+      const { data: supaRecord } = await supabaseAdmin
+        .from("AboutContent")
+        .select("*")
+        .eq("id", "default")
+        .maybeSingle();
+      if (supaRecord) record = supaRecord as Record<string, unknown>;
+    }
+
+    if (!record) {
+      const { data: supaRecord } = await supabaseAdmin
+        .from("AboutContent")
+        .select("*")
+        .eq("id", "default")
+        .maybeSingle();
+      if (supaRecord) record = supaRecord as Record<string, unknown>;
     }
 
     if (!record) {
       return NextResponse.json(defaultAboutData);
     }
 
-    const rec = record as Record<string, string | null | undefined>;
-
     let parsedTimeline = defaultAboutData.timeline;
     let parsedMetrics = defaultAboutData.metrics;
 
-    try { if (rec.timeline) parsedTimeline = JSON.parse(rec.timeline); } catch {}
-    try { if (rec.metrics) parsedMetrics = JSON.parse(rec.metrics); } catch {}
+    try {
+      if (record.timeline) {
+        parsedTimeline = typeof record.timeline === "string" ? JSON.parse(record.timeline) : (record.timeline as typeof defaultAboutData.timeline);
+      }
+    } catch {}
+
+    try {
+      if (record.metrics) {
+        parsedMetrics = typeof record.metrics === "string" ? JSON.parse(record.metrics) : (record.metrics as typeof defaultAboutData.metrics);
+      }
+    } catch {}
 
     return NextResponse.json({
-      name: rec.name || defaultAboutData.name,
-      title: rec.title || defaultAboutData.title,
-      bioParagraph1: rec.bioParagraph1 || defaultAboutData.bioParagraph1,
-      bioParagraph2: rec.bioParagraph2 || defaultAboutData.bioParagraph2,
-      imagePath: rec.imagePath || defaultAboutData.imagePath,
+      name: (record.name as string) || defaultAboutData.name,
+      title: (record.title as string) || defaultAboutData.title,
+      bioParagraph1: (record.bioParagraph1 as string) || defaultAboutData.bioParagraph1,
+      bioParagraph2: (record.bioParagraph2 as string) || defaultAboutData.bioParagraph2,
+      imagePath: (record.imagePath as string) || defaultAboutData.imagePath,
       timeline: parsedTimeline,
       metrics: parsedMetrics,
     });
@@ -86,22 +133,53 @@ export async function POST(request: Request) {
       metrics: typeof body.metrics === "string" ? body.metrics : JSON.stringify(body.metrics || []),
     };
 
-    const record = await db.aboutContent.upsert({
-      where: { id: "default" },
-      update: dataToSave,
-      create: {
+    let savedRecord = null;
+
+    try {
+      savedRecord = await db.aboutContent.upsert({
+        where: { id: "default" },
+        update: dataToSave,
+        create: {
+          id: "default",
+          ...dataToSave,
+        },
+      });
+    } catch (prismaErr) {
+      console.warn("Prisma upsert failed in POST /api/admin/about, falling back to supabaseAdmin:", prismaErr);
+      const { data: supaSaved, error: supaErr } = await supabaseAdmin
+        .from("AboutContent")
+        .upsert({
+          id: "default",
+          ...dataToSave,
+          updatedAt: new Date().toISOString(),
+        })
+        .select()
+        .maybeSingle();
+
+      if (supaErr) {
+        console.error("Supabase upsert error in POST /api/admin/about:", supaErr);
+        return NextResponse.json({ error: "Failed to save about content" }, { status: 500 });
+      }
+      savedRecord = supaSaved;
+    }
+
+    // Always also sync to Supabase directly so both stay identical
+    try {
+      await supabaseAdmin.from("AboutContent").upsert({
         id: "default",
         ...dataToSave,
-      },
-    });
+        updatedAt: new Date().toISOString(),
+      });
+    } catch {}
 
     try {
       revalidatePath("/about");
     } catch {}
 
-    return NextResponse.json({ success: true, data: record });
+    return NextResponse.json({ success: true, data: savedRecord });
   } catch (error) {
     console.error("Save about CMS error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
+
