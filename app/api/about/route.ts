@@ -47,16 +47,14 @@ const defaultAboutData = {
   ]
 };
 
+export const revalidate = 0;
+
 export async function GET() {
   try {
     let record: Record<string, unknown> | null = null;
 
+    // 1. Prioritize Supabase live database
     try {
-      record = (await db.aboutContent.findUnique({
-        where: { id: "default" },
-      })) as Record<string, unknown> | null;
-    } catch (prismaErr) {
-      console.warn("Prisma error in GET /api/about, attempting supabaseAdmin fallback:", prismaErr);
       const { data: supaRecord } = await supabaseAdmin
         .from("AboutContent")
         .select("*")
@@ -65,22 +63,53 @@ export async function GET() {
       if (supaRecord) {
         record = supaRecord as Record<string, unknown>;
       }
+    } catch (supaErr) {
+      console.warn("Supabase query in /api/about failed, trying Prisma:", supaErr);
     }
 
+    // 2. Fallback to Prisma if Supabase didn't return a record
     if (!record) {
-      // Also check supabase directly if Prisma returned null
-      const { data: supaRecord } = await supabaseAdmin
-        .from("AboutContent")
-        .select("*")
-        .eq("id", "default")
-        .maybeSingle();
-      if (supaRecord) {
-        record = supaRecord as Record<string, unknown>;
+      try {
+        record = (await db.aboutContent.findUnique({
+          where: { id: "default" },
+        })) as Record<string, unknown> | null;
+      } catch (prismaErr) {
+        console.warn("Prisma error in GET /api/about:", prismaErr);
       }
     }
 
+    // 3. If we got record from Supabase, sync back to Prisma opportunistically
+    if (record) {
+      try {
+        await db.aboutContent.upsert({
+          where: { id: "default" },
+          update: {
+            name: (record.name as string) || null,
+            title: (record.title as string) || null,
+            bioParagraph1: (record.bioParagraph1 as string) || null,
+            bioParagraph2: (record.bioParagraph2 as string) || null,
+            imagePath: (record.imagePath as string) || null,
+            timeline: typeof record.timeline === "string" ? record.timeline : JSON.stringify(record.timeline || []),
+            metrics: typeof record.metrics === "string" ? record.metrics : JSON.stringify(record.metrics || []),
+          },
+          create: {
+            id: "default",
+            name: (record.name as string) || null,
+            title: (record.title as string) || null,
+            bioParagraph1: (record.bioParagraph1 as string) || null,
+            bioParagraph2: (record.bioParagraph2 as string) || null,
+            imagePath: (record.imagePath as string) || null,
+            timeline: typeof record.timeline === "string" ? record.timeline : JSON.stringify(record.timeline || []),
+            metrics: typeof record.metrics === "string" ? record.metrics : JSON.stringify(record.metrics || []),
+          },
+        });
+      } catch {}
+    }
+
     if (!record) {
-      return NextResponse.json(defaultAboutData);
+      return NextResponse.json(defaultAboutData, {
+        headers: { "Cache-Control": "no-store, max-age=0, must-revalidate" },
+      });
     }
 
     let parsedTimeline = defaultAboutData.timeline;
@@ -88,28 +117,41 @@ export async function GET() {
 
     try {
       if (record.timeline) {
-        parsedTimeline = typeof record.timeline === "string" ? JSON.parse(record.timeline) : (record.timeline as typeof defaultAboutData.timeline);
+        parsedTimeline =
+          typeof record.timeline === "string"
+            ? JSON.parse(record.timeline)
+            : (record.timeline as typeof defaultAboutData.timeline);
       }
     } catch {}
 
     try {
       if (record.metrics) {
-        parsedMetrics = typeof record.metrics === "string" ? JSON.parse(record.metrics) : (record.metrics as typeof defaultAboutData.metrics);
+        parsedMetrics =
+          typeof record.metrics === "string"
+            ? JSON.parse(record.metrics)
+            : (record.metrics as typeof defaultAboutData.metrics);
       }
     } catch {}
 
-    return NextResponse.json({
-      name: (record.name as string) || defaultAboutData.name,
-      title: (record.title as string) || defaultAboutData.title,
-      bioParagraph1: (record.bioParagraph1 as string) || defaultAboutData.bioParagraph1,
-      bioParagraph2: (record.bioParagraph2 as string) || defaultAboutData.bioParagraph2,
-      imagePath: (record.imagePath as string) || defaultAboutData.imagePath,
-      timeline: parsedTimeline,
-      metrics: parsedMetrics,
-    });
+    return NextResponse.json(
+      {
+        name: (record.name as string) || defaultAboutData.name,
+        title: (record.title as string) || defaultAboutData.title,
+        bioParagraph1: (record.bioParagraph1 as string) || defaultAboutData.bioParagraph1,
+        bioParagraph2: (record.bioParagraph2 as string) || defaultAboutData.bioParagraph2,
+        imagePath: (record.imagePath as string) || defaultAboutData.imagePath,
+        timeline: parsedTimeline,
+        metrics: parsedMetrics,
+      },
+      {
+        headers: { "Cache-Control": "no-store, max-age=0, must-revalidate" },
+      }
+    );
   } catch (err) {
     console.error("GET /api/about error:", err);
-    return NextResponse.json(defaultAboutData);
+    return NextResponse.json(defaultAboutData, {
+      headers: { "Cache-Control": "no-store, max-age=0, must-revalidate" },
+    });
   }
 }
 

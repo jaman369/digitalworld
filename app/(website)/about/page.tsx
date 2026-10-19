@@ -107,7 +107,7 @@ export default function AboutPage() {
   useEffect(() => {
     async function load() {
       try {
-        const res = await fetch("/api/about");
+        const res = await fetch("/api/about", { cache: "no-store" });
         if (res.ok) {
           const data = await res.json();
           setAboutData((prev) => ({ ...prev, ...data }));

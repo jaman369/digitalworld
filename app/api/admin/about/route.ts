@@ -49,6 +49,8 @@ const defaultAboutData = {
   ]
 };
 
+export const revalidate = 0;
+
 export async function GET() {
   try {
     const session = await getSession();
@@ -57,31 +59,34 @@ export async function GET() {
     }
 
     let record: Record<string, unknown> | null = null;
+
+    // 1. Prioritize Supabase live database
     try {
-      record = (await db.aboutContent.findUnique({
-        where: { id: "default" },
-      })) as Record<string, unknown> | null;
-    } catch (dbErr) {
-      console.warn("DB query error in admin about GET, falling back to supabaseAdmin:", dbErr);
       const { data: supaRecord } = await supabaseAdmin
         .from("AboutContent")
         .select("*")
         .eq("id", "default")
         .maybeSingle();
       if (supaRecord) record = supaRecord as Record<string, unknown>;
+    } catch (supaErr) {
+      console.warn("Supabase query error in admin about GET:", supaErr);
+    }
+
+    // 2. Fallback to Prisma
+    if (!record) {
+      try {
+        record = (await db.aboutContent.findUnique({
+          where: { id: "default" },
+        })) as Record<string, unknown> | null;
+      } catch (dbErr) {
+        console.warn("DB query error in admin about GET:", dbErr);
+      }
     }
 
     if (!record) {
-      const { data: supaRecord } = await supabaseAdmin
-        .from("AboutContent")
-        .select("*")
-        .eq("id", "default")
-        .maybeSingle();
-      if (supaRecord) record = supaRecord as Record<string, unknown>;
-    }
-
-    if (!record) {
-      return NextResponse.json(defaultAboutData);
+      return NextResponse.json(defaultAboutData, {
+        headers: { "Cache-Control": "no-store, max-age=0, must-revalidate" },
+      });
     }
 
     let parsedTimeline = defaultAboutData.timeline;
