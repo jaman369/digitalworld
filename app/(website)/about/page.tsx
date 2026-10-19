@@ -290,45 +290,20 @@ export default function AboutPage() {
     }
   ];
 
-  // Tools & Technology Categories
-  const toolGroups = [
-    {
-      category: "SEO & Research",
-      tools: [
-        { name: "Ahrefs", icon: "/Emoji/mag.png" },
-        { name: "Semrush", icon: "/Emoji/bar_chart.png" },
-        { name: "Screaming Frog", icon: "/Emoji/frog.png" }
-      ]
-    },
-    {
-      category: "Website & Ecommerce",
-      tools: [
-        { name: "WordPress", icon: "/Emoji/computer.png" },
-        { name: "Shopify", icon: "/Emoji/shopping_trolley.png" }
-      ]
-    },
-    {
-      category: "Design & Creative",
-      tools: [
-        { name: "Figma", icon: "/Emoji/triangular_ruler.png" },
-        { name: "Adobe Creative Suite", icon: "/Emoji/art.png" }
-      ]
-    },
-    {
-      category: "Advertising & Analytics",
-      tools: [
-        { name: "Google Ads", icon: "/Emoji/red_circle.png" },
-        { name: "Meta Ads Manager", icon: "/Emoji/dart.png" },
-        { name: "Google Tag Manager", icon: "/Emoji/label.png" },
-        { name: "Google Analytics 4", icon: "/Emoji/chart_with_upwards_trend.png" }
-      ]
-    },
-    {
-      category: "Automation",
-      tools: [
-        { name: "n8n", icon: "/Emoji/gear.png" }
-      ]
-    }
+  // Tools & Technology List
+  const toolsList = [
+    { name: "Ahrefs", desc: "SEO Research", icon: "/Emoji/mag.png" },
+    { name: "SEMrush", desc: "Competitor Analysis", icon: "/Emoji/bar_chart.png" },
+    { name: "WordPress", desc: "Web Development", icon: "/Emoji/computer.png" },
+    { name: "Shopify", desc: "E-Commerce", icon: "/Emoji/shopping_trolley.png" },
+    { name: "Figma", desc: "UI/UX Design", icon: "/Emoji/triangular_ruler.png" },
+    { name: "Meta Ads Manager", desc: "Performance Ads", icon: "/Emoji/dart.png" },
+    { name: "Google Ads", desc: "Search & Display", icon: "/Emoji/red_circle.png" },
+    { name: "Google Tag Manager", desc: "Tracking & Analytics", icon: "/Emoji/label.png" },
+    { name: "Google Analytics 4", desc: "Performance Tracking", icon: "/Emoji/chart_with_upwards_trend.png" },
+    { name: "n8n", desc: "Automation", icon: "/Emoji/gear.png" },
+    { name: "Adobe Suite", desc: "Graphic Design", icon: "/Emoji/art.png" },
+    { name: "Screaming Frog", desc: "Technical SEO", icon: "/Emoji/frog.png" }
   ];
 
   return (
@@ -804,56 +779,40 @@ export default function AboutPage() {
       </section>
 
       {/* ── 8. TOOLS & TECHNOLOGY ─────────────────────────────────── */}
-      <section className="py-16 lg:py-24 bg-white border-b border-neutral-100">
+      <section className="py-20 lg:py-28 bg-white border-b border-neutral-100">
         <div className="container mx-auto max-w-7xl px-6 text-center">
-          <span className="text-[10px] sm:text-xs font-bold text-primary uppercase tracking-[0.25em] mb-3 inline-block">
-            TOOLS & TECHNOLOGY
+          <span className="text-[11px] sm:text-xs font-bold text-blue-600 uppercase tracking-[0.25em] mb-3 inline-block">
+            TOOLS &amp; STACK
           </span>
-          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900 tracking-tight mb-4">
-            The Tools Behind the Work
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight mb-12 lg:mb-16">
+            Tools I use every day.
           </h2>
-          <p className="font-sans text-xs sm:text-sm text-neutral-500 max-w-2xl mx-auto mb-12 leading-relaxed">
-            The right tools help us research opportunities, implement strategies, build digital experiences, and evaluate performance.
-          </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto text-left mb-10">
-            {toolGroups.map((group, idx) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 max-w-6xl mx-auto text-left">
+            {toolsList.map((tool) => (
               <div
-                key={idx}
-                className="bg-neutral-50/60 border border-neutral-100 rounded-3xl p-6 sm:p-7 shadow-2xs hover:shadow-sm transition-all"
+                key={tool.name}
+                className="bg-[#f8fafc] border border-slate-100/90 rounded-2xl p-4 sm:p-4.5 flex items-center gap-3.5 sm:gap-4 hover:bg-white hover:border-slate-200 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 group"
               >
-                <h3 className="font-sans text-xs font-bold text-neutral-400 uppercase tracking-widest mb-4">
-                  {group.category}
-                </h3>
-                <div className="flex flex-col gap-3">
-                  {group.tools.map((tool) => (
-                    <div
-                      key={tool.name}
-                      className="bg-white border border-neutral-100 rounded-xl p-3 px-4 flex items-center gap-3 shadow-2xs"
-                    >
-                      <div className="relative w-5 h-5 shrink-0 flex items-center justify-center">
-                        <Image
-                          src={tool.icon}
-                          alt={tool.name}
-                          width={20}
-                          height={20}
-                          className="object-contain"
-                        />
-                      </div>
-                      <span className="font-sans font-bold text-xs sm:text-sm text-neutral-800">
-                        {tool.name}
-                      </span>
-                    </div>
-                  ))}
+                <div className="shrink-0 flex h-12 w-12 items-center justify-center rounded-xl bg-white shadow-[0_2px_6px_rgba(0,0,0,0.03)] border border-slate-100 p-2.5 relative">
+                  <Image
+                    src={tool.icon}
+                    alt={tool.name}
+                    width={24}
+                    height={24}
+                    className="object-contain group-hover:scale-105 transition-transform duration-200"
+                  />
+                </div>
+                <div>
+                  <h3 className="font-sans font-bold text-[15px] sm:text-base text-neutral-900 leading-tight mb-0.5">
+                    {tool.name}
+                  </h3>
+                  <p className="font-sans text-xs text-neutral-400 font-medium leading-tight">
+                    {tool.desc}
+                  </p>
                 </div>
               </div>
             ))}
-          </div>
-
-          <div className="p-5 rounded-2xl bg-neutral-50 border border-neutral-100 text-center max-w-3xl mx-auto">
-            <p className="font-sans text-xs sm:text-sm text-neutral-600 leading-relaxed">
-              Tools are chosen based on the needs of each project. The priority is to use technology purposefully—not simply to add more tools to the process.
-            </p>
           </div>
         </div>
       </section>
