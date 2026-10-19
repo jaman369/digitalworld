@@ -173,12 +173,136 @@ export interface CloudHomepageData {
   ogImage?: string;
 }
 
+export interface AboutHeroData {
+  badge?: string;
+  greeting?: string;
+  name?: string;
+  title?: string;
+  bioParagraph1?: string;
+  bioParagraph2?: string;
+  primaryCtaText?: string;
+  primaryCtaLink?: string;
+  secondaryCtaText?: string;
+  secondaryCtaLink?: string;
+  imagePath?: string;
+}
+
+export interface AboutMetricItem {
+  numericValue: number;
+  suffix: string;
+  label: string;
+}
+
+export interface AboutTimelineItem {
+  years: string;
+  role: string;
+  company: string;
+}
+
+export interface AboutJourneyData {
+  eyebrow?: string;
+  title?: string;
+  paragraph1?: string;
+  paragraph2?: string;
+  paragraph3?: string;
+  timeline?: AboutTimelineItem[];
+}
+
+export interface AboutWhyUsCard {
+  title: string;
+  desc: string;
+  badge: string;
+}
+
+export interface AboutWhyUsData {
+  eyebrow?: string;
+  title?: string;
+  subtitle?: string;
+  cards?: AboutWhyUsCard[];
+}
+
+export interface AboutExpertiseItem {
+  title: string;
+  desc: string;
+  badge: string;
+  link: string;
+}
+
+export interface AboutExpertiseData {
+  eyebrow?: string;
+  title?: string;
+  subtitle?: string;
+  items?: AboutExpertiseItem[];
+}
+
+export interface AboutProcessStep {
+  step: string;
+  title: string;
+  desc: string;
+}
+
+export interface AboutProcessData {
+  eyebrow?: string;
+  title?: string;
+  subtitle?: string;
+  steps?: AboutProcessStep[];
+}
+
+export interface AboutValueCard {
+  number: string;
+  title: string;
+  desc: string;
+}
+
+export interface AboutValuesData {
+  eyebrow?: string;
+  title?: string;
+  subtitle?: string;
+  cards?: AboutValueCard[];
+}
+
+export interface AboutToolItem {
+  name: string;
+  desc: string;
+  icon: string;
+}
+
+export interface AboutToolsData {
+  eyebrow?: string;
+  title?: string;
+  tools?: AboutToolItem[];
+}
+
+export interface AboutCtaData {
+  eyebrow?: string;
+  title?: string;
+  paragraph1?: string;
+  paragraph2?: string;
+  primaryCtaText?: string;
+  primaryCtaLink?: string;
+  secondaryCtaText?: string;
+  secondaryCtaLink?: string;
+}
+
 export interface CloudAboutData {
+  // Legacy top-level compatibility
   name?: string;
   title?: string;
   bioParagraph1?: string;
   bioParagraph2?: string;
   imagePath?: string;
-  timeline?: Array<{ years: string; role: string; company: string }>;
-  metrics?: Array<{ numericValue: number; suffix: string; label: string }>;
+  timeline?: AboutTimelineItem[];
+  metrics?: AboutMetricItem[];
+
+  // 9 Complete Step-by-Step Sections
+  hero?: AboutHeroData;
+  metricsList?: AboutMetricItem[];
+  journey?: AboutJourneyData;
+  whyUs?: AboutWhyUsData;
+  expertise?: AboutExpertiseData;
+  process?: AboutProcessData;
+  values?: AboutValuesData;
+  tools?: AboutToolsData;
+  cta?: AboutCtaData;
 }
+

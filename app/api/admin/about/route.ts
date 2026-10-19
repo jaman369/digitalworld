@@ -3,52 +3,10 @@ import { revalidatePath } from "next/cache";
 import { getSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { supabaseAdmin } from "@/lib/supabase/admin";
+import { defaultAboutData } from "@/data/aboutDefaultData";
+import { CloudAboutData } from "@/types";
 
 export const dynamic = "force-dynamic";
-
-const defaultAboutData = {
-  name: "Kamrujjaman Mufti",
-  title: "Founder of Digital World",
-  bioParagraph1:
-    "I'm Kamrujjaman Mufti, founder of Digital World, a digital marketing agency based in Dhaka, Bangladesh. With 5+ years of experience, I help businesses grow through SEO, AEO, GEO, paid advertising, web development, content marketing, and AI-powered solutions.",
-  bioParagraph2:
-    "My approach is simple: understand the business, identify the right opportunities, and build digital strategies around meaningful growth.",
-  imagePath: "/images/23.png",
-  timeline: [
-    {
-      years: "2026 – Present",
-      role: "AI Automation",
-      company: "Exploring AI-powered workflows, intelligent agents, and business process automation."
-    },
-    {
-      years: "2024 – 2026",
-      role: "Digital Marketing Expert",
-      company: "Bringing digital marketing expertise together through KJ Digital World."
-    },
-    {
-      years: "2022 – 2024",
-      role: "SEO & Paid Ads",
-      company: "Expanding into search engine optimization and paid advertising."
-    },
-    {
-      years: "2021 – 2022",
-      role: "Web Development",
-      company: "Developing an understanding of websites, user experience, and website performance."
-    },
-    {
-      years: "2020 – 2021",
-      role: "The Beginning",
-      company: "Building a foundation in digital marketing and learning the fundamentals of online growth."
-    }
-  ],
-  metrics: [
-    { numericValue: 150, suffix: "+", label: "Projects Completed" },
-    { numericValue: 120, suffix: "+", label: "Happy Clients" },
-    { numericValue: 5, suffix: "+", label: "Years of Experience" },
-    { numericValue: 11, suffix: "+", label: "Countries Served" }
-  ]
-};
-
 export const revalidate = 0;
 
 export async function GET() {
@@ -58,24 +16,41 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    let record: Record<string, unknown> | null = null;
+    let aboutRecord: Record<string, unknown> | null = null;
+    let extraSectionsRecord: Record<string, unknown> | null = null;
 
-    // 1. Prioritize Supabase live database
+    // 1. Fetch AboutContent from Supabase
     try {
       const { data: supaRecord } = await supabaseAdmin
         .from("AboutContent")
         .select("*")
         .eq("id", "default")
         .maybeSingle();
-      if (supaRecord) record = supaRecord as Record<string, unknown>;
+      if (supaRecord) aboutRecord = supaRecord as Record<string, unknown>;
     } catch (supaErr) {
       console.warn("Supabase query error in admin about GET:", supaErr);
     }
 
-    // 2. Fallback to Prisma
-    if (!record) {
+    // 2. Fetch SystemSetting for full sections
+    try {
+      const { data: settingRow } = await supabaseAdmin
+        .from("SystemSetting")
+        .select("value")
+        .eq("key", "about_sections")
+        .maybeSingle();
+      if (settingRow?.value) {
+        try {
+          extraSectionsRecord = JSON.parse(settingRow.value);
+        } catch {}
+      }
+    } catch (settingErr) {
+      console.warn("Supabase SystemSetting query error in admin about GET:", settingErr);
+    }
+
+    // 3. Fallback to Prisma
+    if (!aboutRecord) {
       try {
-        record = (await db.aboutContent.findUnique({
+        aboutRecord = (await db.aboutContent.findUnique({
           where: { id: "default" },
         })) as Record<string, unknown> | null;
       } catch (dbErr) {
@@ -83,35 +58,96 @@ export async function GET() {
       }
     }
 
-    if (!record) {
-      return NextResponse.json(defaultAboutData, {
-        headers: { "Cache-Control": "no-store, max-age=0, must-revalidate" },
-      });
+    if (!extraSectionsRecord) {
+      try {
+        const row = await db.systemSetting.findUnique({
+          where: { key: "about_sections" },
+        });
+        if (row?.value) {
+          extraSectionsRecord = JSON.parse(row.value);
+        }
+      } catch {}
     }
 
     let parsedTimeline = defaultAboutData.timeline;
     let parsedMetrics = defaultAboutData.metrics;
 
-    try {
-      if (record.timeline) {
-        parsedTimeline = typeof record.timeline === "string" ? JSON.parse(record.timeline) : (record.timeline as typeof defaultAboutData.timeline);
-      }
-    } catch {}
+    if (aboutRecord?.timeline) {
+      try {
+        parsedTimeline =
+          typeof aboutRecord.timeline === "string"
+            ? JSON.parse(aboutRecord.timeline)
+            : (aboutRecord.timeline as typeof defaultAboutData.timeline);
+      } catch {}
+    }
 
-    try {
-      if (record.metrics) {
-        parsedMetrics = typeof record.metrics === "string" ? JSON.parse(record.metrics) : (record.metrics as typeof defaultAboutData.metrics);
-      }
-    } catch {}
+    if (aboutRecord?.metrics) {
+      try {
+        parsedMetrics =
+          typeof aboutRecord.metrics === "string"
+            ? JSON.parse(aboutRecord.metrics)
+            : (aboutRecord.metrics as typeof defaultAboutData.metrics);
+      } catch {}
+    }
 
-    return NextResponse.json({
-      name: (record.name as string) || defaultAboutData.name,
-      title: (record.title as string) || defaultAboutData.title,
-      bioParagraph1: (record.bioParagraph1 as string) || defaultAboutData.bioParagraph1,
-      bioParagraph2: (record.bioParagraph2 as string) || defaultAboutData.bioParagraph2,
-      imagePath: (record.imagePath as string) || defaultAboutData.imagePath,
+    const name = (aboutRecord?.name as string) || (extraSectionsRecord?.hero as Record<string, unknown>)?.name as string || defaultAboutData.name;
+    const title = (aboutRecord?.title as string) || (extraSectionsRecord?.hero as Record<string, unknown>)?.title as string || defaultAboutData.title;
+    const bioParagraph1 = (aboutRecord?.bioParagraph1 as string) || (extraSectionsRecord?.hero as Record<string, unknown>)?.bioParagraph1 as string || defaultAboutData.bioParagraph1;
+    const bioParagraph2 = (aboutRecord?.bioParagraph2 as string) || (extraSectionsRecord?.hero as Record<string, unknown>)?.bioParagraph2 as string || defaultAboutData.bioParagraph2;
+    const imagePath = (aboutRecord?.imagePath as string) || (extraSectionsRecord?.hero as Record<string, unknown>)?.imagePath as string || defaultAboutData.imagePath;
+
+    const mergedData: CloudAboutData = {
+      name,
+      title,
+      bioParagraph1,
+      bioParagraph2,
+      imagePath,
       timeline: parsedTimeline,
       metrics: parsedMetrics,
+
+      hero: {
+        ...defaultAboutData.hero,
+        ...(extraSectionsRecord?.hero as object),
+        name,
+        title,
+        bioParagraph1,
+        bioParagraph2,
+        imagePath,
+      },
+      metricsList: (extraSectionsRecord?.metricsList as typeof defaultAboutData.metricsList) || parsedMetrics || defaultAboutData.metricsList,
+      journey: {
+        ...defaultAboutData.journey,
+        ...(extraSectionsRecord?.journey as object),
+        timeline: parsedTimeline || defaultAboutData.journey?.timeline,
+      },
+      whyUs: {
+        ...defaultAboutData.whyUs,
+        ...(extraSectionsRecord?.whyUs as object),
+      },
+      expertise: {
+        ...defaultAboutData.expertise,
+        ...(extraSectionsRecord?.expertise as object),
+      },
+      process: {
+        ...defaultAboutData.process,
+        ...(extraSectionsRecord?.process as object),
+      },
+      values: {
+        ...defaultAboutData.values,
+        ...(extraSectionsRecord?.values as object),
+      },
+      tools: {
+        ...defaultAboutData.tools,
+        ...(extraSectionsRecord?.tools as object),
+      },
+      cta: {
+        ...defaultAboutData.cta,
+        ...(extraSectionsRecord?.cta as object),
+      },
+    };
+
+    return NextResponse.json(mergedData, {
+      headers: { "Cache-Control": "no-store, max-age=0, must-revalidate" },
     });
   } catch (error) {
     console.error("GET admin about content error:", error);
@@ -126,22 +162,72 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const body = await request.json();
+    const body: CloudAboutData = await request.json();
+
+    const name = body.name || body.hero?.name || null;
+    const title = body.title || body.hero?.title || null;
+    const bioParagraph1 = body.bioParagraph1 || body.hero?.bioParagraph1 || null;
+    const bioParagraph2 = body.bioParagraph2 || body.hero?.bioParagraph2 || null;
+    const imagePath = body.imagePath || body.hero?.imagePath || null;
+    const timelineData = body.timeline || body.journey?.timeline || [];
+    const metricsData = body.metrics || body.metricsList || [];
 
     const dataToSave = {
-      name: body.name || null,
-      title: body.title || null,
-      bioParagraph1: body.bioParagraph1 || null,
-      bioParagraph2: body.bioParagraph2 || null,
-      imagePath: body.imagePath || null,
-      timeline: typeof body.timeline === "string" ? body.timeline : JSON.stringify(body.timeline || []),
-      metrics: typeof body.metrics === "string" ? body.metrics : JSON.stringify(body.metrics || []),
+      name,
+      title,
+      bioParagraph1,
+      bioParagraph2,
+      imagePath,
+      timeline: typeof timelineData === "string" ? timelineData : JSON.stringify(timelineData),
+      metrics: typeof metricsData === "string" ? metricsData : JSON.stringify(metricsData),
     };
 
-    let savedRecord = null;
+    // 1. Save core columns to AboutContent in Supabase
+    try {
+      await supabaseAdmin.from("AboutContent").upsert({
+        id: "default",
+        ...dataToSave,
+        updatedAt: new Date().toISOString(),
+      });
+    } catch (supaErr) {
+      console.warn("Supabase AboutContent upsert warning:", supaErr);
+    }
+
+    // 2. Save full payload to SystemSetting key "about_sections" in Supabase
+    const fullPayloadJson = JSON.stringify({
+      hero: {
+        ...body.hero,
+        name,
+        title,
+        bioParagraph1,
+        bioParagraph2,
+        imagePath,
+      },
+      metricsList: metricsData,
+      journey: {
+        ...body.journey,
+        timeline: timelineData,
+      },
+      whyUs: body.whyUs,
+      expertise: body.expertise,
+      process: body.process,
+      values: body.values,
+      tools: body.tools,
+      cta: body.cta,
+    });
 
     try {
-      savedRecord = await db.aboutContent.upsert({
+      await supabaseAdmin.from("SystemSetting").upsert({
+        key: "about_sections",
+        value: fullPayloadJson,
+      });
+    } catch (supaSettingErr) {
+      console.warn("Supabase SystemSetting upsert warning:", supaSettingErr);
+    }
+
+    // 3. Opportunistically sync with Prisma if configured
+    try {
+      await db.aboutContent.upsert({
         where: { id: "default" },
         update: dataToSave,
         create: {
@@ -149,42 +235,22 @@ export async function POST(request: Request) {
           ...dataToSave,
         },
       });
-    } catch (prismaErr) {
-      console.warn("Prisma upsert failed in POST /api/admin/about, falling back to supabaseAdmin:", prismaErr);
-      const { data: supaSaved, error: supaErr } = await supabaseAdmin
-        .from("AboutContent")
-        .upsert({
-          id: "default",
-          ...dataToSave,
-          updatedAt: new Date().toISOString(),
-        })
-        .select()
-        .maybeSingle();
 
-      if (supaErr) {
-        console.error("Supabase upsert error in POST /api/admin/about:", supaErr);
-        return NextResponse.json({ error: "Failed to save about content" }, { status: 500 });
-      }
-      savedRecord = supaSaved;
-    }
-
-    // Always also sync to Supabase directly so both stay identical
-    try {
-      await supabaseAdmin.from("AboutContent").upsert({
-        id: "default",
-        ...dataToSave,
-        updatedAt: new Date().toISOString(),
+      await db.systemSetting.upsert({
+        where: { key: "about_sections" },
+        update: { value: fullPayloadJson },
+        create: { key: "about_sections", value: fullPayloadJson },
       });
     } catch {}
 
     try {
       revalidatePath("/about");
+      revalidatePath("/admin/about");
     } catch {}
 
-    return NextResponse.json({ success: true, data: savedRecord });
+    return NextResponse.json({ success: true, message: "About page saved successfully!" });
   } catch (error) {
     console.error("Save about CMS error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
-
