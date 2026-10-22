@@ -336,7 +336,7 @@ export const servicesData: ServiceCategory[] = [
         name: "WordPress Development",
         slug: "wordpress-development",
         tagline: "Prevent WordPress from bulk or bloat.",
-        description: "Custom WordPress themes and plugins, optimized for speed, security, and SEO. We build sites that are easy to manage and grow with your business.",
+        description: "Custom WordPress themes and plugins, optimized for speed, security, and SEO. We build sites that are easy to manage and grow with your business. From headless WordPress setups and WooCommerce integrations to advanced custom fields and Gutenberg block development — every site we deliver passes Core Web Vitals, loads under 2 seconds, and gives your team a clean, intuitive content editor.",
         benefits: [
           "Custom theme development",
           "Plugin development & customization",
@@ -354,7 +354,7 @@ export const servicesData: ServiceCategory[] = [
         name: "Shopify Development",
         slug: "shopify-development",
         tagline: "Shopify stores built to sell from day one.",
-        description: "We build Shopify stores that are fast, beautiful, and conversion-optimised. From custom theme development to complex app integrations — we've helped brands in the UK, USA, and Australia increase conversions by up to 180% within 60 days of launch.",
+        description: "We build Shopify stores that are fast, beautiful, and conversion-optimised. From custom theme development to complex app integrations — we've helped brands in the UK, USA, and Australia increase conversions by up to 180% within 60 days of launch. Every store ships with optimised product pages, streamlined checkout flows, multi-currency support, and Core Web Vitals performance tuning.",
         benefits: [
           "Custom Shopify theme development & design",
           "Product page & checkout optimisation",
@@ -372,7 +372,7 @@ export const servicesData: ServiceCategory[] = [
         name: "Landing Page Design",
         slug: "landing-page-design",
         tagline: "Landing pages engineered to convert visitors into buyers.",
-        description: "High-converting landing pages designed with psychological triggers, compelling copy, and clear CTAs that turn visitors into leads and customers.",
+        description: "High-converting landing pages designed with psychological triggers, compelling copy, and clear CTAs that turn visitors into leads and customers. We engineer A/B-tested layouts, integrate lead capture forms, set up analytics tracking, and deploy rapid multi-variant testing — ensuring every page element is scientifically optimised for maximum conversion rate and minimum bounce.",
         benefits: [
           "A/B tested page layouts",
           "Conversion-focused copywriting",
@@ -390,7 +390,7 @@ export const servicesData: ServiceCategory[] = [
         name: "Website Speed Optimization",
         slug: "website-speed-optimization",
         tagline: "Every millisecond counts for your bottom line.",
-        description: "Core Web Vitals optimization, image compression, code minification, and caching strategies that make your site blazing fast and Google-approved.",
+        description: "Core Web Vitals optimization, image compression, code minification, and caching strategies that make your site blazing fast and Google-approved. We audit LCP, INP, and CLS bottlenecks, configure CDN edge caching, implement lazy loading, optimise server response times, and compress every asset — delivering measurable speed improvements that boost rankings, reduce bounce rates, and increase conversions.",
         benefits: [
           "Core Web Vitals optimization",
           "Image & asset compression",
@@ -408,7 +408,7 @@ export const servicesData: ServiceCategory[] = [
         name: "Website Maintenance",
         slug: "website-maintenance",
         tagline: "Keep your site secure, updated & always running.",
-        description: "Ongoing maintenance, security monitoring, plugin updates, and performance monitoring to ensure your website runs smoothly 24/7.",
+        description: "Ongoing maintenance, security monitoring, plugin updates, and performance monitoring to ensure your website runs smoothly 24/7. Our proactive maintenance plans include daily backups, malware scanning, SSL certificate management, uptime monitoring, priority bug fixes, and monthly performance reports — so your site stays secure, fast, and always available to your customers.",
         benefits: [
           "Regular security updates",
           "Plugin & theme updates",
@@ -426,7 +426,7 @@ export const servicesData: ServiceCategory[] = [
         name: "Website Migration",
         slug: "website-migration",
         tagline: "Seamless site migration with zero ranking loss.",
-        description: "Moving websites can be risky. We ensure a seamless transition of your domain, database, CMS, and link structure with zero downtime and preserved search rankings.",
+        description: "Moving websites can be risky. We ensure a seamless transition of your domain, database, CMS, and link structure with zero downtime and preserved search rankings. Our migration process includes comprehensive 301 redirect mapping, pre- and post-migration SEO audits, DNS configuration, broken link verification, and server-level optimisation — protecting every ranking signal you have built.",
         benefits: [
           "CMS platform transitions (e.g. WordPress to Shopify)",
           "Full database, user registry & asset transfer",
@@ -444,7 +444,7 @@ export const servicesData: ServiceCategory[] = [
         name: "CMS Setup",
         slug: "cms-setup",
         tagline: "CMS setup configured exactly for your team.",
-        description: "We configure, customize, and optimize your chosen CMS platform to give you a powerful, flexible, and easy-to-use editor interface.",
+        description: "We configure, customise, and optimise your chosen CMS platform to give you a powerful, flexible, and easy-to-use editor interface. Whether WordPress, Shopify, Webflow, or a headless CMS — we handle theme installation, essential plugin setup, custom content architecture, role-based permissions, workflow approvals, and clean admin documentation so your team can publish confidently from day one.",
         benefits: [
           "CMS platform recommendations (WordPress, Shopify, Webflow, etc.)",
           "Standard theme installation & base configuration",
@@ -623,7 +623,7 @@ export const servicesData: ServiceCategory[] = [
         name: "AI Lead Automation",
         slug: "ai-lead-automation",
         tagline: "Autonomous lead capture, enrichment, and qualification on autopilot.",
-        description: "Deploy autonomous AI lead pipelines that discover, scrape, enrich, and qualify high-intent prospective buyers 24/7 without manual sales rep intervention.",
+        description: "Deploy autonomous AI lead pipelines that discover, scrape, enrich, and qualify high-intent prospective buyers 24/7 without manual sales rep intervention. Our intelligent automation monitors buying signals, scores leads in real time, and routes qualified prospects directly into your CRM — accelerating pipeline velocity and reducing cost per acquisition.",
         benefits: [
           "Automated B2B lead scraping & intent data monitoring across target markets",
           "Real-time contact enrichment with LinkedIn, verified emails & firmographic data",
@@ -641,7 +641,7 @@ export const servicesData: ServiceCategory[] = [
         name: "CRM Automation",
         slug: "crm-automation",
         tagline: "Flawless end-to-end data pipelines across HubSpot, Salesforce & Zoho.",
-        description: "Connect and synchronize your entire sales and marketing stack with custom bi-directional CRM automation workflows that update pipeline stages, log interactions, and eliminate data silos.",
+        description: "Connect and synchronize your entire sales and marketing stack with custom bi-directional CRM automation workflows that update pipeline stages, log interactions, and eliminate data silos. We engineer deep integrations across HubSpot, Salesforce, Zoho, and Pipedrive — ensuring every customer touchpoint is tracked, every deal stage progresses automatically, and your revenue attribution reporting stays airtight.",
         benefits: [
           "Bi-directional sync across HubSpot, Salesforce, Zoho, and Pipedrive",
           "Automated pipeline deal stage progression & activity logging",
@@ -659,7 +659,7 @@ export const servicesData: ServiceCategory[] = [
         name: "YouTube Automation",
         slug: "youtube-automation",
         tagline: "Scale faceless channels, video production, and YouTube SEO on autopilot.",
-        description: "Harness AI-driven scriptwriting, automated voiceovers, thumbnail split-testing, and automated video workflows to launch and scale high-yield YouTube channels without burning hours on manual editing.",
+        description: "Harness AI-driven scriptwriting, automated voiceovers, thumbnail split-testing, and automated video workflows to launch and scale high-yield YouTube channels without burning hours on manual editing. From niche validation and viral hook scripting to bulk video assembly and cross-platform repurposing, our end-to-end YouTube automation system handles the entire production pipeline so you can focus on strategy and monetisation.",
         benefits: [
           "End-to-end faceless YouTube channel strategy, niche validation & monetisation planning",
           "AI-assisted viral scriptwriting based on high-retention storytelling hooks",
@@ -677,7 +677,7 @@ export const servicesData: ServiceCategory[] = [
         name: "AI Voice Agents",
         slug: "ai-voice-agents",
         tagline: "Ultra-realistic conversational voice bots for inbound and outbound calls.",
-        description: "Deploy ultra-low latency, natural-sounding AI voice agents powered by modern speech-to-speech models to qualify inbound callers, schedule appointments, and follow up with leads.",
+        description: "Deploy ultra-low latency, natural-sounding AI voice agents powered by modern speech-to-speech models to qualify inbound callers, schedule appointments, and follow up with leads. Our voice bots handle 24/7 reception, FAQ resolution, outbound confirmation calls, and real-time CRM logging — delivering human-like conversations with sub-second response times across Twilio, SIP, and existing PBX systems.",
         benefits: [
           "Sub-second latency conversational AI with human-like prosody and intonation",
           "Inbound call handling: 24/7 reception, FAQs, and appointment booking",
@@ -695,7 +695,7 @@ export const servicesData: ServiceCategory[] = [
         name: "AI Customer Support",
         slug: "ai-customer-support",
         tagline: "24/7 omnichannel customer service with 80%+ instant resolution.",
-        description: "Transform support operations with context-aware AI support agents that resolve tier-1 and tier-2 tickets across Zendesk, Intercom, Freshdesk, email, and website live chat.",
+        description: "Transform support operations with context-aware AI support agents that resolve tier-1 and tier-2 tickets across Zendesk, Intercom, Freshdesk, email, and website live chat. Our AI agents pull answers from your internal knowledge base, detect customer sentiment in real time, and route complex issues to human agents — achieving 80%+ instant resolution rates while cutting average response time by over 90%.",
         benefits: [
           "Instant ticket resolution for common inquiries, order status, and returns",
           "Contextual retrieval based on your internal knowledge base and policies",
@@ -713,7 +713,7 @@ export const servicesData: ServiceCategory[] = [
         name: "Workflow Automation",
         slug: "workflow-automation",
         tagline: "Eliminate repetitive tasks and streamline operations across your company.",
-        description: "Design and implement resilient, complex multi-step automations using Make.com, n8n, Zapier, and custom serverless functions to eliminate human error and scale operations.",
+        description: "Design and implement resilient, complex multi-step automations using Make.com, n8n, Zapier, and custom serverless functions to eliminate human error and scale operations. We architect branching logic, error-handling retries, and cross-departmental handoffs that automate document generation, invoice processing, contract approvals, and team notifications — keeping your business running at 99.9% uptime with zero manual bottlenecks.",
         benefits: [
           "Complex logic design: branching, error handling, retries, and data formatting",
           "Deep integrations with Make.com, n8n (self-hosted), and Zapier",
@@ -731,7 +731,7 @@ export const servicesData: ServiceCategory[] = [
         name: "MCP Integrations",
         slug: "mcp-integrations",
         tagline: "Model Context Protocol servers connecting LLMs directly to your tools.",
-        description: "Build secure, production-grade Model Context Protocol (MCP) servers and clients that give AI agents and LLMs real-time access to your databases, APIs, codebases, and SaaS platforms.",
+        description: "Build secure, production-grade Model Context Protocol (MCP) servers and clients that give AI agents and LLMs real-time access to your databases, APIs, codebases, and SaaS platforms. We develop standardised resource templates, implement role-based permission scoping, and deploy enterprise-grade audit trails — enabling Claude, Cursor, and autonomous agent loops to query live business data safely and compliantly.",
         benefits: [
           "Custom MCP server development for proprietary databases and internal APIs",
           "Seamless integration with Claude Desktop, Cursor, and autonomous agent loops",
@@ -749,7 +749,7 @@ export const servicesData: ServiceCategory[] = [
         name: "RAG Knowledge Base",
         slug: "rag-knowledge-base",
         tagline: "Grounded enterprise intelligence with zero hallucinations.",
-        description: "Engineered Retrieval-Augmented Generation (RAG) pipelines that ingest company documents, PDFs, manuals, and databases to deliver accurate, citation-backed answers to internal teams and clients.",
+        description: "Engineered Retrieval-Augmented Generation (RAG) pipelines that ingest company documents, PDFs, manuals, and databases to deliver accurate, citation-backed answers to internal teams and clients. Our hybrid search architecture combines vector semantic similarity with BM25 keyword reranking, strict hallucination guardrails, and role-based access control — keeping your enterprise knowledge base real-time fresh and factually grounded.",
         benefits: [
           "Multi-format ingestion: PDFs, Notion, Confluence, Google Docs & SQL DBs",
           "Advanced chunking strategies, semantic embedding models & vector stores",
