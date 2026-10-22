@@ -170,7 +170,7 @@ export const defaultAboutData: CloudAboutData = {
       {
         title: "AI Automation",
         badge: "Intelligent Agents",
-        desc: "Make everyday business processes more efficient with AI-powered workflows and integrations. Solutions can include lead automation, CRM automation, WhatsApp automation, AI voice agents, customer support workflows, MCP integrations, and RAG knowledge bases.",
+        desc: "Make everyday business processes more efficient with AI-powered workflows and integrations. Solutions can include lead automation, CRM automation, YouTube automation, AI voice agents, customer support workflows, MCP integrations, and RAG knowledge bases.",
         link: "/services/ai-automation"
       },
       {

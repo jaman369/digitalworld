@@ -656,22 +656,22 @@ export const servicesData: ServiceCategory[] = [
         secondaryCtaLink: "/portfolio?service=crm-automation"
       },
       {
-        name: "WhatsApp Automation",
-        slug: "whatsapp-automation",
-        tagline: "Scale conversational commerce and customer support on WhatsApp.",
-        description: "Build intelligent WhatsApp bots with the official Meta Cloud API to automate customer onboarding, broadcast campaigns, booking confirmations, and immediate sales inquiries.",
+        name: "YouTube Automation",
+        slug: "youtube-automation",
+        tagline: "Scale faceless channels, video production, and YouTube SEO on autopilot.",
+        description: "Harness AI-driven scriptwriting, automated voiceovers, thumbnail split-testing, and automated video workflows to launch and scale high-yield YouTube channels without burning hours on manual editing.",
         benefits: [
-          "Official WhatsApp Business API setup & verified green tick guidance",
-          "Intelligent interactive chatbots for FAQs, orders & lead capture",
-          "Automated order tracking, appointment scheduling & payment links",
-          "Broadcast messaging & segmented opt-in promotional campaigns",
-          "Human agent handoff with multi-agent collaborative inbox support",
-          "Seamless integration with CRM, e-commerce, and ERP systems"
+          "End-to-end faceless YouTube channel strategy, niche validation & monetisation planning",
+          "AI-assisted viral scriptwriting based on high-retention storytelling hooks",
+          "Automated voiceover generation, audio mastering & multi-language dubbing",
+          "Automated video assembly, B-roll splicing, captions & dynamic visual effects",
+          "High-CTR thumbnail creation, A/B title split-testing & algorithmic metadata optimization",
+          "Automated scheduling, cross-platform repurposing (Shorts, Reels, TikTok) & analytics tracking"
         ],
-        primaryCtaText: "Launch WhatsApp Bot",
-        primaryCtaLink: "/contact?service=whatsapp-automation",
+        primaryCtaText: "Launch YouTube Automation",
+        primaryCtaLink: "/contact?service=youtube-automation",
         secondaryCtaText: "Case Study",
-        secondaryCtaLink: "/portfolio?service=whatsapp-automation"
+        secondaryCtaLink: "/portfolio?service=youtube-automation"
       },
       {
         name: "AI Voice Agents",

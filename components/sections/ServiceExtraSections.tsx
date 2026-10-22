@@ -439,12 +439,12 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
     },
     "ai-automation": {
       title: "Automate Repetitive Work & Accelerate Your Growth",
-      description: "Replace repetitive manual tasks with intelligent systems that work around the clock. From AI voice agents, WhatsApp automation, and CRM pipelines to MCP integrations and RAG knowledge bases, we connect your tools into one autonomous growth engine.",
+      description: "Replace repetitive manual tasks with intelligent systems that work around the clock. From AI voice agents, YouTube automation, and CRM pipelines to MCP integrations and RAG knowledge bases, we connect your tools into one autonomous growth engine.",
       subtitle: "We automate your:",
       points: [
         { emoji: "🎯", text: "AI lead automation & real-time enrichment" },
         { emoji: "🔄", text: "CRM & multi-step workflow automation" },
-        { emoji: "💬", text: "WhatsApp automation & AI voice agents" },
+        { emoji: "▶️", text: "YouTube automation & AI voice agents" },
         { emoji: "🧠", text: "MCP integrations & RAG knowledge bases" },
       ],
       ctaText: "Automate My Business",

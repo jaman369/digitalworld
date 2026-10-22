@@ -388,6 +388,9 @@ export default async function CategoryPage({ params }: PageProps) {
                 {sub.slug === "crm-automation" && (
                   <span id="crm-integration" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
                 )}
+                {sub.slug === "youtube-automation" && (
+                  <span id="whatsapp-automation" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
+                )}
                 {sub.slug === "ai-customer-support" && (
                   <>
                     <span id="ai-chatbot-development" className="absolute -top-48 md:-top-56 left-0 opacity-0 pointer-events-none" aria-hidden="true" />
