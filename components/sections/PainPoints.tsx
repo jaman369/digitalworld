@@ -34,6 +34,20 @@ const defaultPainPoints = [
     iconName: "Cpu",
     tag: "Manual Overload",
   },
+  {
+    id: "05",
+    title: "Invisible in AI Search",
+    description: "Customers now ask ChatGPT, Perplexity and Google AI Overviews before they search. If your brand is not cited, you are losing buyers you never see. Our AI SEO services (GEO and AEO) make your content the answer they quote.",
+    iconName: "Bot",
+    tag: "AI Search Blindspot",
+  },
+  {
+    id: "06",
+    title: "Content and Video That Do Not Convert",
+    description: "Blog posts that rank for nothing and video ads that cost too much to produce drain your budget. Our SEO content writing and AI video production deliver content that ranks, engages and sells, without the studio costs.",
+    iconName: "Video",
+    tag: "Creative Fatigue",
+  },
 ];
 
 function getPainIcon(iconName?: string) {
@@ -59,8 +73,8 @@ export default function PainPoints() {
           setData((prev) => ({
             ...prev,
             ...hp,
-            // If API has older 6 items, prefer the 4 canonical items unless specifically set
-            painPointsCards: (hp.painPointsCards && hp.painPointsCards.length === 4) ? hp.painPointsCards : defaultPainPoints,
+            // Ensure 6 canonical items are loaded
+            painPointsCards: (hp.painPointsCards && hp.painPointsCards.length === 6) ? hp.painPointsCards : defaultPainPoints,
           }));
         }
       } catch {}
@@ -106,13 +120,13 @@ export default function PainPoints() {
           </p>
         </div>
 
-        {/* 4 Pain Point Cards Grid (2x2 on desktop for balance) */}
+        {/* 6 Pain Point Cards Grid (3x2 on desktop for perfect balance) */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto mb-14"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto mb-14"
         >
           {cardsList.map((item, idx) => {
             const IconComp = getPainIcon(item.iconName);

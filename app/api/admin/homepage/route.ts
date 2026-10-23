@@ -125,12 +125,12 @@ export async function GET() {
     let parsedWhyUsCards = defaultHomepageData.whyUsCards;
     let parsedProcessSteps = defaultHomepageData.processSteps;
     let parsedPainPointsCards = [
-      { id: "01", title: "Stagnant Organic Traffic", description: "Stuck on page 2 or 3 for key terms while competitors capture high-intent buyers daily.", iconName: "TrendingDown", tag: "SEO Bottleneck" },
-      { id: "02", title: "Escalating Ad Costs (CAC)", description: "Paid ad campaigns burning budget with diminishing ROI and rising cost per acquisition.", iconName: "DollarSign", tag: "Ad Inefficiency" },
-      { id: "03", title: "Low Website Conversions", description: "Getting website visits but failing to convert visitors into qualified leads or paying customers.", iconName: "UserX", tag: "UX Bottleneck" },
-      { id: "04", title: "Manual Lead Handling", description: "Slower follow-up times letting warm leads go cold before your sales team reaches out.", iconName: "AlertCircle", tag: "Workflow Friction" },
-      { id: "05", title: "Fragmented Tech Stack", description: "Using 10 different tools that don't sync, creating data silos and wasted subscription costs.", iconName: "Cpu", tag: "Tool Chaos" },
-      { id: "06", title: "Unclear ROI Reporting", description: "Vague agency reports showing vanity metrics instead of actual pipeline revenue generated.", iconName: "BarChart2", tag: "Lack of Clarity" },
+      { id: "01", title: "Stagnant Organic Traffic", description: "Your pages sit on page 2 or 3 of Google while competitors capture the buyers searching for what you sell. Our SEO services fix technical issues, build topical authority and bring qualified traffic that keeps growing.", iconName: "TrendingDown", tag: "SEO Stagnation" },
+      { id: "02", title: "Escalating Ad Costs (CAC)", description: "You pay more for every click and every lead, and the budget keeps climbing. Our PPC management team tightens targeting, tests new creatives and cuts wasted spend.", iconName: "DollarSign", tag: "Ad Budget Waste" },
+      { id: "03", title: "Low Website Conversions", description: "Visitors arrive, look around and leave. Our conversion-focused web design turns slow, confusing pages into fast websites that persuade and capture leads.", iconName: "UserX", tag: "Conversion Leaks" },
+      { id: "04", title: "Manual, Time-Consuming Work", description: "Your team loses hours on follow-ups, reporting and repetitive tasks. Our AI automation services put lead capture, CRM updates and email follow-up on autopilot.", iconName: "Cpu", tag: "Manual Overload" },
+      { id: "05", title: "Invisible in AI Search", description: "Customers now ask ChatGPT, Perplexity and Google AI Overviews before they search. If your brand is not cited, you are losing buyers you never see. Our AI SEO services (GEO and AEO) make your content the answer they quote.", iconName: "Bot", tag: "AI Search Blindspot" },
+      { id: "06", title: "Content and Video That Do Not Convert", description: "Blog posts that rank for nothing and video ads that cost too much to produce drain your budget. Our SEO content writing and AI video production deliver content that ranks, engages and sells, without the studio costs.", iconName: "Video", tag: "Creative Fatigue" },
     ];
     let parsedServicesCards = [
       { id: "svc-cat-1", slug: "seo", title: "Search Engine Optimization (SEO)", description: "Rank #1 on Google for high-intent search terms driving sustainable organic revenue.", iconName: "Search", popularTag: "Most Popular", subItems: ["Local SEO", "Ecommerce SEO", "International SEO", "SaaS SEO", "Semantic SEO", "Ai SEO", "Link Building", "Technical SEO"] },
