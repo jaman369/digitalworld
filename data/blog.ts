@@ -2,6 +2,72 @@ import { BlogPost } from "../types";
 
 export const blogData: BlogPost[] = [
   {
+    id: "post-dw-1",
+    slug: "what-is-a-digital-marketing-agency",
+    title: "What Is a Digital Marketing Agency and What Does It Do?",
+    excerpt: "A comprehensive breakdown of how full-service digital agencies drive revenue through integrated search, paid ads, web design, and AI automation.",
+    content: `
+      <p>A digital marketing agency plans and executes online growth strategies that turn search visibility into qualified pipeline and revenue. Rather than treating SEO, PPC, and web development as separate silos, full-service agencies unify them under a single, accountable strategy.</p>
+      <h3>Core Responsibilities of a Modern Digital Marketing Agency</h3>
+      <p>Today's competitive landscape demands an omni-channel acquisition funnel. An experienced agency analyzes target audiences, optimizes search intent across traditional and generative engines (GEO/AEO), launches targeted paid advertising campaigns, and automates CRM workflows to scale customer acquisition efficiently.</p>
+      <h3>Why Businesses Partner With Full-Service Agencies</h3>
+      <p>Working with a dedicated agency provides immediate access to senior strategists, eliminates overhead costs of hiring multiple in-house specialists, and ensures every marketing dollar directly supports revenue growth.</p>
+    `,
+    category: "Digital Strategy",
+    publishedAt: "October 20, 2026",
+    readingTime: "6 min read",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop",
+    author: {
+      name: "Kamrujjaman Mufti",
+      role: "Founder - Digital World"
+    }
+  },
+  {
+    id: "post-dw-2",
+    slug: "how-much-do-seo-services-cost-in-2026",
+    title: "How Much Do SEO Services Cost in 2026?",
+    excerpt: "Understand realistic SEO pricing models in 2026, from monthly retainers to technical audits, and how to evaluate return on investment.",
+    content: `
+      <p>SEO pricing in 2026 varies based on competition, domain authority, technical complexity, and target market scale. Businesses generally invest between $1,500 and $7,500 monthly for full-service organic search optimization that produces compounding revenue growth.</p>
+      <h3>Common SEO Pricing Models</h3>
+      <p>1. <strong>Monthly Retainers:</strong> Comprehensive ongoing execution covering technical fixes, content clustering, link building, and Generative Engine Optimization.</p>
+      <p>2. <strong>Project-Based Audits:</strong> In-depth technical and architectural audits identifying crawl budget leaks, indexing errors, and structured data gaps.</p>
+      <h3>Evaluating SEO ROI</h3>
+      <p>Unlike paid advertising where traffic stops the moment budget pauses, high-authority organic rankings deliver compounding returns over quarters and years, resulting in significantly lower Customer Acquisition Costs (CAC).</p>
+    `,
+    category: "SEO",
+    publishedAt: "October 18, 2026",
+    readingTime: "7 min read",
+    image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=800&auto=format&fit=crop",
+    author: {
+      name: "Kamrujjaman Mufti",
+      role: "Founder - Digital World"
+    }
+  },
+  {
+    id: "post-dw-3",
+    slug: "geo-vs-seo-how-to-get-cited-by-chatgpt-and-perplexity",
+    title: "GEO vs SEO: How to Get Cited by ChatGPT and Perplexity",
+    excerpt: "Discover the differences between traditional SEO and Generative Engine Optimization (GEO), and learn how to position your brand for AI search citations.",
+    content: `
+      <p>Generative Engine Optimization (GEO) and Answer Engine Optimization (AEO) represent the biggest shift in search since Google's launch. AI tools like ChatGPT, Perplexity, and Google AI Overviews synthesize direct answers rather than simply listing 10 blue links.</p>
+      <h3>Key Differences Between SEO and GEO</h3>
+      <p>While traditional SEO focuses on keyword density and backlink volume, GEO prioritizes semantic entity clarity, quotation authority, statistical data density, and direct problem-solving definitions.</p>
+      <h3>How to Earn Citations in AI Search Engines</h3>
+      <p>1. <strong>Publish Original Statistics & Benchmarks:</strong> LLMs cite primary research and quantified performance metrics frequently.</p>
+      <p>2. <strong>Implement Structured Schema Markup:</strong> Help AI crawlers parse key entity relationships and author expertise instantly.</p>
+      <p>3. <strong>Clear Direct Answer Blocks:</strong> Provide concise, factual answers at the top of informational articles before expanding into depth.</p>
+    `,
+    category: "AI SEO",
+    publishedAt: "October 15, 2026",
+    readingTime: "8 min read",
+    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop",
+    author: {
+      name: "Kamrujjaman Mufti",
+      role: "Founder - Digital World"
+    }
+  },
+  {
     id: "post-1",
     slug: "how-to-increase-your-roi-through-scientific-sem",
     title: "How to Increase Your ROI Through scientific SEM?",

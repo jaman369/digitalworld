@@ -1,15 +1,30 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { statsData } from "@/data/stats";
 import { useCountUp } from "@/hooks/useCountUp";
 import { Stat } from "@/types";
 import { CloudHomepageData } from "@/types";
 
+const countries11 = [
+  { name: "USA", flag: "/Flag emoji/United States.svg" },
+  { name: "UK", flag: "/Flag emoji/United Kingdom.svg" },
+  { name: "Canada", flag: "/Flag emoji/Canada.svg" },
+  { name: "UAE", flag: "/Flag emoji/UAE.svg" },
+  { name: "Australia", flag: "/Flag emoji/Australia.svg" },
+  { name: "Germany", flag: "/Flag emoji/Germany.svg" },
+  { name: "Ireland", flag: "/Flag emoji/Ireland.svg" },
+  { name: "Netherlands", flag: "/Flag emoji/Netherlands.svg" },
+  { name: "New Zealand", flag: "/Flag emoji/New Zealand.svg" },
+  { name: "South Africa", flag: "/Flag emoji/South Africa.svg" },
+  { name: "Bangladesh", flag: "/Flag emoji/Bangladesh.svg" },
+];
+
 export default function StatsBar() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [data, setData] = useState<CloudHomepageData>({
-    statsEyebrow: "Proven Track Record",
+    statsEyebrow: "Trusted by growing brands worldwide",
     stats: statsData,
   });
 
@@ -36,13 +51,14 @@ export default function StatsBar() {
       <div className="container mx-auto max-w-7xl px-4 sm:px-6">
         {/* Section Eyebrow Title */}
         <div className="text-center mb-6">
-          <span className="text-xs font-bold text-neutral-500 uppercase tracking-widest font-sans">
-            {data.statsEyebrow || "Proven Track Record"}
+          <span className="text-xs sm:text-sm font-bold text-neutral-600 uppercase tracking-widest font-sans">
+            {data.statsEyebrow || "Trusted by growing brands worldwide"}
           </span>
         </div>
 
         {/* Floating Stats Card */}
-        <div className="bg-white border border-blue-100/70 rounded-[2.25rem] shadow-[0_16px_45px_rgba(0,118,255,0.06)] py-6 sm:py-9 px-4 sm:px-12">
+        <div className="bg-white border border-blue-100/70 rounded-[2.25rem] shadow-[0_16px_45px_rgba(0,118,255,0.06)] py-7 sm:py-10 px-4 sm:px-12">
+          {/* Numbers Grid */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-10 lg:gap-y-0">
             {items.map((stat, idx) => (
               <StatItem 
@@ -52,6 +68,30 @@ export default function StatsBar() {
                 index={idx}
               />
             ))}
+          </div>
+
+          {/* Flag Strip (11 Countries) */}
+          <div className="mt-8 pt-7 border-t border-neutral-100 flex flex-col items-center">
+            <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3">
+              {countries11.map((c, i) => (
+                <div key={c.name} className="flex items-center gap-1.5 group">
+                  <div className="relative w-5 h-3.5 overflow-hidden rounded-[2px] shadow-xs border border-neutral-200 shrink-0 group-hover:scale-110 transition-transform">
+                    <Image
+                      src={c.flag}
+                      alt={c.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <span className="font-sans text-xs font-semibold text-neutral-600 group-hover:text-primary transition-colors">
+                    {c.name}
+                  </span>
+                  {i < countries11.length - 1 && (
+                    <span className="text-neutral-300 text-xs ml-1 font-mono hidden sm:inline">·</span>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -70,7 +110,8 @@ function StatItem({ stat, showDivider, index }: StatItemProps) {
   const target = parseInt(stat.value, 10) || 0;
   const count = useCountUp(target, elementRef, 1500);
 
-  const showPlus = stat.id === "projects" || stat.id === "clients" || parseInt(stat.value, 10) > 10;
+  // Show '+' for 56+, 44+, and 6+ (all except countries which is 11)
+  const showPlus = stat.id !== "countries" && stat.label.toLowerCase().indexOf("countr") === -1;
 
   return (
     <div 
@@ -84,7 +125,7 @@ function StatItem({ stat, showDivider, index }: StatItemProps) {
         {count}
         {showPlus && <span className="font-serif font-bold text-3xl sm:text-4xl ml-0.5 text-[#0076FF]">+</span>}
       </span>
-      <span className="font-sans text-[10px] sm:text-xs font-bold text-neutral-400 uppercase tracking-widest text-center">
+      <span className="font-sans text-[10px] sm:text-xs font-bold text-neutral-500 uppercase tracking-widest text-center">
         {stat.label}
       </span>
     </div>

@@ -5,19 +5,45 @@ import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
 import { CloudHomepageData } from "@/types";
 
+const canonicalWhyUsCards = [
+  {
+    title: "Data-driven strategies",
+    description: "Every decision is backed by keyword data, competitor research and real performance numbers, never guesswork.",
+    iconName: "BarChart3",
+  },
+  {
+    title: "AI-powered execution",
+    description: "We use AI automation and AI tools to work faster and test more ideas, and we pass the savings on to you.",
+    iconName: "Cpu",
+  },
+  {
+    title: "6+ years of hands-on experience",
+    description: "Your project is led by a senior practitioner who has run SEO, PPC, web and content projects for clients in 11 countries.",
+    iconName: "Award",
+  },
+  {
+    title: "One team, every channel",
+    description: "SEO, ads, web, content, automation and video work together under one strategy, so nothing falls through the cracks.",
+    iconName: "Layers",
+  },
+  {
+    title: "Transparent reporting",
+    description: "Clear dashboards show what you pay for and what it returns: traffic, leads, conversions and ROI.",
+    iconName: "FileText",
+  },
+  {
+    title: "Fast, direct support",
+    description: "You talk to the people doing the work. Expect a reply within 24 hours.",
+    iconName: "MessageSquare",
+  },
+];
+
 export default function WhyChooseUs() {
   const [data, setData] = useState<CloudHomepageData>({
-    whyUsEyebrow: "Why Us",
-    whyUsTitle: "Why choose Digital World",
-    whyUsSubtitle: "We partner with brands to build robust organic funnels that consistently generate revenue, not just vanity clicks.",
-    whyUsCards: [
-      { title: "Data-driven strategies", description: "No assumptions. We build our growth campaigns based on hard competitor analytics and real user intent metrics.", iconName: "BarChart3" },
-      { title: "5+ years of experience", description: "Having navigated through search engine algorithm core updates, we know what drives sustainable ranking gains.", iconName: "Trophy" },
-      { title: "High ROI campaigns", description: "Every dollar you invest is optimized to target buyers at the bottom of the funnel, minimizing waste.", iconName: "TrendingUp" },
-      { title: "Custom solutions", description: "We don't do pre-packaged cookie-cutter services. Every site is analyzed to get a bespoke roadmap.", iconName: "Settings" },
-      { title: "24/7 dedicated support", description: "Clear, direct communication channels. We act as an extension of your team, responding within hours.", iconName: "MessageSquare" },
-      { title: "Transparent reporting", description: "Understand exactly what you are paying for with simplified keyword progression and traffic conversion dashboards.", iconName: "FileText" },
-    ],
+    whyUsEyebrow: "Why us",
+    whyUsTitle: "Why Growing Businesses Choose Digital World as Their Digital Marketing Partner",
+    whyUsSubtitle: "We are built for businesses that want results, not reports full of vanity metrics.",
+    whyUsCards: canonicalWhyUsCards,
   });
 
   useEffect(() => {
@@ -26,7 +52,14 @@ export default function WhyChooseUs() {
         const res = await fetch("/api/homepage");
         if (res.ok) {
           const hp = await res.json();
-          setData((prev) => ({ ...prev, ...hp }));
+          setData((prev) => ({
+            ...prev,
+            ...hp,
+            whyUsEyebrow: hp.whyUsEyebrow || "Why us",
+            whyUsTitle: hp.whyUsTitle || "Why Growing Businesses Choose Digital World as Their Digital Marketing Partner",
+            whyUsSubtitle: hp.whyUsSubtitle || "We are built for businesses that want results, not reports full of vanity metrics.",
+            whyUsCards: canonicalWhyUsCards,
+          }));
         }
       } catch {}
     }
@@ -50,30 +83,19 @@ export default function WhyChooseUs() {
     },
   };
 
-  const cards = data.whyUsCards && data.whyUsCards.length > 0
-    ? data.whyUsCards
-    : [
-        { title: "Data-driven strategies", description: "No assumptions. We build our growth campaigns based on hard competitor analytics and real user intent metrics.", iconName: "BarChart3" },
-        { title: "5+ years of experience", description: "Having navigated through search engine algorithm core updates, we know what drives sustainable ranking gains.", iconName: "Trophy" },
-        { title: "High ROI campaigns", description: "Every dollar you invest is optimized to target buyers at the bottom of the funnel, minimizing waste.", iconName: "TrendingUp" },
-        { title: "Custom solutions", description: "We don't do pre-packaged cookie-cutter services. Every site is analyzed to get a bespoke roadmap.", iconName: "Settings" },
-        { title: "24/7 dedicated support", description: "Clear, direct communication channels. We act as an extension of your team, responding within hours.", iconName: "MessageSquare" },
-        { title: "Transparent reporting", description: "Understand exactly what you are paying for with simplified keyword progression and traffic conversion dashboards.", iconName: "FileText" },
-      ];
-
   return (
     <section className="pt-16 pb-14 lg:pt-20 lg:pb-20 bg-transparent relative z-10 border-b border-neutral-100">
       <div className="container mx-auto max-w-7xl px-6">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10 lg:mb-14">
+        <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-primary-light px-4 py-1.5 text-xs font-semibold text-primary uppercase tracking-wider mb-6">
-            {data.whyUsEyebrow || "Why Us"}
+            {data.whyUsEyebrow || "Why us"}
           </span>
           <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-neutral-900 tracking-tight mb-4">
-            {data.whyUsTitle || "Why choose Digital World"}
+            {data.whyUsTitle || "Why Growing Businesses Choose Digital World as Their Digital Marketing Partner"}
           </h2>
-          <p className="font-sans text-sm sm:text-base text-neutral-500 leading-relaxed">
-            {data.whyUsSubtitle || "We partner with brands to build robust organic funnels that consistently generate revenue, not just vanity clicks."}
+          <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed">
+            {data.whyUsSubtitle || "We are built for businesses that want results, not reports full of vanity metrics."}
           </p>
         </div>
 
@@ -83,29 +105,29 @@ export default function WhyChooseUs() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7"
         >
-          {cards.map((card, idx) => {
-            const Icon = (Icons[(card.iconName || "Sparkles") as keyof typeof Icons] || Icons.Sparkles) as React.ComponentType<{ className?: string }>;
+          {canonicalWhyUsCards.map((card, idx) => {
+            const Icon = (Icons[card.iconName as keyof typeof Icons] || Icons.Sparkles) as React.ComponentType<{ className?: string }>;
 
             return (
               <motion.div
                 key={idx}
                 variants={cardVariants}
-                className="flex flex-col rounded-2xl border border-neutral-200 bg-white p-5 lg:p-6 shadow-sm transition-all duration-300 hover:shadow-premium hover:border-primary/20"
+                className="flex flex-col rounded-2xl border border-neutral-200/90 bg-white p-7 lg:p-8 shadow-xs transition-all duration-300 hover:shadow-xl hover:border-primary/30 hover:-translate-y-1"
               >
                 {/* Icon Circle */}
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-light text-primary mb-4">
-                  <Icon className="h-5 w-5" />
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-primary mb-5 shadow-xs">
+                  <Icon className="h-6 w-6 stroke-[2]" />
                 </div>
 
                 {/* Title */}
-                <h3 className="font-sans font-bold text-base text-neutral-900 mb-2">
+                <h3 className="font-sans font-bold text-lg text-neutral-900 mb-2.5">
                   {card.title}
                 </h3>
 
                 {/* Description */}
-                <p className="font-sans text-sm text-neutral-500 leading-relaxed">
+                <p className="font-sans text-sm text-neutral-600 leading-relaxed">
                   {card.description}
                 </p>
               </motion.div>

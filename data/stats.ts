@@ -3,18 +3,18 @@ import { Stat } from "../types";
 export const statsData: Stat[] = [
   {
     id: "projects",
-    value: "150",
+    value: "56",
     label: "Projects Delivered",
   },
   {
     id: "clients",
-    value: "90",
-    label: "Happy Clients",
+    value: "44",
+    label: "Happy Clients Worldwide",
   },
   {
     id: "experience",
-    value: "5",
-    label: "Years Experience",
+    value: "6",
+    label: "Years of Hands-On Experience",
   },
   {
     id: "countries",

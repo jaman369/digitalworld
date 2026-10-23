@@ -9,44 +9,30 @@ const defaultPainPoints = [
   {
     id: "01",
     title: "Stagnant Organic Traffic",
-    description: "Stuck on page 2 or 3 for key terms while competitors capture high-intent buyers daily.",
+    description: "Your pages sit on page 2 or 3 of Google while competitors capture the buyers searching for what you sell. Our SEO services fix technical issues, build topical authority and bring qualified traffic that keeps growing.",
     iconName: "TrendingDown",
-    tag: "SEO Bottleneck",
+    tag: "SEO Stagnation",
   },
   {
     id: "02",
     title: "Escalating Ad Costs (CAC)",
-    description: "Paid ad campaigns burning budget with diminishing ROI and rising cost per acquisition.",
+    description: "You pay more for every click and every lead, and the budget keeps climbing. Our PPC management team tightens targeting, tests new creatives and cuts wasted spend.",
     iconName: "DollarSign",
-    tag: "Ad Inefficiency",
+    tag: "Ad Budget Waste",
   },
   {
     id: "03",
     title: "Low Website Conversions",
-    description: "Getting website visits but failing to convert visitors into qualified leads or paying customers.",
+    description: "Visitors arrive, look around and leave. Our conversion-focused web design turns slow, confusing pages into fast websites that persuade and capture leads.",
     iconName: "UserX",
-    tag: "UX Bottleneck",
+    tag: "Conversion Leaks",
   },
   {
     id: "04",
-    title: "Manual Lead Handling",
-    description: "Slower follow-up times letting warm leads go cold before your sales team reaches out.",
-    iconName: "AlertCircle",
-    tag: "Workflow Friction",
-  },
-  {
-    id: "05",
-    title: "Fragmented Tech Stack",
-    description: "Using 10 different tools that don't sync, creating data silos and wasted subscription costs.",
+    title: "Manual, Time-Consuming Work",
+    description: "Your team loses hours on follow-ups, reporting and repetitive tasks. Our AI automation services put lead capture, CRM updates and email follow-up on autopilot.",
     iconName: "Cpu",
-    tag: "Tool Chaos",
-  },
-  {
-    id: "06",
-    title: "Unclear ROI Reporting",
-    description: "Vague agency reports showing vanity metrics instead of actual pipeline revenue generated.",
-    iconName: "BarChart2",
-    tag: "Lack of Clarity",
+    tag: "Manual Overload",
   },
 ];
 
@@ -58,9 +44,9 @@ function getPainIcon(iconName?: string) {
 
 export default function PainPoints() {
   const [data, setData] = useState<CloudHomepageData>({
-    painPointsEyebrow: "04 — Problem / Pain Points",
-    painPointsTitle: "Are these bottlenecks holding your growth back?",
-    painPointsSubtitle: "Most digital agencies focus on vanity clicks. We diagnose and eliminate the core friction points in your revenue engine.",
+    painPointsEyebrow: "Sound familiar?",
+    painPointsTitle: "Is Your Digital Marketing Failing to Deliver Real Growth?",
+    painPointsSubtitle: "Most digital marketing agencies chase clicks and impressions. We focus on the problems that actually hold your revenue back, then fix them one by one.",
     painPointsCards: defaultPainPoints,
   });
 
@@ -70,7 +56,12 @@ export default function PainPoints() {
         const res = await fetch("/api/homepage");
         if (res.ok) {
           const hp = await res.json();
-          setData((prev) => ({ ...prev, ...hp }));
+          setData((prev) => ({
+            ...prev,
+            ...hp,
+            // If API has older 6 items, prefer the 4 canonical items unless specifically set
+            painPointsCards: (hp.painPointsCards && hp.painPointsCards.length === 4) ? hp.painPointsCards : defaultPainPoints,
+          }));
         }
       } catch {}
     }
@@ -103,25 +94,25 @@ export default function PainPoints() {
 
       <div className="container mx-auto max-w-7xl px-6">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-20">
+        <div className="text-center max-w-3xl mx-auto mb-14 lg:mb-16">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-rose-50 border border-rose-100 px-4 py-1.5 text-xs font-semibold text-rose-600 uppercase tracking-wider mb-6">
-            {data.painPointsEyebrow || "04 — Problem / Pain Points"}
+            {data.painPointsEyebrow || "Sound familiar?"}
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight mb-6">
-            {data.painPointsTitle || "Are these bottlenecks holding your growth back?"}
+            {data.painPointsTitle || "Is Your Digital Marketing Failing to Deliver Real Growth?"}
           </h2>
-          <p className="font-sans text-base sm:text-lg text-neutral-500 leading-relaxed">
-            {data.painPointsSubtitle || "Most digital agencies focus on vanity clicks. We diagnose and eliminate the core friction points in your revenue engine."}
+          <p className="font-sans text-base sm:text-lg text-neutral-600 leading-relaxed">
+            {data.painPointsSubtitle || "Most digital marketing agencies chase clicks and impressions. We focus on the problems that actually hold your revenue back, then fix them one by one."}
           </p>
         </div>
 
-        {/* Dynamic Pain Point Cards Grid */}
+        {/* 4 Pain Point Cards Grid (2x2 on desktop for balance) */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto mb-14"
         >
           {cardsList.map((item, idx) => {
             const IconComp = getPainIcon(item.iconName);
@@ -156,13 +147,20 @@ export default function PainPoints() {
                 </h3>
 
                 {/* Description */}
-                <p className="font-sans text-xs sm:text-sm text-neutral-500 leading-relaxed">
+                <p className="font-sans text-sm text-neutral-600 leading-relaxed">
                   {item.description}
                 </p>
               </motion.div>
             );
           })}
         </motion.div>
+
+        {/* Closing Line */}
+        <div className="text-center">
+          <p className="font-serif italic font-medium text-lg sm:text-xl text-neutral-800">
+            One agency. One strategy. Every channel working together.
+          </p>
+        </div>
       </div>
     </section>
   );

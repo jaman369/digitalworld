@@ -92,7 +92,7 @@ export default async function Footer() {
               </div>
             </Link>
             <p className="text-sm text-neutral-400 leading-relaxed">
-              Full-Service Digital Marketing Agency – 5 Years Experience & Serving 11 countries worldwide.
+              Digital World is a full-service digital marketing agency specializing in SEO, PPC, web design, content writing, AI automation and AI video production. Serving clients in 11 countries.
             </p>
             
             {/* Flags Grid (Serving 11 Countries Worldwide - Single Row Fit) */}
@@ -156,8 +156,8 @@ export default async function Footer() {
             <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Our Services</h3>
             <ul className="flex flex-col gap-3 text-sm">
               <li><Link href="/services/seo" className="text-neutral-400 hover:text-white transition-colors">SEO Services</Link></li>
-              <li><Link href="/services/ppc" className="text-neutral-400 hover:text-white transition-colors">PPC & Paid Ads</Link></li>
-              <li><Link href="/services/web-design-dev" className="text-neutral-400 hover:text-white transition-colors">Web Design & Dev</Link></li>
+              <li><Link href="/services/ppc" className="text-neutral-400 hover:text-white transition-colors">PPC and Paid Ads</Link></li>
+              <li><Link href="/services/web-design-dev" className="text-neutral-400 hover:text-white transition-colors">Web Design and Development</Link></li>
               <li><Link href="/services/content-marketing" className="text-neutral-400 hover:text-white transition-colors">Content Writing</Link></li>
               <li><Link href="/services/ai-automation" className="text-neutral-400 hover:text-white transition-colors">AI Automation</Link></li>
               <li><Link href="/services/ai-video-production" className="text-neutral-400 hover:text-white transition-colors">AI Video Production</Link></li>
@@ -166,18 +166,18 @@ export default async function Footer() {
 
           {/* Column 2: Terms & Conditions for Digital Marketing Agency */}
           <div className="flex flex-col gap-4">
-            <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Terms & Conditions</h3>
+            <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Legal</h3>
             <ul className="flex flex-col gap-3 text-sm">
-              <li><Link href="/terms" className="text-neutral-400 hover:text-white transition-colors">Terms of Service</Link></li>
+              <li><Link href="/terms" className="text-neutral-400 hover:text-white transition-colors">Terms and Conditions</Link></li>
               <li><Link href="/privacy" className="text-neutral-400 hover:text-white transition-colors">Privacy Policy</Link></li>
               <li><Link href="/cookies" className="text-neutral-400 hover:text-white transition-colors">Cookie Policy</Link></li>
-              <li><Link href="/refund-policy" className="text-neutral-400 hover:text-white transition-colors">Refund & Cancellation Policy</Link></li>
+              <li><Link href="/refund-policy" className="text-neutral-400 hover:text-white transition-colors">Refund and Cancellation Policy</Link></li>
               <li><Link href="/client-agreement" className="text-neutral-400 hover:text-white transition-colors">Client Service Agreement</Link></li>
               <li><Link href="/disclaimer" className="text-neutral-400 hover:text-white transition-colors">Disclaimer</Link></li>
             </ul>
           </div>
 
-          {/* Column 3: Company (Unchanged) */}
+          {/* Column 3: Company */}
           <div className="flex flex-col gap-4">
             <h3 className="text-sm font-semibold text-white tracking-wider uppercase">Company</h3>
             <ul className="flex flex-col gap-3 text-sm">
@@ -185,16 +185,16 @@ export default async function Footer() {
               <li><Link href="/portfolio" className="text-neutral-400 hover:text-white transition-colors">Portfolio</Link></li>
               <li><Link href="/blog" className="text-neutral-400 hover:text-white transition-colors">Blog</Link></li>
               <li><Link href="/contact" className="text-neutral-400 hover:text-white transition-colors">Contact</Link></li>
-              <li className="text-neutral-400 break-all"><a href={`mailto:${settings.email}`} className="hover:text-white">{settings.email}</a></li>
-              <li className="text-neutral-400"><a href={`tel:${settings.phone.replace(/\s+/g, '')}`} className="hover:text-white">{settings.phone}</a></li>
+              <li className="text-neutral-400 break-all"><a href={`mailto:${settings.email || 'kj.jaman369@gmail.com'}`} className="hover:text-white">{settings.email || 'kj.jaman369@gmail.com'}</a></li>
+              <li className="text-neutral-400"><a href={`tel:${(settings.phone || '+8801798667820').replace(/\s+/g, '')}`} className="hover:text-white">{settings.phone || '+8801798667820'}</a></li>
             </ul>
           </div>
         </div>
 
         {/* Bottom Banner */}
         <div className="mt-16 border-t border-neutral-800 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-neutral-500 gap-4">
-          <p>Copyright © 2025 Digital World - Kamrujjaman Mufti. All rights reserved.</p>
-          <p>Based in Dhaka, Bangladesh & Available worldwide</p>
+          <p>© 2026 Digital World. All rights reserved.</p>
+          <p>kj.jaman369@gmail.com · +8801798667820 · Dhaka, Bangladesh</p>
         </div>
       </div>
     </footer>

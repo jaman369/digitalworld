@@ -77,13 +77,13 @@ export default function BlogSection() {
         <div className="text-center max-w-2xl mx-auto mb-10 lg:mb-12">
           <span className="inline-flex items-center gap-2 text-xs font-bold text-indigo-600 uppercase tracking-[0.25em] mb-3">
             <span className="h-1.5 w-1.5 rounded-full bg-indigo-600" />
-            BLOG
+            Insights
           </span>
           <h2 className="font-serif text-2xl sm:text-3xl lg:text-[2.25rem] font-bold text-neutral-900 tracking-tight mb-3 leading-[1.2]">
-            Latest News
+            Latest Digital Marketing Insights and SEO Tips
           </h2>
           <p className="font-sans text-sm sm:text-base text-neutral-500 leading-relaxed max-w-xl mx-auto">
-            Discover actionable insights, strategy playbooks, and search optimization trends to scale your business.
+            Practical guides on SEO, PPC, AI automation and growth, written by our team.
           </p>
         </div>
 
@@ -172,6 +172,16 @@ export default function BlogSection() {
             );
           })}
         </motion.div>
+
+        {/* Bottom CTA Button */}
+        <div className="mt-12 text-center">
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full bg-neutral-900 hover:bg-neutral-800 text-white font-sans text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all duration-300 hover:scale-[1.02]"
+          >
+            Read More Articles
+          </Link>
+        </div>
       </div>
     </section>
   );

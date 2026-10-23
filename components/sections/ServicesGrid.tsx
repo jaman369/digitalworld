@@ -4,9 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
-import { servicesData } from "@/data/services";
 import { CloudHomepageData } from "@/types";
-import ReadMoreLink from "@/components/common/ReadMoreLink";
 
 /* ── 6 Distinct Vibrant Per-Card Color Themes ── */
 const cardThemes: Record<string, {
@@ -21,7 +19,7 @@ const cardThemes: Record<string, {
   popularBg: string;
   hoverBg: string;
 }> = {
-  seo: { // .01 - Sapphire Electric Blue
+  seo: {
     badgeNumber: ".01",
     mainGrad: "from-[#2563EB] via-[#3B82F6] to-[#4F46E5]",
     blobGrad: "from-[#60A5FA] to-[#818CF8]",
@@ -33,7 +31,7 @@ const cardThemes: Record<string, {
     popularBg: "bg-blue-50 text-blue-600 border-blue-100",
     hoverBg: "hover:bg-blue-50/40 hover:border-blue-300/80 hover:shadow-blue-500/10",
   },
-  ppc: { // .02 - Vibrant Cyan / Turquoise
+  ppc: {
     badgeNumber: ".02",
     mainGrad: "from-[#00C9A7] via-[#00B4D8] to-[#0077B6]",
     blobGrad: "from-[#38BDF8] to-[#2DD4BF]",
@@ -45,7 +43,7 @@ const cardThemes: Record<string, {
     popularBg: "bg-cyan-50 text-cyan-600 border-cyan-100",
     hoverBg: "hover:bg-cyan-50/40 hover:border-cyan-300/80 hover:shadow-cyan-500/10",
   },
-  "web-design-dev": { // .03 - Vivid Sunburst Coral / Orange
+  "web-design-dev": {
     badgeNumber: ".03",
     mainGrad: "from-[#FF5E62] via-[#FF7A59] to-[#FFB700]",
     blobGrad: "from-[#FF8C42] to-[#FFC72C]",
@@ -57,7 +55,7 @@ const cardThemes: Record<string, {
     popularBg: "bg-orange-50 text-orange-600 border-orange-100",
     hoverBg: "hover:bg-orange-50/40 hover:border-orange-300/80 hover:shadow-orange-500/10",
   },
-  "content-marketing": { // .04 - Refreshing Emerald / Mint Green
+  "content-marketing": {
     badgeNumber: ".04",
     mainGrad: "from-[#10B981] via-[#059669] to-[#047857]",
     blobGrad: "from-[#34D399] to-[#10B981]",
@@ -69,7 +67,7 @@ const cardThemes: Record<string, {
     popularBg: "bg-emerald-50 text-emerald-600 border-emerald-100",
     hoverBg: "hover:bg-emerald-50/40 hover:border-emerald-300/80 hover:shadow-emerald-500/10",
   },
-  "ai-automation": { // .05 - Deep Royal Purple / Violet
+  "ai-automation": {
     badgeNumber: ".05",
     mainGrad: "from-[#7C3AED] via-[#8B5CF6] to-[#A855F7]",
     blobGrad: "from-[#C084FC] to-[#8B5CF6]",
@@ -81,7 +79,7 @@ const cardThemes: Record<string, {
     popularBg: "bg-purple-50 text-purple-600 border-purple-100",
     hoverBg: "hover:bg-purple-50/40 hover:border-purple-300/80 hover:shadow-purple-500/10",
   },
-  "ai-video-production": { // .06 - Vibrant Violet / Fuchsia
+  "ai-video-production": {
     badgeNumber: ".06",
     mainGrad: "from-[#8B5CF6] via-[#A855F7] to-[#D946EF]",
     blobGrad: "from-[#A78BFA] to-[#E879F9]",
@@ -94,6 +92,88 @@ const cardThemes: Record<string, {
     hoverBg: "hover:bg-violet-50/40 hover:border-violet-300/80 hover:shadow-violet-500/10",
   },
 };
+
+/* ── Canonical Services Data (Exact Copy Provided) ── */
+const canonicalServices = [
+  {
+    slug: "seo",
+    title: "SEO Services That Bring Qualified Organic Traffic",
+    description: "Rank higher on Google and get found by AI search tools like ChatGPT and Perplexity. Our SEO agency team builds long-term visibility with technical fixes, content and authority.",
+    bullets: [
+      { name: "Technical SEO services and SEO audits", slug: "technical-seo" },
+      { name: "Local SEO and ecommerce SEO", slug: "local-seo" },
+      { name: "On-page SEO and link building", slug: "on-page-seo" },
+      { name: "AI SEO: Generative Engine Optimization (GEO) and Answer Engine Optimization (AEO)", slug: "ai-seo" },
+    ],
+    linkText: "Explore SEO Services",
+    linkHref: "/services/seo",
+  },
+  {
+    slug: "ppc",
+    title: "PPC Management and Paid Advertising That Lowers Your Cost Per Lead",
+    description: "Get leads and sales from the first week. We plan, launch and optimize campaigns with clear tracking, so every dollar of ad spend is accountable.",
+    bullets: [
+      { name: "Google Ads management", slug: "google-ads" },
+      { name: "Meta (Facebook and Instagram) ads", slug: "facebook-ads" },
+      { name: "LinkedIn and YouTube ads", slug: "linkedin-ads" },
+      { name: "Retargeting and ecommerce PPC", slug: "retargeting-ecommerce-ppc" },
+    ],
+    linkText: "Explore PPC Services",
+    linkHref: "/services/ppc",
+  },
+  {
+    slug: "web-design-dev",
+    title: "Web Design and Development for Websites That Convert",
+    description: "A fast, modern, SEO-friendly website is your best salesperson. We design and build custom websites focused on speed, clarity and conversions.",
+    bullets: [
+      { name: "Custom website development (WordPress, Shopify, Next.js)", slug: "custom-website-development" },
+      { name: "Responsive and UI/UX design", slug: "website-design-ui-ux" },
+      { name: "Landing page design", slug: "landing-page-design" },
+      { name: "Website redesign", slug: "website-redesign" },
+    ],
+    linkText: "Explore Web Design Services",
+    linkHref: "/services/web-design-dev",
+  },
+  {
+    slug: "content-marketing",
+    title: "SEO Content Writing and Content Marketing Services",
+    description: "Content that ranks, reads well and sells. Our writers turn keyword research into articles and web copy that attract the right audience.",
+    bullets: [
+      { name: "Blog and long-form content writing", slug: "blog-writing" },
+      { name: "Website and product copywriting", slug: "website-copy" },
+      { name: "B2B content strategy", slug: "b2b-content-strategy" },
+      { name: "Email copywriting", slug: "email-copywriting" },
+    ],
+    linkText: "Explore Content Services",
+    linkHref: "/services/content-marketing",
+  },
+  {
+    slug: "ai-automation",
+    title: "AI Automation Services That Save Time and Capture More Leads",
+    description: "Stop doing repetitive work by hand. We build AI agents, chatbots and automated workflows that run around the clock.",
+    bullets: [
+      { name: "Workflow automation with n8n, Make and Zapier", slug: "workflow-automation" },
+      { name: "AI chatbots and AI agents", slug: "ai-chatbots" },
+      { name: "CRM and email marketing automation", slug: "crm-email-automation" },
+      { name: "Lead generation automation", slug: "lead-generation-automation" },
+    ],
+    linkText: "Explore AI Automation",
+    linkHref: "/services/ai-automation",
+  },
+  {
+    slug: "ai-video-production",
+    title: "AI Video Production for Ads, Promos and Social Media",
+    description: "Professional video without the studio cost or long timelines. We produce scroll-stopping videos powered by AI.",
+    bullets: [
+      { name: "AI video ads and AI UGC video ads", slug: "ai-video-ads" },
+      { name: "AI explainer and promo videos", slug: "ai-explainer-promo-videos" },
+      { name: "AI product videos", slug: "ai-product-videos" },
+      { name: "Short-form social media video", slug: "short-form-social-video" },
+    ],
+    linkText: "Explore AI Video Production",
+    linkHref: "/services/ai-video-production",
+  },
+];
 
 /* ── Liquid Fluid Blob Number Badge Component ── */
 function LiquidBlobBadge({ categorySlug }: { categorySlug: string }) {
@@ -156,12 +236,11 @@ function LiquidBlobBadge({ categorySlug }: { categorySlug: string }) {
 
 export default function ServicesGrid() {
   const [data, setData] = useState<CloudHomepageData>({
-    servicesEyebrow: "What We Do",
-    servicesTitle: "Services built to scale.",
+    servicesEyebrow: "What we do",
+    servicesTitle: "Digital Marketing Services Built to Scale Your Business",
     servicesSubtitle:
-      "A comprehensive suite of growth services designed to expand your visibility, drive qualified leads, and maximize return on investment.",
+      "From search rankings to paid ads, websites to AI-driven automation, we cover the full growth funnel. Choose one service or let us run your entire digital marketing strategy.",
   });
-  const [categories, setCategories] = useState(servicesData);
 
   useEffect(() => {
     async function load() {
@@ -169,17 +248,13 @@ export default function ServicesGrid() {
         const res = await fetch("/api/homepage");
         if (res.ok) {
           const hp = await res.json();
-          setData((prev) => ({ ...prev, ...hp }));
-        }
-      } catch {}
-
-      try {
-        const resSvc = await fetch("/api/services");
-        if (resSvc.ok) {
-          const svcs = await resSvc.json();
-          if (Array.isArray(svcs) && svcs.length > 0) {
-            setCategories(svcs);
-          }
+          setData((prev) => ({
+            ...prev,
+            ...hp,
+            servicesEyebrow: hp.servicesEyebrow || "What we do",
+            servicesTitle: hp.servicesTitle || "Digital Marketing Services Built to Scale Your Business",
+            servicesSubtitle: hp.servicesSubtitle || "From search rankings to paid ads, websites to AI-driven automation, we cover the full growth funnel. Choose one service or let us run your entire digital marketing strategy.",
+          }));
         }
       } catch {}
     }
@@ -203,35 +278,10 @@ export default function ServicesGrid() {
     },
   };
 
-  const popularSlugs = [
-    "local-seo",
-    "google-ads",
-    "google-search-ads",
-    "website-design-ui-ux",
-    "blog-writing",
-    "website-copy",
-    "sales-copy",
-    "workflow-automation",
-    "ai-explainer-promo-videos",
-  ];
-
-  const displayCategories = categories.map((cat, idx) => {
-    const customCard = data.servicesCards?.find(
-      (c) => c.slug === cat.slug || c.id === cat.id
-    );
-    return {
-      id: cat.id || `svc-cat-${idx}`,
-      slug: cat.slug,
-      title: customCard?.title || cat.title,
-      description: customCard?.description || cat.description,
-      subItems: cat.subItems,
-    };
-  });
-
   return (
     <section
       id="services"
-      className="pt-16 lg:pt-20 pb-0 bg-gradient-to-b from-[#f8f9fc] via-white to-[#f8f9fc] relative z-10 overflow-hidden"
+      className="pt-16 lg:pt-20 pb-16 bg-gradient-to-b from-[#f8f9fc] via-white to-[#f8f9fc] relative z-10 overflow-hidden"
     >
       {/* Subtle background texture */}
       <div className="absolute inset-0 pointer-events-none -z-10">
@@ -242,14 +292,14 @@ export default function ServicesGrid() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 lg:mb-20">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-50 border border-blue-100 px-4 py-1.5 text-xs font-semibold text-blue-600 uppercase tracking-wider mb-6">
-            {data.servicesEyebrow || "What We Do"}
+            {data.servicesEyebrow || "What we do"}
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-neutral-900 tracking-tight mb-6">
-            {data.servicesTitle || "Services built to scale."}
+            {data.servicesTitle || "Digital Marketing Services Built to Scale Your Business"}
           </h2>
-          <p className="font-sans text-base sm:text-lg text-neutral-500 leading-relaxed">
+          <p className="font-sans text-base sm:text-lg text-neutral-600 leading-relaxed">
             {data.servicesSubtitle ||
-              "A comprehensive suite of growth services designed to expand your visibility, drive qualified leads, and maximize return on investment."}
+              "From search rankings to paid ads, websites to AI-driven automation, we cover the full growth funnel. Choose one service or let us run your entire digital marketing strategy."}
           </p>
         </div>
 
@@ -261,58 +311,52 @@ export default function ServicesGrid() {
           viewport={{ once: true, margin: "-80px" }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 lg:gap-x-7 gap-y-14 lg:gap-y-16 pt-4"
         >
-          {displayCategories.map((category) => {
-            const theme = cardThemes[category.slug] || cardThemes["seo"];
-            const displayedSubItems = category.subItems.slice(0, 4);
+          {canonicalServices.map((service) => {
+            const theme = cardThemes[service.slug] || cardThemes["seo"];
 
             return (
               <motion.div
-                key={category.id}
+                key={service.slug}
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 variants={cardVariants as any}
                 className={`group relative flex flex-col bg-white rounded-2xl border border-neutral-200/70 px-7 sm:px-8 pt-14 sm:pt-16 pb-8 shadow-[0_4px_24px_rgba(0,0,0,0.04)] transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_16px_40px_rgba(0,0,0,0.08)] ${theme.hoverBg}`}
               >
                 {/* ── Round Liquid Blob Badge FLOATING ON TOP OF THE CARD BOX ── */}
                 <div className="absolute -top-11 left-7 sm:left-8 z-20">
-                  <LiquidBlobBadge categorySlug={category.slug} />
+                  <LiquidBlobBadge categorySlug={service.slug} />
                 </div>
 
-                {/* ── Title (Lowered to avoid any overlap) ── */}
-                <h3 className="font-sans text-lg sm:text-[1.25rem] font-bold text-neutral-900 tracking-tight leading-snug mb-2">
-                  {category.title}
+                {/* ── Title (Semantic H3) ── */}
+                <h3 className="font-sans text-lg sm:text-[1.2rem] font-bold text-neutral-900 tracking-tight leading-snug mb-3">
+                  {service.title}
                 </h3>
 
                 {/* ── Description ── */}
-                <p className="font-sans text-xs text-neutral-500 leading-relaxed mb-5">
-                  {category.description}
+                <p className="font-sans text-xs sm:text-[13px] text-neutral-600 leading-relaxed mb-6">
+                  {service.description}
                 </p>
 
-                {/* ── Sub-item links ── */}
-                <ul className="flex flex-col gap-2.5 mb-6 flex-1">
-                  {displayedSubItems.map((sub) => {
-                    const isPopular = popularSlugs.includes(sub.slug);
-                    return (
-                      <li key={sub.slug} className="flex items-center justify-between">
-                        <Link
-                          href={`/services/${category.slug}#${sub.slug}`}
-                          className="font-sans text-[13px] text-neutral-600 hover:text-neutral-900 flex items-center gap-1.5 transition-colors duration-200"
-                        >
-                          <Icons.ChevronRight className="h-3 w-3 text-neutral-300 shrink-0" />
-                          {sub.name}
-                        </Link>
-                        {isPopular && (
-                          <span className="rounded-full px-2.5 py-0.5 text-xs font-bold bg-amber-500 text-white shadow-xs border border-amber-400/30">
-                            Popular
-                          </span>
-                        )}
-                      </li>
-                    );
-                  })}
+                {/* ── 4 Bullet Points ── */}
+                <ul className="flex flex-col gap-2.5 mb-7 flex-1">
+                  {service.bullets.map((b) => (
+                    <li key={b.name} className="flex items-start gap-2">
+                      <Icons.CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
+                      <span className="font-sans text-[13px] text-neutral-700 leading-snug">
+                        {b.name}
+                      </span>
+                    </li>
+                  ))}
                 </ul>
 
-                {/* ── READ MORE link ── */}
-                <div className="mt-auto">
-                  <ReadMoreLink href={`/services/${category.slug}`} />
+                {/* ── Custom Link Button ── */}
+                <div className="mt-auto pt-4 border-t border-neutral-100 flex items-center justify-between">
+                  <Link
+                    href={service.linkHref}
+                    className={`inline-flex items-center gap-1.5 font-sans text-xs sm:text-sm font-bold ${theme.linkColor} ${theme.linkHoverColor} transition-colors group-hover:translate-x-0.5 duration-200`}
+                  >
+                    <span>{service.linkText}</span>
+                    <Icons.ArrowRight className="h-4 w-4" />
+                  </Link>
                 </div>
               </motion.div>
             );
