@@ -43,6 +43,8 @@ next-env.d.ts
 # scratch
 scratch/
 
+# raw video source (served from public/Videos)
+/Videos/
 
 .vercel
 .env*
