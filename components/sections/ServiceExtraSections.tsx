@@ -471,28 +471,7 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
 
   return (
     <div className="bg-white text-neutral-900">
-
-      {/* ── VIDEO SHOWCASE SECTION ── */}
-      <section className="py-16 lg:py-24 bg-gradient-to-b from-[#F8FAFC] to-white border-t border-neutral-200/80 overflow-hidden">
-        <div className="container mx-auto max-w-5xl px-6">
-          <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border border-neutral-200/60 bg-black">
-            {/* Subtle decorative glow behind the video */}
-            <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/20 via-transparent to-blue-500/20 rounded-2xl blur-xl -z-10" />
-            <video
-              className="absolute inset-0 w-full h-full object-cover"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-              src="/Videos/Digital_World_Agency_SEO_Video_Loud.mp4"
-            >
-              Your browser does not support the video tag.
-            </video>
-          </div>
-        </div>
-      </section>
-
+      
       {/* ── SERVICE HIGHLIGHT SECTION (Image Left, Text + Checklist Right) ── */}
       <section className="py-14 lg:py-20 bg-white border-t border-neutral-200/80 overflow-hidden">
         <div className="container mx-auto max-w-7xl px-6">
