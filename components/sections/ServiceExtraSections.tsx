@@ -5,6 +5,7 @@ import Link from "next/link";
 import * as Icons from "lucide-react";
 
 import Image from "next/image";
+import SeoMotionPlayer from "@/components/sections/SeoMotionPlayer";
 
 interface ServiceExtraSectionsProps {
   categorySlug?: string;
@@ -472,6 +473,30 @@ export default function ServiceExtraSections({ categorySlug = "seo" }: ServiceEx
   return (
     <div className="bg-white text-neutral-900">
       
+      {/* ── SEO MOTION EXPLAINER VIDEO SECTION (SEO Page Only) ── */}
+      {currentSlug === "seo" && (
+        <section className="py-12 sm:py-16 lg:py-20 bg-neutral-50/60 border-t border-neutral-200/80 overflow-hidden">
+          <div className="container mx-auto max-w-7xl px-4 sm:px-6">
+            <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-[#0076FF] text-xs font-bold tracking-wider uppercase mb-3">
+                <span className="w-2 h-2 rounded-full bg-[#0076FF] animate-pulse" />
+                SEO Motion Explainer
+              </div>
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-neutral-900 tracking-tight">
+                How Our SEO Engine Drives Real Search Visibility
+              </h2>
+              <p className="text-neutral-600 text-sm sm:text-base mt-2">
+                Watch our interactive motion graphics walkthrough with synchronized narration, 8-specialty architecture breakdown, and performance metrics.
+              </p>
+            </div>
+
+            <div className="max-w-5xl mx-auto">
+              <SeoMotionPlayer />
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ── SERVICE HIGHLIGHT SECTION (Image Left, Text + Checklist Right) ── */}
       <section className="py-14 lg:py-20 bg-white border-t border-neutral-200/80 overflow-hidden">
         <div className="container mx-auto max-w-7xl px-6">
