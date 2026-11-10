@@ -5,8 +5,10 @@ import { useState, useEffect, useRef } from "react";
 export default function SeoMotionPlayer() {
   const [height, setHeight] = useState<number | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
+  // Dynamic iframe height adjustment
   useEffect(() => {
     function handleMessage(event: MessageEvent) {
       if (
@@ -14,8 +16,8 @@ export default function SeoMotionPlayer() {
         event.data.type === "SEO_MOTION_RESIZE" &&
         typeof event.data.height === "number"
       ) {
-        // Enforce reasonable boundaries
-        const boundedHeight = Math.max(460, Math.min(1300, event.data.height));
+        // Enforce reasonable boundaries for canvas + topbar
+        const boundedHeight = Math.max(300, Math.min(1000, event.data.height));
         setHeight(boundedHeight);
       }
     }
@@ -24,10 +26,41 @@ export default function SeoMotionPlayer() {
     return () => window.removeEventListener("message", handleMessage);
   }, []);
 
+  // IntersectionObserver to auto-run when anyone sees the video
+  useEffect(() => {
+    const target = containerRef.current;
+    if (!target || typeof IntersectionObserver === "undefined") return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
+            iframeRef.current?.contentWindow?.postMessage(
+              { type: "AUTOPLAY" },
+              "*"
+            );
+          } else if (!entry.isIntersecting) {
+            iframeRef.current?.contentWindow?.postMessage(
+              { type: "PAUSE" },
+              "*"
+            );
+          }
+        });
+      },
+      { threshold: [0, 0.25, 0.5] }
+    );
+
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-white shadow-xl sm:shadow-2xl border border-neutral-200/90 transition-all duration-300">
+    <div
+      ref={containerRef}
+      className="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-white shadow-xl sm:shadow-2xl border border-neutral-200/90 transition-all duration-300"
+    >
       {!isLoaded && (
-        <div className="absolute inset-0 flex items-center justify-center bg-neutral-50/90 backdrop-blur-xs z-10 min-h-[500px]">
+        <div className="absolute inset-0 flex items-center justify-center bg-neutral-50/90 backdrop-blur-xs z-10 min-h-[400px]">
           <div className="flex flex-col items-center gap-3">
             <div className="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
             <span className="text-xs font-semibold text-neutral-600 tracking-wider uppercase">
@@ -42,8 +75,8 @@ export default function SeoMotionPlayer() {
         title="Digital World Agency - SEO Motion Graphics Explainer"
         className="w-full border-0 block"
         style={{
-          height: height ? `${height}px` : "840px",
-          minHeight: "500px",
+          height: height ? `${height}px` : "620px",
+          minHeight: "340px",
           transition: "height 0.25s ease-out",
         }}
         allow="autoplay; fullscreen"
@@ -52,4 +85,3 @@ export default function SeoMotionPlayer() {
     </div>
   );
 }
-
