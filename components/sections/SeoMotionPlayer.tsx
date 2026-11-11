@@ -30,7 +30,9 @@ export default function SeoMotionPlayer() {
     const sendPlay = () => {
       try {
         iframeRef.current?.contentWindow?.postMessage({ type: "AUTOPLAY" }, "*");
-      } catch (e) {}
+      } catch {
+        // Ignored
+      }
     };
 
     sendPlay();
