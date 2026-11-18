@@ -1,25 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import { statsData } from "@/data/stats";
 import { useCountUp } from "@/hooks/useCountUp";
 import { Stat } from "@/types";
 import { CloudHomepageData } from "@/types";
-
-const countries11 = [
-  { name: "USA", flag: "/Flag emoji/United States.svg" },
-  { name: "UK", flag: "/Flag emoji/United Kingdom.svg" },
-  { name: "Canada", flag: "/Flag emoji/Canada.svg" },
-  { name: "UAE", flag: "/Flag emoji/UAE.svg" },
-  { name: "Australia", flag: "/Flag emoji/Australia.svg" },
-  { name: "Germany", flag: "/Flag emoji/Germany.svg" },
-  { name: "Ireland", flag: "/Flag emoji/Ireland.svg" },
-  { name: "Netherlands", flag: "/Flag emoji/Netherlands.svg" },
-  { name: "New Zealand", flag: "/Flag emoji/New Zealand.svg" },
-  { name: "South Africa", flag: "/Flag emoji/South Africa.svg" },
-  { name: "Bangladesh", flag: "/Flag emoji/Bangladesh.svg" },
-];
 
 export default function StatsBar() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -68,30 +53,6 @@ export default function StatsBar() {
                 index={idx}
               />
             ))}
-          </div>
-
-          {/* Flag Strip (11 Countries) */}
-          <div className="mt-8 pt-7 border-t border-neutral-100 flex flex-col items-center">
-            <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-3">
-              {countries11.map((c, i) => (
-                <div key={c.name} className="flex items-center gap-1.5 group">
-                  <div className="relative w-5 h-3.5 overflow-hidden rounded-[2px] shadow-xs border border-neutral-200 shrink-0 group-hover:scale-110 transition-transform">
-                    <Image
-                      src={c.flag}
-                      alt={c.name}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <span className="font-sans text-xs font-semibold text-neutral-600 group-hover:text-primary transition-colors">
-                    {c.name}
-                  </span>
-                  {i < countries11.length - 1 && (
-                    <span className="text-neutral-300 text-xs ml-1 font-mono hidden sm:inline">·</span>
-                  )}
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </div>
